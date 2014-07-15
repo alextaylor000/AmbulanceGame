@@ -41,23 +41,23 @@ static const float CHARACTER_ROTATE_DEGREES_PER_SEC = 4 * M_PI;
     self.sceneDelta = delta;
     CGFloat rot = self.zRotation;
 
-    
+
+
     if (_isMoving) {
-        if (_moveLeft) {
-            self.zRotation += SK_DEGREES_TO_RADIANS(90);
-            _moveLeft = NO;
-            
-        } else if (_moveRight) {
-            self.zRotation -= SK_DEGREES_TO_RADIANS(90);
-            _moveRight = NO;
-        }
         
-        
-        self.position = CGPointMake(self.position.x + -sinf(rot)*_movementSpeed,
-                                    self.position.y + cosf(rot)*_movementSpeed);
+        [self rotateSprite:self toFaceDirection:_targetDirection rotateRadiansPerSec:4 * M_PI];
+
+        [self moveSprite:self velocity:characterDirection];
     }
 
 
+}
+
+-(void)moveSprite:(SKSpriteNode *)sprite velocity:(CGPoint)velocity {
+    
+    CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
+    sprite.position = CGPointAdd(sprite.position, amountToMove);
+    
 }
 
 

@@ -17,6 +17,8 @@
 @property BOOL moveLeft;
 @property BOOL moveRight;
 @property BOOL moveBack;
+@property CGPoint targetDirection;
+@property CGFloat targetRotation;
 
 @property CGFloat movementSpeed;
 

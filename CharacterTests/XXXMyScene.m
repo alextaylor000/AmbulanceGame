@@ -8,6 +8,7 @@
 
 #import "XXXMyScene.h"
 #import "XXXCharacter.h"
+#import "SKTUtils.h"
 
 static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more frequent than this interval
 
@@ -29,8 +30,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         
         [self addPlayer];
+        CGPoint test = CGPointForAngle(M_PI);
         
-        
+        NSLog(@"value is %0.0f, %0.f", test.x, test.y);
     }
     return self;
 }
@@ -61,7 +63,23 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
 }
 
 #pragma mark Character
+-(void)rotateDirectionByAngle:(CGFloat)degrees {
 
+    
+    _player.targetRotation += DegreesToRadians(degrees);
+    
+    if (_player.targetRotation >= ( 2 * M_PI )) {
+        _player.targetRotation -= (2 * M_PI);
+    } else if (_player.targetRotation < 0) {
+        _player.targetRotation += (2 * M_PI);
+    }
+    
+    _player.targetDirection = CGPointForAngle(_player.targetRotation);
+    NSLog(@"targetDirection=%1.0f,%1.0f", _player.targetDirection.x, _player.targetDirection.y );
+    NSLog(@"targetRotation=%1.0f", RadiansToDegrees(_player.targetRotation));
+    
+
+}
 
 #pragma mark Controls
 - (void)handleKeyboardEvent: (NSEvent *)theEvent keyDown:(BOOL)downOrUp {
@@ -69,12 +87,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
     if (self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) return;
     
     if ([theEvent modifierFlags] & NSNumericPadKeyMask) { // arrow keys
-        NSLog(@"key press");
-        _lastKeyPress = _lastUpdateTimeInterval;
+        //NSLog(@"key press");
+        _lastKeyPress = self.sceneLastUpdate;
         
         NSString *theArrow = [theEvent charactersIgnoringModifiers];
         unichar keyChar = 0;
-        
+
         if ([theArrow length] == 1) {
             keyChar = [theArrow characterAtIndex:0];
             
@@ -85,10 +103,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
                     
                 case NSLeftArrowFunctionKey:
                     _player.moveLeft = downOrUp;
+                    [self rotateDirectionByAngle:90];
                     break;
                     
                 case NSRightArrowFunctionKey:
                     _player.moveRight = downOrUp;
+                    [self rotateDirectionByAngle:-90];
                     break;
                     
                 case NSDownArrowFunctionKey:
