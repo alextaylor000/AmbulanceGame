@@ -10,4 +10,8 @@
 
 @interface XXXMyScene : SKScene
 
+// game loop properties
+@property NSTimeInterval sceneLastUpdate;
+@property CGFloat sceneDelta;
+
 @end

@@ -7,6 +7,18 @@
 //
 
 #import "XXXMyScene.h"
+#import "XXXCharacter.h"
+
+static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more frequent than this interval
+
+@interface XXXMyScene ()
+
+@property NSTimeInterval lastUpdateTimeInterval;
+@property NSTimeInterval lastKeyPress;
+@property XXXCharacter *player;
+
+
+@end
 
 @implementation XXXMyScene
 
@@ -16,37 +28,111 @@
         
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         
-        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        [self addPlayer];
         
-        myLabel.text = @"Hello, World!";
-        myLabel.fontSize = 65;
-        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                       CGRectGetMidY(self.frame));
         
-        [self addChild:myLabel];
     }
     return self;
 }
 
--(void)mouseDown:(NSEvent *)theEvent {
-     /* Called when a mouse click occurs */
+- (void) addPlayer {
+    _player = [[XXXCharacter alloc] init];
+    _player.position = CGPointMake(self.scene.frame.size.width/2,self.scene.frame.size.height/2);
     
-    CGPoint location = [theEvent locationInNode:self];
+    [self.scene addChild:_player];
     
-    SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
     
-    sprite.position = location;
-    sprite.scale = 0.5;
+}
+
+-(void)calcDelta:(CFTimeInterval)currentTime {
+    if (self.sceneLastUpdate) {
+        self.sceneDelta = currentTime - self.sceneLastUpdate;
+    } else {
+        self.sceneDelta = 0;
+    }
     
-    SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-    
-    [sprite runAction:[SKAction repeatActionForever:action]];
-    
-    [self addChild:sprite];
+    self.sceneLastUpdate = currentTime;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
+    [self calcDelta:currentTime];
+    
+    [_player updateWithTimeSinceLastUpdate:self.sceneDelta];
+}
+
+#pragma mark Character
+
+
+#pragma mark Controls
+- (void)handleKeyboardEvent: (NSEvent *)theEvent keyDown:(BOOL)downOrUp {
+    
+    if (self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) return;
+    
+    if ([theEvent modifierFlags] & NSNumericPadKeyMask) { // arrow keys
+        NSLog(@"key press");
+        _lastKeyPress = _lastUpdateTimeInterval;
+        
+        NSString *theArrow = [theEvent charactersIgnoringModifiers];
+        unichar keyChar = 0;
+        
+        if ([theArrow length] == 1) {
+            keyChar = [theArrow characterAtIndex:0];
+            
+            switch (keyChar) {
+                case NSUpArrowFunctionKey:
+                    _player.isMoving = YES;
+                    break;
+                    
+                case NSLeftArrowFunctionKey:
+                    _player.moveLeft = downOrUp;
+                    break;
+                    
+                case NSRightArrowFunctionKey:
+                    _player.moveRight = downOrUp;
+                    break;
+                    
+                case NSDownArrowFunctionKey:
+                    // down toggles movement
+                    _player.isMoving = NO;
+                    break;
+                
+                    
+            }
+        }
+        
+    }
+    
+    
+    NSString *characters = [theEvent characters];
+    for (int s = 0; s<[characters length]; s++) {
+        unichar character = [characters characterAtIndex:s];
+        switch (character) {
+            case 'w':
+                _player.isMoving = YES;
+                break;
+                
+            case 'a':
+                _player.moveLeft = downOrUp;
+                
+            case 'd':
+                _player.moveRight = downOrUp;
+                
+            case 's':
+                // s toggles movement
+                _player.isMoving = NO;
+                
+            default:
+                break;
+        }
+    }
+}
+
+- (void)keyDown:(NSEvent *)theEvent {
+    [self handleKeyboardEvent:theEvent keyDown:YES];
+}
+
+- (void)keyUp:(NSEvent *)theEvent {
+    [self handleKeyboardEvent:theEvent keyDown:NO];
 }
 
 @end
