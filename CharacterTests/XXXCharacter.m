@@ -12,7 +12,8 @@
 #import "XXXMyScene.h"
 #import "SKTUtils.h"
 
-static const float CHARACTER_ROTATE_DEGREES_PER_SEC = 4 * M_PI;
+static const float CHARACTER_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
+static const float CHARACTER_MOVEMENT_PER_SEC = 75;
 
 @interface XXXCharacter ()
 
@@ -29,32 +30,37 @@ static const float CHARACTER_ROTATE_DEGREES_PER_SEC = 4 * M_PI;
 
 
 - (instancetype) init {
-    self = [super initWithImageNamed:@"asset_ambulance_20140609_facingup"];
+    self = [super initWithImageNamed:@"asset_ambulance_20140609"];
     
-    _movementSpeed = kMovementSpeed;
+//    _movementSpeed = kMovementSpeed;
+    self.anchorPoint = CGPointMake(0.5, 0.5);
 
+    characterDirection = CGPointMultiplyScalar(CGPointMake(0, 1), CHARACTER_MOVEMENT_PER_SEC); // default direction, move up
+
+    
     return self;
 }
 
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     self.sceneDelta = delta;
-    CGFloat rot = self.zRotation;
-
-
-
+    
+    
     if (_isMoving) {
         
-        [self rotateSprite:self toFaceDirection:_targetDirection rotateRadiansPerSec:4 * M_PI];
+        [self rotateSprite:self toFaceDirection:_targetDirection rotateRadiansPerSec:CHARACTER_ROTATE_RADIANS_PER_SEC];
 
         [self moveSprite:self velocity:characterDirection];
+        NSLog(@"direction=%1.0f,%1.0f",characterDirection.x,characterDirection.y);
     }
 
 
 }
 
+
+
 -(void)moveSprite:(SKSpriteNode *)sprite velocity:(CGPoint)velocity {
-    
+
     CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
     sprite.position = CGPointAdd(sprite.position, amountToMove);
     
@@ -73,7 +79,8 @@ static const float CHARACTER_ROTATE_DEGREES_PER_SEC = 4 * M_PI;
     }
     
     sprite.zRotation += ScalarSign(shortest) * amtToRotate;
-    
+    characterDirection = CGPointMultiplyScalar(CGPointForAngle(sprite.zRotation), CHARACTER_MOVEMENT_PER_SEC);
+
     
 }
 

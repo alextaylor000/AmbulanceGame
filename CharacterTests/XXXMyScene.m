@@ -30,9 +30,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         
         [self addPlayer];
-        CGPoint test = CGPointForAngle(M_PI);
-        
-        NSLog(@"value is %0.0f, %0.f", test.x, test.y);
     }
     return self;
 }
