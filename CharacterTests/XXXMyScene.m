@@ -60,23 +60,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
 }
 
 #pragma mark Character
--(void)rotateDirectionByAngle:(CGFloat)degrees {
-
-    
-    _player.targetRotation += DegreesToRadians(degrees);
-    
-    if (_player.targetRotation >= ( 2 * M_PI )) {
-        _player.targetRotation -= (2 * M_PI);
-    } else if (_player.targetRotation < 0) {
-        _player.targetRotation += (2 * M_PI);
-    }
-    
-    _player.targetDirection = CGPointForAngle(_player.targetRotation);
-    NSLog(@"targetDirection=%1.0f,%1.0f", _player.targetDirection.x, _player.targetDirection.y );
-    NSLog(@"targetRotation=%1.0f", RadiansToDegrees(_player.targetRotation));
-    
-
-}
 
 #pragma mark Controls
 - (void)handleKeyboardEvent: (NSEvent *)theEvent keyDown:(BOOL)downOrUp {
@@ -95,22 +78,19 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
             
             switch (keyChar) {
                 case NSUpArrowFunctionKey:
-                    _player.isMoving = YES;
+                    [_player startMoving];
                     break;
                     
                 case NSLeftArrowFunctionKey:
-                    _player.moveLeft = downOrUp;
-                    [self rotateDirectionByAngle:90];
+                    [_player turnByAngle:90];
                     break;
                     
                 case NSRightArrowFunctionKey:
-                    _player.moveRight = downOrUp;
-                    [self rotateDirectionByAngle:-90];
+                    [_player turnByAngle:-90];
                     break;
                     
                 case NSDownArrowFunctionKey:
-                    // down toggles movement
-                    _player.isMoving = NO;
+                    [_player stopMoving];
                     break;
                 
                     
@@ -120,28 +100,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
     }
     
     
-    NSString *characters = [theEvent characters];
-    for (int s = 0; s<[characters length]; s++) {
-        unichar character = [characters characterAtIndex:s];
-        switch (character) {
-            case 'w':
-                _player.isMoving = YES;
-                break;
-                
-            case 'a':
-                _player.moveLeft = downOrUp;
-                
-            case 'd':
-                _player.moveRight = downOrUp;
-                
-            case 's':
-                // s toggles movement
-                _player.isMoving = NO;
-                
-            default:
-                break;
-        }
-    }
 }
 
 - (void)keyDown:(NSEvent *)theEvent {
