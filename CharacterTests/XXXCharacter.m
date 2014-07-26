@@ -22,29 +22,31 @@
  */
 
 static const float CHARACTER_MOVEMENT_POINTS_PER_SEC    = 200;
+static const float CHARACTER_MOVEMENT_ACCEL_TIME_SECS   = 0.75;
+static const float CHARACTER_MOVEMENT_DECEL_TIME_SECS   = 0.75;
 static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
 
 @interface XXXCharacter ()
 
 @property NSTimeInterval sceneDelta;
-@property BOOL isMoving;
-@property CGFloat targetAngle;
+
+@property BOOL isMoving;                    // YES if the character is moving at speed; NO if it's not.
+@property CGPoint characterDirection;       // a vector for the current direction the character's travelling.
+@property CGFloat targetAngle;              // Degrees; updated when turning.
+@property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
+
+
 
 @end
 
 @implementation XXXCharacter
-{
-    
-    CGPoint characterDirection;
-    
-}
 
 
 - (instancetype) init {
     self = [super initWithImageNamed:@"asset_ambulance_20140609"];
-    self.anchorPoint = CGPointMake(0.4, 0.5);
-
-    characterDirection = CGPointMultiplyScalar(CGPointMake(0, 1), CHARACTER_MOVEMENT_POINTS_PER_SEC); // default direction, move up
+    self.anchorPoint = CGPointMake(0.35, 0.5);
+    
+    _characterDirection = CGPointMultiplyScalar(CGPointMake(0, 1), CHARACTER_MOVEMENT_POINTS_PER_SEC); // default direction, move up
 
     
     return self;
@@ -54,11 +56,11 @@ static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
 #pragma mark Game Loop
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     self.sceneDelta = delta;
-    
+    //NSLog(@"targetSpeed=%1f",_targetSpeed);
     
     if (_isMoving) {
         [self rotateSprite:self toAngle:_targetAngle rotateDegreesPerSec:CHARACTER_ROTATION_DEGREES_PER_SEC];
-        [self moveSprite:self velocity:characterDirection];
+        [self moveSprite:self velocity:_characterDirection];
     }
 
 
@@ -66,11 +68,27 @@ static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
 
 #pragma mark (Public) Sprite Controls
 -(void)startMoving {
+
     _isMoving = YES;
+    
+    SKAction *startMoving = [SKAction customActionWithDuration:CHARACTER_MOVEMENT_ACCEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / CHARACTER_MOVEMENT_ACCEL_TIME_SECS;
+        t = sinf(t * M_PI_2);
+        _characterSpeedMultiplier = t;
+    }];
+    [self runAction:startMoving];
+    
 }
 
 -(void)stopMoving {
-    _isMoving = NO;
+    
+    SKAction *stopMoving = [SKAction customActionWithDuration:CHARACTER_MOVEMENT_DECEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / CHARACTER_MOVEMENT_DECEL_TIME_SECS;
+        t = sinf(t * M_PI_2);
+        _characterSpeedMultiplier = 1 - t;
+    }];
+    [self runAction:stopMoving completion:^{_isMoving = NO;}];
+
 }
 
 
@@ -105,16 +123,18 @@ static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
     sprite.zRotation += ScalarSign(shortest) * amtToRotate;
 
     // update the direction of the sprite
-    characterDirection = CGPointMultiplyScalar(CGPointForAngle(sprite.zRotation), CHARACTER_MOVEMENT_POINTS_PER_SEC);
+    _characterDirection = CGPointMultiplyScalar(CGPointForAngle(sprite.zRotation), CHARACTER_MOVEMENT_POINTS_PER_SEC);
 
     
 }
 
 
 -(void)moveSprite:(SKSpriteNode *)sprite velocity:(CGPoint)velocity {
-    
+
     CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
-    sprite.position = CGPointAdd(sprite.position, amountToMove);
+    CGPoint amountToMoveSpeedMult = CGPointMultiplyScalar(amountToMove, _characterSpeedMultiplier);
+    sprite.position = CGPointAdd(sprite.position, amountToMoveSpeedMult);
+
     
 }
 

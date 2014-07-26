@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */; };
+		B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2451978E7BF00E66405 /* SKEmitterNode+SKTExtras.m */; };
+		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
+		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
+		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
 		B988238D1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B988238B1969998400903B73 /* InfoPlist.strings */; };
@@ -15,21 +20,14 @@
 		B98823951969998400903B73 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98823941969998400903B73 /* MainMenu.xib */; };
 		B98823971969998400903B73 /* XXXMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* XXXMyScene.m */; };
 		B988239A1969998400903B73 /* XXXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823991969998400903B73 /* XXXAppDelegate.m */; };
-		B988239D1969998400903B73 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = B988239C1969998400903B73 /* Spaceship.png */; };
 		B988239F1969998400903B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B988239E1969998400903B73 /* Images.xcassets */; };
 		B98823A61969998400903B73 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823A51969998400903B73 /* XCTest.framework */; };
 		B98823A71969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823AF1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B98823AD1969998400903B73 /* InfoPlist.strings */; };
 		B98823B11969998400903B73 /* CharacterTestsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823B01969998400903B73 /* CharacterTestsTests.m */; };
-		B98823BB196999F500903B73 /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B98823BA196999F500903B73 /* Notes.rtf */; };
 		B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* XXXCharacter.m */; };
 		B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C219699E6200903B73 /* asset_ambulance_20140609.png */; };
 		B98823C51969ACF100903B73 /* asset_ambulance_20140609_facingup.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C41969ACF100903B73 /* asset_ambulance_20140609_facingup.png */; };
-		B9E45D1C1974CCAC0052792F /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E45D131974CCAC0052792F /* SKAction+SKTExtras.m */; };
-		B9E45D1D1974CCAC0052792F /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E45D151974CCAC0052792F /* SKEmitterNode+SKTExtras.m */; };
-		B9E45D1E1974CCAC0052792F /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E45D171974CCAC0052792F /* SKNode+SKTExtras.m */; };
-		B9E45D1F1974CCAC0052792F /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E45D191974CCAC0052792F /* SKTAudio.m */; };
-		B9E45D201974CCAC0052792F /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B9E45D1B1974CCAC0052792F /* SKTUtils.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +41,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B91EF2421978E7BF00E66405 /* SKAction+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SKTExtras.h"; sourceTree = "<group>"; };
+		B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKAction+SKTExtras.m"; sourceTree = "<group>"; };
+		B91EF2441978E7BF00E66405 /* SKEmitterNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKEmitterNode+SKTExtras.h"; sourceTree = "<group>"; };
+		B91EF2451978E7BF00E66405 /* SKEmitterNode+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKEmitterNode+SKTExtras.m"; sourceTree = "<group>"; };
+		B91EF2461978E7BF00E66405 /* SKNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKNode+SKTExtras.h"; sourceTree = "<group>"; };
+		B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKNode+SKTExtras.m"; sourceTree = "<group>"; };
+		B91EF2481978E7BF00E66405 /* SKTAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTAudio.h; sourceTree = "<group>"; };
+		B91EF2491978E7BF00E66405 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
+		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
+		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823801969998400903B73 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B98823821969998400903B73 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -59,28 +67,16 @@
 		B98823981969998400903B73 /* XXXMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XXXMyScene.h; sourceTree = "<group>"; };
 		B98823991969998400903B73 /* XXXAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XXXAppDelegate.m; sourceTree = "<group>"; };
 		B988239B1969998400903B73 /* XXXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XXXAppDelegate.h; sourceTree = "<group>"; };
-		B988239C1969998400903B73 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		B988239E1969998400903B73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B98823A41969998400903B73 /* CharacterTestsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CharacterTestsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823A51969998400903B73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B98823AC1969998400903B73 /* CharacterTestsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CharacterTestsTests-Info.plist"; sourceTree = "<group>"; };
 		B98823AE1969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B98823B01969998400903B73 /* CharacterTestsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CharacterTestsTests.m; sourceTree = "<group>"; };
-		B98823BA196999F500903B73 /* Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		B98823BC19699C4400903B73 /* XXXCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXCharacter.h; sourceTree = "<group>"; };
 		B98823BD19699C4400903B73 /* XXXCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXCharacter.m; sourceTree = "<group>"; };
 		B98823C219699E6200903B73 /* asset_ambulance_20140609.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_ambulance_20140609.png; sourceTree = "<group>"; };
 		B98823C41969ACF100903B73 /* asset_ambulance_20140609_facingup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_ambulance_20140609_facingup.png; sourceTree = "<group>"; };
-		B9E45D121974CCAC0052792F /* SKAction+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SKTExtras.h"; sourceTree = "<group>"; };
-		B9E45D131974CCAC0052792F /* SKAction+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKAction+SKTExtras.m"; sourceTree = "<group>"; };
-		B9E45D141974CCAC0052792F /* SKEmitterNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKEmitterNode+SKTExtras.h"; sourceTree = "<group>"; };
-		B9E45D151974CCAC0052792F /* SKEmitterNode+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKEmitterNode+SKTExtras.m"; sourceTree = "<group>"; };
-		B9E45D161974CCAC0052792F /* SKNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKNode+SKTExtras.h"; sourceTree = "<group>"; };
-		B9E45D171974CCAC0052792F /* SKNode+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKNode+SKTExtras.m"; sourceTree = "<group>"; };
-		B9E45D181974CCAC0052792F /* SKTAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTAudio.h; sourceTree = "<group>"; };
-		B9E45D191974CCAC0052792F /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
-		B9E45D1A1974CCAC0052792F /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
-		B9E45D1B1974CCAC0052792F /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,12 +101,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B91EF2411978E7BF00E66405 /* SKTUtils */ = {
+			isa = PBXGroup;
+			children = (
+				B91EF2421978E7BF00E66405 /* SKAction+SKTExtras.h */,
+				B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */,
+				B91EF2441978E7BF00E66405 /* SKEmitterNode+SKTExtras.h */,
+				B91EF2451978E7BF00E66405 /* SKEmitterNode+SKTExtras.m */,
+				B91EF2461978E7BF00E66405 /* SKNode+SKTExtras.h */,
+				B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */,
+				B91EF2481978E7BF00E66405 /* SKTAudio.h */,
+				B91EF2491978E7BF00E66405 /* SKTAudio.m */,
+				B91EF24A1978E7BF00E66405 /* SKTUtils.h */,
+				B91EF24B1978E7BF00E66405 /* SKTUtils.mm */,
+			);
+			name = SKTUtils;
+			path = CharacterTests/SKTUtils;
+			sourceTree = "<group>";
+		};
 		B98823741969998400903B73 = {
 			isa = PBXGroup;
 			children = (
 				B98823881969998400903B73 /* CharacterTests */,
 				B98823AA1969998400903B73 /* CharacterTestsTests */,
-				B9E45D111974CCAC0052792F /* SKTUtils */,
+				B98823AB1969998400903B73 /* Supporting Files */,
+				B91EF2411978E7BF00E66405 /* SKTUtils */,
 				B988237F1969998400903B73 /* Frameworks */,
 				B988237E1969998400903B73 /* Products */,
 			);
@@ -154,10 +169,8 @@
 				B98823981969998400903B73 /* XXXMyScene.h */,
 				B98823991969998400903B73 /* XXXAppDelegate.m */,
 				B988239B1969998400903B73 /* XXXAppDelegate.h */,
-				B988239C1969998400903B73 /* Spaceship.png */,
 				B988239E1969998400903B73 /* Images.xcassets */,
 				B98823891969998400903B73 /* Supporting Files */,
-				B98823BA196999F500903B73 /* Notes.rtf */,
 				B98823BC19699C4400903B73 /* XXXCharacter.h */,
 				B98823BD19699C4400903B73 /* XXXCharacter.m */,
 			);
@@ -181,7 +194,6 @@
 			isa = PBXGroup;
 			children = (
 				B98823B01969998400903B73 /* CharacterTestsTests.m */,
-				B98823AB1969998400903B73 /* Supporting Files */,
 			);
 			path = CharacterTestsTests;
 			sourceTree = "<group>";
@@ -193,6 +205,7 @@
 				B98823AD1969998400903B73 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			path = CharacterTestsTests;
 			sourceTree = "<group>";
 		};
 		B98823BF19699E3A00903B73 /* GameArt */ = {
@@ -202,24 +215,6 @@
 				B98823C219699E6200903B73 /* asset_ambulance_20140609.png */,
 			);
 			name = GameArt;
-			sourceTree = "<group>";
-		};
-		B9E45D111974CCAC0052792F /* SKTUtils */ = {
-			isa = PBXGroup;
-			children = (
-				B9E45D121974CCAC0052792F /* SKAction+SKTExtras.h */,
-				B9E45D131974CCAC0052792F /* SKAction+SKTExtras.m */,
-				B9E45D141974CCAC0052792F /* SKEmitterNode+SKTExtras.h */,
-				B9E45D151974CCAC0052792F /* SKEmitterNode+SKTExtras.m */,
-				B9E45D161974CCAC0052792F /* SKNode+SKTExtras.h */,
-				B9E45D171974CCAC0052792F /* SKNode+SKTExtras.m */,
-				B9E45D181974CCAC0052792F /* SKTAudio.h */,
-				B9E45D191974CCAC0052792F /* SKTAudio.m */,
-				B9E45D1A1974CCAC0052792F /* SKTUtils.h */,
-				B9E45D1B1974CCAC0052792F /* SKTUtils.mm */,
-			);
-			name = SKTUtils;
-			path = "../../iOS Games By Tutorials/Alex Tutorials/Chapter1/RWTutorial_Chapter1/SKTUtils";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,12 +294,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B98823C51969ACF100903B73 /* asset_ambulance_20140609_facingup.png in Resources */,
-				B988239D1969998400903B73 /* Spaceship.png in Resources */,
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,
-				B98823BB196999F500903B73 /* Notes.rtf in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,13 +318,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B988238F1969998400903B73 /* main.m in Sources */,
-				B9E45D1F1974CCAC0052792F /* SKTAudio.m in Sources */,
+				B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */,
 				B98823971969998400903B73 /* XXXMyScene.m in Sources */,
-				B9E45D1D1974CCAC0052792F /* SKEmitterNode+SKTExtras.m in Sources */,
-				B9E45D201974CCAC0052792F /* SKTUtils.mm in Sources */,
-				B9E45D1C1974CCAC0052792F /* SKAction+SKTExtras.m in Sources */,
+				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
+				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
+				B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */,
 				B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */,
-				B9E45D1E1974CCAC0052792F /* SKNode+SKTExtras.m in Sources */,
+				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,
 				B988239A1969998400903B73 /* XXXAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
