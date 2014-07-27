@@ -21,10 +21,13 @@
     centripetal force probably has something to do with this ratio...
  */
 
-static const float CHARACTER_MOVEMENT_POINTS_PER_SEC    = 200;
+static const float CHARACTER_MOVEMENT_POINTS_PER_SEC    = 600;
+static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 300;
+
+// controls easing
 static const float CHARACTER_MOVEMENT_ACCEL_TIME_SECS   = 0.75;
-static const float CHARACTER_MOVEMENT_DECEL_TIME_SECS   = 0.75;
-static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
+static const float CHARACTER_MOVEMENT_DECEL_TIME_SECS   = 0.35;
+
 
 @interface XXXCharacter ()
 
@@ -36,7 +39,6 @@ static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
 @property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
 
 
-
 @end
 
 @implementation XXXCharacter
@@ -44,10 +46,18 @@ static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
 
 - (instancetype) init {
     self = [super initWithImageNamed:@"asset_ambulance_20140609"];
+    self.name = @"player";
+    self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
     self.anchorPoint = CGPointMake(0.35, 0.5);
     
     _characterDirection = CGPointMultiplyScalar(CGPointMake(0, 1), CHARACTER_MOVEMENT_POINTS_PER_SEC); // default direction, move up
-
+    
+    // add a "feeler" for calculating the next waypoint
+//    SKSpriteNode *feeler = [SKSpriteNode spriteNodeWithColor:[SKColor lightGrayColor] size:CGSizeMake(self.size.width, 10)];
+//    feeler.name = @"feeler";
+//    feeler.anchorPoint = CGPointMake(1, 0.5);
+//    feeler.position = CGPointMake(self.size.width*1.5, 0);
+//    [self addChild:feeler];
     
     return self;
 }
@@ -69,6 +79,8 @@ static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
 #pragma mark (Public) Sprite Controls
 -(void)startMoving {
 
+    if (_isMoving == YES) return;
+
     _isMoving = YES;
     
     SKAction *startMoving = [SKAction customActionWithDuration:CHARACTER_MOVEMENT_ACCEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
@@ -81,6 +93,7 @@ static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
 }
 
 -(void)stopMoving {
+    if ([self hasActions]) return;
     
     SKAction *stopMoving = [SKAction customActionWithDuration:CHARACTER_MOVEMENT_DECEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
         float t = elapsedTime / CHARACTER_MOVEMENT_DECEL_TIME_SECS;
@@ -88,6 +101,7 @@ static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 150;
         _characterSpeedMultiplier = 1 - t;
     }];
     [self runAction:stopMoving completion:^{_isMoving = NO;}];
+
 
 }
 

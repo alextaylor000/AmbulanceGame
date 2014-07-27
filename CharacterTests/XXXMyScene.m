@@ -8,14 +8,19 @@
 
 #import "XXXMyScene.h"
 #import "XXXCharacter.h"
+#import "Tilemap.h"
+
 #import "SKTUtils.h"
 
-static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more frequent than this interval
+
+static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more frequent than this interval
 
 @interface XXXMyScene ()
 
 @property NSTimeInterval lastUpdateTimeInterval;
 @property NSTimeInterval lastKeyPress;
+@property SKNode *worldNode;
+@property Tilemap *bgLayer;
 @property XXXCharacter *player;
 
 
@@ -27,21 +32,30 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];        
+        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
+        self.anchorPoint = CGPointMake(0.5, 0.5);
+
+        [self createWorld];
+        
         
         [self addPlayer];
+
+        
     }
     return self;
 }
 
+
+
 - (void) addPlayer {
     _player = [[XXXCharacter alloc] init];
-    _player.position = CGPointMake(self.scene.frame.size.width/2,self.scene.frame.size.height/2);
+    _player.position = CGPointMake(1500,300);
     
-    [self.scene addChild:_player];
+    [_bgLayer addChild:_player];
     
     
 }
+
 
 -(void)calcDelta:(CFTimeInterval)currentTime {
     if (self.sceneLastUpdate) {
@@ -57,9 +71,78 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.5; // ignore key presses more fre
     [self calcDelta:currentTime];
     
     [_player updateWithTimeSinceLastUpdate:self.sceneDelta];
+    
+    
+    [self centerOnNode:_player];
+    
+    
+    // logging for determining tile id
+    NSArray *nodes = [_bgLayer nodesAtPoint:_player.position];
+    
+    for (SKNode *n in nodes) {
+        NSLog(@"node %@ at %1.0f,%1.0f",n.name,n.position.x,n.position.y);
+    }
+
+    
+
 }
 
-#pragma mark Character
+#pragma mark Tilemap stuff
+- (Tilemap *)createTilemap {
+    return [[Tilemap alloc]initWithAtlasNamed:@"level" tileSize:CGSizeMake(200, 200) grid:@[
+@"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxxxxoxxox",
+@"xoooooooooooooooooooooooooooooooooooooooox",
+@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxox",
+@"xoooooooooooooooooooooooooooooooooooooooox",
+@"xxxxoxxoxxoxxxxxoxxoxxoxxoxxoxxoxxoxxoxxox",
+@"xoooooooooooooooooooooooooooooooooooooooox",
+@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxox",
+@"xoooooooooooooooooooooooooooooooooooooooox",
+@"xoxxoxxoxxoxxxxxoxxoxxoxxxxxoxxoxxoxxoxxox",
+@"xoooooooooooooooooooooooooooooooooooooooox",
+@"xoxxoxxoxxoxxoxxoxxoxxxoxoxxoxxoxxoxxoxxox",
+@"xoooooooooooooooooooooooxooooxooooooooooox",
+@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxox",
+@"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",                                                                                            ]];
+}
+
+- (void)createWorld {
+    _bgLayer = [self createTilemap];
+    
+    _worldNode = [SKNode node];
+    [_worldNode addChild:_bgLayer];
+    [self addChild:_worldNode];
+    
+    self.anchorPoint = CGPointMake(0.5, 0.5);
+    _worldNode.position = CGPointMake(-_bgLayer.layerSize.width/2, -_bgLayer.layerSize.height/2);
+}
+
+
+
+
+#pragma mark Camera
+
+- (void) centerOnNode: (SKNode *) node
+{
+    CGPoint cameraPositionInScene = [node.scene convertPoint:node.position fromNode:node.parent];
+    node.parent.position = CGPointMake(node.parent.position.x - cameraPositionInScene.x,
+                                       node.parent.position.y - cameraPositionInScene.y);
+    
+    //node.parent.zRotation = -node.zRotation + M_PI_2;
+    
+}
+
+- (void) rotateViewBy: (CGFloat)rotationDegrees {
+    // this seems vey jerky when the rotation happens.
+    SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(rotationDegrees) duration:1.0];
+    [_bgLayer runAction:rotate];
+}
+
+
+
+
+
 
 #pragma mark Controls
 - (void)handleKeyboardEvent: (NSEvent *)theEvent keyDown:(BOOL)downOrUp {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="200" tileheight="200">
+ <tileset firstgid="1" name="road blueprint" tilewidth="200" tileheight="200">
+  <image source="png/road_blueprint_tileset01_20140607.png" width="600" height="600"/>
+ </tileset>
+ <layer name="mainlayer" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzNU9EKgDAI3Gas/P8friDhOtStIOjhMDc9nWdrKWWdwDaJM7YdWACV/HadRWhUWw4o1FCwCvcYgxDi60msOvVm+KJYHdx7fPIBH79HAdk8PD7Ul7WN9G0Bn/lef7ZPQr7lRHz9+tbAdqcGzrQHfJgT6cE1PL4n88MzvreZZvuSaYr6Y8/Gl80QLfMJ8eG8ZzhH/Zl925/xSbm/96/9jf73p/p6+4U+72SlHNvF0+4lzAoz
+  </data>
+ </layer>
+ <objectgroup name="gameobjects" width="20" height="20"/>
+</map>

@@ -12,6 +12,8 @@
 		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
+		B96A02BA198592B7003D88BE /* Tilemap.m in Sources */ = {isa = PBXBuildFile; fileRef = B96A02B9198592B7003D88BE /* Tilemap.m */; };
+		B96A02BC1985935B003D88BE /* level.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B96A02BB1985935B003D88BE /* level.atlas */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
 		B988238D1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B988238B1969998400903B73 /* InfoPlist.strings */; };
@@ -28,6 +30,10 @@
 		B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* XXXCharacter.m */; };
 		B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C219699E6200903B73 /* asset_ambulance_20140609.png */; };
 		B98823C51969ACF100903B73 /* asset_ambulance_20140609_facingup.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C41969ACF100903B73 /* asset_ambulance_20140609_facingup.png */; };
+		B9F4F09A19854DA400578DA4 /* asset_roadmap_20140608.png in Resources */ = {isa = PBXBuildFile; fileRef = B9F4F09919854DA400578DA4 /* asset_roadmap_20140608.png */; };
+		B9F4F0A31985618400578DA4 /* roadmap_20140608.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9F4F0A21985618400578DA4 /* roadmap_20140608.tmx */; };
+		B9F4F0A5198561B300578DA4 /* road_blueprint_tileset01_20140607.png in Resources */ = {isa = PBXBuildFile; fileRef = B9F4F0A4198561B300578DA4 /* road_blueprint_tileset01_20140607.png */; };
+		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +57,9 @@
 		B91EF2491978E7BF00E66405 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
+		B96A02B8198592B7003D88BE /* Tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tilemap.h; sourceTree = "<group>"; };
+		B96A02B9198592B7003D88BE /* Tilemap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tilemap.m; sourceTree = "<group>"; };
+		B96A02BB1985935B003D88BE /* level.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level.atlas; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823801969998400903B73 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B98823821969998400903B73 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -77,6 +86,10 @@
 		B98823BD19699C4400903B73 /* XXXCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXCharacter.m; sourceTree = "<group>"; };
 		B98823C219699E6200903B73 /* asset_ambulance_20140609.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_ambulance_20140609.png; sourceTree = "<group>"; };
 		B98823C41969ACF100903B73 /* asset_ambulance_20140609_facingup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_ambulance_20140609_facingup.png; sourceTree = "<group>"; };
+		B9F4F09919854DA400578DA4 /* asset_roadmap_20140608.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_roadmap_20140608.png; sourceTree = "<group>"; };
+		B9F4F0A21985618400578DA4 /* roadmap_20140608.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = roadmap_20140608.tmx; sourceTree = "<group>"; };
+		B9F4F0A4198561B300578DA4 /* road_blueprint_tileset01_20140607.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road_blueprint_tileset01_20140607.png; path = png/road_blueprint_tileset01_20140607.png; sourceTree = "<group>"; };
+		B9F4F0A61985626600578DA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */,
 				B98823831969998400903B73 /* SpriteKit.framework in Frameworks */,
 				B98823811969998400903B73 /* Cocoa.framework in Frameworks */,
 			);
@@ -143,6 +157,7 @@
 		B988237F1969998400903B73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B9F4F0A61985626600578DA4 /* libz.dylib */,
 				B98823801969998400903B73 /* Cocoa.framework */,
 				B98823821969998400903B73 /* SpriteKit.framework */,
 				B98823A51969998400903B73 /* XCTest.framework */,
@@ -173,6 +188,8 @@
 				B98823891969998400903B73 /* Supporting Files */,
 				B98823BC19699C4400903B73 /* XXXCharacter.h */,
 				B98823BD19699C4400903B73 /* XXXCharacter.m */,
+				B96A02B8198592B7003D88BE /* Tilemap.h */,
+				B96A02B9198592B7003D88BE /* Tilemap.m */,
 			);
 			path = CharacterTests;
 			sourceTree = "<group>";
@@ -211,8 +228,12 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B96A02BB1985935B003D88BE /* level.atlas */,
+				B9F4F0A4198561B300578DA4 /* road_blueprint_tileset01_20140607.png */,
 				B98823C41969ACF100903B73 /* asset_ambulance_20140609_facingup.png */,
 				B98823C219699E6200903B73 /* asset_ambulance_20140609.png */,
+				B9F4F09919854DA400578DA4 /* asset_roadmap_20140608.png */,
+				B9F4F0A21985618400578DA4 /* roadmap_20140608.tmx */,
 			);
 			name = GameArt;
 			sourceTree = "<group>";
@@ -296,9 +317,13 @@
 				B98823C51969ACF100903B73 /* asset_ambulance_20140609_facingup.png in Resources */,
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
+				B9F4F0A31985618400578DA4 /* roadmap_20140608.tmx in Resources */,
+				B96A02BC1985935B003D88BE /* level.atlas in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,
+				B9F4F09A19854DA400578DA4 /* asset_roadmap_20140608.png in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
+				B9F4F0A5198561B300578DA4 /* road_blueprint_tileset01_20140607.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +350,7 @@
 				B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */,
 				B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */,
 				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,
+				B96A02BA198592B7003D88BE /* Tilemap.m in Sources */,
 				B988239A1969998400903B73 /* XXXAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
