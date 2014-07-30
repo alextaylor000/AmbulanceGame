@@ -143,7 +143,16 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
 
-
+#pragma mark Game logic
+- (void)authorizeTurnEvent {
+    // determines whether the character is allowed to turn
+    /*
+     
+     1. figure out what the current target destination would be if the player turned right now
+        player.position + (current_direction_normalized * radius)
+     */
+//    CGPoint targetDestination =
+}
 
 
 #pragma mark Controls

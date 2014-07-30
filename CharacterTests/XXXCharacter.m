@@ -34,23 +34,19 @@
     self = [super initWithImageNamed:@"asset_ambulance_20140609"];
     
     // set constants
-    // with 45 degrees per second, the radius of the turn is CHARACTER_MOVEMENT_POINTS_PER_SEC*2
-    // with 90 degrees per second, the radius of the turn is CHARACTER_MOVEMENT_POINTS_PER_SEC
-    // with 180 degrees per second, the radius of the turn is CHARACTER_MOVEMENT_PER_SEC/2
-
-    // character_movement * (90 / character_rotation) = radius
-    
     _CHARACTER_MOVEMENT_POINTS_PER_SEC = 200;
     _CHARACTER_ROTATION_DEGREES_PER_SEC = 90;
+    _CHARACTER_TURN_RADIUS = _CHARACTER_MOVEMENT_POINTS_PER_SEC*(90/_CHARACTER_ROTATION_DEGREES_PER_SEC); // not entirely sure why yet, but this returns the radius of the turn.
     _CHARACTER_MOVEMENT_ACCEL_TIME_SECS = 0.75;
     _CHARACTER_MOVEMENT_DECEL_TIME_SECS = 0.35;
-    NSLog(@"turning radius = %1.0f",_CHARACTER_MOVEMENT_POINTS_PER_SEC*(90/_CHARACTER_ROTATION_DEGREES_PER_SEC));
+    
+
     
     self.name = @"player";
     self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
     self.anchorPoint = CGPointMake(0.35, 0.5);
     
-    _characterDirection = CGPointMultiplyScalar(CGPointMake(0, 1), _CHARACTER_MOVEMENT_POINTS_PER_SEC); // default direction, move up
+    _characterDirection = CGPointMake(0, 1); // default direction, move up
         
     return self;
 }
@@ -63,7 +59,7 @@
     
     if (_isMoving) {
         [self rotateSprite:self toAngle:_targetAngle rotateDegreesPerSec:_CHARACTER_ROTATION_DEGREES_PER_SEC];
-        [self moveSprite:self velocity:_characterDirection];
+        [self moveSprite:self directionNormalized:_characterDirection];
     }
 
 
@@ -130,15 +126,18 @@
     sprite.zRotation += ScalarSign(shortest) * amtToRotate;
 
     // update the direction of the sprite
-    _characterDirection = CGPointMultiplyScalar(CGPointForAngle(sprite.zRotation), _CHARACTER_MOVEMENT_POINTS_PER_SEC);
+    _characterDirection = CGPointForAngle(sprite.zRotation);
 
     
 }
 
 
--(void)moveSprite:(SKSpriteNode *)sprite velocity:(CGPoint)velocity {
+-(void)moveSprite:(SKSpriteNode *)sprite directionNormalized:(CGPoint)direction {
 
+    CGPoint velocity = CGPointMultiplyScalar(direction, _CHARACTER_MOVEMENT_POINTS_PER_SEC);
     CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
+    
+    // we're not currently using the speed multiplier, but it may come in handy so I'll leave it in
     CGPoint amountToMoveSpeedMult = CGPointMultiplyScalar(amountToMove, _characterSpeedMultiplier);
     sprite.position = CGPointAdd(sprite.position, amountToMoveSpeedMult);
 
