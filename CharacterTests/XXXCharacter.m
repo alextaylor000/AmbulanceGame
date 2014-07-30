@@ -18,7 +18,6 @@
 @property NSTimeInterval sceneDelta;
 
 @property BOOL isMoving;                    // YES if the character is moving at speed; NO if it's not.
-@property CGPoint characterDirection;       // a vector for the current direction the character's travelling.
 @property CGFloat targetAngle;              // Degrees; updated when turning.
 @property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
 
@@ -46,7 +45,7 @@
     self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
     self.anchorPoint = CGPointMake(0.35, 0.5);
     
-    _characterDirection = CGPointMake(0, 1); // default direction, move up
+    _direction = CGPointMake(0, 1); // default direction, move up
         
     return self;
 }
@@ -59,7 +58,7 @@
     
     if (_isMoving) {
         [self rotateSprite:self toAngle:_targetAngle rotateDegreesPerSec:_CHARACTER_ROTATION_DEGREES_PER_SEC];
-        [self moveSprite:self directionNormalized:_characterDirection];
+        [self moveSprite:self directionNormalized:_direction];
     }
 
 
@@ -126,7 +125,7 @@
     sprite.zRotation += ScalarSign(shortest) * amtToRotate;
 
     // update the direction of the sprite
-    _characterDirection = CGPointForAngle(sprite.zRotation);
+    _direction = CGPointForAngle(sprite.zRotation);
 
     
 }

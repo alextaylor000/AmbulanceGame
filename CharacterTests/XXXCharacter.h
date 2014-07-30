@@ -22,6 +22,8 @@
 @property (readonly, nonatomic) float CHARACTER_ROTATION_DEGREES_PER_SEC;
 @property (readonly, nonatomic) float CHARACTER_TURN_RADIUS;
 
+@property (readonly, nonatomic) CGPoint direction;
+
 // controls easing
 @property (readonly, nonatomic) float CHARACTER_MOVEMENT_ACCEL_TIME_SECS;
 @property (readonly, nonatomic) float CHARACTER_MOVEMENT_DECEL_TIME_SECS;
