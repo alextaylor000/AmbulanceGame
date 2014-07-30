@@ -13,22 +13,6 @@
 #import "SKTUtils.h"
 
 
-/*  the relationship between these two numbers is important to 
-    obtain realistic turning motion. the rotation should always
-    be less than the speed, or else the car will not appear
-    to describe an arc as it turns.
- 
-    centripetal force probably has something to do with this ratio...
- */
-
-static const float CHARACTER_MOVEMENT_POINTS_PER_SEC    = 600;
-static const float CHARACTER_ROTATION_DEGREES_PER_SEC   = 300;
-
-// controls easing
-static const float CHARACTER_MOVEMENT_ACCEL_TIME_SECS   = 0.75;
-static const float CHARACTER_MOVEMENT_DECEL_TIME_SECS   = 0.35;
-
-
 @interface XXXCharacter ()
 
 @property NSTimeInterval sceneDelta;
@@ -44,21 +28,30 @@ static const float CHARACTER_MOVEMENT_DECEL_TIME_SECS   = 0.35;
 @implementation XXXCharacter
 
 
+
+
 - (instancetype) init {
     self = [super initWithImageNamed:@"asset_ambulance_20140609"];
+    
+    // set constants
+    // with 45 degrees per second, the radius of the turn is CHARACTER_MOVEMENT_POINTS_PER_SEC*2
+    // with 90 degrees per second, the radius of the turn is CHARACTER_MOVEMENT_POINTS_PER_SEC
+    // with 180 degrees per second, the radius of the turn is CHARACTER_MOVEMENT_PER_SEC/2
+
+    // character_movement * (90 / character_rotation) = radius
+    
+    _CHARACTER_MOVEMENT_POINTS_PER_SEC = 200;
+    _CHARACTER_ROTATION_DEGREES_PER_SEC = 90;
+    _CHARACTER_MOVEMENT_ACCEL_TIME_SECS = 0.75;
+    _CHARACTER_MOVEMENT_DECEL_TIME_SECS = 0.35;
+    NSLog(@"turning radius = %1.0f",_CHARACTER_MOVEMENT_POINTS_PER_SEC*(90/_CHARACTER_ROTATION_DEGREES_PER_SEC));
+    
     self.name = @"player";
     self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
     self.anchorPoint = CGPointMake(0.35, 0.5);
     
-    _characterDirection = CGPointMultiplyScalar(CGPointMake(0, 1), CHARACTER_MOVEMENT_POINTS_PER_SEC); // default direction, move up
-    
-    // add a "feeler" for calculating the next waypoint
-//    SKSpriteNode *feeler = [SKSpriteNode spriteNodeWithColor:[SKColor lightGrayColor] size:CGSizeMake(self.size.width, 10)];
-//    feeler.name = @"feeler";
-//    feeler.anchorPoint = CGPointMake(1, 0.5);
-//    feeler.position = CGPointMake(self.size.width*1.5, 0);
-//    [self addChild:feeler];
-    
+    _characterDirection = CGPointMultiplyScalar(CGPointMake(0, 1), _CHARACTER_MOVEMENT_POINTS_PER_SEC); // default direction, move up
+        
     return self;
 }
 
@@ -69,7 +62,7 @@ static const float CHARACTER_MOVEMENT_DECEL_TIME_SECS   = 0.35;
     //NSLog(@"targetSpeed=%1f",_targetSpeed);
     
     if (_isMoving) {
-        [self rotateSprite:self toAngle:_targetAngle rotateDegreesPerSec:CHARACTER_ROTATION_DEGREES_PER_SEC];
+        [self rotateSprite:self toAngle:_targetAngle rotateDegreesPerSec:_CHARACTER_ROTATION_DEGREES_PER_SEC];
         [self moveSprite:self velocity:_characterDirection];
     }
 
@@ -83,8 +76,8 @@ static const float CHARACTER_MOVEMENT_DECEL_TIME_SECS   = 0.35;
 
     _isMoving = YES;
     
-    SKAction *startMoving = [SKAction customActionWithDuration:CHARACTER_MOVEMENT_ACCEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
-        float t = elapsedTime / CHARACTER_MOVEMENT_ACCEL_TIME_SECS;
+    SKAction *startMoving = [SKAction customActionWithDuration:_CHARACTER_MOVEMENT_ACCEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / _CHARACTER_MOVEMENT_ACCEL_TIME_SECS;
         t = sinf(t * M_PI_2);
         _characterSpeedMultiplier = t;
     }];
@@ -95,8 +88,8 @@ static const float CHARACTER_MOVEMENT_DECEL_TIME_SECS   = 0.35;
 -(void)stopMoving {
     if ([self hasActions]) return;
     
-    SKAction *stopMoving = [SKAction customActionWithDuration:CHARACTER_MOVEMENT_DECEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
-        float t = elapsedTime / CHARACTER_MOVEMENT_DECEL_TIME_SECS;
+    SKAction *stopMoving = [SKAction customActionWithDuration:_CHARACTER_MOVEMENT_DECEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / _CHARACTER_MOVEMENT_DECEL_TIME_SECS;
         t = sinf(t * M_PI_2);
         _characterSpeedMultiplier = 1 - t;
     }];
@@ -137,7 +130,7 @@ static const float CHARACTER_MOVEMENT_DECEL_TIME_SECS   = 0.35;
     sprite.zRotation += ScalarSign(shortest) * amtToRotate;
 
     // update the direction of the sprite
-    _characterDirection = CGPointMultiplyScalar(CGPointForAngle(sprite.zRotation), CHARACTER_MOVEMENT_POINTS_PER_SEC);
+    _characterDirection = CGPointMultiplyScalar(CGPointForAngle(sprite.zRotation), _CHARACTER_MOVEMENT_POINTS_PER_SEC);
 
     
 }

@@ -50,7 +50,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 - (void) addPlayer {
     _player = [[XXXCharacter alloc] init];
     _player.position = CGPointMake(1500,300);
-    
+
     [_bgLayer addChild:_player];
     
     
@@ -75,12 +75,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     [self centerOnNode:_player];
     
+    // debug player
+    NSLog(@"pos=%1.0f,%1.0f",_player.position.x,_player.position.y);
     
     // logging for determining tile id
     NSArray *nodes = [_bgLayer nodesAtPoint:_player.position];
     
     for (SKNode *n in nodes) {
-        NSLog(@"node %@ at %1.0f,%1.0f",n.name,n.position.x,n.position.y);
+//        NSLog(@"node %@ at %1.0f,%1.0f",n.name,n.position.x,n.position.y);
     }
 
     
@@ -91,7 +93,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 - (Tilemap *)createTilemap {
     return [[Tilemap alloc]initWithAtlasNamed:@"level" tileSize:CGSizeMake(200, 200) grid:@[
 @"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxxxxoxxox",
 @"xoooooooooooooooooooooooooooooooooooooooox",
 @"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxox",
 @"xoooooooooooooooooooooooooooooooooooooooox",
@@ -103,8 +104,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @"xoooooooooooooooooooooooooooooooooooooooox",
 @"xoxxoxxoxxoxxoxxoxxoxxxoxoxxoxxoxxoxxoxxox",
 @"xoooooooooooooooooooooooxooooxooooooooooox",
-@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxox",
-@"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",                                                                                            ]];
+@"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+]];
+
 }
 
 - (void)createWorld {

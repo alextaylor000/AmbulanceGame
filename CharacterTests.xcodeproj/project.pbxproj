@@ -180,8 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				B98823941969998400903B73 /* MainMenu.xib */,
-				B98823961969998400903B73 /* XXXMyScene.m */,
 				B98823981969998400903B73 /* XXXMyScene.h */,
+				B98823961969998400903B73 /* XXXMyScene.m */,
 				B98823991969998400903B73 /* XXXAppDelegate.m */,
 				B988239B1969998400903B73 /* XXXAppDelegate.h */,
 				B988239E1969998400903B73 /* Images.xcassets */,
