@@ -19,7 +19,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 @property NSTimeInterval lastUpdateTimeInterval;
 @property NSTimeInterval lastKeyPress;
-@property SKNode *worldNode;
+@property SKSpriteNode *worldNode;
 @property Tilemap *bgLayer;
 @property XXXCharacter *player;
 
@@ -76,7 +76,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     [self centerOnNode:_player];
     
     // debug player
-    NSLog(@"pos=%1.0f,%1.0f",_player.position.x,_player.position.y);
+//    NSLog(@"pos=%1.0f,%1.0f",_player.position.x,_player.position.y);
     
     // logging for determining tile id
     NSArray *nodes = [_bgLayer nodesAtPoint:_player.position];
@@ -112,8 +112,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 - (void)createWorld {
     _bgLayer = [self createTilemap];
     
-    _worldNode = [SKNode node];
+    _worldNode = [SKSpriteNode node];
     [_worldNode addChild:_bgLayer];
+
     [self addChild:_worldNode];
     
     self.anchorPoint = CGPointMake(0.5, 0.5);
@@ -131,7 +132,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     node.parent.position = CGPointMake(node.parent.position.x - cameraPositionInScene.x,
                                        node.parent.position.y - cameraPositionInScene.y);
     
-    //node.parent.zRotation = -node.zRotation + M_PI_2;
     
 }
 
@@ -161,12 +161,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     if (self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) return;
     
     if ([theEvent modifierFlags] & NSNumericPadKeyMask) { // arrow keys
-        //NSLog(@"key press");
         _lastKeyPress = self.sceneLastUpdate;
         
         NSString *theArrow = [theEvent charactersIgnoringModifiers];
         unichar keyChar = 0;
 
+        
+        SKAction *rotate;
+        
         if ([theArrow length] == 1) {
             keyChar = [theArrow characterAtIndex:0];
             
@@ -177,10 +179,17 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
                     
                 case NSLeftArrowFunctionKey:
                     [_player turnByAngle:90];
+
+                    
+                    
                     break;
                     
                 case NSRightArrowFunctionKey:
                     [_player turnByAngle:-90];
+
+
+                    
+                    
                     break;
                     
                 case NSDownArrowFunctionKey:
