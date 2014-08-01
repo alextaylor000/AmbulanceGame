@@ -18,7 +18,7 @@
 @property NSTimeInterval sceneDelta;
 
 @property BOOL isMoving;                    // YES if the character is moving at speed; NO if it's not.
-@property CGFloat targetAngle;              // Degrees; updated when turning.
+@property CGFloat targetAngleDegrees;              // Degrees; updated when turning.
 @property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
 
 
@@ -44,8 +44,10 @@
     self.name = @"player";
     self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
     self.anchorPoint = CGPointMake(0.35, 0.5);
+    self.zRotation = DegreesToRadians(90);
     
     _direction = CGPointMake(0, 1); // default direction, move up
+    _targetAngleDegrees = DegreesToRadians(90);
         
     return self;
 }
@@ -56,7 +58,7 @@
     self.sceneDelta = delta;
     
     if (_isMoving) {
-        [self rotateSprite:self toAngle:_targetAngle rotateDegreesPerSec:_CHARACTER_ROTATION_DEGREES_PER_SEC];
+        [self rotateSprite:self toAngle:_targetAngleDegrees rotateDegreesPerSec:_CHARACTER_ROTATION_DEGREES_PER_SEC];
         [self moveSprite:self directionNormalized:_direction];
     }
 
@@ -96,13 +98,13 @@
 -(void)turnByAngle:(CGFloat)degrees {
 /** Initiates a turn from the current position to a new position based on the degrees specified. */
     
-    _targetAngle += DegreesToRadians(degrees);
+    _targetAngleDegrees += DegreesToRadians(degrees);
     
     // wrap angles larger than +/- 360 degrees
-    if (_targetAngle >= ( 2 * M_PI )) {
-        _targetAngle -= (2 * M_PI);
-    } else if (_targetAngle < 0) {
-        _targetAngle += (2 * M_PI);
+    if (_targetAngleDegrees >= ( 2 * M_PI )) {
+        _targetAngleDegrees -= (2 * M_PI);
+    } else if (_targetAngleDegrees < 0) {
+        _targetAngleDegrees += (2 * M_PI);
     }
     
     

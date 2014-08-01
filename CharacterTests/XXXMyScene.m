@@ -50,7 +50,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 - (void) addPlayer {
     _player = [[XXXCharacter alloc] init];
     _player.position = CGPointMake(1500,300);
-
+    
     [_bgLayer addChild:_player];
     
     
@@ -137,8 +137,13 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 - (void) rotateViewBy: (CGFloat)rotationDegrees {
     // this seems vey jerky when the rotation happens.
-    SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(rotationDegrees) duration:1.0];
-    [_bgLayer runAction:rotate];
+    CGFloat duration = (fabsf(rotationDegrees) / _player.CHARACTER_ROTATION_DEGREES_PER_SEC) * 1.05; // based on the speed of the player's rotation, how long will it take to rotate the target amount? This syncs the camera rotation with the player rotation.
+
+    // we can probably declare this as an ivar to save memory, right?
+    SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(rotationDegrees) duration:duration];
+    rotate.timingMode = SKActionTimingEaseInEaseOut;
+    
+    [self runAction:rotate];
 }
 
 
@@ -167,8 +172,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         unichar keyChar = 0;
 
         
-        SKAction *rotate;
-        
         if ([theArrow length] == 1) {
             keyChar = [theArrow characterAtIndex:0];
             
@@ -179,13 +182,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
                     
                 case NSLeftArrowFunctionKey:
                     [_player turnByAngle:90];
-
+                    [self rotateViewBy:-90];
                     
                     
                     break;
                     
                 case NSRightArrowFunctionKey:
                     [_player turnByAngle:-90];
+                    [self rotateViewBy:90];
 
 
                     
