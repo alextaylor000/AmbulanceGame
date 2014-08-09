@@ -143,7 +143,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(rotationDegrees) duration:duration];
     rotate.timingMode = SKActionTimingEaseInEaseOut;
     
-    [self runAction:rotate];
+    //[self runAction:rotate];
 }
 
 
