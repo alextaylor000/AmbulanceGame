@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CharacterTests/XXXCharacter.m"
-            timestampString = "429317381.882715"
+            timestampString = "429594777.846867"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "-rotateSprite:toAngle:rotateDegreesPerSec:"
             landmarkType = "5">
          </BreakpointContent>
