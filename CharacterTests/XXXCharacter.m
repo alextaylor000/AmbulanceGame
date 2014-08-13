@@ -33,8 +33,8 @@
     self = [super initWithImageNamed:@"asset_ambulance_20140609"];
     
     // set constants
-    _CHARACTER_MOVEMENT_POINTS_PER_SEC = 1000;
-    _CHARACTER_ROTATION_DEGREES_PER_SEC = 90;
+    _CHARACTER_MOVEMENT_POINTS_PER_SEC = 600;
+    _CHARACTER_ROTATION_DEGREES_PER_SEC = 275;
     _CHARACTER_TURN_RADIUS = _CHARACTER_MOVEMENT_POINTS_PER_SEC /
                             ( 2 * M_PI * ( _CHARACTER_ROTATION_DEGREES_PER_SEC / 360 )  );
     
@@ -109,9 +109,22 @@
         _targetAngleDegrees += (2 * M_PI);
     }
     
+    
+    // this is a start for calculating the center position, but it only works some of the time.. probably b/c of positive vs. negative angles. look up that video again.
+    CGPoint centerPoint = CGPointMake(self.position.x - _CHARACTER_TURN_RADIUS * cosf(_targetAngleDegrees),
+                                      self.position.y + _CHARACTER_TURN_RADIUS * sinf(_targetAngleDegrees));
+    
+    
+    SKSpriteNode *centerPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+    centerPointSprite.position = centerPoint;
+    [self.parent addChild:centerPointSprite];
+    
+    
     // DEBUG
     CGPoint targetPoint = CGPointMake(self.position.x + _CHARACTER_TURN_RADIUS, self.position.y + _CHARACTER_TURN_RADIUS); // 63.69 is based on calculating the radius of the circle assuming that the circular velocity is 100 and the time period is 4 (because we can traverse 90 degrees in a second, so it would take 4 seconds to traverse the whole circle). Only thing I'm not sure about is if 100 is correct for the velocity, since that's the straight velocity and not circular..
+
     NSLog(@"radius=%1.3f, targetPoint=%1.3f,%1.3f",_CHARACTER_TURN_RADIUS,targetPoint.x,targetPoint.y);
+
 }
 
 
