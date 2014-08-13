@@ -33,9 +33,11 @@
     self = [super initWithImageNamed:@"asset_ambulance_20140609"];
     
     // set constants
-    _CHARACTER_MOVEMENT_POINTS_PER_SEC = 600;
-    _CHARACTER_ROTATION_DEGREES_PER_SEC = 275;
-    _CHARACTER_TURN_RADIUS = _CHARACTER_MOVEMENT_POINTS_PER_SEC*(90/_CHARACTER_ROTATION_DEGREES_PER_SEC); // not entirely sure why yet, but this returns the radius of the turn.
+    _CHARACTER_MOVEMENT_POINTS_PER_SEC = 1000;
+    _CHARACTER_ROTATION_DEGREES_PER_SEC = 90;
+    _CHARACTER_TURN_RADIUS = _CHARACTER_MOVEMENT_POINTS_PER_SEC /
+                            ( 2 * M_PI * ( _CHARACTER_ROTATION_DEGREES_PER_SEC / 360 )  );
+    
     _CHARACTER_MOVEMENT_ACCEL_TIME_SECS = 0.75;
     _CHARACTER_MOVEMENT_DECEL_TIME_SECS = 0.35;
     
@@ -107,7 +109,9 @@
         _targetAngleDegrees += (2 * M_PI);
     }
     
-    
+    // DEBUG
+    CGPoint targetPoint = CGPointMake(self.position.x + _CHARACTER_TURN_RADIUS, self.position.y + _CHARACTER_TURN_RADIUS); // 63.69 is based on calculating the radius of the circle assuming that the circular velocity is 100 and the time period is 4 (because we can traverse 90 degrees in a second, so it would take 4 seconds to traverse the whole circle). Only thing I'm not sure about is if 100 is correct for the velocity, since that's the straight velocity and not circular..
+    NSLog(@"radius=%1.3f, targetPoint=%1.3f,%1.3f",_CHARACTER_TURN_RADIUS,targetPoint.x,targetPoint.y);
 }
 
 
@@ -118,6 +122,7 @@
     CGFloat radiansPerSec = SK_DEGREES_TO_RADIANS(degreesPerSec);
     
     // determine how much we need to rotate in the current frame
+    //CGFloat amtToRotate = radiansPerSec * self.sceneDelta;
     CGFloat amtToRotate = radiansPerSec * self.sceneDelta;
     CGFloat shortest = ScalarShortestAngleBetween(sprite.zRotation, angle);
     if (fabsf(shortest) < amtToRotate) amtToRotate = fabsf(shortest); // if we can make it to the target rotation in 1 frame, just do it

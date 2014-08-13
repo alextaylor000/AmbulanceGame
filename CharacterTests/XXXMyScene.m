@@ -76,7 +76,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     [self centerOnNode:_player];
     
     // debug player
-//    NSLog(@"pos=%1.0f,%1.0f",_player.position.x,_player.position.y);
+    NSLog(@"pos=%1.3f,%1.3f",_player.position.x,_player.position.y);
     
     // logging for determining tile id
     NSArray *nodes = [_bgLayer nodesAtPoint:_player.position];
@@ -183,7 +183,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
                 case NSLeftArrowFunctionKey:
                     [_player turnByAngle:90];
                     [self rotateViewBy:-90];
-                    
                     
                     break;
                     
