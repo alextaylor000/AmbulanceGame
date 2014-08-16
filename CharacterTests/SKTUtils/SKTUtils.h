@@ -67,6 +67,8 @@ SKT_INLINE CGPoint CGPointForAngle(CGFloat value) {
     return CGPointMake(cosf(value), sinf(value));
 }
 
+
+
 SKT_INLINE CGPoint CGPointLerp(CGPoint startPoint, CGPoint endPoint, float t)
 {
     return CGPointMake(startPoint.x + (endPoint.x - startPoint.x) * t,
