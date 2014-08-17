@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CharacterTests/XXXMyScene.m"
-            timestampString = "429597515.32347"
+            timestampString = "429936819.200399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "-handleKeyboardEvent:keyDown:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CharacterTests/XXXCharacter.m"
-            timestampString = "429925485.166839"
+            timestampString = "429936646.251432"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "-rotateSprite:toAngle:rotateDegreesPerSec:"
             landmarkType = "5">
          </BreakpointContent>

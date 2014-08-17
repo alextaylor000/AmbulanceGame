@@ -21,7 +21,7 @@
 @property (readonly, nonatomic) float CHARACTER_MOVEMENT_POINTS_PER_SEC;
 @property (readonly, nonatomic) float CHARACTER_ROTATION_DEGREES_PER_SEC;
 @property (readonly, nonatomic) float CHARACTER_TURN_RADIUS;
-
+@property CGFloat targetAngleRadians;
 @property (readonly, nonatomic) CGPoint direction;
 
 // controls easing

@@ -58,6 +58,7 @@
                 
                 if (tile != nil) {
                     tile.position = [self positionForRow:row col:col];
+                    tile.zPosition = 0;
                     [self addChild:tile];
                 }
             }
