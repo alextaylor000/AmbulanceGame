@@ -76,14 +76,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     [self centerOnNode:_player];
     
     // debug player
-//    NSLog(@"pos=%1.0f,%1.0f",_player.position.x,_player.position.y);
+    //NSLog(@"pos=%1.3f,%1.3f",_player.position.x,_player.position.y);
     
     // logging for determining tile id
-    NSArray *nodes = [_bgLayer nodesAtPoint:_player.position];
-    
-    for (SKNode *n in nodes) {
+//    NSArray *nodes = [_bgLayer nodesAtPoint:_player.position];
+//    
+//    for (SKNode *n in nodes) {
 //        NSLog(@"node %@ at %1.0f,%1.0f",n.name,n.position.x,n.position.y);
-    }
+//    }
 
     
 
@@ -149,14 +149,48 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
 #pragma mark Game logic
-- (void)authorizeTurnEvent {
-    // determines whether the character is allowed to turn
-    /*
-     
-     1. figure out what the current target destination would be if the player turned right now
-        player.position + (current_direction_normalized * radius)
-     */
-//    CGPoint targetDestination =
+- (void)authorizeTurnEvent: (CGFloat)degrees {
+    // this is a start for calculating the center position, but it only works some of the time.. probably b/c of positive vs. negative angles. look up that video again.
+
+    CGFloat rads = DegreesToRadians(degrees);
+    CGFloat requestedAngle = _player.targetAngleRadians + rads;
+    
+    CGPoint centerPoint = CGPointMake(_player.position.x + _player.CHARACTER_TURN_RADIUS * cosf(requestedAngle),
+                                      _player.position.y + _player.CHARACTER_TURN_RADIUS * sinf(requestedAngle));
+    
+    
+    
+//    SKSpriteNode *centerPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+//    centerPointSprite.position = centerPoint;
+//    [_bgLayer addChild:centerPointSprite];
+    
+    CGPoint originPoint = CGPointSubtract(_player.position, centerPoint);
+    CGPoint rotatedPlayer = CGPointMake(originPoint.x * cosf(rads) - originPoint.y * sinf(rads),
+                                        originPoint.x * sinf(rads) + originPoint.y * cosf(rads));
+    
+    CGPoint targetPoint = CGPointAdd(rotatedPlayer, centerPoint);
+    
+//    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(10, 10)];
+//    targetPointSprite.name = @"DEBUG_targetPointSprite";
+//    targetPointSprite.position = targetPoint;
+//    targetPointSprite.zPosition = -5;
+//    
+//    
+//    [_bgLayer addChild:targetPointSprite];
+
+    SKNode *targetTile = [_bgLayer nodeAtPoint:targetPoint];
+    
+    NSLog(@"target tile is %@ at %1.5f,%1.5f", targetTile.name, targetTile.position.x,targetTile.position.y );
+    
+
+    
+    if ([targetTile.name isEqualToString:@"road"]) {
+        NSLog(@"turning...");
+        [_player turnByAngle:degrees];
+    }
+
+
+    
 }
 
 
@@ -181,18 +215,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
                     break;
                     
                 case NSLeftArrowFunctionKey:
-                    [_player turnByAngle:90];
+                    [self authorizeTurnEvent:90];
                     [self rotateViewBy:-90];
-                    
                     
                     break;
                     
                 case NSRightArrowFunctionKey:
-                    [_player turnByAngle:-90];
+                    [self authorizeTurnEvent:-90];
                     [self rotateViewBy:90];
-
-
-                    
                     
                     break;
                     

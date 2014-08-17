@@ -14,7 +14,13 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "215"
+<<<<<<< HEAD
             endingLineNumber = "215">
+=======
+            endingLineNumber = "215"
+            landmarkName = "-handleKeyboardEvent:keyDown:"
+            landmarkType = "5">
+>>>>>>> better_turning
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -28,7 +34,13 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "152"
+<<<<<<< HEAD
             endingLineNumber = "152">
+=======
+            endingLineNumber = "152"
+            landmarkName = "-rotateSprite:toAngle:rotateDegreesPerSec:"
+            landmarkType = "5">
+>>>>>>> better_turning
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

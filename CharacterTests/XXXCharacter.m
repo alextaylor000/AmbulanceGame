@@ -18,7 +18,7 @@
 @property NSTimeInterval sceneDelta;
 
 @property BOOL isMoving;                    // YES if the character is moving at speed; NO if it's not.
-@property CGFloat targetAngleDegrees;              // Degrees; updated when turning.
+
 @property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
 
 
@@ -37,6 +37,10 @@
     _CHARACTER_ROTATION_DEGREES_PER_SEC = 275;
     _CHARACTER_TURN_RADIUS = _CHARACTER_MOVEMENT_POINTS_PER_SEC /
                             ( 2 * M_PI * ( _CHARACTER_ROTATION_DEGREES_PER_SEC / 360 )  );
+<<<<<<< HEAD
+=======
+    
+>>>>>>> better_turning
     _CHARACTER_MOVEMENT_ACCEL_TIME_SECS = 0.75;
     _CHARACTER_MOVEMENT_DECEL_TIME_SECS = 0.35;
     
@@ -46,9 +50,10 @@
     self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
     self.anchorPoint = CGPointMake(0.35, 0.5);
     self.zRotation = DegreesToRadians(90);
+    self.zPosition = 100;
     
     _direction = CGPointMake(0, 1); // default direction, move up
-    _targetAngleDegrees = DegreesToRadians(90);
+    _targetAngleRadians = DegreesToRadians(90);
         
     return self;
 }
@@ -59,7 +64,7 @@
     self.sceneDelta = delta;
     
     if (_isMoving) {
-        [self rotateSprite:self toAngle:_targetAngleDegrees rotateDegreesPerSec:_CHARACTER_ROTATION_DEGREES_PER_SEC];
+        [self rotateSprite:self toAngle:_targetAngleRadians rotateDegreesPerSec:_CHARACTER_ROTATION_DEGREES_PER_SEC];
         [self moveSprite:self directionNormalized:_direction];
     }
 
@@ -98,17 +103,48 @@
 
 -(void)turnByAngle:(CGFloat)degrees {
 /** Initiates a turn from the current position to a new position based on the degrees specified. */
-    
-    _targetAngleDegrees += DegreesToRadians(degrees);
+
+    CGFloat rads = DegreesToRadians(degrees);
+    _targetAngleRadians += DegreesToRadians(degrees);
+
     
     // wrap angles larger than +/- 360 degrees
-    if (_targetAngleDegrees >= ( 2 * M_PI )) {
-        _targetAngleDegrees -= (2 * M_PI);
-    } else if (_targetAngleDegrees < 0) {
-        _targetAngleDegrees += (2 * M_PI);
+    if (_targetAngleRadians >= ( 2 * M_PI )) {
+        _targetAngleRadians -= (2 * M_PI);
+    } else if (_targetAngleRadians < -(2 * M_PI)) {
+        _targetAngleRadians += (2 * M_PI);
     }
+
+// moved to authorizeTurnEvent
+//    // this is a start for calculating the center position, but it only works some of the time.. probably b/c of positive vs. negative angles. look up that video again.
+//    
+//    CGPoint centerPoint = CGPointMake(self.position.x + _CHARACTER_TURN_RADIUS * cosf(_targetAngleRadians),
+//                                      self.position.y + _CHARACTER_TURN_RADIUS * sinf(_targetAngleRadians));
+//    
+//    NSLog(@"pos=%1.5f,%1.5f  |  radius: %1.5f  |  targetAngle = %1.5f",self.position.x,self.position.y, _CHARACTER_TURN_RADIUS, _targetAngleRadians);
+//    NSLog(@"cen=%1.5f,%1.5f",centerPoint.x,centerPoint.y);
+//    
+//    
+//    
+//    SKSpriteNode *centerPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+//    centerPointSprite.position = centerPoint;
+//    [self.parent addChild:centerPointSprite];
+//    
+//    CGPoint originPoint = CGPointSubtract(self.position, centerPoint);
+//    CGPoint rotatedPlayer = CGPointMake(originPoint.x * cosf(rads) - originPoint.y * sinf(rads),
+//                                        originPoint.x * sinf(rads) + originPoint.y * cosf(rads));
+//    
+//    CGPoint targetPoint = CGPointAdd(rotatedPlayer, centerPoint);
+//    
+//    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(10, 10)];
+//    targetPointSprite.position = targetPoint;
+//    [self.parent addChild:targetPointSprite];
     
-    
+    // DEBUG
+//    CGPoint targetPoint = CGPointMake(self.position.x + _CHARACTER_TURN_RADIUS, self.position.y + _CHARACTER_TURN_RADIUS); // 63.69 is based on calculating the radius of the circle assuming that the circular velocity is 100 and the time period is 4 (because we can traverse 90 degrees in a second, so it would take 4 seconds to traverse the whole circle). Only thing I'm not sure about is if 100 is correct for the velocity, since that's the straight velocity and not circular..
+
+    //NSLog(@"radius=%1.3f, targetPoint=%1.3f,%1.3f",_CHARACTER_TURN_RADIUS,targetPoint.x,targetPoint.y);
+
 }
 
 
@@ -119,6 +155,7 @@
     CGFloat radiansPerSec = SK_DEGREES_TO_RADIANS(degreesPerSec);
     
     // determine how much we need to rotate in the current frame
+    //CGFloat amtToRotate = radiansPerSec * self.sceneDelta;
     CGFloat amtToRotate = radiansPerSec * self.sceneDelta;
     CGFloat shortest = ScalarShortestAngleBetween(sprite.zRotation, angle);
     if (fabsf(shortest) < amtToRotate) amtToRotate = fabsf(shortest); // if we can make it to the target rotation in 1 frame, just do it

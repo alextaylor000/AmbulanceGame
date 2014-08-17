@@ -50,6 +50,15 @@ SKT_INLINE CGFloat CGPointLength(CGPoint point) {
     return GLKVector2Length(GLKVector2FromCGPoint(point));
 }
 
+SKT_INLINE CGPoint CGPointRotate(CGPoint point, CGFloat degrees) {
+    // Alex added this function
+    CGFloat r = DegreesToRadians(degrees);
+    CGFloat px = point.x * cosf(r) - point.y * sinf(r);
+    CGFloat py = point.x * sinf(r) + point.y * cosf(r);
+    return CGPointMake(px, py);
+}
+
+
 SKT_INLINE CGPoint CGPointNormalize(CGPoint point) {
     return CGPointFromGLKVector2(GLKVector2Normalize(GLKVector2FromCGPoint(point)));
 }
@@ -66,6 +75,8 @@ SKT_INLINE CGFloat CGPointToAngle(CGPoint point) {
 SKT_INLINE CGPoint CGPointForAngle(CGFloat value) {
     return CGPointMake(cosf(value), sinf(value));
 }
+
+
 
 SKT_INLINE CGPoint CGPointLerp(CGPoint startPoint, CGPoint endPoint, float t)
 {
