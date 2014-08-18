@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="62" height="27" tilewidth="256" tileheight="256">
+ <tileset firstgid="1" name="road-tiles" tilewidth="256" tileheight="256">
+  <image source="road-tileset-hc.atlasc/road-tileset-hc.1.png" width="1536" height="512"/>
+  <tile id="0">
+   <properties>
+    <property name="road" value="ew"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="road" value="nesw"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="road" value="nw"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="road" value="es"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="road" value="nes"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="road" value="esw"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="road" value="en"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="road" value="ns"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="road" value="sw"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="road" value="new"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="road" value="nsw"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="stone-bg" width="62" height="27">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6H71r/hCRkkrJqqqqqqqqrvHmgCOts=
+  </data>
+ </layer>
+ <layer name="road-tiles" width="62" height="27">
+  <data encoding="base64" compression="zlib">
+   eJztV8sOwyAMo10faNv/f2+3Qy8pXh5DQCGWOAQ7qG6i0IbgGBHLZ01gPQV6iUZybmlEJUf3JBotXwK/nmEN11rNTJza25S8NuZWqr9K1Lu1+Is94Hf5SOh78U2BNOessvR57fj9h+8I+F7qTfue9nyvvjm4b3xmbV8W39y31mhzDfG91Nt9y3j3bX+OFnyj+xvNjFdCQ/e4uUP12nw6t0rcY5Yc7Rkt3t+WHPedJ/8uvrkZgv4NUL6WtyCH7ztiVN/aHs3VZw6HBQc1OAdF
+  </data>
+ </layer>
+</map>

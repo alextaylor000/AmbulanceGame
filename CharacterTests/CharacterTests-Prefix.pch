@@ -7,3 +7,5 @@
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
 #endif
+
+#define TARGET_OSX	(TARGET_OS_IPHONE == 0)

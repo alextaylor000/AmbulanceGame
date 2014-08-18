@@ -8,8 +8,8 @@
 
 #import "XXXMyScene.h"
 #import "XXXCharacter.h"
-#import "Tilemap.h"
-
+#import "Tilemap.h"     // for supporting ASCII maps
+#import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 
 
@@ -20,9 +20,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @property NSTimeInterval lastUpdateTimeInterval;
 @property NSTimeInterval lastKeyPress;
 @property SKSpriteNode *worldNode;
-@property Tilemap *bgLayer;
+@property JSTileMap *bgLayer;
 @property XXXCharacter *player;
 
+@property TMXLayer *cityLayer;
+@property TMXLayer *roadLayer;
+@property NSInteger currentTileGid;
 
 @end
 
@@ -49,7 +52,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 - (void) addPlayer {
     _player = [[XXXCharacter alloc] init];
-    _player.position = CGPointMake(1500,300);
+    
+    CGPoint spawnPoint = [_roadLayer pointForCoord:CGPointMake(35, 12)];
+    
+    _player.position = spawnPoint;
     
     [_bgLayer addChild:_player];
     
@@ -76,15 +82,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     [self centerOnNode:_player];
     
     // debug player
-    //NSLog(@"pos=%1.3f,%1.3f",_player.position.x,_player.position.y);
+//    NSLog(@"pos=%1.3f,%1.3f",_player.position.x,_player.position.y);
+    CGPoint playerTmxCoord = [_roadLayer coordForPoint:_player.position];
+    //NSLog(@"coords=%1.0f,%1.0f",playerTmxCoord.x,playerTmxCoord.y);
     
-    // logging for determining tile id
-//    NSArray *nodes = [_bgLayer nodesAtPoint:_player.position];
-//    
-//    for (SKNode *n in nodes) {
-//        NSLog(@"node %@ at %1.0f,%1.0f",n.name,n.position.x,n.position.y);
-//    }
-
+    
+    _currentTileGid = [_roadLayer tileGidAt:_player.position];
+    NSString *roadType = [_bgLayer propertiesForGid:_currentTileGid][@"road"];
+    //NSLog(@"GID: %ld   type: %@",(long)currentTileGid, roadType);
     
 
 }
@@ -110,15 +115,23 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 }
 
 - (void)createWorld {
-    _bgLayer = [self createTilemap];
     
     _worldNode = [SKSpriteNode node];
-    [_worldNode addChild:_bgLayer];
 
     [self addChild:_worldNode];
     
-    self.anchorPoint = CGPointMake(0.5, 0.5);
-    _worldNode.position = CGPointMake(-_bgLayer.layerSize.width/2, -_bgLayer.layerSize.height/2);
+    _bgLayer = [JSTileMap mapNamed:@"road-map-01.tmx"];
+    _roadLayer = [_bgLayer layerNamed:@"road-tiles"];
+    
+    if (_bgLayer) {
+		// center map on scene's anchor point
+        //		CGRect mapBounds = [_bgLayer calculateAccumulatedFrame];
+        //		_bgLayer.position = CGPointMake(-mapBounds.size.width/2.0, -mapBounds.size.height/2.0);
+        
+        [_worldNode addChild:_bgLayer];
+    }
+    
+
 }
 
 
@@ -150,8 +163,11 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 #pragma mark Game logic
 - (void)authorizeTurnEvent: (CGFloat)degrees {
-    // this is a start for calculating the center position, but it only works some of the time.. probably b/c of positive vs. negative angles. look up that video again.
-
+//    SKSpriteNode *startingPoint = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
+//    startingPoint.position = _player.position;
+//    [_bgLayer addChild:startingPoint];
+    
+    
     CGFloat rads = DegreesToRadians(degrees);
     CGFloat requestedAngle = _player.targetAngleRadians + rads;
     
@@ -170,25 +186,62 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     CGPoint targetPoint = CGPointAdd(rotatedPlayer, centerPoint);
     
-//    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(10, 10)];
-//    targetPointSprite.name = @"DEBUG_targetPointSprite";
-//    targetPointSprite.position = targetPoint;
-//    targetPointSprite.zPosition = -5;
-//    
-//    
-//    [_bgLayer addChild:targetPointSprite];
-
-    SKNode *targetTile = [_bgLayer nodeAtPoint:targetPoint];
-    
-    NSLog(@"target tile is %@ at %1.5f,%1.5f", targetTile.name, targetTile.position.x,targetTile.position.y );
     
 
+    SKSpriteNode *targetTile = [_roadLayer tileAt:targetPoint];
+    NSInteger targetTileGid = [_roadLayer tileGidAt:targetPoint];
+    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_bgLayer];
     
-    if ([targetTile.name isEqualToString:@"road"]) {
-        NSLog(@"turning...");
-        [_player turnByAngle:degrees];
+    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(10, 10)];
+    targetPointSprite.name = @"DEBUG_targetPointSprite";
+    targetPointSprite.position = positionInTargetTile;
+    [targetTile addChild:targetPointSprite];
+    
+    [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
+    
+    
+    
+    // DEBUG
+//    SKAction *highlightTarget = [SKAction colorizeWithColor:[SKColor yellowColor] colorBlendFactor:1 duration:0.25];
+//    SKAction *pause = [SKAction waitForDuration:0.5];
+//    SKAction *removeHighlight = [SKAction colorizeWithColorBlendFactor:0.0 duration:0.25];
+//    [targetTile runAction:[SKAction sequence:@[highlightTarget,pause, removeHighlight]]];
+    
+    
+    
+    
+    NSString *type = [_bgLayer propertiesForGid:targetTileGid][@"road"];
+    NSLog(@"%@", type);
+
+    if (type) {
+        // check the coordinates to make sure it's on ROAD within the tile
+        SKSpriteNode *bounds = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeZero];
+        
+        
+        if (        [type isEqualToString:@"ew"]) {
+            bounds.size = CGSizeMake(targetTile.size.width, targetTile.size.height - 120);
+            bounds.position = CGPointMake(0, 0);
+            
+        } else if ( [type isEqualToString:@"nesw"]) {
+            // full size for now
+            bounds.size = CGSizeMake(targetTile.size.width, targetTile.size.height);
+            bounds.position = CGPointMake(0, 0);
+
+            
+        } else if ( [type isEqualToString:@"ns"]) {
+            bounds.size = CGSizeMake(targetTile.size.width - 120, targetTile.size.height);
+            bounds.position = CGPointMake(0, 0);
+        }
+        
+        
+        if ([bounds containsPoint:positionInTargetTile]) {
+            [_player turnByAngle:degrees];
+        }
+
     }
 
+
+    
 
     
 }
