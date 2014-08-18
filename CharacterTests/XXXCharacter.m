@@ -37,10 +37,10 @@
     _CHARACTER_ROTATION_DEGREES_PER_SEC = 275;
     _CHARACTER_TURN_RADIUS = _CHARACTER_MOVEMENT_POINTS_PER_SEC /
                             ( 2 * M_PI * ( _CHARACTER_ROTATION_DEGREES_PER_SEC / 360 )  );
-<<<<<<< HEAD
-=======
-    
->>>>>>> better_turning
+//<<<<<<< HEAD
+//=======
+//    
+//>>>>>>> better_turning
     _CHARACTER_MOVEMENT_ACCEL_TIME_SECS = 0.75;
     _CHARACTER_MOVEMENT_DECEL_TIME_SECS = 0.35;
     
@@ -165,6 +165,14 @@
 
     // update the direction of the sprite
     _direction = CGPointForAngle(sprite.zRotation);
+    
+    //Fixes the directions so that you dont end up with a situation where you have -0.00000.  I dont even know how that could happen.  BUT IT DOES
+    if (_direction.x <= 0.0001 && _direction.x >= -0.0001) {//slightly more than 0 and slightly less than 0
+        _direction.x = 0.0;
+    }
+    if (_direction.y <= 0.0001 && _direction.y >= -0.0001) {//slightly more than 0 and slightly less than 0
+        _direction.y = 0.0;
+    }
     
 }
 

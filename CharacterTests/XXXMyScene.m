@@ -12,6 +12,7 @@
 
 #import "SKTUtils.h"
 
+#define kNumberCars   15
 
 static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more frequent than this interval
 
@@ -26,7 +27,13 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 @end
 
-@implementation XXXMyScene
+@implementation XXXMyScene{
+    
+    NSMutableArray *_cars;
+    int _nextCar;
+    double _nextCarSpawn;
+    
+}
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
@@ -40,12 +47,100 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         
         [self addPlayer];
 
-        
+        [self addCars];//Adds inital enamies to the screen
+        [self initalizeCarVariables];
     }
     return self;
 }
 
+- (void) initalizeCarVariables{
+    
+    _nextCarSpawn = 0;
+    
+    for (SKSpriteNode *car in _cars) {
+        car.hidden = YES;
+    }
+    
+}
 
+- (void) addCars{//Adds inital enamies to the screen
+    
+    _cars = [[NSMutableArray alloc] initWithCapacity:kNumberCars];//Init the mutable array
+    for (int i = 0; i < kNumberCars; ++i) {//Fill m-array with X number of car sprites
+        SKSpriteNode *car = [SKSpriteNode spriteNodeWithImageNamed:@"car"];//Create car node
+        car.zPosition = 200;
+        car.hidden = YES;//Hide it so we dont have to bother with it until it is active
+        [car setXScale:0.5];//Dont really need
+        [car setYScale:0.5];//Dont need
+        [_cars addObject:car];//add the car to the m-array
+        [self addChild:car];//Add the car to the sceen
+    }
+    
+}
+
+-(void) updateCars {
+    double curTime = CACurrentMediaTime();//returns the current absolute time in seconds
+    if (curTime > _nextCarSpawn) {
+        //NSLog(@"spawning new asteroid");
+        float randSecs = [self randomValueBetween:0.20 andValue:1.0];//Creates a randome value to space out when cars appear
+        _nextCarSpawn = randSecs + curTime;//time until next car spawns, look at the if statment for why this is relivent
+        
+        SKSpriteNode *car = [_cars objectAtIndex:_nextCar];//Selects the next car in the list, starts at 0
+        _nextCar++;//Incraments up the next car in the list.  So that next time the loop is called this appears.
+        
+        if (_nextCar >= _cars.count) {//Checks to see that the number of cars has not exceeded the total number of cars in the m-array
+            _nextCar = 0;//If it has reset it to 0 and start from the front of the list
+        }
+        
+        [car removeAllActions];//Clears out the old actions so that they dont gum up the works.
+        float randDuration = [self randomValueBetween:2.0 andValue:10.0];//Car speed
+        CGPoint location;
+        
+        if ((_player.direction.x == 0.0 && _player.direction.y == 1.0)) {//up
+            float randx = [self randomValueBetween:-self.frame.size.width andValue:self.frame.size.width];//Cars appear somewhere on the right side of the screen
+            
+            car.position = CGPointMake(randx, self.frame.size.height+car.size.height/2);//Place the car on the far right side.  Plus its width(devided in half because it has been scalled in half).  This means it appears offscreen.  Se randY for meaning.
+            car.hidden = NO;//Unhide the car
+            
+            location = CGPointMake(randx, -self.frame.size.height-car.size.height);//sets the desctination for the oposite side of the screen, hence all those negatives.  In addition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.
+        }else if(_player.direction.x == -1.0 && _player.direction.y == 0.0){//left
+            float randY = [self randomValueBetween:0.0 andValue:self.frame.size.height];//Cars appear somewhere on the right side of the screen
+            
+            car.position = CGPointMake(-self.frame.size.width-car.size.width, randY);//Place the car on the far right side.  Plus its width(devided in half because it has been scalled in half).  This means it appears offscreen.  Se randY for meaning.
+            car.hidden = NO;//Unhide the car
+            
+            location = CGPointMake(self.frame.size.width+car.size.width/2 , randY);//sets the desctination for the oposite side of the screen, hence all those negatives.  In addition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.
+        }else if (_player.direction.x == 0.0 && _player.direction.y == -1.0){//down
+            float randx = [self randomValueBetween:-self.frame.size.width andValue:self.frame.size.width];//Cars appear somewhere on the right side of the screen
+            
+            car.position = CGPointMake(randx, -self.frame.size.height-car.size.height);//Place the car on the far right side.  Plus its width(devided in half because it has been scalled in half).  This means it appears offscreen.  Se randY for meaning.
+            car.hidden = NO;//Unhide the car
+            
+            location = CGPointMake(randx, self.frame.size.height+car.size.height/2);//sets the desctination for the oposite side of the screen, hence all those negatives.  In addition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.ddition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.
+        }else if (_player.direction.x == 1.0 && _player.direction.y == 0.0){//right
+            float randY = [self randomValueBetween:0.0 andValue:self.frame.size.height];//Cars appear somewhere on the right side of the screen
+            
+            car.position = CGPointMake(self.frame.size.width+car.size.width/2, randY);//Place the car on the far right side.  Plus its width(devided in half because it has been scalled in half).  This means it appears offscreen.  Se randY for meaning.
+            car.hidden = NO;//Unhide the car
+            
+            location = CGPointMake(-self.frame.size.width-car.size.width, randY);//sets the desctination for the oposite side of the screen, hence all those negatives.  In addition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.
+        }
+        
+        
+        
+        SKAction *moveAction = [SKAction moveTo:location duration:randDuration];//Actually create the action, moving image from A to B.
+        SKAction *doneAction = [SKAction runBlock:(dispatch_block_t)^() {//I think this creates a thread to cause the car to hide when it reaches the end of the screen.
+            //NSLog(@"Animation Completed");
+            car.hidden = YES;
+        }];
+        
+        SKAction *moveCarActionWithDone = [SKAction sequence:@[moveAction, doneAction ]];
+        [car runAction:moveCarActionWithDone withKey:@"carMoving"];
+    }
+    
+    
+    
+}
 
 - (void) addPlayer {
     _player = [[XXXCharacter alloc] init];
@@ -56,6 +151,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
 }
 
+- (float)randomValueBetween:(float)low andValue:(float)high {//Used to return a random value between two points
+    return (((float) arc4random() / 0xFFFFFFFFu) * (high - low)) + low;
+}
 
 -(void)calcDelta:(CFTimeInterval)currentTime {
     if (self.sceneLastUpdate) {
@@ -84,8 +182,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 //    for (SKNode *n in nodes) {
 //        NSLog(@"node %@ at %1.0f,%1.0f",n.name,n.position.x,n.position.y);
 //    }
-
     
+    [self updateCars];
+    NSLog(@"%f, %f",_player.direction.x, _player.direction.y);
 
 }
 
