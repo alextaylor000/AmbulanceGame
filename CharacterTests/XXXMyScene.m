@@ -161,76 +161,68 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
 
+
+
 #pragma mark Game logic
 - (void)authorizeTurnEvent: (CGFloat)degrees {
-//    SKSpriteNode *startingPoint = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
-//    startingPoint.position = _player.position;
-//    [_bgLayer addChild:startingPoint];
+    /*
+     Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
+     */
     
-    
+    // begin by modeling the requested turn from the player's current position; return a target point
     CGFloat rads = DegreesToRadians(degrees);
-    CGFloat requestedAngle = _player.targetAngleRadians + rads;
+    CGFloat newAngle = _player.targetAngleRadians + rads; // the angle the player will face after the turn
     
-    CGPoint centerPoint = CGPointMake(_player.position.x + _player.CHARACTER_TURN_RADIUS * cosf(requestedAngle),
-                                      _player.position.y + _player.CHARACTER_TURN_RADIUS * sinf(requestedAngle));
-    
-    
-    
-//    SKSpriteNode *centerPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
-//    centerPointSprite.position = centerPoint;
-//    [_bgLayer addChild:centerPointSprite];
-    
-    CGPoint originPoint = CGPointSubtract(_player.position, centerPoint);
-    CGPoint rotatedPlayer = CGPointMake(originPoint.x * cosf(rads) - originPoint.y * sinf(rads),
-                                        originPoint.x * sinf(rads) + originPoint.y * cosf(rads));
-    
-    CGPoint targetPoint = CGPointAdd(rotatedPlayer, centerPoint);
-    
-    
+    // calculate the center point of the turn. this makes it easy to figure out the target point.
+    CGPoint centerPoint = CGPointMake(_player.position.x + _player.CHARACTER_TURN_RADIUS * cosf(newAngle),
+                                      _player.position.y + _player.CHARACTER_TURN_RADIUS * sinf(newAngle));
 
-    SKSpriteNode *targetTile = [_roadLayer tileAt:targetPoint];
-    NSInteger targetTileGid = [_roadLayer tileGidAt:targetPoint];
-    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_bgLayer];
+    // normalize the center point. since the rotation function assumes an anchor point of zero, we need to perform the rotation on a point relative to the origin and then translate it back to get the real target.
+    CGPoint centerPointNormalized = CGPointSubtract(_player.position, centerPoint);
+   
+    CGPoint rotatedPoint = CGPointRotate(centerPointNormalized, degrees);
     
-    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(10, 10)];
-    targetPointSprite.name = @"DEBUG_targetPointSprite";
-    targetPointSprite.position = positionInTargetTile;
-    [targetTile addChild:targetPointSprite];
-    
-    [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
+    CGPoint targetPoint = CGPointAdd(rotatedPoint, centerPoint);
     
     
+    // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
+    SKSpriteNode *targetTile = [_roadLayer tileAt:targetPoint]; // gets the the tile object being considered for the turn
+    NSString *targetTileRoadType = [_bgLayer propertiesForGid:  [_roadLayer tileGidAt:targetPoint]  ][@"road"];
     
-    // DEBUG
-//    SKAction *highlightTarget = [SKAction colorizeWithColor:[SKColor yellowColor] colorBlendFactor:1 duration:0.25];
-//    SKAction *pause = [SKAction waitForDuration:0.5];
-//    SKAction *removeHighlight = [SKAction colorizeWithColorBlendFactor:0.0 duration:0.25];
-//    [targetTile runAction:[SKAction sequence:@[highlightTarget,pause, removeHighlight]]];
+    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_bgLayer]; // the position of the target within the target tile
     
-    
-    
-    
-    NSString *type = [_bgLayer propertiesForGid:targetTileGid][@"road"];
-    NSLog(@"%@", type);
+        #if DEBUG
+        SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(10, 10)];
+        targetPointSprite.name = @"DEBUG_targetPointSprite";
+        targetPointSprite.position = positionInTargetTile;
+        [targetTile addChild:targetPointSprite];
+        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
 
-    if (type) {
-        // check the coordinates to make sure it's on ROAD within the tile
-        SKSpriteNode *bounds = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeZero];
+        NSLog(@"targetTileRoadType = %@", targetTileRoadType);
+        #endif
+
+
+    if (targetTileRoadType) {
+        // check the coordinates to make sure it's on ROAD SURFACE within the tile
         
+        // TODO: put this into a new tilemap class, so we can define the bounds for all tiles at the same time
+        SKSpriteNode *bounds = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeZero]; // this sprite will never be drawn to screen        
         
-        if (        [type isEqualToString:@"ew"]) {
+        if (        [targetTileRoadType isEqualToString:@"ew"]) {
             bounds.size = CGSizeMake(targetTile.size.width, targetTile.size.height - 120);
-            bounds.position = CGPointMake(0, 0);
+//            bounds.position = CGPointMake(0, 0);
             
-        } else if ( [type isEqualToString:@"nesw"]) {
-            // full size for now
-            bounds.size = CGSizeMake(targetTile.size.width, targetTile.size.height);
-            bounds.position = CGPointMake(0, 0);
-
+        } else if ( [targetTileRoadType isEqualToString:@"nesw"]) {
+            bounds.size = CGSizeMake(targetTile.size.width, targetTile.size.height - 120);
+//            bounds.position = CGPointMake(0, 0);
             
-        } else if ( [type isEqualToString:@"ns"]) {
+            SKSpriteNode *boundsNS = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeZero];
+            boundsNS.size = CGSizeMake(targetTile.size.width - 120, targetTile.size.height);
+            
+            
+        } else if ( [targetTileRoadType isEqualToString:@"ns"]) {
             bounds.size = CGSizeMake(targetTile.size.width - 120, targetTile.size.height);
-            bounds.position = CGPointMake(0, 0);
+//            bounds.position = CGPointMake(0, 0);
         }
         
         
@@ -238,7 +230,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
             [_player turnByAngle:degrees];
         }
 
+        #if DEBUG
+        [targetTile addChild:bounds];
+        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
+        #endif
+
     }
+    
+    
 
 
     
