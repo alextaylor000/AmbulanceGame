@@ -206,23 +206,54 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         // check the coordinates to make sure it's on ROAD SURFACE within the tile
         
         // TODO: put this into a new tilemap class, so we can define the bounds for all tiles at the same time
-        SKSpriteNode *bounds = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeZero]; // this sprite will never be drawn to screen        
+//        SKSpriteNode *bounds = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeZero]; // this sprite will never be drawn to screen
+        SKShapeNode *bounds = [SKShapeNode node];
+  
+        NSInteger offsetX = 128; // anchor point of tile (0.5, 0.5)
+        NSInteger offsetY = 128;
         
         if (        [targetTileRoadType isEqualToString:@"ew"]) {
-            bounds.size = CGSizeMake(targetTile.size.width, targetTile.size.height - 120);
-//            bounds.position = CGPointMake(0, 0);
+            
+            CGMutablePathRef path = CGPathCreateMutable();
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+
+            CGPathCloseSubpath(path);
+            bounds.path = path;
+            
             
         } else if ( [targetTileRoadType isEqualToString:@"nesw"]) {
-            bounds.size = CGSizeMake(targetTile.size.width, targetTile.size.height - 120);
-//            bounds.position = CGPointMake(0, 0);
+
+            CGMutablePathRef path = CGPathCreateMutable();
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
             
-            SKSpriteNode *boundsNS = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeZero];
-            boundsNS.size = CGSizeMake(targetTile.size.width - 120, targetTile.size.height);
+            CGPathCloseSubpath(path);
+            bounds.path = path;
             
             
         } else if ( [targetTileRoadType isEqualToString:@"ns"]) {
-            bounds.size = CGSizeMake(targetTile.size.width - 120, targetTile.size.height);
-//            bounds.position = CGPointMake(0, 0);
+            CGMutablePathRef path = CGPathCreateMutable();
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            
+            CGPathCloseSubpath(path);
+            bounds.path = path;
+
         }
         
         
@@ -231,14 +262,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         }
 
         #if DEBUG
+        bounds.fillColor = [SKColor whiteColor];
+        bounds.alpha = 0.7;
+        
         [targetTile addChild:bounds];
-        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
+        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
         #endif
 
     }
-    
-    
-
 
     
 
