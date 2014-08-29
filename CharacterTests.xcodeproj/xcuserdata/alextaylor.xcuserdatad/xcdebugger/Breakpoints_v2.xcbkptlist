@@ -10,37 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CharacterTests/XXXMyScene.m"
-            timestampString = "429936819.200399"
+            timestampString = "430011755.297791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-<<<<<<< HEAD
-            endingLineNumber = "215">
-=======
-            endingLineNumber = "215"
-            landmarkName = "-handleKeyboardEvent:keyDown:"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "-addPlayer"
             landmarkType = "5">
->>>>>>> better_turning
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CharacterTests/XXXCharacter.m"
-            timestampString = "429936646.251432"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-<<<<<<< HEAD
-            endingLineNumber = "152">
-=======
-            endingLineNumber = "152"
-            landmarkName = "-rotateSprite:toAngle:rotateDegreesPerSec:"
-            landmarkType = "5">
->>>>>>> better_turning
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

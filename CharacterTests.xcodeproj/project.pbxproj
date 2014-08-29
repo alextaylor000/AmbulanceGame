@@ -13,7 +13,6 @@
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
 		B96A02BA198592B7003D88BE /* Tilemap.m in Sources */ = {isa = PBXBuildFile; fileRef = B96A02B9198592B7003D88BE /* Tilemap.m */; };
-		B96A02BC1985935B003D88BE /* level.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B96A02BB1985935B003D88BE /* level.atlas */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
 		B988238D1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B988238B1969998400903B73 /* InfoPlist.strings */; };
@@ -29,10 +28,11 @@
 		B98823B11969998400903B73 /* CharacterTestsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823B01969998400903B73 /* CharacterTestsTests.m */; };
 		B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* XXXCharacter.m */; };
 		B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C219699E6200903B73 /* asset_ambulance_20140609.png */; };
-		B98823C51969ACF100903B73 /* asset_ambulance_20140609_facingup.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C41969ACF100903B73 /* asset_ambulance_20140609_facingup.png */; };
-		B9F4F09A19854DA400578DA4 /* asset_roadmap_20140608.png in Resources */ = {isa = PBXBuildFile; fileRef = B9F4F09919854DA400578DA4 /* asset_roadmap_20140608.png */; };
-		B9F4F0A31985618400578DA4 /* roadmap_20140608.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9F4F0A21985618400578DA4 /* roadmap_20140608.tmx */; };
-		B9F4F0A5198561B300578DA4 /* road_blueprint_tileset01_20140607.png in Resources */ = {isa = PBXBuildFile; fileRef = B9F4F0A4198561B300578DA4 /* road_blueprint_tileset01_20140607.png */; };
+		B99E6F2119A16467003A7551 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F1C19A16467003A7551 /* .gitignore */; };
+		B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
+		B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
+		B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */; };
+		B99E6F2819A16822003A7551 /* road-map-01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2719A16822003A7551 /* road-map-01.tmx */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +59,6 @@
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		B96A02B8198592B7003D88BE /* Tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tilemap.h; sourceTree = "<group>"; };
 		B96A02B9198592B7003D88BE /* Tilemap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tilemap.m; sourceTree = "<group>"; };
-		B96A02BB1985935B003D88BE /* level.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level.atlas; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823801969998400903B73 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B98823821969998400903B73 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -85,10 +84,13 @@
 		B98823BC19699C4400903B73 /* XXXCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXCharacter.h; sourceTree = "<group>"; };
 		B98823BD19699C4400903B73 /* XXXCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXCharacter.m; sourceTree = "<group>"; };
 		B98823C219699E6200903B73 /* asset_ambulance_20140609.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_ambulance_20140609.png; sourceTree = "<group>"; };
-		B98823C41969ACF100903B73 /* asset_ambulance_20140609_facingup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_ambulance_20140609_facingup.png; sourceTree = "<group>"; };
-		B9F4F09919854DA400578DA4 /* asset_roadmap_20140608.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_roadmap_20140608.png; sourceTree = "<group>"; };
-		B9F4F0A21985618400578DA4 /* roadmap_20140608.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = roadmap_20140608.tmx; sourceTree = "<group>"; };
-		B9F4F0A4198561B300578DA4 /* road_blueprint_tileset01_20140607.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road_blueprint_tileset01_20140607.png; path = png/road_blueprint_tileset01_20140607.png; sourceTree = "<group>"; };
+		B99E6F1C19A16467003A7551 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		B99E6F1D19A16467003A7551 /* JSTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTileMap.h; sourceTree = "<group>"; };
+		B99E6F1E19A16467003A7551 /* JSTileMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTileMap.m; sourceTree = "<group>"; };
+		B99E6F1F19A16467003A7551 /* LFCGzipUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFCGzipUtility.h; sourceTree = "<group>"; };
+		B99E6F2019A16467003A7551 /* LFCGzipUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFCGzipUtility.m; sourceTree = "<group>"; };
+		B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "road-tileset-hc.atlasc"; sourceTree = "<group>"; };
+		B99E6F2719A16822003A7551 /* road-map-01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01.tmx"; sourceTree = "<group>"; };
 		B9F4F0A61985626600578DA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -179,6 +181,7 @@
 		B98823881969998400903B73 /* CharacterTests */ = {
 			isa = PBXGroup;
 			children = (
+				B99E6F1B19A16467003A7551 /* JSTileMap-master */,
 				B98823941969998400903B73 /* MainMenu.xib */,
 				B98823981969998400903B73 /* XXXMyScene.h */,
 				B98823961969998400903B73 /* XXXMyScene.m */,
@@ -228,14 +231,23 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
-				B96A02BB1985935B003D88BE /* level.atlas */,
-				B9F4F0A4198561B300578DA4 /* road_blueprint_tileset01_20140607.png */,
-				B98823C41969ACF100903B73 /* asset_ambulance_20140609_facingup.png */,
+				B99E6F2719A16822003A7551 /* road-map-01.tmx */,
+				B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */,
 				B98823C219699E6200903B73 /* asset_ambulance_20140609.png */,
-				B9F4F09919854DA400578DA4 /* asset_roadmap_20140608.png */,
-				B9F4F0A21985618400578DA4 /* roadmap_20140608.tmx */,
 			);
 			name = GameArt;
+			sourceTree = "<group>";
+		};
+		B99E6F1B19A16467003A7551 /* JSTileMap-master */ = {
+			isa = PBXGroup;
+			children = (
+				B99E6F1C19A16467003A7551 /* .gitignore */,
+				B99E6F1D19A16467003A7551 /* JSTileMap.h */,
+				B99E6F1E19A16467003A7551 /* JSTileMap.m */,
+				B99E6F1F19A16467003A7551 /* LFCGzipUtility.h */,
+				B99E6F2019A16467003A7551 /* LFCGzipUtility.m */,
+			);
+			path = "JSTileMap-master";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,16 +326,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B98823C51969ACF100903B73 /* asset_ambulance_20140609_facingup.png in Resources */,
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
-				B9F4F0A31985618400578DA4 /* roadmap_20140608.tmx in Resources */,
-				B96A02BC1985935B003D88BE /* level.atlas in Resources */,
+				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
+				B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */,
+				B99E6F2819A16822003A7551 /* road-map-01.tmx in Resources */,
 				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,
-				B9F4F09A19854DA400578DA4 /* asset_roadmap_20140608.png in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
-				B9F4F0A5198561B300578DA4 /* road_blueprint_tileset01_20140607.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +361,8 @@
 				B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */,
 				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,
 				B96A02BA198592B7003D88BE /* Tilemap.m in Sources */,
+				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
+				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
 				B988239A1969998400903B73 /* XXXAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

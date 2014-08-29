@@ -8,8 +8,8 @@
 
 #import "XXXMyScene.h"
 #import "XXXCharacter.h"
-#import "Tilemap.h"
-
+#import "Tilemap.h"     // for supporting ASCII maps
+#import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 
 #define kNumberCars   15
@@ -21,9 +21,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @property NSTimeInterval lastUpdateTimeInterval;
 @property NSTimeInterval lastKeyPress;
 @property SKSpriteNode *worldNode;
-@property Tilemap *bgLayer;
+@property JSTileMap *bgLayer;
 @property XXXCharacter *player;
 
+@property TMXLayer *cityLayer;
+@property TMXLayer *roadLayer;
+@property NSInteger currentTileGid;
 
 @end
 
@@ -144,7 +147,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 - (void) addPlayer {
     _player = [[XXXCharacter alloc] init];
-    _player.position = CGPointMake(1500,300);
+    
+    CGPoint spawnPoint = [_roadLayer pointForCoord:CGPointMake(35, 12)];
+    
+    _player.position = spawnPoint;
     
     [_bgLayer addChild:_player];
     
@@ -174,14 +180,13 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     [self centerOnNode:_player];
     
     // debug player
-    //NSLog(@"pos=%1.3f,%1.3f",_player.position.x,_player.position.y);
+//    NSLog(@"pos=%1.3f,%1.3f",_player.position.x,_player.position.y);
+    CGPoint playerTmxCoord = [_roadLayer coordForPoint:_player.position];
+    //NSLog(@"coords=%1.0f,%1.0f",playerTmxCoord.x,playerTmxCoord.y);
     
-    // logging for determining tile id
-//    NSArray *nodes = [_bgLayer nodesAtPoint:_player.position];
-//    
-//    for (SKNode *n in nodes) {
-//        NSLog(@"node %@ at %1.0f,%1.0f",n.name,n.position.x,n.position.y);
-//    }
+    
+    _currentTileGid = [_roadLayer tileGidAt:_player.position];
+    NSString *roadType = [_bgLayer propertiesForGid:_currentTileGid][@"road"];
     
     [self updateCars];
     NSLog(@"%f, %f",_player.direction.x, _player.direction.y);
@@ -209,15 +214,23 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 }
 
 - (void)createWorld {
-    _bgLayer = [self createTilemap];
     
     _worldNode = [SKSpriteNode node];
-    [_worldNode addChild:_bgLayer];
 
     [self addChild:_worldNode];
     
-    self.anchorPoint = CGPointMake(0.5, 0.5);
-    _worldNode.position = CGPointMake(-_bgLayer.layerSize.width/2, -_bgLayer.layerSize.height/2);
+    _bgLayer = [JSTileMap mapNamed:@"road-map-01.tmx"];
+    _roadLayer = [_bgLayer layerNamed:@"road-tiles"];
+    
+    if (_bgLayer) {
+		// center map on scene's anchor point
+        //		CGRect mapBounds = [_bgLayer calculateAccumulatedFrame];
+        //		_bgLayer.position = CGPointMake(-mapBounds.size.width/2.0, -mapBounds.size.height/2.0);
+        
+        [_worldNode addChild:_bgLayer];
+    }
+    
+
 }
 
 
@@ -247,47 +260,201 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
 
+
+
 #pragma mark Game logic
 - (void)authorizeTurnEvent: (CGFloat)degrees {
-    // this is a start for calculating the center position, but it only works some of the time.. probably b/c of positive vs. negative angles. look up that video again.
-
+    /*
+     Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
+     */
+    
+    // begin by modeling the requested turn from the player's current position; return a target point
     CGFloat rads = DegreesToRadians(degrees);
-    CGFloat requestedAngle = _player.targetAngleRadians + rads;
+    CGFloat newAngle = _player.targetAngleRadians + rads; // the angle the player will face after the turn
     
-    CGPoint centerPoint = CGPointMake(_player.position.x + _player.CHARACTER_TURN_RADIUS * cosf(requestedAngle),
-                                      _player.position.y + _player.CHARACTER_TURN_RADIUS * sinf(requestedAngle));
-    
-    
-    
-//    SKSpriteNode *centerPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
-//    centerPointSprite.position = centerPoint;
-//    [_bgLayer addChild:centerPointSprite];
-    
-    CGPoint originPoint = CGPointSubtract(_player.position, centerPoint);
-    CGPoint rotatedPlayer = CGPointMake(originPoint.x * cosf(rads) - originPoint.y * sinf(rads),
-                                        originPoint.x * sinf(rads) + originPoint.y * cosf(rads));
-    
-    CGPoint targetPoint = CGPointAdd(rotatedPlayer, centerPoint);
-    
-//    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(10, 10)];
-//    targetPointSprite.name = @"DEBUG_targetPointSprite";
-//    targetPointSprite.position = targetPoint;
-//    targetPointSprite.zPosition = -5;
-//    
-//    
-//    [_bgLayer addChild:targetPointSprite];
+    // calculate the center point of the turn. this makes it easy to figure out the target point.
+    CGPoint centerPoint = CGPointMake(_player.position.x + _player.CHARACTER_TURN_RADIUS * cosf(newAngle),
+                                      _player.position.y + _player.CHARACTER_TURN_RADIUS * sinf(newAngle));
 
-    SKNode *targetTile = [_bgLayer nodeAtPoint:targetPoint];
+    // normalize the center point. since the rotation function assumes an anchor point of zero, we need to perform the rotation on a point relative to the origin and then translate it back to get the real target.
+    CGPoint centerPointNormalized = CGPointSubtract(_player.position, centerPoint);
+   
+    CGPoint rotatedPoint = CGPointRotate(centerPointNormalized, degrees);
     
-    NSLog(@"target tile is %@ at %1.5f,%1.5f", targetTile.name, targetTile.position.x,targetTile.position.y );
+    CGPoint targetPoint = CGPointAdd(rotatedPoint, centerPoint);
     
+    
+    // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
+    SKSpriteNode *targetTile = [_roadLayer tileAt:targetPoint]; // gets the the tile object being considered for the turn
+    NSString *targetTileRoadType = [_bgLayer propertiesForGid:  [_roadLayer tileGidAt:targetPoint]  ][@"road"];
+    
+    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_bgLayer]; // the position of the target within the target tile
+    
+        #if DEBUG
+        SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+        targetPointSprite.name = @"DEBUG_targetPointSprite";
+        targetPointSprite.position = positionInTargetTile;
+        targetPointSprite.zPosition = targetTile.zPosition + 1;
+        [targetTile addChild:targetPointSprite];
+        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
 
-    
-    if ([targetTile.name isEqualToString:@"road"]) {
-        NSLog(@"turning...");
-        [_player turnByAngle:degrees];
+        NSLog(@"targetTileRoadType = %@", targetTileRoadType);
+        #endif
+
+
+    if (targetTileRoadType) {
+        // check the coordinates to make sure it's on ROAD SURFACE within the tile
+        
+        // TODO: put this into a new tilemap class, so we can define the bounds for all tiles at the same time
+
+        CGMutablePathRef path = CGPathCreateMutable(); // create a path to store the bounds for the road surface
+        
+        NSInteger offsetX = 128; // anchor point of tile (0.5, 0.5)
+        NSInteger offsetY = 128;
+        
+        if (        [targetTileRoadType isEqualToString:@"ew"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+
+            
+            
+        } else if ( [targetTileRoadType isEqualToString:@"nesw"]) {
+
+
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+            
+
+            
+        } else if ( [targetTileRoadType isEqualToString:@"ns"]) {
+
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+
+        } else if ( [targetTileRoadType isEqualToString:@"en"]) {
+
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+
+        } else if ( [targetTileRoadType isEqualToString:@"nw"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+
+        } else if ( [targetTileRoadType isEqualToString:@"es"]) {
+            
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+
+        } else if ( [targetTileRoadType isEqualToString:@"sw"]) {
+            
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+
+        } else if ( [targetTileRoadType isEqualToString:@"nes"]) {
+            
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+
+        } else if ( [targetTileRoadType isEqualToString:@"new"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+
+        } else if ( [targetTileRoadType isEqualToString:@"nsw"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+
+        } else if ( [targetTileRoadType isEqualToString:@"esw"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+
+        }
+        
+        CGPathCloseSubpath(path); // close the path
+            
+        
+        BOOL isWithinBounds = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
+        
+        if (isWithinBounds) { // if the point is within the bounding path..
+            [_player turnByAngle:degrees];
+        }
+
+        #if DEBUG
+        if (isWithinBounds) {
+            targetPointSprite.color = [SKColor blueColor];
+        }
+        
+        SKShapeNode *bounds = [SKShapeNode node];
+        bounds.path = path;
+        bounds.fillColor = [SKColor whiteColor];
+        bounds.alpha = 0.5;
+        bounds.zPosition = targetPointSprite.zPosition - 1;
+        
+        [targetTile addChild:bounds];
+        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
+        #endif
+
     }
 
+    
 
     
 }
