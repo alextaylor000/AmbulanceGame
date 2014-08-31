@@ -33,6 +33,9 @@
 		B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
 		B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */; };
 		B99E6F2819A16822003A7551 /* road-map-01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2719A16822003A7551 /* road-map-01.tmx */; };
+		B9CC738419B26F9400A376BC /* XXXPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* XXXPatient.m */; };
+		B9CC738919B36E1400A376BC /* XXXGameRules.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738819B36E1400A376BC /* XXXGameRules.m */; };
+		B9CC738B19B376A000A376BC /* patient01.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738A19B376A000A376BC /* patient01.png */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +94,11 @@
 		B99E6F2019A16467003A7551 /* LFCGzipUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFCGzipUtility.m; sourceTree = "<group>"; };
 		B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "road-tileset-hc.atlasc"; sourceTree = "<group>"; };
 		B99E6F2719A16822003A7551 /* road-map-01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01.tmx"; sourceTree = "<group>"; };
+		B9CC738219B26F9400A376BC /* XXXPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXPatient.h; sourceTree = "<group>"; };
+		B9CC738319B26F9400A376BC /* XXXPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXPatient.m; sourceTree = "<group>"; };
+		B9CC738519B29BFF00A376BC /* XXXGameRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XXXGameRules.h; path = SKTUtils/XXXGameRules.h; sourceTree = "<group>"; };
+		B9CC738819B36E1400A376BC /* XXXGameRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XXXGameRules.m; path = SKTUtils/XXXGameRules.m; sourceTree = "<group>"; };
+		B9CC738A19B376A000A376BC /* patient01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient01.png; sourceTree = "<group>"; };
 		B9F4F0A61985626600578DA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -181,6 +189,8 @@
 		B98823881969998400903B73 /* CharacterTests */ = {
 			isa = PBXGroup;
 			children = (
+				B9CC738519B29BFF00A376BC /* XXXGameRules.h */,
+				B9CC738819B36E1400A376BC /* XXXGameRules.m */,
 				B99E6F1B19A16467003A7551 /* JSTileMap-master */,
 				B98823941969998400903B73 /* MainMenu.xib */,
 				B98823981969998400903B73 /* XXXMyScene.h */,
@@ -189,6 +199,8 @@
 				B988239B1969998400903B73 /* XXXAppDelegate.h */,
 				B988239E1969998400903B73 /* Images.xcassets */,
 				B98823891969998400903B73 /* Supporting Files */,
+				B9CC738219B26F9400A376BC /* XXXPatient.h */,
+				B9CC738319B26F9400A376BC /* XXXPatient.m */,
 				B98823BC19699C4400903B73 /* XXXCharacter.h */,
 				B98823BD19699C4400903B73 /* XXXCharacter.m */,
 				B96A02B8198592B7003D88BE /* Tilemap.h */,
@@ -231,6 +243,7 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B9CC738A19B376A000A376BC /* patient01.png */,
 				B99E6F2719A16822003A7551 /* road-map-01.tmx */,
 				B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */,
 				B98823C219699E6200903B73 /* asset_ambulance_20140609.png */,
@@ -329,6 +342,7 @@
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
+				B9CC738B19B376A000A376BC /* patient01.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */,
 				B99E6F2819A16822003A7551 /* road-map-01.tmx in Resources */,
@@ -354,9 +368,11 @@
 			files = (
 				B988238F1969998400903B73 /* main.m in Sources */,
 				B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */,
+				B9CC738419B26F9400A376BC /* XXXPatient.m in Sources */,
 				B98823971969998400903B73 /* XXXMyScene.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
+				B9CC738919B36E1400A376BC /* XXXGameRules.m in Sources */,
 				B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */,
 				B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */,
 				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,

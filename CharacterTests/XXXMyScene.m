@@ -8,6 +8,8 @@
 
 #import "XXXMyScene.h"
 #import "XXXCharacter.h"
+#import "XXXGameRules.h"
+#import "XXXPatient.h"
 #import "Tilemap.h"     // for supporting ASCII maps
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
@@ -27,6 +29,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @property TMXLayer *cityLayer;
 @property TMXLayer *roadLayer;
 @property NSInteger currentTileGid;
+
 
 @end
 
@@ -52,8 +55,21 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
         [self addCars];//Adds inital enamies to the screen
         [self initalizeCarVariables];
+        
+        
+        // Patient test
+        [self testAddPatient];
+        
     }
     return self;
+}
+
+
+- (void) testAddPatient {
+    CGPoint patientPosition = [_roadLayer pointForCoord:CGPointMake(35, 7)];
+    XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:LevelOne position:patientPosition];
+    
+    [_bgLayer addChild:patient];
 }
 
 - (void) initalizeCarVariables{
@@ -263,6 +279,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
 #pragma mark Game logic
+
+
 - (void)authorizeTurnEvent: (CGFloat)degrees {
     /*
      Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
