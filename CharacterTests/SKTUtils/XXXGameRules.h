@@ -36,6 +36,11 @@ typedef enum {
     PatientIsDead
 } PatientState;
 
+#pragma mark AMBULANCE - State
+typedef enum {
+    AmbulanceIsOccupied,
+    AmbulanceIsEmpty
+} AmbulanceState;
 
 
 

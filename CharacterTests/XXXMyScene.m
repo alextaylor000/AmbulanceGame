@@ -48,6 +48,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         self.anchorPoint = CGPointMake(0.5, 0.5);
+        self.physicsWorld.gravity = CGVectorMake(0, 0);
 
         self.physicsWorld.contactDelegate = self;
         
@@ -65,18 +66,35 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         // Patient test
         [self testAddPatient];
         
+        // Add hospital(s)
+        [self addHospitalAtCoord:CGPointMake(38, 6)];
+        
     }
     return self;
 }
 
 
 - (void) testAddPatient {
+    // add a temp patient.
+    // TODO: spawn patients using locations derived from a "spawn" layer of the tilemap
     CGPoint patientPosition = [_roadLayer pointForCoord:CGPointMake(35, 7)];
     XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:LevelOne position:patientPosition];
     patient.name = @"patient";
     
     [_bgLayer addChild:patient];
 
+}
+
+- (void) addHospitalAtCoord:(CGPoint)coord {
+    // adds a hospital at the tilemap coordinates specified.
+    SKSpriteNode *hospital = [SKSpriteNode spriteNodeWithImageNamed:@"hospital"];
+    hospital.position = [_roadLayer pointForCoord:coord];
+    hospital.zPosition = 200;
+    hospital.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(hospital.size.width * 3, hospital.size.height * 3)]; // for the physics body, expand the hospital's size so that it encompasses all the surrounding road blocks.
+    hospital.physicsBody.categoryBitMask = categoryHospital;
+    hospital.physicsBody.collisionBitMask = 0x00000000;
+    
+    [_bgLayer addChild:hospital];
 }
 
 - (void) initalizeCarVariables{
@@ -294,9 +312,16 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     (contact.bodyA.categoryBitMask == categoryPlayer ?
      contact.bodyB : contact.bodyA);
     
+    
     if (other.categoryBitMask == categoryPatient) {
         XXXPatient *patientNode = (XXXPatient *)other.node;
         [patientNode changeState:PatientIsEnRoute];
+        [_player changeState:AmbulanceIsOccupied];
+
+    } else if (other.categoryBitMask == categoryHospital) {
+#if DEBUG
+        NSLog(@"at hospital");
+#endif
     }
     
     

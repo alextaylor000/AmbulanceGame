@@ -36,6 +36,8 @@
 		B9CC738419B26F9400A376BC /* XXXPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* XXXPatient.m */; };
 		B9CC738919B36E1400A376BC /* XXXGameRules.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738819B36E1400A376BC /* XXXGameRules.m */; };
 		B9CC738B19B376A000A376BC /* patient01.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738A19B376A000A376BC /* patient01.png */; };
+		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
+		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +101,8 @@
 		B9CC738519B29BFF00A376BC /* XXXGameRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XXXGameRules.h; path = SKTUtils/XXXGameRules.h; sourceTree = "<group>"; };
 		B9CC738819B36E1400A376BC /* XXXGameRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XXXGameRules.m; path = SKTUtils/XXXGameRules.m; sourceTree = "<group>"; };
 		B9CC738A19B376A000A376BC /* patient01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient01.png; sourceTree = "<group>"; };
+		B9CC738C19B3D26900A376BC /* sirens.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sirens.atlas; sourceTree = "<group>"; };
+		B9CC738E19B3DA0C00A376BC /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		B9F4F0A61985626600578DA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -243,6 +247,8 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B9CC738E19B3DA0C00A376BC /* hospital.png */,
+				B9CC738C19B3D26900A376BC /* sirens.atlas */,
 				B9CC738A19B376A000A376BC /* patient01.png */,
 				B99E6F2719A16822003A7551 /* road-map-01.tmx */,
 				B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */,
@@ -340,6 +346,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
+				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
+				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B9CC738B19B376A000A376BC /* patient01.png in Resources */,

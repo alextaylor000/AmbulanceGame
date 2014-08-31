@@ -41,9 +41,6 @@
         // TODO: Variable image (swap out with appropriate level # indicator)
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
         self.physicsBody.categoryBitMask = categoryPatient;
-        self.physicsBody.collisionBitMask = categoryPlayer;
-        self.physicsBody.contactTestBitMask = categoryPlayer;
-        self.physicsBody.dynamic = NO;
         
         self.position = position;
 
@@ -79,7 +76,7 @@
     _lifetime = CACurrentMediaTime() - _spawnTime;
     
     #if DEBUG
-    NSLog(@"patient lifetime=%0.2f",_lifetime);
+    //NSLog(@"patient lifetime=%0.2f",_lifetime);
     #endif
 }
 
@@ -91,7 +88,7 @@
             break;
         
         case PatientIsEnRoute:
-            [self removeFromParent];
+            self.hidden = YES;
             
             #if DEBUG
                 NSLog(@"patient is EN-ROUTE!");

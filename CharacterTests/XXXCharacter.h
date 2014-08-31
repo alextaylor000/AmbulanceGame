@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "XXXGameRules.h"
 
 
 @interface XXXCharacter : SKSpriteNode
@@ -28,9 +29,13 @@
 @property (readonly, nonatomic) float CHARACTER_MOVEMENT_ACCEL_TIME_SECS;
 @property (readonly, nonatomic) float CHARACTER_MOVEMENT_DECEL_TIME_SECS;
 
+@property AmbulanceState state;
+
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;
 - (void)stopMoving;
 - (void)turnByAngle:(CGFloat)degrees;
+- (void)changeState:(AmbulanceState)newState;
+
 
 @end

@@ -22,6 +22,8 @@
 
 @property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
 
+@property SKSpriteNode *sirens;
+@property SKAction *sirensOn;
 
 @end
 
@@ -51,16 +53,30 @@
     
     // physics (for collisions)
     self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
-    self.physicsBody.dynamic = NO;
     self.physicsBody.categoryBitMask = categoryPlayer;
     self.physicsBody.contactTestBitMask = categoryHospital | categoryPatient | categoryTraffic;
-    self.physicsBody.collisionBitMask = categoryPatient;
-    
-    
+    self.physicsBody.collisionBitMask = categoryTraffic;
+
     
     _direction = CGPointMake(0, 1); // default direction, move up
     _targetAngleRadians = DegreesToRadians(90);
-        
+    
+    // sirens! wee-ooh, wee-oh, wee-ooh...
+    SKTextureAtlas *sirenAtlas = [SKTextureAtlas atlasNamed:@"sirens"];
+    SKTexture *sirenLeft = [sirenAtlas textureNamed:@"amulance_sirens_left.png"];
+    SKTexture *sirenRight = [sirenAtlas textureNamed:@"amulance_sirens_right.png"];
+    _sirensOn = [SKAction animateWithTextures:@[sirenLeft, sirenRight] timePerFrame:0.8];
+
+    _sirens = [SKSpriteNode spriteNodeWithTexture:sirenLeft];
+    _sirens.hidden = YES;
+    _sirens.position = CGPointMake(25, 0);
+    _sirens.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
+
+    [self addChild:_sirens];
+    
+//    [sirens runAction:[SKAction repeatActionForever:sirensOn]];
+    
+    
     return self;
 }
 
@@ -110,7 +126,6 @@
 -(void)turnByAngle:(CGFloat)degrees {
 /** Initiates a turn from the current position to a new position based on the degrees specified. */
 
-    CGFloat rads = DegreesToRadians(degrees);
     _targetAngleRadians += DegreesToRadians(degrees);
 
     
@@ -120,36 +135,6 @@
     } else if (_targetAngleRadians < -(2 * M_PI)) {
         _targetAngleRadians += (2 * M_PI);
     }
-
-// moved to authorizeTurnEvent
-//    // this is a start for calculating the center position, but it only works some of the time.. probably b/c of positive vs. negative angles. look up that video again.
-//    
-//    CGPoint centerPoint = CGPointMake(self.position.x + _CHARACTER_TURN_RADIUS * cosf(_targetAngleRadians),
-//                                      self.position.y + _CHARACTER_TURN_RADIUS * sinf(_targetAngleRadians));
-//    
-//    NSLog(@"pos=%1.5f,%1.5f  |  radius: %1.5f  |  targetAngle = %1.5f",self.position.x,self.position.y, _CHARACTER_TURN_RADIUS, _targetAngleRadians);
-//    NSLog(@"cen=%1.5f,%1.5f",centerPoint.x,centerPoint.y);
-//    
-//    
-//    
-//    SKSpriteNode *centerPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
-//    centerPointSprite.position = centerPoint;
-//    [self.parent addChild:centerPointSprite];
-//    
-//    CGPoint originPoint = CGPointSubtract(self.position, centerPoint);
-//    CGPoint rotatedPlayer = CGPointMake(originPoint.x * cosf(rads) - originPoint.y * sinf(rads),
-//                                        originPoint.x * sinf(rads) + originPoint.y * cosf(rads));
-//    
-//    CGPoint targetPoint = CGPointAdd(rotatedPlayer, centerPoint);
-//    
-//    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor blueColor] size:CGSizeMake(10, 10)];
-//    targetPointSprite.position = targetPoint;
-//    [self.parent addChild:targetPointSprite];
-    
-    // DEBUG
-//    CGPoint targetPoint = CGPointMake(self.position.x + _CHARACTER_TURN_RADIUS, self.position.y + _CHARACTER_TURN_RADIUS); // 63.69 is based on calculating the radius of the circle assuming that the circular velocity is 100 and the time period is 4 (because we can traverse 90 degrees in a second, so it would take 4 seconds to traverse the whole circle). Only thing I'm not sure about is if 100 is correct for the velocity, since that's the straight velocity and not circular..
-
-    //NSLog(@"radius=%1.3f, targetPoint=%1.3f,%1.3f",_CHARACTER_TURN_RADIUS,targetPoint.x,targetPoint.y);
 
 }
 
@@ -194,6 +179,27 @@
 
     
 }
+
+#pragma mark Game Logic
+-(void)changeState:(AmbulanceState)newState {
+    _state = newState;
+    
+    switch (_state) {
+        case AmbulanceIsEmpty:
+            [_sirens removeActionForKey:@"sirensOn"];
+            _sirens.hidden = YES;
+            break;
+            
+        case AmbulanceIsOccupied:
+            [_sirens runAction:[SKAction repeatActionForever:_sirensOn] withKey:@"sirensOn"];
+            _sirens.hidden = NO;
+            break;
+    }
+}
+
+
+
+
 
 
 @end
