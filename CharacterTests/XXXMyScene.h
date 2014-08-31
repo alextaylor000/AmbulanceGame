@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface XXXMyScene : SKScene
+@interface XXXMyScene : SKScene <SKPhysicsContactDelegate>
 
 // game loop properties
 @property NSTimeInterval sceneLastUpdate;

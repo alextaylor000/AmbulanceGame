@@ -26,6 +26,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @property JSTileMap *bgLayer;
 @property XXXCharacter *player;
 
+
 @property TMXLayer *cityLayer;
 @property TMXLayer *roadLayer;
 @property NSInteger currentTileGid;
@@ -48,13 +49,17 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         self.anchorPoint = CGPointMake(0.5, 0.5);
 
+        self.physicsWorld.contactDelegate = self;
+        
+
         [self createWorld];
         
         
         [self addPlayer];
 
-        [self addCars];//Adds inital enamies to the screen
-        [self initalizeCarVariables];
+// commented out during patient testing
+//        [self addCars];//Adds inital enamies to the screen
+//        [self initalizeCarVariables];
         
         
         // Patient test
@@ -68,8 +73,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 - (void) testAddPatient {
     CGPoint patientPosition = [_roadLayer pointForCoord:CGPointMake(35, 7)];
     XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:LevelOne position:patientPosition];
+    patient.name = @"patient";
     
     [_bgLayer addChild:patient];
+
 }
 
 - (void) initalizeCarVariables{
@@ -191,21 +198,23 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     [self calcDelta:currentTime];
     
     [_player updateWithTimeSinceLastUpdate:self.sceneDelta];
-    
+
     
     [self centerOnNode:_player];
-    
-    // debug player
-//    NSLog(@"pos=%1.3f,%1.3f",_player.position.x,_player.position.y);
-    CGPoint playerTmxCoord = [_roadLayer coordForPoint:_player.position];
-    //NSLog(@"coords=%1.0f,%1.0f",playerTmxCoord.x,playerTmxCoord.y);
     
     
     _currentTileGid = [_roadLayer tileGidAt:_player.position];
     NSString *roadType = [_bgLayer propertiesForGid:_currentTileGid][@"road"];
     
-    [self updateCars];
-    NSLog(@"%f, %f",_player.direction.x, _player.direction.y);
+// commented out during patient testing
+//    [self updateCars];
+
+    // update all visible patients
+    [_bgLayer enumerateChildNodesWithName:@"patient" usingBlock:^(SKNode *node, BOOL *stop) {
+        XXXPatient *patientNode = (XXXPatient *)node;
+        [patientNode updatePatient];
+    }];
+    
 
 }
 
@@ -279,6 +288,19 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
 #pragma mark Game logic
+- (void)didBeginContact:(SKPhysicsContact *)contact {
+
+    SKPhysicsBody *other =
+    (contact.bodyA.categoryBitMask == categoryPlayer ?
+     contact.bodyB : contact.bodyA);
+    
+    if (other.categoryBitMask == categoryPatient) {
+        XXXPatient *patientNode = (XXXPatient *)other.node;
+        [patientNode changeState:PatientIsEnRoute];
+    }
+    
+    
+}
 
 
 - (void)authorizeTurnEvent: (CGFloat)degrees {

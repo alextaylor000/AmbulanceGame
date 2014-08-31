@@ -10,6 +10,7 @@
 
 #import "XXXCharacter.h"
 #import "XXXMyScene.h"
+#import "XXXGameRules.h"
 #import "SKTUtils.h"
 
 
@@ -47,6 +48,15 @@
     self.anchorPoint = CGPointMake(0.35, 0.5);
     self.zRotation = DegreesToRadians(90);
     self.zPosition = 100;
+    
+    // physics (for collisions)
+    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+    self.physicsBody.dynamic = NO;
+    self.physicsBody.categoryBitMask = categoryPlayer;
+    self.physicsBody.contactTestBitMask = categoryHospital | categoryPatient | categoryTraffic;
+    self.physicsBody.collisionBitMask = categoryPatient;
+    
+    
     
     _direction = CGPointMake(0, 1); // default direction, move up
     _targetAngleRadians = DegreesToRadians(90);

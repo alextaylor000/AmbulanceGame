@@ -6,6 +6,13 @@
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
 
+#pragma mark SCENE - Collisions
+static const uint32_t categoryPlayer =      0x1 << 0;
+static const uint32_t categoryPatient =     0x1 << 1;
+static const uint32_t categoryHospital =    0x1 << 2;
+static const uint32_t categoryTraffic =     0x1 << 3;
+
+
 #pragma mark PATIENT - Severity
 typedef struct {
     // Patient Severity
@@ -20,12 +27,13 @@ extern PatientSeverity const LevelThree;
 extern PatientSeverity const LevelFour;
 extern PatientSeverity const LevelFive;
 
+
 #pragma mark PATIENT - State
 typedef enum {
-    WaitingForPickup,
-    EnRoute,
-    Delivered,
-    Dead
+    PatientIsWaitingForPickup,
+    PatientIsEnRoute,
+    PatientIsDelivered,
+    PatientIsDead
 } PatientState;
 
 

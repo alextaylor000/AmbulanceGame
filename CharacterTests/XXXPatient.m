@@ -26,23 +26,92 @@
 
 #import "XXXPatient.h"
 
+@interface XXXPatient ()
+
+@property NSTimeInterval spawnTime;
+@property CGFloat lifetime;
+
+@end
+
 @implementation XXXPatient
 
 
 - (instancetype) initWithSeverity:(PatientSeverity)severity position:(CGPoint)position {
     if (self = [super initWithImageNamed:@"patient01.png"]) {
         // TODO: Variable image (swap out with appropriate level # indicator)
+        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+        self.physicsBody.categoryBitMask = categoryPatient;
+        self.physicsBody.collisionBitMask = categoryPlayer;
+        self.physicsBody.contactTestBitMask = categoryPlayer;
+        self.physicsBody.dynamic = NO;
+        
         self.position = position;
 
         self.severity = severity;
-        self.state = WaitingForPickup;
+        self.state = PatientIsWaitingForPickup;
+
+        self.spawnTime = CACurrentMediaTime();
+        
+        
+#if DEBUG
+        NSLog(@"init patient [severity=%ld, state=%u, spawned=%f", _severity.rating, _state, _spawnTime);
+#endif
+
     }
     
     return self;
 }
 
 
+- (void)updatePatient {
+    // check on time to live
+    [self updatePatientLifetime];
+    if (_lifetime > _severity.timeToLive)   {
+        [self changeState:PatientIsDead];
 
+    }
+    
+    
+}
+
+- (void)updatePatientLifetime {
+
+    _lifetime = CACurrentMediaTime() - _spawnTime;
+    
+    #if DEBUG
+    NSLog(@"patient lifetime=%0.2f",_lifetime);
+    #endif
+}
+
+- (void)changeState:(PatientState)newState {
+    _state = newState;
+    
+    switch (_state) {
+        case PatientIsWaitingForPickup:
+            break;
+        
+        case PatientIsEnRoute:
+            [self removeFromParent];
+            
+            #if DEBUG
+                NSLog(@"patient is EN-ROUTE!");
+            #endif
+            break;
+            
+        case PatientIsDelivered:
+            break;
+            
+        case PatientIsDead:
+            [self removeFromParent];
+
+            #if DEBUG
+                NSLog(@"patient has DIED!!");
+            #endif
+            
+            break;
+            
+    }
+}
 
 
 @end

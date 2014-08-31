@@ -16,5 +16,7 @@
 @property PatientState state;
 
 - (instancetype) initWithSeverity:(PatientSeverity)severity position:(CGPoint)position;
+- (void)updatePatient;
+- (void)changeState:(PatientState)newState;
 
 @end
