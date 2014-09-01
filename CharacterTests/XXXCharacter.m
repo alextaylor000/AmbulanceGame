@@ -204,9 +204,9 @@
     // loads a given patient into the ambulance. returns true on success, false on failure (if the ambulance was already occupied)
     
     if (_state == AmbulanceIsEmpty) {
-        _patient = patient; // load the patient into the ambulance
         [self changeState:AmbulanceIsOccupied];
         [patient changeState:PatientIsEnRoute];
+        _patient = patient; // load the patient into the ambulance
         return YES;
     }
     
@@ -216,10 +216,9 @@
 -(BOOL)unloadPatient {
     // unloads a patient from the ambulance (if there is one)
     if (_patient) {
-        [_patient removeFromParent];
-        _patient = nil;
         [self changeState:AmbulanceIsEmpty];
-        
+        [_patient changeState:PatientIsDelivered];
+        _patient = nil;
         return YES;
     }
     

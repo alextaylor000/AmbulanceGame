@@ -98,6 +98,7 @@
             break;
             
         case PatientIsDelivered:
+            [self removeFromParent];
             break;
             
         case PatientIsDead:

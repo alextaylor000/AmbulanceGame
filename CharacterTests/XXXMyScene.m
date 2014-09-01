@@ -369,16 +369,16 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_bgLayer]; // the position of the target within the target tile
     
-        #if DEBUG
-        SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
-        targetPointSprite.name = @"DEBUG_targetPointSprite";
-        targetPointSprite.position = positionInTargetTile;
-        targetPointSprite.zPosition = targetTile.zPosition + 1;
-        [targetTile addChild:targetPointSprite];
-        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
-
-        NSLog(@"targetTileRoadType = %@", targetTileRoadType);
-        #endif
+//        #if DEBUG
+//        SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+//        targetPointSprite.name = @"DEBUG_targetPointSprite";
+//        targetPointSprite.position = positionInTargetTile;
+//        targetPointSprite.zPosition = targetTile.zPosition + 1;
+//        [targetTile addChild:targetPointSprite];
+//        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
+//
+//        NSLog(@"targetTileRoadType = %@", targetTileRoadType);
+//        #endif
 
 
     if (targetTileRoadType) {
@@ -516,20 +516,20 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
             [_player turnByAngle:degrees];
         }
 
-        #if DEBUG
-        if (isWithinBounds) {
-            targetPointSprite.color = [SKColor blueColor];
-        }
-        
-        SKShapeNode *bounds = [SKShapeNode node];
-        bounds.path = path;
-        bounds.fillColor = [SKColor whiteColor];
-        bounds.alpha = 0.5;
-        bounds.zPosition = targetPointSprite.zPosition - 1;
-        
-        [targetTile addChild:bounds];
-        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
-        #endif
+//        #if DEBUG
+//        if (isWithinBounds) {
+//            targetPointSprite.color = [SKColor blueColor];
+//        }
+//        
+//        SKShapeNode *bounds = [SKShapeNode node];
+//        bounds.path = path;
+//        bounds.fillColor = [SKColor whiteColor];
+//        bounds.alpha = 0.5;
+//        bounds.zPosition = targetPointSprite.zPosition - 1;
+//        
+//        [targetTile addChild:bounds];
+//        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
+//        #endif
 
     }
 
