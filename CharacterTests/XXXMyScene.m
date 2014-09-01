@@ -10,6 +10,7 @@
 #import "XXXCharacter.h"
 #import "XXXGameRules.h"
 #import "XXXPatient.h"
+#import "XXXScore.h"
 #import "Tilemap.h"     // for supporting ASCII maps
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
@@ -68,6 +69,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         
         // Add hospital(s)
         [self addHospitalAtCoord:CGPointMake(38, 6)];
+        
+        // Add score object
+        _score = [[XXXScore alloc]init];
+#if DEBUG
+        NSLog(@"[[   SCORE:  %ld   ]]", _score.currentScore);
+#endif
         
     }
     return self;
@@ -324,7 +331,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
     } else if (other.categoryBitMask == categoryHospital) {
-        
+        [_score deliverPatientInAmbulance:_player];
         
 #if DEBUG
         NSLog(@"at hospital");

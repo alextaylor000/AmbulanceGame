@@ -7,12 +7,15 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "XXXScore.h"
 
 @interface XXXMyScene : SKScene <SKPhysicsContactDelegate>
 
 // game loop properties
 @property NSTimeInterval sceneLastUpdate;
 @property CGFloat sceneDelta;
+
+@property XXXScore *score;
 
 
 

@@ -14,7 +14,7 @@
 
 @interface XXXScore : NSObject
 
-@property NSInteger currentScore;
+@property (readonly) NSInteger currentScore;
 
 - (BOOL)deliverPatientInAmbulance:(XXXCharacter *)ambulance;
 

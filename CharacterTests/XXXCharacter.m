@@ -218,6 +218,7 @@
     if (_patient) {
         [_patient removeFromParent];
         _patient = nil;
+        [self changeState:AmbulanceIsEmpty];
         
         return YES;
     }
