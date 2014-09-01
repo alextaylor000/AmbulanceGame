@@ -347,6 +347,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
      Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
      */
     
+    // TODO: for testing, try throwing up some sort of overlay that lets you know when you need to make a turning decision; something that shows the directions you can turn right now. that might be enough to improve the feeling of the controls.
+    
     // begin by modeling the requested turn from the player's current position; return a target point
     CGFloat rads = DegreesToRadians(degrees);
     CGFloat newAngle = _player.targetAngleRadians + rads; // the angle the player will face after the turn
