@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
-
+#import "XXXGameRules.h"
+#import "XXXPatient.h"
+#import "XXXCharacter.h"
 
 @interface XXXScore : NSObject
 
+@property NSInteger currentScore;
 
+- (BOOL)deliverPatientInAmbulance:(XXXCharacter *)ambulance;
 
 @end

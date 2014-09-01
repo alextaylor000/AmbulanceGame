@@ -213,6 +213,18 @@
     return NO;
 }
 
+-(BOOL)unloadPatient {
+    // unloads a patient from the ambulance (if there is one)
+    if (_patient) {
+        [_patient removeFromParent];
+        _patient = nil;
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
 
 
 

@@ -37,6 +37,6 @@
 - (void)stopMoving;
 - (void)turnByAngle:(CGFloat)degrees;
 - (void)changeState:(AmbulanceState)newState;
--(BOOL)loadPatient:(XXXPatient *)patient;
-
+- (BOOL)loadPatient:(XXXPatient *)patient;
+- (BOOL)unloadPatient;
 @end

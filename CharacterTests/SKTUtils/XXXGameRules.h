@@ -5,6 +5,15 @@
 //  Created by Alex Taylor on 2014-08-30.
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
+/*
+ 
+ Encapsulates everything to do with points, scores and states within the game world. Keeping all this logic in one class allows easy balancing of the game and tweaking of rules.
+ 
+ This class probably won't ever have any methods, it's just a place to store global variables and structures.
+ 
+ */
+
+
 
 #pragma mark SCENE - Collisions
 static const uint32_t categoryPlayer =      0x1 << 0;
@@ -19,6 +28,7 @@ typedef struct {
     NSInteger rating;
     NSInteger numMedicalSupplies;
     NSTimeInterval timeToLive;
+    NSInteger points;
 } PatientSeverity;
 
 extern PatientSeverity const LevelOne;

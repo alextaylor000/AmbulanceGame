@@ -324,6 +324,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
     } else if (other.categoryBitMask == categoryHospital) {
+        
+        
 #if DEBUG
         NSLog(@"at hospital");
 #endif
