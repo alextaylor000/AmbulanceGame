@@ -75,13 +75,18 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
 - (void) testAddPatient {
-    // add a temp patient.
+    // add some temp patients.
     // TODO: spawn patients using locations derived from a "spawn" layer of the tilemap
     CGPoint patientPosition = [_roadLayer pointForCoord:CGPointMake(35, 7)];
     XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:LevelOne position:patientPosition];
-    patient.name = @"patient";
+
     
     [_bgLayer addChild:patient];
+    
+    patientPosition = [_roadLayer pointForCoord:CGPointMake(39, 12)];
+    XXXPatient *patient2 = [[XXXPatient alloc]initWithSeverity:LevelOne position:patientPosition];
+    [_bgLayer addChild:patient2];
+    
 
 }
 
@@ -222,7 +227,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     
     _currentTileGid = [_roadLayer tileGidAt:_player.position];
-    NSString *roadType = [_bgLayer propertiesForGid:_currentTileGid][@"road"];
+
     
 // commented out during patient testing
 //    [self updateCars];
@@ -315,8 +320,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     if (other.categoryBitMask == categoryPatient) {
         XXXPatient *patientNode = (XXXPatient *)other.node;
-        [patientNode changeState:PatientIsEnRoute];
-        [_player changeState:AmbulanceIsOccupied];
+        [_player loadPatient:patientNode];
+
 
     } else if (other.categoryBitMask == categoryHospital) {
 #if DEBUG

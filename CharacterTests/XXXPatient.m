@@ -41,7 +41,9 @@
         // TODO: Variable image (swap out with appropriate level # indicator)
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
         self.physicsBody.categoryBitMask = categoryPatient;
+        self.physicsBody.collisionBitMask = 0x00000000;
         
+        self.name = @"patient";
         self.position = position;
 
         self.severity = severity;

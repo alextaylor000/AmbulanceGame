@@ -61,6 +61,8 @@
     _direction = CGPointMake(0, 1); // default direction, move up
     _targetAngleRadians = DegreesToRadians(90);
     
+    _state = AmbulanceIsEmpty; // set initial ambulance state
+    
     // sirens! wee-ooh, wee-oh, wee-ooh...
     SKTextureAtlas *sirenAtlas = [SKTextureAtlas atlasNamed:@"sirens"];
     SKTexture *sirenLeft = [sirenAtlas textureNamed:@"amulance_sirens_left.png"];
@@ -198,6 +200,18 @@
 }
 
 
+-(BOOL)loadPatient:(XXXPatient *)patient {
+    // loads a given patient into the ambulance. returns true on success, false on failure (if the ambulance was already occupied)
+    
+    if (_state == AmbulanceIsEmpty) {
+        _patient = patient; // load the patient into the ambulance
+        [self changeState:AmbulanceIsOccupied];
+        [patient changeState:PatientIsEnRoute];
+        return YES;
+    }
+    
+    return NO;
+}
 
 
 
