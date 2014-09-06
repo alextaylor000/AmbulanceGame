@@ -8,9 +8,10 @@
 
 #import "XXXMyScene.h"
 #import "XXXCharacter.h"
-#import "XXXGameRules.h"
+//#import "XXXGameRules.h"
 #import "XXXPatient.h"
-#import "XXXScore.h"
+//#import "XXXScore.h"
+#import "XXXScoreKeeper.h"
 #import "Tilemap.h"     // for supporting ASCII maps
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
@@ -38,6 +39,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @implementation XXXMyScene{
     
     NSMutableArray *_cars;
+    XXXScoreKeeper *scoreKeeper;
     int _nextCar;
     double _nextCarSpawn;
     
@@ -53,7 +55,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
         self.physicsWorld.contactDelegate = self;
         
+        // Add score object
+        scoreKeeper = [XXXScoreKeeper sharedInstance];
 
+        
         [self createWorld];
         
         
@@ -64,17 +69,18 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 //        [self initalizeCarVariables];
         
         
+        
+        
+#if DEBUG
+        NSLog(@"[[   SCORE:  %ld   ]]", scoreKeeper.score);
+#endif
+
         // Patient test
         [self testAddPatient];
         
         // Add hospital(s)
         [self addHospitalAtCoord:CGPointMake(38, 6)];
         
-        // Add score object
-        _score = [[XXXScore alloc]init];
-#if DEBUG
-        NSLog(@"[[   SCORE:  %ld   ]]", _score.currentScore);
-#endif
         
     }
     return self;
@@ -85,13 +91,13 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     // add some temp patients.
     // TODO: spawn patients using locations derived from a "spawn" layer of the tilemap
     CGPoint patientPosition = [_roadLayer pointForCoord:CGPointMake(35, 7)];
-    XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:LevelOne position:patientPosition];
+    XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:scoreKeeper.patientLevelOne position:patientPosition];
 
     
     [_bgLayer addChild:patient];
     
     patientPosition = [_roadLayer pointForCoord:CGPointMake(39, 12)];
-    XXXPatient *patient2 = [[XXXPatient alloc]initWithSeverity:LevelOne position:patientPosition];
+    XXXPatient *patient2 = [[XXXPatient alloc]initWithSeverity:scoreKeeper.patientLevelOne position:patientPosition];
     [_bgLayer addChild:patient2];
     
 
@@ -331,7 +337,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
     } else if (other.categoryBitMask == categoryHospital) {
-        [_score deliverPatientInAmbulance:_player];
+//        [_score deliverPatientInAmbulance:_player];
         
 #if DEBUG
         NSLog(@"at hospital");

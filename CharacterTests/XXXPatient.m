@@ -51,7 +51,6 @@
 
         self.spawnTime = CACurrentMediaTime();
         
-        
 #if DEBUG
         NSLog(@"init patient [severity=%ld, state=%u, spawned=%f", _severity.rating, _state, _spawnTime);
 #endif

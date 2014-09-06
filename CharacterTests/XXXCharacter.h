@@ -7,7 +7,6 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "XXXGameRules.h"
 #import "XXXPatient.h"
 
 @interface XXXCharacter : SKSpriteNode

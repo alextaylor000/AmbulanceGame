@@ -10,7 +10,7 @@
 
 #import "XXXCharacter.h"
 #import "XXXMyScene.h"
-#import "XXXGameRules.h"
+#import "XXXScoreKeeper.h"
 #import "SKTUtils.h"
 
 

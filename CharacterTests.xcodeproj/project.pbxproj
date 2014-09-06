@@ -13,6 +13,7 @@
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
 		B96A02BA198592B7003D88BE /* Tilemap.m in Sources */ = {isa = PBXBuildFile; fileRef = B96A02B9198592B7003D88BE /* Tilemap.m */; };
+		B96F159919BA8379003E9809 /* XXXScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* XXXScoreKeeper.m */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
 		B988238D1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B988238B1969998400903B73 /* InfoPlist.strings */; };
@@ -34,11 +35,9 @@
 		B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */; };
 		B99E6F2819A16822003A7551 /* road-map-01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2719A16822003A7551 /* road-map-01.tmx */; };
 		B9CC738419B26F9400A376BC /* XXXPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* XXXPatient.m */; };
-		B9CC738919B36E1400A376BC /* XXXGameRules.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738819B36E1400A376BC /* XXXGameRules.m */; };
 		B9CC738B19B376A000A376BC /* patient01.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738A19B376A000A376BC /* patient01.png */; };
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
-		B9CC739519B4E9A100A376BC /* XXXScore.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC739419B4E9A100A376BC /* XXXScore.m */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +64,8 @@
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		B96A02B8198592B7003D88BE /* Tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tilemap.h; sourceTree = "<group>"; };
 		B96A02B9198592B7003D88BE /* Tilemap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tilemap.m; sourceTree = "<group>"; };
+		B96F159719BA8379003E9809 /* XXXScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXScoreKeeper.h; sourceTree = "<group>"; };
+		B96F159819BA8379003E9809 /* XXXScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXScoreKeeper.m; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823801969998400903B73 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B98823821969998400903B73 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -99,13 +100,9 @@
 		B99E6F2719A16822003A7551 /* road-map-01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01.tmx"; sourceTree = "<group>"; };
 		B9CC738219B26F9400A376BC /* XXXPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXPatient.h; sourceTree = "<group>"; };
 		B9CC738319B26F9400A376BC /* XXXPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXPatient.m; sourceTree = "<group>"; };
-		B9CC738519B29BFF00A376BC /* XXXGameRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XXXGameRules.h; path = SKTUtils/XXXGameRules.h; sourceTree = "<group>"; };
-		B9CC738819B36E1400A376BC /* XXXGameRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XXXGameRules.m; path = SKTUtils/XXXGameRules.m; sourceTree = "<group>"; };
 		B9CC738A19B376A000A376BC /* patient01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient01.png; sourceTree = "<group>"; };
 		B9CC738C19B3D26900A376BC /* sirens.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sirens.atlas; sourceTree = "<group>"; };
 		B9CC738E19B3DA0C00A376BC /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
-		B9CC739319B4E9A100A376BC /* XXXScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XXXScore.h; path = ../XXXScore.h; sourceTree = "<group>"; };
-		B9CC739419B4E9A100A376BC /* XXXScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XXXScore.m; path = ../XXXScore.m; sourceTree = "<group>"; };
 		B9F4F0A61985626600578DA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -197,10 +194,8 @@
 		B98823881969998400903B73 /* CharacterTests */ = {
 			isa = PBXGroup;
 			children = (
-				B9CC739319B4E9A100A376BC /* XXXScore.h */,
-				B9CC739419B4E9A100A376BC /* XXXScore.m */,
-				B9CC738519B29BFF00A376BC /* XXXGameRules.h */,
-				B9CC738819B36E1400A376BC /* XXXGameRules.m */,
+				B96F159719BA8379003E9809 /* XXXScoreKeeper.h */,
+				B96F159819BA8379003E9809 /* XXXScoreKeeper.m */,
 				B98823941969998400903B73 /* MainMenu.xib */,
 				B98823981969998400903B73 /* XXXMyScene.h */,
 				B98823961969998400903B73 /* XXXMyScene.m */,
@@ -386,11 +381,10 @@
 				B98823971969998400903B73 /* XXXMyScene.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
-				B9CC738919B36E1400A376BC /* XXXGameRules.m in Sources */,
 				B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */,
 				B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */,
 				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,
-				B9CC739519B4E9A100A376BC /* XXXScore.m in Sources */,
+				B96F159919BA8379003E9809 /* XXXScoreKeeper.m in Sources */,
 				B96A02BA198592B7003D88BE /* Tilemap.m in Sources */,
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
