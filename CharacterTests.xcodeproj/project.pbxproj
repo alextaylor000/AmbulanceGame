@@ -13,6 +13,11 @@
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
 		B96A02BA198592B7003D88BE /* Tilemap.m in Sources */ = {isa = PBXBuildFile; fileRef = B96A02B9198592B7003D88BE /* Tilemap.m */; };
+		B96A844419BA97CB002E058B /* patient1.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A843F19BA97CB002E058B /* patient1.png */; };
+		B96A844519BA97CB002E058B /* patient2.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844019BA97CB002E058B /* patient2.png */; };
+		B96A844619BA97CB002E058B /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844119BA97CB002E058B /* patient3.png */; };
+		B96A844719BA97CB002E058B /* patient4.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844219BA97CB002E058B /* patient4.png */; };
+		B96A844819BA97CB002E058B /* patient5.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844319BA97CB002E058B /* patient5.png */; };
 		B96F159919BA8379003E9809 /* XXXScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* XXXScoreKeeper.m */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
@@ -35,7 +40,6 @@
 		B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */; };
 		B99E6F2819A16822003A7551 /* road-map-01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2719A16822003A7551 /* road-map-01.tmx */; };
 		B9CC738419B26F9400A376BC /* XXXPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* XXXPatient.m */; };
-		B9CC738B19B376A000A376BC /* patient01.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738A19B376A000A376BC /* patient01.png */; };
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
@@ -64,6 +68,11 @@
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		B96A02B8198592B7003D88BE /* Tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tilemap.h; sourceTree = "<group>"; };
 		B96A02B9198592B7003D88BE /* Tilemap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tilemap.m; sourceTree = "<group>"; };
+		B96A843F19BA97CB002E058B /* patient1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient1.png; sourceTree = "<group>"; };
+		B96A844019BA97CB002E058B /* patient2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient2.png; sourceTree = "<group>"; };
+		B96A844119BA97CB002E058B /* patient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient3.png; sourceTree = "<group>"; };
+		B96A844219BA97CB002E058B /* patient4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient4.png; sourceTree = "<group>"; };
+		B96A844319BA97CB002E058B /* patient5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient5.png; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* XXXScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXScoreKeeper.h; sourceTree = "<group>"; };
 		B96F159819BA8379003E9809 /* XXXScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXScoreKeeper.m; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,7 +109,6 @@
 		B99E6F2719A16822003A7551 /* road-map-01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01.tmx"; sourceTree = "<group>"; };
 		B9CC738219B26F9400A376BC /* XXXPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXPatient.h; sourceTree = "<group>"; };
 		B9CC738319B26F9400A376BC /* XXXPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXPatient.m; sourceTree = "<group>"; };
-		B9CC738A19B376A000A376BC /* patient01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient01.png; sourceTree = "<group>"; };
 		B9CC738C19B3D26900A376BC /* sirens.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sirens.atlas; sourceTree = "<group>"; };
 		B9CC738E19B3DA0C00A376BC /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		B9F4F0A61985626600578DA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -247,9 +255,13 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B96A843F19BA97CB002E058B /* patient1.png */,
+				B96A844019BA97CB002E058B /* patient2.png */,
+				B96A844119BA97CB002E058B /* patient3.png */,
+				B96A844219BA97CB002E058B /* patient4.png */,
+				B96A844319BA97CB002E058B /* patient5.png */,
 				B9CC738E19B3DA0C00A376BC /* hospital.png */,
 				B9CC738C19B3D26900A376BC /* sirens.atlas */,
-				B9CC738A19B376A000A376BC /* patient01.png */,
 				B99E6F2719A16822003A7551 /* road-map-01.tmx */,
 				B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */,
 				B98823C219699E6200903B73 /* asset_ambulance_20140609.png */,
@@ -346,16 +358,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B96A844719BA97CB002E058B /* patient4.png in Resources */,
+				B96A844419BA97CB002E058B /* patient1.png in Resources */,
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
+				B96A844619BA97CB002E058B /* patient3.png in Resources */,
+				B96A844819BA97CB002E058B /* patient5.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
-				B9CC738B19B376A000A376BC /* patient01.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */,
 				B99E6F2819A16822003A7551 /* road-map-01.tmx in Resources */,
 				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,
+				B96A844519BA97CB002E058B /* patient2.png in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

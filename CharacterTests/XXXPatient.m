@@ -37,11 +37,14 @@
 
 
 - (instancetype) initWithSeverity:(PatientSeverity)severity position:(CGPoint)position {
-    if (self = [super initWithImageNamed:@"patient01.png"]) {
+    NSString *patientImage = [NSString stringWithFormat:@"patient%ld.png", (long)severity.rating];
+    
+    if (self = [super initWithImageNamed:patientImage]) {
         // TODO: Variable image (swap out with appropriate level # indicator)
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
         self.physicsBody.categoryBitMask = categoryPatient;
         self.physicsBody.collisionBitMask = 0x00000000;
+
         
         self.name = @"patient";
         self.position = position;

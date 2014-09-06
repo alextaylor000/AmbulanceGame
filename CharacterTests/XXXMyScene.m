@@ -97,11 +97,13 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     [_bgLayer addChild:patient];
     
     patientPosition = [_roadLayer pointForCoord:CGPointMake(39, 12)];
-    XXXPatient *patient2 = [[XXXPatient alloc]initWithSeverity:scoreKeeper.patientLevelOne position:patientPosition];
+    XXXPatient *patient2 = [[XXXPatient alloc]initWithSeverity:scoreKeeper.patientLevelThree
+                                                      position:patientPosition];
     [_bgLayer addChild:patient2];
     
 
 }
+
 
 - (void) addHospitalAtCoord:(CGPoint)coord {
     // adds a hospital at the tilemap coordinates specified.
