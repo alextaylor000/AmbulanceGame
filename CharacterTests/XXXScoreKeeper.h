@@ -49,4 +49,8 @@ typedef enum {
 + (XXXScoreKeeper *)sharedInstance;
 
 
+/* Scoring Events */
+- (void) scoreEventPatientDeliveredPoints:(NSInteger)points timeToLive:(NSTimeInterval)timeToLive;
+
+
 @end

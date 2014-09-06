@@ -325,6 +325,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 #pragma mark Game logic
 - (void)didBeginContact:(SKPhysicsContact *)contact {
+    /* This method is basically handling all the game logic right now */
 
     SKPhysicsBody *other =
     (contact.bodyA.categoryBitMask == categoryPlayer ?
@@ -337,7 +338,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
     } else if (other.categoryBitMask == categoryHospital) {
-//        [_score deliverPatientInAmbulance:_player];
+        if (_player.patient) {
+            [scoreKeeper scoreEventPatientDeliveredPoints:_player.patient.severity.points timeToLive:30]; // timeToLive is temp
+            [_player unloadPatient];
+        }
         
 #if DEBUG
         NSLog(@"at hospital");

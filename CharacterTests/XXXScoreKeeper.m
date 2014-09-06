@@ -49,5 +49,19 @@
     return newPatient;
 }
 
+- (void) updateScore:(NSInteger)points {
+    _score += points;
+
+    #if DEBUG
+        NSLog(@"[[    SCORE:   %ld    ]]", (long)_score);
+    #endif
+
+}
+
+#pragma mark Scoring Events
+- (void) scoreEventPatientDeliveredPoints:(NSInteger)points timeToLive:(NSTimeInterval)timeToLive {
+    [self updateScore:points];
+}
+
 
 @end
