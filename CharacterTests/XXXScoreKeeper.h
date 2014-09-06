@@ -46,14 +46,18 @@ typedef enum {
 @property (readonly) PatientSeverity patientLevelFour;
 @property (readonly) PatientSeverity patientLevelFive;
 
+@property (readonly) NSArray *patientSeverityLevels; // an array of the levels above for when they need to be randomly selected
 
 + (XXXScoreKeeper *)sharedInstance;
 
 /* Labels */
 -(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
 
+
 /* Scoring Events */
 - (void) scoreEventPatientDeliveredPoints:(NSInteger)points timeToLive:(NSTimeInterval)timeToLive;
 
+/* Misc. game logic */
+- (PatientSeverity)randomPatientSeverity;
 
 @end

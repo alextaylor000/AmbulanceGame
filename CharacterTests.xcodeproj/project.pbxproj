@@ -18,7 +18,7 @@
 		B96A844619BA97CB002E058B /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844119BA97CB002E058B /* patient3.png */; };
 		B96A844719BA97CB002E058B /* patient4.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844219BA97CB002E058B /* patient4.png */; };
 		B96A844819BA97CB002E058B /* patient5.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844319BA97CB002E058B /* patient5.png */; };
-		B96A845A19BABE72002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845919BABE72002E058B /* road-map-01_with_spawn_points.tmx */; };
+		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B96F159919BA8379003E9809 /* XXXScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* XXXScoreKeeper.m */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
@@ -73,7 +73,7 @@
 		B96A844119BA97CB002E058B /* patient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient3.png; sourceTree = "<group>"; };
 		B96A844219BA97CB002E058B /* patient4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient4.png; sourceTree = "<group>"; };
 		B96A844319BA97CB002E058B /* patient5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient5.png; sourceTree = "<group>"; };
-		B96A845919BABE72002E058B /* road-map-01_with_spawn_points.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01_with_spawn_points.tmx"; sourceTree = "<group>"; };
+		B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01_with_spawn_points.tmx"; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* XXXScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXScoreKeeper.h; sourceTree = "<group>"; };
 		B96F159819BA8379003E9809 /* XXXScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXScoreKeeper.m; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,7 +158,7 @@
 		B96A845219BAB723002E058B /* Levels */ = {
 			isa = PBXGroup;
 			children = (
-				B96A845919BABE72002E058B /* road-map-01_with_spawn_points.tmx */,
+				B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */,
 				B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */,
 			);
 			name = Levels;
@@ -376,7 +376,7 @@
 				B96A844819BA97CB002E058B /* patient5.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
-				B96A845A19BABE72002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
+				B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
 				B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */,
 				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,
 				B96A844519BA97CB002E058B /* patient2.png in Resources */,

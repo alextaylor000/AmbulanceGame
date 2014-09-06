@@ -74,6 +74,15 @@
   </data>
  </layer>
  <objectgroup name="spawns" width="62" height="27">
-  <object name="player.spawn" x="7936" y="4352" width="256" height="256"/>
+  <object name="player.spawn" type="player.spawn" x="7936" y="4352" width="256" height="256"/>
+  <object name="hospital" type="hospital" x="7680" y="2816" width="256" height="256"/>
+  <object name="patient" type="patient.spawn" x="9984" y="4352" width="256" height="256"/>
+  <object name="patient" type="patient.spawn" x="8960" y="4352" width="256" height="256"/>
+  <object name="patient" type="patient.spawn" x="8960" y="1792" width="256" height="256"/>
+  <object name="patient" type="patient.spawn" x="6912" y="1792" width="256" height="256"/>
+  <object name="patient" type="patient.spawn" x="5888" y="3072" width="256" height="256"/>
+  <object name="patient" type="patient.spawn" x="11008" y="1792" width="256" height="256"/>
+  <object name="hospital" type="hospital" x="3840" y="4608" width="256" height="256"/>
+  <object name="hospital" type="hospital" x="3840" y="1280" width="256" height="256"/>
  </objectgroup>
 </map>

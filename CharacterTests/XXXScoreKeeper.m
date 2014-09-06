@@ -8,6 +8,7 @@
 
 #import "XXXScoreKeeper.h"
 #import "XXXMyScene.h" // TODO: decouple scene
+#import "SKTUtils.h" // for RandomFloatRange
 
 @implementation XXXScoreKeeper
 
@@ -33,7 +34,8 @@
         _patientLevelFour =     [self newPatientLevelRating:4 numMedicalSupplies:20 timeToLive:30 points:400];
         _patientLevelFive =     [self newPatientLevelRating:5 numMedicalSupplies:25 timeToLive:20 points:500];
         
-
+            
+        
     }
     
    return self;
@@ -86,6 +88,13 @@
 - (void) scoreEventPatientDeliveredPoints:(NSInteger)points timeToLive:(NSTimeInterval)timeToLive {
     [self updateScore:points];
 }
+
+#pragma mark Misc. Game Logic
+//- (PatientSeverity)randomPatientSeverity {
+//    NSInteger numSeverityLevels = [_patientSeverityLevels count];
+//    NSUInteger randIndex = RandomFloatRange(0, numSeverityLevels - 1);
+//
+//}
 
 
 @end

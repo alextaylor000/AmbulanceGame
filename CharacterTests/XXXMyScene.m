@@ -74,12 +74,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 #if DEBUG
         NSLog(@"[[   SCORE:  %ld   ]]", scoreKeeper.score);
 #endif
-
-        // Patient test
-        [self testAddPatient];
-        
-        // Add hospital(s)
-        [self addHospitalAtCoord:CGPointMake(38, 6)];
         
         // Add score label
         SKLabelNode *labelScore = [scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
@@ -91,28 +85,17 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 }
 
 
-- (void) testAddPatient {
-    // add some temp patients.
-    // TODO: spawn patients using locations derived from a "spawn" layer of the tilemap
-    CGPoint patientPosition = [_roadLayer pointForCoord:CGPointMake(35, 7)];
-    XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:scoreKeeper.patientLevelOne position:patientPosition];
-
-    
+- (void) addPatientSeverity:(PatientSeverity)severity atPoint:(CGPoint)point {
+    CGPoint patientPosition = point;
+    XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:severity position:patientPosition];
     [_bgLayer addChild:patient];
-    
-    patientPosition = [_roadLayer pointForCoord:CGPointMake(39, 12)];
-    XXXPatient *patient2 = [[XXXPatient alloc]initWithSeverity:scoreKeeper.patientLevelThree
-                                                      position:patientPosition];
-    [_bgLayer addChild:patient2];
-    
-
 }
 
 
-- (void) addHospitalAtCoord:(CGPoint)coord {
+- (void) addHospitalAtPoint:(CGPoint)point {
     // adds a hospital at the tilemap coordinates specified.
     SKSpriteNode *hospital = [SKSpriteNode spriteNodeWithImageNamed:@"hospital"];
-    hospital.position = [_roadLayer pointForCoord:coord];
+    hospital.position = point;
     hospital.zPosition = 200;
     hospital.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(hospital.size.width * 3, hospital.size.height * 3)]; // for the physics body, expand the hospital's size so that it encompasses all the surrounding road blocks.
     hospital.physicsBody.categoryBitMask = categoryHospital;
@@ -284,18 +267,31 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         [_worldNode addChild:_bgLayer];
     }
     
+    // Get player spawn point
     NSDictionary *playerSpawn = [_spawnPoints objectNamed:@"player.spawn"];
-    NSInteger offset_x = [[playerSpawn objectForKey:@"x"] intValue];
-    NSInteger width = [[playerSpawn objectForKey:@"width"] intValue];
-    NSInteger offset_y = [[playerSpawn objectForKey:@"y"] intValue];
-    NSInteger height = [[playerSpawn objectForKey:@"height"] intValue];
     
-    _playerSpawnPoint = CGPointMake(offset_x + width/2, offset_y + height/2);
+    _playerSpawnPoint = [self centerOfObject:playerSpawn];
     
-
+    // Get hospital spawn points
+    NSArray *hospitalSpawns = [_spawnPoints objectsNamed:@"hospital"];
+    for (NSDictionary *object in hospitalSpawns) {
+        [self addHospitalAtPoint:[self centerOfObject:object]];
+    }
+    
+    // Get patient spawn points
+    // TODO: these spawn points would probably spawn patients at a random interval, and possibly a random severity level, depending on how we want to do it.
+    NSArray *patientSpawns = [_spawnPoints objectsNamed:@"patient"];
+    for (NSDictionary *object in patientSpawns) {
+//        [self addPatientSeverity: atPoint:<#(CGPoint)#>]
+    }
+    
 }
 
-
+-(CGPoint)centerOfObject:(NSDictionary *)object {
+    /* Calculates the center point of a TMX Object based on the x/y offset and size. */
+    return CGPointMake([[object objectForKey:@"x"] intValue] + [[object objectForKey:@"width"] intValue]/2,
+                       [[object objectForKey:@"y"] intValue] + [[object objectForKey:@"height"] intValue]/2);
+}
 
 
 #pragma mark Camera
