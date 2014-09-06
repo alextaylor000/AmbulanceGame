@@ -12,6 +12,7 @@
 		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
+		B962812119BB6F280024B379 /* XXXTilemap.m in Sources */ = {isa = PBXBuildFile; fileRef = B962812019BB6F280024B379 /* XXXTilemap.m */; };
 		B96A02BA198592B7003D88BE /* Tilemap.m in Sources */ = {isa = PBXBuildFile; fileRef = B96A02B9198592B7003D88BE /* Tilemap.m */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
@@ -63,6 +64,8 @@
 		B91EF2491978E7BF00E66405 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
+		B962811F19BB6F280024B379 /* XXXTilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXTilemap.h; sourceTree = "<group>"; };
+		B962812019BB6F280024B379 /* XXXTilemap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXTilemap.m; sourceTree = "<group>"; };
 		B96A02B8198592B7003D88BE /* Tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tilemap.h; sourceTree = "<group>"; };
 		B96A02B9198592B7003D88BE /* Tilemap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tilemap.m; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +217,8 @@
 				B98823BD19699C4400903B73 /* XXXCharacter.m */,
 				B96A02B8198592B7003D88BE /* Tilemap.h */,
 				B96A02B9198592B7003D88BE /* Tilemap.m */,
+				B962811F19BB6F280024B379 /* XXXTilemap.h */,
+				B962812019BB6F280024B379 /* XXXTilemap.m */,
 			);
 			path = CharacterTests;
 			sourceTree = "<group>";
@@ -391,6 +396,7 @@
 				B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */,
 				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,
 				B9CC739519B4E9A100A376BC /* XXXScore.m in Sources */,
+				B962812119BB6F280024B379 /* XXXTilemap.m in Sources */,
 				B96A02BA198592B7003D88BE /* Tilemap.m in Sources */,
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
