@@ -7,6 +7,7 @@
 //
 
 #import "XXXScoreKeeper.h"
+#import "XXXMyScene.h" // TODO: decouple scene
 
 @implementation XXXScoreKeeper
 
@@ -38,6 +39,26 @@
    return self;
 }
 
+-(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position {
+    
+    _labelScore = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
+    _labelScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+    _labelScore.text = [NSString stringWithFormat:@"SCORE: %ld", (long)points];
+    _labelScore.fontColor = [SKColor yellowColor];
+    
+    _labelScore.position = position;
+    
+    _labelScore.zPosition = 999;
+    
+    return _labelScore;
+
+}
+
+-(void)updateScoreLabelWithPoints:(NSInteger)points {
+    _labelScore.text = [NSString stringWithFormat:@"SCORE: %ld", (long)points];
+}
+
+
 -(PatientSeverity)newPatientLevelRating:(NSInteger)rating numMedicalSupplies:(NSInteger)numMedicalSupplies timeToLive:(NSTimeInterval)timeToLive points:(NSInteger)points {
     
     PatientSeverity newPatient;
@@ -51,6 +72,9 @@
 
 - (void) updateScore:(NSInteger)points {
     _score += points;
+    
+    // TODO: decouple the label update, maybe through delegation?
+    [self updateScoreLabelWithPoints:_score];
 
     #if DEBUG
         NSLog(@"[[    SCORE:   %ld    ]]", (long)_score);

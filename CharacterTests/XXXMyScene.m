@@ -47,6 +47,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
+
         /* Setup your scene here */
         
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
@@ -80,6 +81,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         
         // Add hospital(s)
         [self addHospitalAtCoord:CGPointMake(38, 6)];
+        
+        // Add score label
+        SKLabelNode *labelScore = [scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
+        [self addChild:labelScore];
         
         
     }

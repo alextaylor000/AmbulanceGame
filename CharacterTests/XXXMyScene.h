@@ -11,9 +11,12 @@
 
 @interface XXXMyScene : SKScene <SKPhysicsContactDelegate>
 
+@property SKScene *myScene;
+
 // game loop properties
 @property NSTimeInterval sceneLastUpdate;
 @property CGFloat sceneDelta;
+
 
 
 

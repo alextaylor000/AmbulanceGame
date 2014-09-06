@@ -38,6 +38,7 @@ typedef enum {
 @interface XXXScoreKeeper : NSObject
 
 @property (readonly) NSInteger score;
+@property SKLabelNode *labelScore;
 
 @property (readonly) PatientSeverity patientLevelOne;
 @property (readonly) PatientSeverity patientLevelTwo;
@@ -48,6 +49,8 @@ typedef enum {
 
 + (XXXScoreKeeper *)sharedInstance;
 
+/* Labels */
+-(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
 
 /* Scoring Events */
 - (void) scoreEventPatientDeliveredPoints:(NSInteger)points timeToLive:(NSTimeInterval)timeToLive;
