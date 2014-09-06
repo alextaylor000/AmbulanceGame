@@ -8,9 +8,7 @@
 
 #import "XXXMyScene.h"
 #import "XXXCharacter.h"
-//#import "XXXGameRules.h"
 #import "XXXPatient.h"
-//#import "XXXScore.h"
 #import "XXXScoreKeeper.h"
 #import "Tilemap.h"     // for supporting ASCII maps
 #import "JSTilemap.h"   // for supporting TMX maps
@@ -29,8 +27,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @property XXXCharacter *player;
 
 
-@property TMXLayer *cityLayer;
 @property TMXLayer *roadLayer;
+@property TMXObjectGroup *spawnPoints;
+@property CGPoint playerSpawnPoint;
 @property NSInteger currentTileGid;
 
 
@@ -216,7 +215,11 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     CGPoint spawnPoint = [_roadLayer pointForCoord:CGPointMake(35, 12)];
     
-    _player.position = spawnPoint;
+    _player.position = _playerSpawnPoint;
+    
+#if DEBUG
+    NSLog(@"adding player at %1.0f,%1.0f",_playerSpawnPoint.x,_playerSpawnPoint.y);
+#endif
     
     [_bgLayer addChild:_player];
     
@@ -262,24 +265,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 }
 
 #pragma mark Tilemap stuff
-- (Tilemap *)createTilemap {
-    return [[Tilemap alloc]initWithAtlasNamed:@"level" tileSize:CGSizeMake(200, 200) grid:@[
-@"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xxxxoxxoxxoxxxxxoxxoxxoxxoxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xoxxoxxoxxoxxxxxoxxoxxoxxxxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xoxxoxxoxxoxxoxxoxxoxxxoxoxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooxooooxooooooooooox",
-@"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-]];
-
-}
 
 - (void)createWorld {
     
@@ -287,8 +272,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
     [self addChild:_worldNode];
     
-    _bgLayer = [JSTileMap mapNamed:@"road-map-01.tmx"];
+    _bgLayer = [JSTileMap mapNamed:@"road-map-01_with_spawn_points.tmx"];
     _roadLayer = [_bgLayer layerNamed:@"road-tiles"];
+    _spawnPoints = [_bgLayer groupNamed:@"spawns"];
     
     if (_bgLayer) {
 		// center map on scene's anchor point
@@ -297,6 +283,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         
         [_worldNode addChild:_bgLayer];
     }
+    
+    NSDictionary *playerSpawn = [_spawnPoints objectNamed:@"player.spawn"];
+    NSInteger offset_x = [[playerSpawn objectForKey:@"x"] intValue];
+    NSInteger width = [[playerSpawn objectForKey:@"width"] intValue];
+    NSInteger offset_y = [[playerSpawn objectForKey:@"y"] intValue];
+    NSInteger height = [[playerSpawn objectForKey:@"height"] intValue];
+    
+    _playerSpawnPoint = CGPointMake(offset_x + width/2, offset_y + height/2);
     
 
 }
