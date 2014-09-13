@@ -7,7 +7,7 @@
 //
 
 #import "XXXScoreKeeper.h"
-#import "XXXMyScene.h" // TODO: decouple scene
+#import "AMBLevelScene.h" // TODO: decouple scene
 #import "SKTUtils.h" // for RandomFloatRange
 
 @implementation XXXScoreKeeper

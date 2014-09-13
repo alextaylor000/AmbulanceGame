@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
 
-#import "XXXMyScene.h"
+#import "AMBLevelScene.h"
 #import "XXXCharacter.h"
 #import "XXXPatient.h"
 #import "XXXScoreKeeper.h"
@@ -18,7 +18,7 @@
 
 static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more frequent than this interval
 
-@interface XXXMyScene ()
+@interface AMBLevelScene ()
 
 @property NSTimeInterval lastUpdateTimeInterval;
 @property NSTimeInterval lastKeyPress;
@@ -35,7 +35,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 @end
 
-@implementation XXXMyScene{
+@implementation AMBLevelScene{
     
     NSMutableArray *_cars;
     XXXScoreKeeper *scoreKeeper;
@@ -47,6 +47,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
 
+        // TEMP DEBUG
+        [self levelWithTilemap:@"road-map-01_with_spawn_points.tmx"];
+        
         /* Setup your scene here */
         
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
@@ -247,11 +250,44 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 }
 
-#pragma mark Tilemap stuff
+#pragma mark World Building
+
+- (void)levelWithTilemap:(NSString *)tilemapFile {
+    _tilemap = [self tileMapFromFile:tilemapFile];
+    
+    if (_tilemap) {
+        // set up the layers/groups
+        _mapLayerRoad =     [_tilemap layerNamed:@"road"];
+        _mapLayerScenery =  [_tilemap layerNamed:@"scenery"];
+        
+        _mapGroupSpawnPlayer =      [_tilemap groupNamed:@"spawn_player"];
+        _mapGroupSpawnPatients =    [_tilemap groupNamed:@"spawn_patients"];
+        _mapGroupSpawnHospitals =   [_tilemap groupNamed:@"spawn_hospitals"];
+        _mapGroupSpawnTraffic =     [_tilemap groupNamed:@"spawn_traffic"];
+        _mapGroupSpawnPowerups =    [_tilemap groupNamed:@"spawn_powerups"];
+        
+        
+        [self createTileBoundingPaths];
+        
+
+    }
+}
+
+- (void)createTileBoundingPaths {
+    // creates CGPaths for each road tile, so that we can check collision
+    NSMutableDictionary *tileProperties =[_tilemap tileProperties];
+    
+    for (id key in tileProperties) {
+        // get the tile type (e.g. nsw, new, ne, etc)
+        NSString *tileType = [tileProperties objectForKey:key][@"road"];
+
+    }
+}
 
 - (void)createWorld {
     
     _worldNode = [SKNode node];
+
 
     [self addChild:_worldNode];
     

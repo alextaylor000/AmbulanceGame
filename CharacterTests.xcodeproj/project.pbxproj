@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */; };
 		B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */; };
 		B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2451978E7BF00E66405 /* SKEmitterNode+SKTExtras.m */; };
 		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
@@ -26,7 +27,7 @@
 		B988238F1969998400903B73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B988238E1969998400903B73 /* main.m */; };
 		B98823931969998400903B73 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B98823911969998400903B73 /* Credits.rtf */; };
 		B98823951969998400903B73 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98823941969998400903B73 /* MainMenu.xib */; };
-		B98823971969998400903B73 /* XXXMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* XXXMyScene.m */; };
+		B98823971969998400903B73 /* AMBLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* AMBLevelScene.m */; };
 		B988239A1969998400903B73 /* XXXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823991969998400903B73 /* XXXAppDelegate.m */; };
 		B988239F1969998400903B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B988239E1969998400903B73 /* Images.xcassets */; };
 		B98823A61969998400903B73 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823A51969998400903B73 /* XCTest.framework */; };
@@ -56,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B911C9E419C4DE6200EA85D9 /* AMBGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameScene.h; path = ../AMBGameScene.h; sourceTree = "<group>"; };
+		B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameScene.m; path = ../AMBGameScene.m; sourceTree = "<group>"; };
 		B91EF2421978E7BF00E66405 /* SKAction+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SKTExtras.h"; sourceTree = "<group>"; };
 		B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKAction+SKTExtras.m"; sourceTree = "<group>"; };
 		B91EF2441978E7BF00E66405 /* SKEmitterNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKEmitterNode+SKTExtras.h"; sourceTree = "<group>"; };
@@ -88,8 +91,8 @@
 		B98823901969998400903B73 /* CharacterTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CharacterTests-Prefix.pch"; sourceTree = "<group>"; };
 		B98823921969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		B98823941969998400903B73 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		B98823961969998400903B73 /* XXXMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XXXMyScene.m; sourceTree = "<group>"; };
-		B98823981969998400903B73 /* XXXMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XXXMyScene.h; sourceTree = "<group>"; };
+		B98823961969998400903B73 /* AMBLevelScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMBLevelScene.m; sourceTree = "<group>"; };
+		B98823981969998400903B73 /* AMBLevelScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMBLevelScene.h; sourceTree = "<group>"; };
 		B98823991969998400903B73 /* XXXAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XXXAppDelegate.m; sourceTree = "<group>"; };
 		B988239B1969998400903B73 /* XXXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XXXAppDelegate.h; sourceTree = "<group>"; };
 		B988239E1969998400903B73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -211,11 +214,13 @@
 		B98823881969998400903B73 /* CharacterTests */ = {
 			isa = PBXGroup;
 			children = (
+				B911C9E419C4DE6200EA85D9 /* AMBGameScene.h */,
+				B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */,
 				B96F159719BA8379003E9809 /* XXXScoreKeeper.h */,
 				B96F159819BA8379003E9809 /* XXXScoreKeeper.m */,
 				B98823941969998400903B73 /* MainMenu.xib */,
-				B98823981969998400903B73 /* XXXMyScene.h */,
-				B98823961969998400903B73 /* XXXMyScene.m */,
+				B98823981969998400903B73 /* AMBLevelScene.h */,
+				B98823961969998400903B73 /* AMBLevelScene.m */,
 				B98823991969998400903B73 /* XXXAppDelegate.m */,
 				B988239B1969998400903B73 /* XXXAppDelegate.h */,
 				B988239E1969998400903B73 /* Images.xcassets */,
@@ -402,7 +407,7 @@
 				B988238F1969998400903B73 /* main.m in Sources */,
 				B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */,
 				B9CC738419B26F9400A376BC /* XXXPatient.m in Sources */,
-				B98823971969998400903B73 /* XXXMyScene.m in Sources */,
+				B98823971969998400903B73 /* AMBLevelScene.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
 				B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */,
@@ -412,6 +417,7 @@
 				B96A02BA198592B7003D88BE /* Tilemap.m in Sources */,
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
+				B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */,
 				B988239A1969998400903B73 /* XXXAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

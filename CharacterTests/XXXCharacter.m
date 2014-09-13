@@ -9,7 +9,7 @@
 #define SK_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f) // PI * 180
 
 #import "XXXCharacter.h"
-#import "XXXMyScene.h"
+#import "AMBLevelScene.h"
 #import "XXXScoreKeeper.h"
 #import "SKTUtils.h"
 
