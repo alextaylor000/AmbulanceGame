@@ -35,3 +35,5 @@ DerivedData
 #
 # Pods/
 *.xcbkptlist
+
+CharacterTests.xcodeproj/xcuserdata/alextaylor.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
