@@ -24,7 +24,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 @property NSTimeInterval lastUpdateTimeInterval;
 @property NSTimeInterval lastKeyPress;
-@property SKSpriteNode *worldNode;
+@property SKNode *worldNode;
 @property JSTileMap *bgLayer;
 @property XXXCharacter *player;
 
@@ -262,28 +262,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 }
 
 #pragma mark Tilemap stuff
-- (Tilemap *)createTilemap {
-    return [[Tilemap alloc]initWithAtlasNamed:@"level" tileSize:CGSizeMake(200, 200) grid:@[
-@"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xxxxoxxoxxoxxxxxoxxoxxoxxoxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xoxxoxxoxxoxxxxxoxxoxxoxxxxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooooooooooooooooooox",
-@"xoxxoxxoxxoxxoxxoxxoxxxoxoxxoxxoxxoxxoxxox",
-@"xoooooooooooooooooooooooxooooxooooooooooox",
-@"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-]];
-
-}
 
 - (void)createWorld {
     
-    _worldNode = [SKSpriteNode node];
+    _worldNode = [SKNode node];
 
     [self addChild:_worldNode];
     
@@ -291,9 +273,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     _roadLayer = [_bgLayer layerNamed:@"road-tiles"];
     
     if (_bgLayer) {
-		// center map on scene's anchor point
-        //		CGRect mapBounds = [_bgLayer calculateAccumulatedFrame];
-        //		_bgLayer.position = CGPointMake(-mapBounds.size.width/2.0, -mapBounds.size.height/2.0);
         
         [_worldNode addChild:_bgLayer];
     }
@@ -363,6 +342,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     /*
      Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
      */
+    
+    // TODO: for testing, try throwing up some sort of overlay that lets you know when you need to make a turning decision; something that shows the directions you can turn right now. that might be enough to improve the feeling of the controls.
+
     
     // begin by modeling the requested turn from the player's current position; return a target point
     CGFloat rads = DegreesToRadians(degrees);
