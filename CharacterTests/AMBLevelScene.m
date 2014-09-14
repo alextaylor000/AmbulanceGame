@@ -49,23 +49,16 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
 
-        
-        /* Setup your scene here */
-        
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
-        self.anchorPoint = CGPointMake(0.5, 0.5);
-        self.physicsWorld.gravity = CGVectorMake(0, 0);
-
         self.physicsWorld.contactDelegate = self;
         
-        // Add score object
-        scoreKeeper = [XXXScoreKeeper sharedInstance];
-
-        
-        [self createWorld];
+        [self createWorld]; // set up tilemap
         
         
         [self addPlayer];
+        
+        // Add score object
+        scoreKeeper = [XXXScoreKeeper sharedInstance];
+        
 
 // commented out during patient testing
 //        [self addCars];//Adds inital enamies to the screen
@@ -91,20 +84,20 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 - (void) addPatientSeverity:(PatientSeverity)severity atPoint:(CGPoint)point {
     CGPoint patientPosition = point;
     XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:severity position:patientPosition];
-    [_bgLayer addChild:patient];
+    [_tilemap addChild:patient];
 }
 
 
 - (void) addHospitalAtPoint:(CGPoint)point {
-    // adds a hospital at the tilemap coordinates specified.
     SKSpriteNode *hospital = [SKSpriteNode spriteNodeWithImageNamed:@"hospital"];
+    
     hospital.position = point;
     hospital.zPosition = 200;
     hospital.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(hospital.size.width * 3, hospital.size.height * 3)]; // for the physics body, expand the hospital's size so that it encompasses all the surrounding road blocks.
     hospital.physicsBody.categoryBitMask = categoryHospital;
     hospital.physicsBody.collisionBitMask = 0x00000000;
     
-    [_bgLayer addChild:hospital];
+    [_tilemap addChild:hospital];
 }
 
 - (void) initalizeCarVariables{
@@ -197,19 +190,15 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 }
 
 - (void) addPlayer {
+    
     _player = [[XXXCharacter alloc] init];
-    
-    CGPoint spawnPoint = [_roadLayer pointForCoord:CGPointMake(35, 12)];
-    
     _player.position = _playerSpawnPoint;
-    
+    [_tilemap addChild:_player];
+
 #if DEBUG
     NSLog(@"adding player at %1.0f,%1.0f",_playerSpawnPoint.x,_playerSpawnPoint.y);
 #endif
-    
-    [_bgLayer addChild:_player];
-    
-    
+
 }
 
 - (float)randomValueBetween:(float)low andValue:(float)high {//Used to return a random value between two points
@@ -235,14 +224,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     [self centerOnNode:_player];
     
     
-    _currentTileGid = [_roadLayer tileGidAt:_player.position];
+    _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
 
     
 // commented out during patient testing
 //    [self updateCars];
 
     // update all visible patients
-    [_bgLayer enumerateChildNodesWithName:@"patient" usingBlock:^(SKNode *node, BOOL *stop) {
+    [_tilemap enumerateChildNodesWithName:@"patient" usingBlock:^(SKNode *node, BOOL *stop) {
         XXXPatient *patientNode = (XXXPatient *)node;
         [patientNode updatePatient];
     }];
@@ -251,6 +240,33 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 }
 
 #pragma mark World Building
+- (void)createWorld {
+    
+    _worldNode = [SKNode node];
+    [self addChild:_worldNode];
+    
+    [self levelWithTilemap:@"road-map-01_with_spawn_points.tmx"];
+
+    if (_tilemap) { [_worldNode addChild:_tilemap]; }
+    
+    
+    // Set up spawn points
+    NSDictionary *playerSpawn = [[_mapGroupSpawnPlayer objects] objectAtIndex:0];
+    _playerSpawnPoint = [self centerOfObject:playerSpawn];
+    
+    NSArray *hospitalSpawns = [_mapGroupSpawnHospitals objects];
+    for (NSDictionary *object in hospitalSpawns) {
+        [self addHospitalAtPoint:[self centerOfObject:object]];
+    }
+    
+    NSArray *patientSpawns = [_mapGroupSpawnPatients objects];
+    for (NSDictionary *object in patientSpawns) {
+        CGPoint spawnPoint = [self centerOfObject:object];
+        NSLog(@"Adding patient at %1.0f,%1.0f", spawnPoint.x, spawnPoint.y);
+    }
+    
+}
+
 
 - (void)levelWithTilemap:(NSString *)tilemapFile {
     _tilemap = [self tileMapFromFile:tilemapFile];
@@ -266,9 +282,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         _mapGroupSpawnTraffic =     [_tilemap groupNamed:@"spawn_traffic"];
         _mapGroupSpawnPowerups =    [_tilemap groupNamed:@"spawn_powerups"];
         
-        
+
         [self createTileBoundingPaths];
-        
 
     }
 }
@@ -283,6 +298,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         // get the tile type (e.g. nsw, new, ne, etc)
         NSString *tileType = [tileProperties objectForKey:key][@"road"];
 
+        if (!tileType) { continue; } // ignore tiles that do not have a road attribute (e.g. walls)
+        
         CGMutablePathRef path = CGPathCreateMutable(); // create a path to store the bounds for the road surface
         
         NSInteger offsetX = 128; // anchor point of tile (0.5, 0.5)
@@ -402,52 +419,17 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         }
         
         CGPathCloseSubpath(path); // close the path
-        [roadTilePaths setObject:[NSValue valueWithPointer:&path] forKey:tileType];
+        
+        [roadTilePaths setObject:(__bridge id)path forKey:tileType]; // TODO: memory leak because of bridging?
         
     } // end for
 }
 
-- (void)createWorld {
-    
-    _worldNode = [SKNode node];
 
-
-    [self addChild:_worldNode];
-    
-    _bgLayer = [JSTileMap mapNamed:@"road-map-01_with_spawn_points.tmx"];
-    _roadLayer = [_bgLayer layerNamed:@"road-tiles"];
-    _spawnPoints = [_bgLayer groupNamed:@"spawns"];
-    
-    // create bounding paths
-    [self createTileBoundingPaths];
-    
-    if (_bgLayer) {
-        
-        [_worldNode addChild:_bgLayer];
-    }
-    
-    // Get player spawn point
-    NSDictionary *playerSpawn = [_spawnPoints objectNamed:@"player.spawn"];
-    
-    _playerSpawnPoint = [self centerOfObject:playerSpawn];
-    
-    // Get hospital spawn points
-    NSArray *hospitalSpawns = [_spawnPoints objectsNamed:@"hospital"];
-    for (NSDictionary *object in hospitalSpawns) {
-        [self addHospitalAtPoint:[self centerOfObject:object]];
-    }
-    
-    // Get patient spawn points
-    // TODO: these spawn points would probably spawn patients at a random interval, and possibly a random severity level, depending on how we want to do it.
-    NSArray *patientSpawns = [_spawnPoints objectsNamed:@"patient"];
-    for (NSDictionary *object in patientSpawns) {
-//        [self addPatientSeverity: atPoint:<#(CGPoint)#>]
-    }
-    
-}
-
--(CGPoint)centerOfObject:(NSDictionary *)object {
-    /* Calculates the center point of a TMX Object based on the x/y offset and size. */
+/** 
+ Calculates the center point of a TMXObjectGroup object based on its x/y offset and size.
+ */
+- (CGPoint)centerOfObject:(NSDictionary *)object {
     return CGPointMake([[object objectForKey:@"x"] intValue] + [[object objectForKey:@"width"] intValue]/2,
                        [[object objectForKey:@"y"] intValue] + [[object objectForKey:@"height"] intValue]/2);
 }
@@ -533,48 +515,48 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     
     // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
-    SKSpriteNode *targetTile = [_roadLayer tileAt:targetPoint]; // gets the the tile object being considered for the turn
-    NSString *targetTileRoadType = [_bgLayer propertiesForGid:  [_roadLayer tileGidAt:targetPoint]  ][@"road"];
+    SKSpriteNode *targetTile = [_mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn
+    NSString *targetTileRoadType = [_tilemap propertiesForGid:  [_mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
+
+    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_tilemap]; // the position of the target within the target tile
     
-    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_bgLayer]; // the position of the target within the target tile
-    
-//        #if DEBUG
-//        SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
-//        targetPointSprite.name = @"DEBUG_targetPointSprite";
-//        targetPointSprite.position = positionInTargetTile;
-//        targetPointSprite.zPosition = targetTile.zPosition + 1;
-//        [targetTile addChild:targetPointSprite];
-//        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
-//
-//        NSLog(@"targetTileRoadType = %@", targetTileRoadType);
-//        #endif
+        #if DEBUG
+        SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+        targetPointSprite.name = @"DEBUG_targetPointSprite";
+        targetPointSprite.position = positionInTargetTile;
+        targetPointSprite.zPosition = targetTile.zPosition + 1;
+        [targetTile addChild:targetPointSprite];
+        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
+
+        NSLog(@"targetTileRoadType = %@", targetTileRoadType);
+        #endif
 
 
     if (targetTileRoadType) {
         // check the coordinates to make sure it's on ROAD SURFACE within the tile
         
-        CGPathRef path = [[roadTilePaths objectForKey:targetTileRoadType]pointerValue];
-        
+        CGPathRef path = (__bridge CGPathRef)([roadTilePaths objectForKey:targetTileRoadType]); // TODO: memory leak because of bridging?
+
         BOOL isWithinBounds = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
         if (isWithinBounds) { // if the point is within the bounding path..
             [_player turnByAngle:degrees];
         }
 
-//        #if DEBUG
-//        if (isWithinBounds) {
-//            targetPointSprite.color = [SKColor blueColor];
-//        }
-//        
-//        SKShapeNode *bounds = [SKShapeNode node];
-//        bounds.path = path;
-//        bounds.fillColor = [SKColor whiteColor];
-//        bounds.alpha = 0.5;
-//        bounds.zPosition = targetPointSprite.zPosition - 1;
-//        
-//        [targetTile addChild:bounds];
-//        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
-//        #endif
+        #if DEBUG
+        if (isWithinBounds) {
+            targetPointSprite.color = [SKColor blueColor];
+        }
+        
+        SKShapeNode *bounds = [SKShapeNode node];
+        bounds.path = path;
+        bounds.fillColor = [SKColor whiteColor];
+        bounds.alpha = 0.5;
+        bounds.zPosition = targetPointSprite.zPosition - 1;
+        
+        [targetTile addChild:bounds];
+        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
+        #endif
 
     }
 
