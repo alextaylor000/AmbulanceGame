@@ -37,6 +37,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 @implementation AMBLevelScene{
     
+    NSMutableDictionary *roadTilePaths;
+    
     NSMutableArray *_cars;
     XXXScoreKeeper *scoreKeeper;
     int _nextCar;
@@ -47,8 +49,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
 
-        // TEMP DEBUG
-        [self levelWithTilemap:@"road-map-01_with_spawn_points.tmx"];
         
         /* Setup your scene here */
         
@@ -277,11 +277,134 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     // creates CGPaths for each road tile, so that we can check collision
     NSMutableDictionary *tileProperties =[_tilemap tileProperties];
     
+    roadTilePaths = [[NSMutableDictionary alloc] init];
+    
     for (id key in tileProperties) {
         // get the tile type (e.g. nsw, new, ne, etc)
         NSString *tileType = [tileProperties objectForKey:key][@"road"];
 
-    }
+        CGMutablePathRef path = CGPathCreateMutable(); // create a path to store the bounds for the road surface
+        
+        NSInteger offsetX = 128; // anchor point of tile (0.5, 0.5)
+        NSInteger offsetY = 128;
+        
+        if (        [tileType isEqualToString:@"ew"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            
+        } else if ( [tileType isEqualToString:@"nesw"]) {
+            
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+            
+            
+            
+        } else if ( [tileType isEqualToString:@"ns"]) {
+            
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            
+        } else if ( [tileType isEqualToString:@"en"]) {
+            
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            
+        } else if ( [tileType isEqualToString:@"nw"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            
+        } else if ( [tileType isEqualToString:@"es"]) {
+            
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            
+        } else if ( [tileType isEqualToString:@"sw"]) {
+            
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+            
+        } else if ( [tileType isEqualToString:@"nes"]) {
+            
+            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            
+        } else if ( [tileType isEqualToString:@"new"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            
+        } else if ( [tileType isEqualToString:@"nsw"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            
+        } else if ( [tileType isEqualToString:@"esw"]) {
+            
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
+            
+        }
+        
+        CGPathCloseSubpath(path); // close the path
+        [roadTilePaths setObject:[NSValue valueWithPointer:&path] forKey:tileType];
+        
+    } // end for
 }
 
 - (void)createWorld {
@@ -294,6 +417,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     _bgLayer = [JSTileMap mapNamed:@"road-map-01_with_spawn_points.tmx"];
     _roadLayer = [_bgLayer layerNamed:@"road-tiles"];
     _spawnPoints = [_bgLayer groupNamed:@"spawns"];
+    
+    // create bounding paths
+    [self createTileBoundingPaths];
     
     if (_bgLayer) {
         
@@ -427,131 +553,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     if (targetTileRoadType) {
         // check the coordinates to make sure it's on ROAD SURFACE within the tile
         
-        // TODO: put this into a new tilemap class, so we can define the bounds for all tiles at the same time
-
-        CGMutablePathRef path = CGPathCreateMutable(); // create a path to store the bounds for the road surface
-        
-        NSInteger offsetX = 128; // anchor point of tile (0.5, 0.5)
-        NSInteger offsetY = 128;
-        
-        if (        [targetTileRoadType isEqualToString:@"ew"]) {
-            
-            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
-
-            
-            
-        } else if ( [targetTileRoadType isEqualToString:@"nesw"]) {
-
-
-            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
-            
-
-            
-        } else if ( [targetTileRoadType isEqualToString:@"ns"]) {
-
-            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
-
-        } else if ( [targetTileRoadType isEqualToString:@"en"]) {
-
-            CGPathMoveToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
-
-        } else if ( [targetTileRoadType isEqualToString:@"nw"]) {
-            
-            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
-
-        } else if ( [targetTileRoadType isEqualToString:@"es"]) {
-            
-            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
-
-        } else if ( [targetTileRoadType isEqualToString:@"sw"]) {
-            
-            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
-
-        } else if ( [targetTileRoadType isEqualToString:@"nes"]) {
-            
-            CGPathMoveToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
-
-        } else if ( [targetTileRoadType isEqualToString:@"new"]) {
-            
-            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
-
-        } else if ( [targetTileRoadType isEqualToString:@"nsw"]) {
-            
-            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
-
-        } else if ( [targetTileRoadType isEqualToString:@"esw"]) {
-            
-            CGPathMoveToPoint(path, NULL, 0 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 70 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 186 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 186 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 186 - offsetY);
-
-        }
-        
-        CGPathCloseSubpath(path); // close the path
-            
+        CGPathRef path = [[roadTilePaths objectForKey:targetTileRoadType]pointerValue];
         
         BOOL isWithinBounds = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
