@@ -7,9 +7,16 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "XXXPatient.h"
+#import "AMBCharacter.h"
+#import "AMBPatient.h"
 
-@interface XXXCharacter : SKSpriteNode
+typedef enum {
+    AmbulanceIsOccupied,
+    AmbulanceIsEmpty
+} AmbulanceState;
+
+
+@interface AMBPlayer : AMBCharacter
 
 /*  the relationship between these two numbers is important to
  obtain realistic turning motion. the rotation should always
@@ -29,13 +36,13 @@
 @property (readonly, nonatomic) float CHARACTER_MOVEMENT_DECEL_TIME_SECS;
 
 @property AmbulanceState state;
-@property XXXPatient *patient;
+@property AMBPatient *patient;
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;
 - (void)stopMoving;
 - (void)turnByAngle:(CGFloat)degrees;
 - (void)changeState:(AmbulanceState)newState;
-- (BOOL)loadPatient:(XXXPatient *)patient;
+- (BOOL)loadPatient:(AMBPatient *)patient;
 - (BOOL)unloadPatient;
 @end

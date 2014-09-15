@@ -7,8 +7,8 @@
 //
 
 #import "AMBLevelScene.h"
-#import "XXXCharacter.h"
-#import "XXXPatient.h"
+#import "AMBPlayer.h"
+#import "AMBPatient.h"
 #import "AMBScoreKeeper.h"
 #import "Tilemap.h"     // for supporting ASCII maps
 #import "JSTilemap.h"   // for supporting TMX maps
@@ -24,7 +24,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @property NSTimeInterval lastKeyPress;
 @property SKNode *worldNode;
 @property JSTileMap *bgLayer;
-@property XXXCharacter *player;
+@property AMBPlayer *player;
 
 
 @property TMXLayer *roadLayer;
@@ -83,7 +83,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 - (void) addPatientSeverity:(PatientSeverity)severity atPoint:(CGPoint)point {
     CGPoint patientPosition = point;
-    XXXPatient *patient = [[XXXPatient alloc]initWithSeverity:severity position:patientPosition];
+    AMBPatient *patient = [[AMBPatient alloc]initWithSeverity:severity position:patientPosition];
     [_tilemap addChild:patient];
 }
 
@@ -191,7 +191,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 - (void) addPlayer {
     
-    _player = [[XXXCharacter alloc] init];
+    _player = [[AMBPlayer alloc] init];
     _player.position = _playerSpawnPoint;
     [_tilemap addChild:_player];
 
@@ -232,7 +232,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
     // update all visible patients
     [_tilemap enumerateChildNodesWithName:@"patient" usingBlock:^(SKNode *node, BOOL *stop) {
-        XXXPatient *patientNode = (XXXPatient *)node;
+        AMBPatient *patientNode = (AMBPatient *)node;
         [patientNode updatePatient];
     }];
     
@@ -471,13 +471,13 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     
     if (other.categoryBitMask == categoryPatient) {
-        XXXPatient *patientNode = (XXXPatient *)other.node;
+        AMBPatient *patientNode = (AMBPatient *)other.node;
         [_player loadPatient:patientNode];
 
 
     } else if (other.categoryBitMask == categoryHospital) {
         if (_player.patient) {
-            [scoreKeeper scoreEventPatientDeliveredPoints:_player.patient.severity.points timeToLive:30]; // timeToLive is temp
+//            [scoreKeeper scoreEventPatientDeliveredPoints:_player.patient.severity.points timeToLive:30]; // timeToLive is temp
             [_player unloadPatient];
         }
         

@@ -12,12 +12,6 @@
 /* Game rules used by other classes */
 
 
-typedef enum {
-    AmbulanceIsOccupied,
-    AmbulanceIsEmpty
-} AmbulanceState;
-
-
 @interface AMBScoreKeeper : NSObject
 
 @property (readonly) NSInteger score;

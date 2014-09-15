@@ -8,13 +8,13 @@
 #define SK_DEGREES_TO_RADIANS(__ANGLE__) ((__ANGLE__) * 0.01745329252f) // PI / 180
 #define SK_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f) // PI * 180
 
-#import "XXXCharacter.h"
+#import "AMBPlayer.h"
 #import "AMBLevelScene.h"
-#import "XXXScoreKeeper.h"
+#import "AMBScoreKeeper.h"
 #import "SKTUtils.h"
 
 
-@interface XXXCharacter ()
+@interface AMBPlayer ()
 
 @property NSTimeInterval sceneDelta;
 
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation XXXCharacter
+@implementation AMBPlayer
 
 
 
@@ -200,7 +200,7 @@
 }
 
 
--(BOOL)loadPatient:(XXXPatient *)patient {
+-(BOOL)loadPatient:(AMBPatient *)patient {
     // loads a given patient into the ambulance. returns true on success, false on failure (if the ambulance was already occupied)
     
     if (_state == AmbulanceIsEmpty) {

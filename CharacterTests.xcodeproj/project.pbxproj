@@ -35,7 +35,7 @@
 		B98823A71969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823AF1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B98823AD1969998400903B73 /* InfoPlist.strings */; };
 		B98823B11969998400903B73 /* CharacterTestsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823B01969998400903B73 /* CharacterTestsTests.m */; };
-		B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* XXXCharacter.m */; };
+		B98823BE19699C4400903B73 /* AMBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* AMBPlayer.m */; };
 		B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C219699E6200903B73 /* asset_ambulance_20140609.png */; };
 		B99E6F2119A16467003A7551 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F1C19A16467003A7551 /* .gitignore */; };
 		B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
@@ -104,8 +104,8 @@
 		B98823AC1969998400903B73 /* CharacterTestsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CharacterTestsTests-Info.plist"; sourceTree = "<group>"; };
 		B98823AE1969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B98823B01969998400903B73 /* CharacterTestsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CharacterTestsTests.m; sourceTree = "<group>"; };
-		B98823BC19699C4400903B73 /* XXXCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXCharacter.h; sourceTree = "<group>"; };
-		B98823BD19699C4400903B73 /* XXXCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXCharacter.m; sourceTree = "<group>"; };
+		B98823BC19699C4400903B73 /* AMBPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPlayer.h; sourceTree = "<group>"; };
+		B98823BD19699C4400903B73 /* AMBPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPlayer.m; sourceTree = "<group>"; };
 		B98823C219699E6200903B73 /* asset_ambulance_20140609.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_ambulance_20140609.png; sourceTree = "<group>"; };
 		B99E6F1C19A16467003A7551 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B99E6F1D19A16467003A7551 /* JSTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTileMap.h; sourceTree = "<group>"; };
@@ -217,23 +217,23 @@
 		B98823881969998400903B73 /* CharacterTests */ = {
 			isa = PBXGroup;
 			children = (
+				B96F159719BA8379003E9809 /* AMBScoreKeeper.h */,
+				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
 				B911C9E719C656CC00EA85D9 /* AMBCharacter.h */,
 				B911C9E819C656CC00EA85D9 /* AMBCharacter.m */,
 				B9CC738219B26F9400A376BC /* AMBPatient.h */,
 				B9CC738319B26F9400A376BC /* AMBPatient.m */,
+				B98823BC19699C4400903B73 /* AMBPlayer.h */,
+				B98823BD19699C4400903B73 /* AMBPlayer.m */,
 				B911C9E419C4DE6200EA85D9 /* AMBGameScene.h */,
 				B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */,
-				B96F159719BA8379003E9809 /* AMBScoreKeeper.h */,
-				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
-				B98823941969998400903B73 /* MainMenu.xib */,
 				B98823981969998400903B73 /* AMBLevelScene.h */,
 				B98823961969998400903B73 /* AMBLevelScene.m */,
+				B98823941969998400903B73 /* MainMenu.xib */,
 				B98823991969998400903B73 /* XXXAppDelegate.m */,
 				B988239B1969998400903B73 /* XXXAppDelegate.h */,
 				B988239E1969998400903B73 /* Images.xcassets */,
 				B98823891969998400903B73 /* Supporting Files */,
-				B98823BC19699C4400903B73 /* XXXCharacter.h */,
-				B98823BD19699C4400903B73 /* XXXCharacter.m */,
 				B96A02B8198592B7003D88BE /* Tilemap.h */,
 				B96A02B9198592B7003D88BE /* Tilemap.m */,
 			);
@@ -417,7 +417,7 @@
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
 				B911C9E919C656CC00EA85D9 /* AMBCharacter.m in Sources */,
 				B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */,
-				B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */,
+				B98823BE19699C4400903B73 /* AMBPlayer.m in Sources */,
 				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,
 				B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */,
 				B96A02BA198592B7003D88BE /* Tilemap.m in Sources */,
