@@ -24,23 +24,24 @@
  
 */
 
-#import "XXXPatient.h"
+#import "AMBPatient.h"
 
-@interface XXXPatient ()
+@interface AMBPatient ()
 
-@property NSTimeInterval spawnTime;
 @property CGFloat lifetime;
 
 @end
 
-@implementation XXXPatient
-
+@implementation AMBPatient
 
 - (instancetype) initWithSeverity:(PatientSeverity)severity position:(CGPoint)position {
-    NSString *patientImage = [NSString stringWithFormat:@"patient%ld.png", (long)severity.rating];
+    NSString *patientImage = [NSString stringWithFormat:@"patient%ld.png", (long)severity];
     
-    if (self = [super initWithImageNamed:patientImage]) {
-        // TODO: Variable image (swap out with appropriate level # indicator)
+    // TODO: load all graphics from atlases
+    SKTexture *patientTexture = [SKTexture textureWithImageNamed:patientImage];
+    
+    
+    if (self = [super initWithTexture:patientTexture]) {
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
         self.physicsBody.categoryBitMask = categoryPatient;
         self.physicsBody.collisionBitMask = 0x00000000;
@@ -51,11 +52,13 @@
 
         self.severity = severity;
         self.state = PatientIsWaitingForPickup;
-
-        self.spawnTime = CACurrentMediaTime();
+        
+        [self storePatientUserData];
+        
+        
         
 #if DEBUG
-        NSLog(@"init patient [severity=%ld, state=%u, spawned=%f", _severity.rating, _state, _spawnTime);
+        NSLog(@"init patient [severity=%u, state=%u, spawned=%f", severity, _state, self.spawnTime);
 #endif
 
     }
@@ -65,24 +68,18 @@
 
 
 - (void)updatePatient {
-    // check on time to live
-    [self updatePatientLifetime];
-    if (_lifetime > _severity.timeToLive)   {
-        [self changeState:PatientIsDead];
 
+    // update TTL
+    NSTimeInterval newTimeToLive = CACurrentMediaTime() - self.spawnTime;
+    [self.userData setObject:[NSNumber numberWithDouble:newTimeToLive] forKey:@"timeToLive"];
+
+    if (newTimeToLive <= 0)   {
+        [self changeState:PatientIsDead];
     }
     
     
 }
 
-- (void)updatePatientLifetime {
-
-    _lifetime = CACurrentMediaTime() - _spawnTime;
-    
-    #if DEBUG
-    //NSLog(@"patient lifetime=%0.2f",_lifetime);
-    #endif
-}
 
 - (void)changeState:(PatientState)newState {
     _state = newState;
@@ -115,5 +112,35 @@
     }
 }
 
+- (void)storePatientUserData {
+    // Defines severity data and stashes it in the node's userData property.
+    NSInteger medicalSupplies;
+    NSTimeInterval timeToLive;
+    NSInteger points;
+    
+    switch (self.severity) {
+        case LevelOne:
+            medicalSupplies = 5;
+            timeToLive = 60;
+            points = 100;
+            break;
+        
+        case LevelTwo:
+            medicalSupplies = 10;
+            timeToLive = 45;
+            points = 200;
+            break;
+            
+        case LevelThree:
+            medicalSupplies = 15;
+            timeToLive = 30;
+            points = 300;
+            break;
+    }
+    
+    [self.userData setObject:[NSNumber numberWithInteger:medicalSupplies] forKey:@"medicalSupplies"];
+    [self.userData setObject:[NSNumber numberWithDouble:timeToLive] forKey:@"timeToLive"];
+    [self.userData setObject:[NSNumber numberWithInteger:points] forKey:@"points"];
+}
 
 @end

@@ -6,17 +6,20 @@
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
 
-#import "XXXScoreKeeper.h"
+#import "AMBScoreKeeper.h"
 #import "AMBLevelScene.h" // TODO: decouple scene
 #import "SKTUtils.h" // for RandomFloatRange
 
-@implementation XXXScoreKeeper
+@implementation AMBScoreKeeper
 
-+ (XXXScoreKeeper *)sharedInstance {
-    static XXXScoreKeeper *_sharedInstance = nil;
+/**
+ Instantiates a ScoreKeeper instance, and ensures that only one instance can be created.
+ */
++ (AMBScoreKeeper *)sharedInstance {
+    static AMBScoreKeeper *_sharedInstance = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
-        _sharedInstance = [[XXXScoreKeeper alloc]init];
+        _sharedInstance = [[AMBScoreKeeper alloc]init];
     });
     
     return _sharedInstance;
@@ -33,8 +36,6 @@
         _patientLevelThree =    [self newPatientLevelRating:3 numMedicalSupplies:15 timeToLive:40 points:300];
         _patientLevelFour =     [self newPatientLevelRating:4 numMedicalSupplies:20 timeToLive:30 points:400];
         _patientLevelFive =     [self newPatientLevelRating:5 numMedicalSupplies:25 timeToLive:20 points:500];
-        
-            
         
     }
     

@@ -9,7 +9,7 @@
 #import "AMBLevelScene.h"
 #import "XXXCharacter.h"
 #import "XXXPatient.h"
-#import "XXXScoreKeeper.h"
+#import "AMBScoreKeeper.h"
 #import "Tilemap.h"     // for supporting ASCII maps
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
@@ -40,7 +40,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     NSMutableDictionary *roadTilePaths;
     
     NSMutableArray *_cars;
-    XXXScoreKeeper *scoreKeeper;
+    AMBScoreKeeper *scoreKeeper;
     int _nextCar;
     double _nextCarSpawn;
     
@@ -57,7 +57,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         [self addPlayer];
         
         // Add score object
-        scoreKeeper = [XXXScoreKeeper sharedInstance];
+        scoreKeeper = [AMBScoreKeeper sharedInstance];
         
 
 // commented out during patient testing

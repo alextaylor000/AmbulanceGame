@@ -7,13 +7,31 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "XXXScoreKeeper.h"
+#import "AMBCharacter.h"
 
-@interface XXXPatient : SKSpriteNode
 
-@property PatientSeverity severity;
+
+typedef enum {
+    PatientIsWaitingForPickup,
+    PatientIsEnRoute,
+    PatientIsDelivered,
+    PatientIsDead
+} PatientState;
+
+typedef enum {
+    LevelOne = 1,
+    LevelTwo,
+    LevelThree
+} PatientSeverity;
+
+
+@interface AMBPatient : AMBCharacter
+
 @property CGPoint position;
+@property PatientSeverity severity;
 @property PatientState state;
+
+
 
 - (instancetype) initWithSeverity:(PatientSeverity)severity position:(CGPoint)position;
 - (void)updatePatient;

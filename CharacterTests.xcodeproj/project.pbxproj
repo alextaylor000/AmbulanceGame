@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */; };
+		B911C9E919C656CC00EA85D9 /* AMBCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E819C656CC00EA85D9 /* AMBCharacter.m */; };
 		B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */; };
 		B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2451978E7BF00E66405 /* SKEmitterNode+SKTExtras.m */; };
 		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
@@ -20,7 +21,7 @@
 		B96A844719BA97CB002E058B /* patient4.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844219BA97CB002E058B /* patient4.png */; };
 		B96A844819BA97CB002E058B /* patient5.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844319BA97CB002E058B /* patient5.png */; };
 		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
-		B96F159919BA8379003E9809 /* XXXScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* XXXScoreKeeper.m */; };
+		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
 		B988238D1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B988238B1969998400903B73 /* InfoPlist.strings */; };
@@ -40,7 +41,7 @@
 		B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
 		B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
 		B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */; };
-		B9CC738419B26F9400A376BC /* XXXPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* XXXPatient.m */; };
+		B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* AMBPatient.m */; };
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
@@ -59,6 +60,8 @@
 /* Begin PBXFileReference section */
 		B911C9E419C4DE6200EA85D9 /* AMBGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameScene.h; path = ../AMBGameScene.h; sourceTree = "<group>"; };
 		B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameScene.m; path = ../AMBGameScene.m; sourceTree = "<group>"; };
+		B911C9E719C656CC00EA85D9 /* AMBCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCharacter.h; sourceTree = "<group>"; };
+		B911C9E819C656CC00EA85D9 /* AMBCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBCharacter.m; sourceTree = "<group>"; };
 		B91EF2421978E7BF00E66405 /* SKAction+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SKTExtras.h"; sourceTree = "<group>"; };
 		B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKAction+SKTExtras.m"; sourceTree = "<group>"; };
 		B91EF2441978E7BF00E66405 /* SKEmitterNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKEmitterNode+SKTExtras.h"; sourceTree = "<group>"; };
@@ -77,8 +80,8 @@
 		B96A844219BA97CB002E058B /* patient4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient4.png; sourceTree = "<group>"; };
 		B96A844319BA97CB002E058B /* patient5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient5.png; sourceTree = "<group>"; };
 		B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01_with_spawn_points.tmx"; sourceTree = "<group>"; };
-		B96F159719BA8379003E9809 /* XXXScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXScoreKeeper.h; sourceTree = "<group>"; };
-		B96F159819BA8379003E9809 /* XXXScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXScoreKeeper.m; sourceTree = "<group>"; };
+		B96F159719BA8379003E9809 /* AMBScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBScoreKeeper.h; sourceTree = "<group>"; };
+		B96F159819BA8379003E9809 /* AMBScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBScoreKeeper.m; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823801969998400903B73 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B98823821969998400903B73 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -110,8 +113,8 @@
 		B99E6F1F19A16467003A7551 /* LFCGzipUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFCGzipUtility.h; sourceTree = "<group>"; };
 		B99E6F2019A16467003A7551 /* LFCGzipUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFCGzipUtility.m; sourceTree = "<group>"; };
 		B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "road-tileset-hc.atlasc"; sourceTree = "<group>"; };
-		B9CC738219B26F9400A376BC /* XXXPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXPatient.h; sourceTree = "<group>"; };
-		B9CC738319B26F9400A376BC /* XXXPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXPatient.m; sourceTree = "<group>"; };
+		B9CC738219B26F9400A376BC /* AMBPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPatient.h; sourceTree = "<group>"; };
+		B9CC738319B26F9400A376BC /* AMBPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPatient.m; sourceTree = "<group>"; };
 		B9CC738C19B3D26900A376BC /* sirens.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sirens.atlas; sourceTree = "<group>"; };
 		B9CC738E19B3DA0C00A376BC /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		B9F4F0A61985626600578DA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -214,10 +217,14 @@
 		B98823881969998400903B73 /* CharacterTests */ = {
 			isa = PBXGroup;
 			children = (
+				B911C9E719C656CC00EA85D9 /* AMBCharacter.h */,
+				B911C9E819C656CC00EA85D9 /* AMBCharacter.m */,
+				B9CC738219B26F9400A376BC /* AMBPatient.h */,
+				B9CC738319B26F9400A376BC /* AMBPatient.m */,
 				B911C9E419C4DE6200EA85D9 /* AMBGameScene.h */,
 				B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */,
-				B96F159719BA8379003E9809 /* XXXScoreKeeper.h */,
-				B96F159819BA8379003E9809 /* XXXScoreKeeper.m */,
+				B96F159719BA8379003E9809 /* AMBScoreKeeper.h */,
+				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
 				B98823941969998400903B73 /* MainMenu.xib */,
 				B98823981969998400903B73 /* AMBLevelScene.h */,
 				B98823961969998400903B73 /* AMBLevelScene.m */,
@@ -225,8 +232,6 @@
 				B988239B1969998400903B73 /* XXXAppDelegate.h */,
 				B988239E1969998400903B73 /* Images.xcassets */,
 				B98823891969998400903B73 /* Supporting Files */,
-				B9CC738219B26F9400A376BC /* XXXPatient.h */,
-				B9CC738319B26F9400A376BC /* XXXPatient.m */,
 				B98823BC19699C4400903B73 /* XXXCharacter.h */,
 				B98823BD19699C4400903B73 /* XXXCharacter.m */,
 				B96A02B8198592B7003D88BE /* Tilemap.h */,
@@ -406,14 +411,15 @@
 			files = (
 				B988238F1969998400903B73 /* main.m in Sources */,
 				B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */,
-				B9CC738419B26F9400A376BC /* XXXPatient.m in Sources */,
+				B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */,
 				B98823971969998400903B73 /* AMBLevelScene.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
+				B911C9E919C656CC00EA85D9 /* AMBCharacter.m in Sources */,
 				B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */,
 				B98823BE19699C4400903B73 /* XXXCharacter.m in Sources */,
 				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,
-				B96F159919BA8379003E9809 /* XXXScoreKeeper.m in Sources */,
+				B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */,
 				B96A02BA198592B7003D88BE /* Tilemap.m in Sources */,
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,

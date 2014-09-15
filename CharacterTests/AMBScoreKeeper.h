@@ -10,24 +10,7 @@
 #import <SpriteKit/SpriteKit.h>
 
 /* Game rules used by other classes */
-static const uint32_t categoryPlayer =      0x1 << 0;
-static const uint32_t categoryPatient =     0x1 << 1;
-static const uint32_t categoryHospital =    0x1 << 2;
-static const uint32_t categoryTraffic =     0x1 << 3;
 
-typedef struct {
-    NSInteger rating;
-    NSInteger numMedicalSupplies;
-    NSTimeInterval timeToLive;
-    NSInteger points;
-} PatientSeverity;
-
-typedef enum {
-    PatientIsWaitingForPickup,
-    PatientIsEnRoute,
-    PatientIsDelivered,
-    PatientIsDead
-} PatientState;
 
 typedef enum {
     AmbulanceIsOccupied,
@@ -35,7 +18,7 @@ typedef enum {
 } AmbulanceState;
 
 
-@interface XXXScoreKeeper : NSObject
+@interface AMBScoreKeeper : NSObject
 
 @property (readonly) NSInteger score;
 @property SKLabelNode *labelScore;
@@ -48,7 +31,7 @@ typedef enum {
 
 @property (readonly) NSArray *patientSeverityLevels; // an array of the levels above for when they need to be randomly selected
 
-+ (XXXScoreKeeper *)sharedInstance;
++ (AMBScoreKeeper *)sharedInstance;
 
 /* Labels */
 -(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
