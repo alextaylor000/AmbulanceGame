@@ -1,5 +1,5 @@
 //
-//  XXXPatient.m
+//  AMBPatient.m
 //  CharacterTests
 //
 //  Created by Alex Taylor on 2014-08-30.
@@ -24,6 +24,7 @@
  
 */
 
+#import "SKTUtils.h" // for RandomFloatRange
 #import "AMBPatient.h"
 
 @interface AMBPatient ()
@@ -118,6 +119,10 @@
     NSTimeInterval timeToLive;
     NSInteger points;
     
+    if (self.severity == RandomSeverity) {
+        self.severity = (int)RandomFloatRange(1, RandomSeverity - 1);
+    }
+    
     switch (self.severity) {
         case LevelOne:
             medicalSupplies = 5;
@@ -136,6 +141,11 @@
             timeToLive = 30;
             points = 300;
             break;
+        
+        case RandomSeverity:
+            // handled above
+            break;
+        
     }
     
     [self.userData setObject:[NSNumber numberWithInteger:medicalSupplies] forKey:@"medicalSupplies"];

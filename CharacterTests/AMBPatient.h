@@ -1,5 +1,5 @@
 //
-//  XXXPatient.h
+//  AMBPatient.h
 //  CharacterTests
 //
 //  Created by Alex Taylor on 2014-08-30.
@@ -8,7 +8,6 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "AMBCharacter.h"
-
 
 
 typedef enum {
@@ -21,7 +20,8 @@ typedef enum {
 typedef enum {
     LevelOne = 1,
     LevelTwo,
-    LevelThree
+    LevelThree,
+    RandomSeverity
 } PatientSeverity;
 
 
@@ -30,7 +30,6 @@ typedef enum {
 @property CGPoint position;
 @property PatientSeverity severity;
 @property PatientState state;
-
 
 
 - (instancetype) initWithSeverity:(PatientSeverity)severity position:(CGPoint)position;

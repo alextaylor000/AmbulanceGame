@@ -29,13 +29,6 @@
     if (self = [super init]) {
         /* Initialize anything needed for game logic */
         _score = 0;
-
-        // patient severity levels
-        _patientLevelOne =      [self newPatientLevelRating:1 numMedicalSupplies:5 timeToLive:60 points:100];
-        _patientLevelTwo =      [self newPatientLevelRating:2 numMedicalSupplies:10 timeToLive:50 points:200];
-        _patientLevelThree =    [self newPatientLevelRating:3 numMedicalSupplies:15 timeToLive:40 points:300];
-        _patientLevelFour =     [self newPatientLevelRating:4 numMedicalSupplies:20 timeToLive:30 points:400];
-        _patientLevelFive =     [self newPatientLevelRating:5 numMedicalSupplies:25 timeToLive:20 points:500];
         
     }
     
@@ -62,17 +55,6 @@
 }
 
 
--(PatientSeverity)newPatientLevelRating:(NSInteger)rating numMedicalSupplies:(NSInteger)numMedicalSupplies timeToLive:(NSTimeInterval)timeToLive points:(NSInteger)points {
-    
-    PatientSeverity newPatient;
-    newPatient.rating = rating;
-    newPatient.numMedicalSupplies = numMedicalSupplies;
-    newPatient.timeToLive = timeToLive;
-    newPatient.points = points;
-    
-    return newPatient;
-}
-
 - (void) updateScore:(NSInteger)points {
     _score += points;
     
@@ -91,11 +73,6 @@
 }
 
 #pragma mark Misc. Game Logic
-//- (PatientSeverity)randomPatientSeverity {
-//    NSInteger numSeverityLevels = [_patientSeverityLevels count];
-//    NSUInteger randIndex = RandomFloatRange(0, numSeverityLevels - 1);
-//
-//}
 
 
 @end
