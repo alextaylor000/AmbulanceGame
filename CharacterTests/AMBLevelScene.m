@@ -12,7 +12,6 @@
 #import "AMBHospital.h"
 #import "AMBSpawner.h"
 #import "AMBScoreKeeper.h"
-#import "Tilemap.h"     // for supporting ASCII maps
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 

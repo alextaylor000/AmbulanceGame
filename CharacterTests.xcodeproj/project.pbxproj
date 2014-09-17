@@ -14,7 +14,6 @@
 		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
-		B96A02BA198592B7003D88BE /* Tilemap.m in Sources */ = {isa = PBXBuildFile; fileRef = B96A02B9198592B7003D88BE /* Tilemap.m */; };
 		B96A844419BA97CB002E058B /* patient1.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A843F19BA97CB002E058B /* patient1.png */; };
 		B96A844519BA97CB002E058B /* patient2.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844019BA97CB002E058B /* patient2.png */; };
 		B96A844619BA97CB002E058B /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B96A844119BA97CB002E058B /* patient3.png */; };
@@ -74,8 +73,6 @@
 		B91EF2491978E7BF00E66405 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
-		B96A02B8198592B7003D88BE /* Tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tilemap.h; sourceTree = "<group>"; };
-		B96A02B9198592B7003D88BE /* Tilemap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tilemap.m; sourceTree = "<group>"; };
 		B96A843F19BA97CB002E058B /* patient1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient1.png; sourceTree = "<group>"; };
 		B96A844019BA97CB002E058B /* patient2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient2.png; sourceTree = "<group>"; };
 		B96A844119BA97CB002E058B /* patient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient3.png; sourceTree = "<group>"; };
@@ -223,29 +220,14 @@
 		B98823881969998400903B73 /* CharacterTests */ = {
 			isa = PBXGroup;
 			children = (
-				B96F159719BA8379003E9809 /* AMBScoreKeeper.h */,
-				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
-				B911C9E719C656CC00EA85D9 /* AMBCharacter.h */,
-				B911C9E819C656CC00EA85D9 /* AMBCharacter.m */,
-				B9CC738219B26F9400A376BC /* AMBPatient.h */,
-				B9CC738319B26F9400A376BC /* AMBPatient.m */,
-				B98823BC19699C4400903B73 /* AMBPlayer.h */,
-				B98823BD19699C4400903B73 /* AMBPlayer.m */,
-				B9E959B519C9239C00ACD50F /* AMBHospital.h */,
-				B9E959B619C9239C00ACD50F /* AMBHospital.m */,
-				B9E959B819C92ADC00ACD50F /* AMBSpawner.h */,
-				B9E959B919C92ADC00ACD50F /* AMBSpawner.m */,
-				B911C9E419C4DE6200EA85D9 /* AMBGameScene.h */,
-				B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */,
-				B98823981969998400903B73 /* AMBLevelScene.h */,
-				B98823961969998400903B73 /* AMBLevelScene.m */,
+				B9E959BD19C93CA700ACD50F /* Logic */,
+				B9E959BC19C93C8D00ACD50F /* Sprites */,
+				B9E959BB19C93C8800ACD50F /* Scene */,
 				B98823941969998400903B73 /* MainMenu.xib */,
 				B98823991969998400903B73 /* XXXAppDelegate.m */,
 				B988239B1969998400903B73 /* XXXAppDelegate.h */,
 				B988239E1969998400903B73 /* Images.xcassets */,
 				B98823891969998400903B73 /* Supporting Files */,
-				B96A02B8198592B7003D88BE /* Tilemap.h */,
-				B96A02B9198592B7003D88BE /* Tilemap.m */,
 			);
 			path = CharacterTests;
 			sourceTree = "<group>";
@@ -308,6 +290,43 @@
 			);
 			name = "JSTileMap-master";
 			path = "CharacterTests/JSTileMap-master";
+			sourceTree = "<group>";
+		};
+		B9E959BB19C93C8800ACD50F /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				B911C9E419C4DE6200EA85D9 /* AMBGameScene.h */,
+				B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */,
+				B98823981969998400903B73 /* AMBLevelScene.h */,
+				B98823961969998400903B73 /* AMBLevelScene.m */,
+			);
+			name = Scene;
+			sourceTree = "<group>";
+		};
+		B9E959BC19C93C8D00ACD50F /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				B911C9E719C656CC00EA85D9 /* AMBCharacter.h */,
+				B911C9E819C656CC00EA85D9 /* AMBCharacter.m */,
+				B9CC738219B26F9400A376BC /* AMBPatient.h */,
+				B9CC738319B26F9400A376BC /* AMBPatient.m */,
+				B98823BC19699C4400903B73 /* AMBPlayer.h */,
+				B98823BD19699C4400903B73 /* AMBPlayer.m */,
+				B9E959B519C9239C00ACD50F /* AMBHospital.h */,
+				B9E959B619C9239C00ACD50F /* AMBHospital.m */,
+				B9E959B819C92ADC00ACD50F /* AMBSpawner.h */,
+				B9E959B919C92ADC00ACD50F /* AMBSpawner.m */,
+			);
+			name = Sprites;
+			sourceTree = "<group>";
+		};
+		B9E959BD19C93CA700ACD50F /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				B96F159719BA8379003E9809 /* AMBScoreKeeper.h */,
+				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
+			);
+			name = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -432,7 +451,6 @@
 				B98823BE19699C4400903B73 /* AMBPlayer.m in Sources */,
 				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,
 				B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */,
-				B96A02BA198592B7003D88BE /* Tilemap.m in Sources */,
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
 				B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */,
