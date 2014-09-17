@@ -10,6 +10,7 @@
 #import "AMBPlayer.h"
 #import "AMBPatient.h"
 #import "AMBHospital.h"
+#import "AMBSpawner.h"
 #import "AMBScoreKeeper.h"
 #import "Tilemap.h"     // for supporting ASCII maps
 #import "JSTilemap.h"   // for supporting TMX maps
@@ -26,7 +27,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @property SKNode *worldNode;
 @property JSTileMap *bgLayer;
 @property AMBPlayer *player;
-
+@property AMBSpawner *spawnerTest;
 
 @property TMXLayer *roadLayer;
 @property TMXObjectGroup *spawnPoints;
@@ -59,6 +60,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         
         // Add score object
         scoreKeeper = [AMBScoreKeeper sharedInstance];
+        
+        // [TEST] Add spawner
+        _spawnerTest = [[AMBSpawner alloc]initWithFirstSpawnAt:10 withFrequency:2 frequencyUpperRange:5];
         
 
 // commented out during patient testing
@@ -227,6 +231,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
 
+    
+    // [TEST] spawner
+    [_spawnerTest updateWithTimeSinceLastUpdate:self.sceneDelta];
     
 // commented out during patient testing
 //    [self updateCars];

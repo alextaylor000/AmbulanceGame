@@ -19,11 +19,19 @@
 
 @implementation AMBSpawner
 
-- (instancetype) init {
+
+-(instancetype)initWithFirstSpawnAt:(NSTimeInterval)firstSpawnAt withFrequency:(NSTimeInterval)frequency frequencyUpperRange:(NSTimeInterval)frequencyUpperRange {
+    
+    // TODO: add checks to ensure that frequencyUpperRange is actually > frequency
+
     if (self = [super init]) {
         _spawningIsActive = NO;
-        _frequencyUpperRange = 0; // set this to zero by default
-
+        
+        _lastSpawnTime = self.spawnTime;
+        _firstSpawnAt = firstSpawnAt;
+        _frequency = frequency;
+        _frequencyUpperRange = frequencyUpperRange;
+        
         [self setNextSpawn];
     }
     
@@ -32,13 +40,14 @@
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     CFTimeInterval currentTime = CACurrentMediaTime();
-    NSTimeInterval spawnDelta = currentTime - self.spawnTime;
+    NSTimeInterval spawnDelta = currentTime - _lastSpawnTime;
     
     if (!_spawningIsActive) {
-        // start the spawning process
-        if (spawnDelta >= _firstSpawnAt) { [self fireSpawnEvent]; }
+        if (spawnDelta >= _firstSpawnAt) {
+            _spawningIsActive = YES;
+            [self fireSpawnEvent];
+        }
         
-        _spawningIsActive = YES;
         return;
     }
     
@@ -53,14 +62,16 @@
 - (void)setNextSpawn {
 
     if (_frequencyUpperRange == 0) {
-        _nextSpawnAt = RandomFloatRange(_frequency, _frequencyUpperRange);
-    } else {
         _nextSpawnAt = _frequency;
+    } else {
+        _nextSpawnAt = RandomFloatRange(_frequency, _frequencyUpperRange);
     }
 }
 
 - (void)fireSpawnEvent {
-    // overridden by subclasses.
+    _lastSpawnTime = CACurrentMediaTime();
+    
+    // special behaviour implemented by subclasses.
 #if DEBUG
     NSLog(@"<<<< firing spawn event >>>>");
 #endif
