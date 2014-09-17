@@ -19,4 +19,9 @@
     return  self;
 }
 
+- (void)addObjectToNode:(SKNode *)node atPosition:(CGPoint)position {
+    self.position = position;
+    [node addChild:self];
+}
+
 @end

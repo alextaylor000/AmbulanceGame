@@ -9,6 +9,7 @@
 #import "AMBLevelScene.h"
 #import "AMBPlayer.h"
 #import "AMBPatient.h"
+#import "AMBHospital.h"
 #import "AMBScoreKeeper.h"
 #import "Tilemap.h"     // for supporting ASCII maps
 #import "JSTilemap.h"   // for supporting TMX maps
@@ -256,7 +257,11 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     NSArray *hospitalSpawns = [_mapGroupSpawnHospitals objects];
     for (NSDictionary *object in hospitalSpawns) {
-        [self addHospitalAtPoint:[self centerOfObject:object]];
+        AMBHospital *hospital = [[AMBHospital alloc] init];
+        [hospital addObjectToNode:_tilemap atPosition:[self centerOfObject:object]];
+//        [self addHospitalAtPoint:[self centerOfObject:object]];
+        
+        
     }
     
     NSArray *patientSpawns = [_mapGroupSpawnPatients objects];
