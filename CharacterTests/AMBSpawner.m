@@ -15,6 +15,7 @@
 @property (nonatomic) NSTimeInterval lastSpawnTime;
 @property (nonatomic) NSTimeInterval nextSpawnAt;
 
+
 @end
 
 @implementation AMBSpawner

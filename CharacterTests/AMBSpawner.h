@@ -31,7 +31,10 @@ PatientSpawners will be what gets created from the spawn_patients objects on the
 @property (nonatomic, readonly) NSTimeInterval frequencyUpperRange; // for random frequencies; if 0, only 'frequency' is considered
 
 - (instancetype)initWithFirstSpawnAt:(NSTimeInterval)firstSpawnAt withFrequency:(NSTimeInterval)frequency frequencyUpperRange:(NSTimeInterval)frequencyUpperRange;
+
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
+
+- (void)fireSpawnEvent;
 
 
 @end
