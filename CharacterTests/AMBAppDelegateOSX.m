@@ -1,15 +1,15 @@
 //
-//  XXXAppDelegate.m
+//  AMBAppDelegateOSX.m
 //  CharacterTests
 //
 //  Created by Alex Taylor on 2014-07-06.
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
 
-#import "XXXAppDelegate.h"
+#import "AMBAppDelegateOSX.h"
 #import "AMBLevelScene.h"
 
-@implementation XXXAppDelegate
+@implementation AMBAppDelegateOSX
 
 @synthesize window = _window;
 

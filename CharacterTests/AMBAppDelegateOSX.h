@@ -1,5 +1,5 @@
 //
-//  XXXAppDelegate.h
+//  AMBAppDelegateOSX.h
 //  CharacterTests
 //
 
@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <SpriteKit/SpriteKit.h>
 
-@interface XXXAppDelegate : NSObject <NSApplicationDelegate>
+@interface AMBAppDelegateOSX : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet SKView *skView;

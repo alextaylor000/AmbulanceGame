@@ -23,7 +23,7 @@
 		B98823931969998400903B73 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = B98823911969998400903B73 /* Credits.rtf */; };
 		B98823951969998400903B73 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98823941969998400903B73 /* MainMenu.xib */; };
 		B98823971969998400903B73 /* AMBLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* AMBLevelScene.m */; };
-		B988239A1969998400903B73 /* XXXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823991969998400903B73 /* XXXAppDelegate.m */; };
+		B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823991969998400903B73 /* AMBAppDelegateOSX.m */; };
 		B988239F1969998400903B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B988239E1969998400903B73 /* Images.xcassets */; };
 		B98823A61969998400903B73 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823A51969998400903B73 /* XCTest.framework */; };
 		B98823A71969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
@@ -88,8 +88,8 @@
 		B98823941969998400903B73 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		B98823961969998400903B73 /* AMBLevelScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMBLevelScene.m; sourceTree = "<group>"; };
 		B98823981969998400903B73 /* AMBLevelScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMBLevelScene.h; sourceTree = "<group>"; };
-		B98823991969998400903B73 /* XXXAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XXXAppDelegate.m; sourceTree = "<group>"; };
-		B988239B1969998400903B73 /* XXXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XXXAppDelegate.h; sourceTree = "<group>"; };
+		B98823991969998400903B73 /* AMBAppDelegateOSX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMBAppDelegateOSX.m; sourceTree = "<group>"; };
+		B988239B1969998400903B73 /* AMBAppDelegateOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMBAppDelegateOSX.h; sourceTree = "<group>"; };
 		B988239E1969998400903B73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B98823A41969998400903B73 /* CharacterTestsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CharacterTestsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823A51969998400903B73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -220,8 +220,8 @@
 				B9E959BC19C93C8D00ACD50F /* Sprites */,
 				B9E959BB19C93C8800ACD50F /* Scene */,
 				B98823941969998400903B73 /* MainMenu.xib */,
-				B98823991969998400903B73 /* XXXAppDelegate.m */,
-				B988239B1969998400903B73 /* XXXAppDelegate.h */,
+				B988239B1969998400903B73 /* AMBAppDelegateOSX.h */,
+				B98823991969998400903B73 /* AMBAppDelegateOSX.m */,
 				B988239E1969998400903B73 /* Images.xcassets */,
 				B98823891969998400903B73 /* Supporting Files */,
 			);
@@ -367,7 +367,7 @@
 		B98823751969998400903B73 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = XXX;
+				CLASSPREFIX = AMB;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Alex Taylor";
 				TargetAttributes = {
@@ -446,7 +446,7 @@
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
 				B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */,
-				B988239A1969998400903B73 /* XXXAppDelegate.m in Sources */,
+				B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
