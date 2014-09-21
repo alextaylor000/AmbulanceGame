@@ -8,6 +8,7 @@
 
 #import "SKTUtils.h"
 #import "AMBSpawner.h"
+#import "AMBLevelScene.h"
 
 @interface AMBSpawner ()
 
@@ -15,13 +16,16 @@
 @property (nonatomic) NSTimeInterval lastSpawnTime;
 @property (nonatomic) NSTimeInterval nextSpawnAt;
 
+@property (nonatomic) NSArray *spawnObjects;
+@property (nonatomic) NSInteger spawnObjectsCount;
+
 
 @end
 
 @implementation AMBSpawner
 
 
--(instancetype)initWithFirstSpawnAt:(NSTimeInterval)firstSpawnAt withFrequency:(NSTimeInterval)frequency frequencyUpperRange:(NSTimeInterval)frequencyUpperRange {
+-(instancetype)initWithFirstSpawnAt:(NSTimeInterval)firstSpawnAt withFrequency:(NSTimeInterval)frequency frequencyUpperRange:(NSTimeInterval)frequencyUpperRange withObjects:(NSArray *)objects {
     
     // TODO: add checks to ensure that frequencyUpperRange is actually > frequency
 
@@ -32,6 +36,9 @@
         _firstSpawnAt = firstSpawnAt;
         _frequency = frequency;
         _frequencyUpperRange = frequencyUpperRange;
+        
+        _spawnObjects = objects;
+        _spawnObjectsCount = [_spawnObjects count];
         
         [self setNextSpawn];
     }
@@ -72,7 +79,22 @@
 - (void)fireSpawnEvent {
     _lastSpawnTime = CACurrentMediaTime();
     
-    // special behaviour implemented by subclasses.
+    NSUInteger i = 0;
+    SKSpriteNode *objectToSpawn;
+    
+    
+    if (_spawnObjectsCount > 1) {
+        i = RandomFloatRange(0, _spawnObjectsCount - 1);
+    }
+    
+    objectToSpawn = (SKSpriteNode *)[_spawnObjects objectAtIndex:i];
+    AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
+    
+    // TODO: abstract this, we shouldn't need to explicitly define the layer within this method. try something like "addToScene: atLayer:" instead.
+    SKNode *sceneTilemap = [owningScene tilemap];
+    [sceneTilemap addChild:objectToSpawn];
+    
+    
 #if DEBUG
     NSLog(@"<<<< firing spawn event >>>>");
 #endif

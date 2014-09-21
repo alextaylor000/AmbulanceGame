@@ -35,6 +35,21 @@
 
 @implementation AMBPatient
 
+#pragma mark Assets
++ (void)loadSharedAssets {
+    [super loadSharedAssets];
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // load shared assets here!
+    });
+}
+
++ (instancetype) patientWithSeverity:(PatientSeverity)severity {
+    AMBPatient *patient = [[AMBPatient alloc]initWithSeverity:severity position:CGPointZero];
+    return patient;
+}
+
 - (instancetype) initWithSeverity:(PatientSeverity)severity position:(CGPoint)position {
     NSString *patientImage = [NSString stringWithFormat:@"patient%ld.png", (long)severity];
     
@@ -55,8 +70,6 @@
         self.state = PatientIsWaitingForPickup;
         
         [self storePatientUserData];
-        
-        
         
 #if DEBUG
         NSLog(@"init patient [severity=%u, state=%u, spawned=%f", severity, _state, self.spawnTime);

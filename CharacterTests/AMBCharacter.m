@@ -23,4 +23,18 @@
     [node addChild:self];
 }
 
++ (void)loadSharedAssets {
+    // overridden by subclasses
+}
+
+- (AMBLevelScene *)characterScene {
+    AMBLevelScene *scene = (id)[self scene];
+    
+    if ([scene isKindOfClass:[AMBLevelScene class]]) {
+        return scene;
+    } else {
+        return nil;
+    }
+}
+
 @end

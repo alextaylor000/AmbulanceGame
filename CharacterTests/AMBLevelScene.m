@@ -61,7 +61,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         scoreKeeper = [AMBScoreKeeper sharedInstance];
         
         // [TEST] Add spawner
-        _spawnerTest = [[AMBSpawner alloc]initWithFirstSpawnAt:10 withFrequency:2 frequencyUpperRange:5];
+        //_spawnerTest = [[AMBSpawner alloc]initWithFirstSpawnAt:10 withFrequency:2 frequencyUpperRange:5];
         
 
 // commented out during patient testing

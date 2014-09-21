@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "AMBLevelScene.h"
 
 // Collision Bitmasks
 static const uint32_t categoryPlayer =      0x1 << 0;
@@ -23,5 +24,12 @@ static const uint32_t categoryTraffic =     0x1 << 3;
  Adds the character object to the scene, or other specified node.
  */
 - (void)addObjectToNode:(SKNode *)node atPosition:(CGPoint)position;
+
++ (void)loadSharedAssets;
+
+/**
+ Returns the scene that the character is a part of.
+ */
+- (AMBLevelScene *)characterScene;
 
 @end
