@@ -87,7 +87,9 @@
         i = RandomFloatRange(0, _spawnObjectsCount - 1);
     }
     
-    objectToSpawn = (SKSpriteNode *)[_spawnObjects objectAtIndex:i];
+    objectToSpawn = (SKSpriteNode *)[[_spawnObjects objectAtIndex:i] copy];
+    objectToSpawn.position = self.position;
+    
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
     // TODO: abstract this, we shouldn't need to explicitly define the layer within this method. try something like "addToScene: atLayer:" instead.
