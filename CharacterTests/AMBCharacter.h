@@ -20,16 +20,12 @@ static const uint32_t categoryTraffic =     0x1 << 3;
 
 @property NSTimeInterval spawnTime;
 
-/**
- Adds the character object to the scene, or other specified node.
- */
+/** Adds the character object to the scene, or other specified node. */
 - (void)addObjectToNode:(SKNode *)node atPosition:(CGPoint)position;
 
 + (void)loadSharedAssets;
 
-/**
- Returns the scene that the character is a part of.
- */
+/** Returns the scene that the character is a part of. */
 - (AMBLevelScene *)characterScene;
 
 @end

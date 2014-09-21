@@ -266,8 +266,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     for (NSDictionary *object in hospitalSpawns) {
         AMBHospital *hospital = [[AMBHospital alloc] init];
         [hospital addObjectToNode:_tilemap atPosition:[self centerOfObject:object]];
-//        [self addHospitalAtPoint:[self centerOfObject:object]];
-        
         
     }
     
@@ -298,11 +296,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         [self createTileBoundingPaths];
 
     }
-}
-
-- (void)addCharacter:(SKNode *)character atPosition:(CGPoint)pos {
-    character.position = pos;
-    [_mapLayerRoad addChild:character];
 }
 
 - (void)createTileBoundingPaths {

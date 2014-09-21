@@ -36,8 +36,6 @@
 /** Loads a tilemap from disk and sets up all the layers.*/
 - (void)levelWithTilemap:(NSString *)tilemapFile;
 
-/** Adds a character sprite to the mapLayerRoad layer at the specified position within the layer's coordinate space. */
-- (void)addCharacter:(SKNode *)character atPosition:(CGPoint)pos;
 
 
 

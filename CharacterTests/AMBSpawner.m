@@ -80,19 +80,18 @@
     _lastSpawnTime = CACurrentMediaTime();
     
     NSUInteger i = 0;
-    SKSpriteNode *objectToSpawn;
+    AMBCharacter *objectToSpawn;
     
     
     if (_spawnObjectsCount > 1) {
         i = RandomFloatRange(0, _spawnObjectsCount - 1);
     }
     
-    objectToSpawn = (SKSpriteNode *)[[_spawnObjects objectAtIndex:i] copy];
+    objectToSpawn = (AMBCharacter *)[[_spawnObjects objectAtIndex:i] copy];
     
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
-    [owningScene addCharacter:objectToSpawn atPosition:self.position];
-    
+    [objectToSpawn addObjectToNode:[owningScene mapLayerRoad] atPosition:self.position];
     
     
 #if DEBUG
