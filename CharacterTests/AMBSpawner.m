@@ -27,6 +27,7 @@
 
 -(instancetype)initWithFirstSpawnAt:(NSTimeInterval)firstSpawnAt withFrequency:(NSTimeInterval)frequency frequencyUpperRange:(NSTimeInterval)frequencyUpperRange withObjects:(NSArray *)objects {
     
+    // TODO: allow frequency to be 0, which means only one object will ever be spawned
     // TODO: add checks to ensure that frequencyUpperRange is actually > frequency
 
     if (self = [super init]) {

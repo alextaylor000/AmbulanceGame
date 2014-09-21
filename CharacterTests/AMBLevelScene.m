@@ -33,6 +33,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @property CGPoint playerSpawnPoint;
 @property NSInteger currentTileGid;
 
+@property (nonatomic) NSMutableArray *spawners; // store an array of all the spawners in order to update them on every frame
+
 
 @end
 
@@ -61,9 +63,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         scoreKeeper = [AMBScoreKeeper sharedInstance];
         
         // [TEST] Add spawner
-        _spawnerTest = [[AMBSpawner alloc]initWithFirstSpawnAt:3 withFrequency:5 frequencyUpperRange:0 withObjects:@[[AMBPatient patientWithSeverity:LevelOne]]];
-        _spawnerTest.position = CGPointMake(_player.position.x, _player.position.y + 200);
-        [_tilemap addChild:_spawnerTest];
+//        _spawnerTest = [[AMBSpawner alloc]initWithFirstSpawnAt:3 withFrequency:5 frequencyUpperRange:0 withObjects:@[[AMBPatient patientWithSeverity:LevelOne]]];
+//        _spawnerTest.position = CGPointMake(_player.position.x, _player.position.y + 200);
+//        [_tilemap addChild:_spawnerTest];
         
 
 // commented out during patient testing
@@ -233,8 +235,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
 
     
-    // [TEST] spawner
-    [_spawnerTest updateWithTimeSinceLastUpdate:self.sceneDelta];
+    // update the spawners
+    // TODO: should this be part of the spawner class?
+    [_spawners enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        AMBSpawner *spawnerObj = (AMBSpawner *)obj;
+        [spawnerObj updateWithTimeSinceLastUpdate:_sceneDelta];
+    }];
     
 // commented out during patient testing
 //    [self updateCars];
@@ -265,18 +271,33 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     NSArray *hospitalSpawns = [_mapGroupSpawnHospitals objects];
     for (NSDictionary *object in hospitalSpawns) {
         AMBHospital *hospital = [[AMBHospital alloc] init];
-        [hospital addObjectToNode:_tilemap atPosition:[self centerOfObject:object]];
-        
+        [hospital addObjectToNode:_mapLayerRoad atPosition:[self centerOfObject:object]];
     }
     
+    [self createSpawners];
+}
+
+- (void)createSpawners {
+    _spawners = [[NSMutableArray alloc]init];
+
+    // patient spawners
     NSArray *patientSpawns = [_mapGroupSpawnPatients objects];
     for (NSDictionary *object in patientSpawns) {
         CGPoint spawnPoint = [self centerOfObject:object];
-        NSLog(@"Adding patient at %1.0f,%1.0f", spawnPoint.x, spawnPoint.y);
+        
+        AMBSpawner *spawner = [[AMBSpawner alloc] initWithFirstSpawnAt:2
+                                                         withFrequency:60
+                                                   frequencyUpperRange:0
+                                                           withObjects:@[
+                                                                         [AMBPatient patientWithSeverity:LevelOne],
+                                                                         [AMBPatient patientWithSeverity:LevelTwo],
+                                                                         [AMBPatient patientWithSeverity:LevelThree]]];
+        
+        [spawner addObjectToNode:_mapLayerRoad atPosition:spawnPoint];
+        [_spawners addObject:spawner];
     }
-    
-}
 
+}
 
 - (void)levelWithTilemap:(NSString *)tilemapFile {
     _tilemap = [self tileMapFromFile:tilemapFile];
