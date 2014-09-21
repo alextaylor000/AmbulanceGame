@@ -1,5 +1,5 @@
 //
-//  XXXScoreKeeper.h
+//  AMBScoreKeeper.h
 //  CharacterTests
 //
 //  Created by Alex Taylor on 2014-09-05.
@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
+#import "AMBPatient.h"
 
 /* Game rules used by other classes */
 
 
 @interface AMBScoreKeeper : NSObject
 
-@property (readonly) NSInteger score;
+@property (readonly, nonatomic) NSInteger score;
+@property (readonly, nonatomic) NSTimeInterval elapsedTime;
+
 @property SKLabelNode *labelScore;
 
 
@@ -25,6 +28,6 @@
 
 
 /* Scoring Events */
-- (void) scoreEventPatientDeliveredPoints:(NSInteger)points timeToLive:(NSTimeInterval)timeToLive;
+- (void) scoreEventDeliveredPatient:(AMBPatient *)patient;
 
 @end

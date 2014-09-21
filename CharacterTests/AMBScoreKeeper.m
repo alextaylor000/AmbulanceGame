@@ -1,5 +1,5 @@
 //
-//  XXXScoreKeeper.m
+//  AMBScoreKeeper.m
 //  CharacterTests
 //
 //  Created by Alex Taylor on 2014-09-05.
@@ -7,7 +7,7 @@
 //
 
 #import "AMBScoreKeeper.h"
-#import "AMBLevelScene.h" // TODO: decouple scene
+#import "AMBLevelScene.h" 
 #import "SKTUtils.h" // for RandomFloatRange
 
 @implementation AMBScoreKeeper
@@ -25,17 +25,18 @@
     return _sharedInstance;
 }
 
--(id)init {
+- (id)init {
     if (self = [super init]) {
         /* Initialize anything needed for game logic */
         _score = 0;
+        _elapsedTime = 0;
         
     }
     
    return self;
 }
 
--(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position {
+- (SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position {
     
     _labelScore = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
     _labelScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
@@ -50,7 +51,7 @@
 
 }
 
--(void)updateScoreLabelWithPoints:(NSInteger)points {
+- (void)updateScoreLabelWithPoints:(NSInteger)points {
     _labelScore.text = [NSString stringWithFormat:@"SCORE: %ld", (long)points];
 }
 
@@ -58,7 +59,6 @@
 - (void) updateScore:(NSInteger)points {
     _score += points;
     
-    // TODO: decouple the label update, maybe through delegation?
     [self updateScoreLabelWithPoints:_score];
 
     #if DEBUG
@@ -68,9 +68,24 @@
 }
 
 #pragma mark Scoring Events
-- (void) scoreEventPatientDeliveredPoints:(NSInteger)points timeToLive:(NSTimeInterval)timeToLive {
-    [self updateScore:points];
+- (void) scoreEventDeliveredPatient:(AMBPatient *)patient {
+    NSMutableDictionary *userData = patient.userData;
+    
+    NSInteger medicalSupplies = [[userData valueForKey:@"medicalSupplies"] integerValue];
+    NSTimeInterval timeToLive = [[userData valueForKey:@"timeToLive"] doubleValue];
+    NSInteger points =          [[userData valueForKey:@"points"] integerValue];
+    
+    // define the formula for applying points
+    NSInteger netPoints = points;
+    
+    [self updateScore:netPoints];
+    
+#if DEBUG
+    NSLog(@"patient DELIVERED!");
+#endif
+    
 }
+
 
 #pragma mark Misc. Game Logic
 

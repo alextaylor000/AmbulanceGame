@@ -161,6 +161,8 @@
         
     }
     
+    self.userData = [[NSMutableDictionary alloc]init];
+    
     [self.userData setObject:[NSNumber numberWithInteger:medicalSupplies] forKey:@"medicalSupplies"];
     [self.userData setObject:[NSNumber numberWithDouble:timeToLive] forKey:@"timeToLive"];
     [self.userData setObject:[NSNumber numberWithInteger:points] forKey:@"points"];

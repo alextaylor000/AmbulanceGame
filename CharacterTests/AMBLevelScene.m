@@ -55,34 +55,16 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         self.physicsWorld.contactDelegate = self;
         
         [self createWorld]; // set up tilemap
-        
-        
         [self addPlayer];
-        
-        // Add score object
-        scoreKeeper = [AMBScoreKeeper sharedInstance];
-        
-        // [TEST] Add spawner
-//        _spawnerTest = [[AMBSpawner alloc]initWithFirstSpawnAt:3 withFrequency:5 frequencyUpperRange:0 withObjects:@[[AMBPatient patientWithSeverity:LevelOne]]];
-//        _spawnerTest.position = CGPointMake(_player.position.x, _player.position.y + 200);
-//        [_tilemap addChild:_spawnerTest];
-        
 
-// commented out during patient testing
-//        [self addCars];//Adds inital enamies to the screen
-//        [self initalizeCarVariables];
-        
-        
-        
-        
+        // scoring
+        scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
+        SKLabelNode *labelScore = [scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
+        [self addChild:labelScore];
+     
 #if DEBUG
         NSLog(@"[[   SCORE:  %ld   ]]", scoreKeeper.score);
 #endif
-        
-        // Add score label
-        SKLabelNode *labelScore = [scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
-        [self addChild:labelScore];
-        
         
     }
     return self;
@@ -457,9 +439,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 }
 
 
-/** 
- Calculates the center point of a TMXObjectGroup object based on its x/y offset and size.
- */
+/** Calculates the center point of a TMXObjectGroup object based on its x/y offset and size. */
 - (CGPoint)centerOfObject:(NSDictionary *)object {
     return CGPointMake([[object objectForKey:@"x"] intValue] + [[object objectForKey:@"width"] intValue]/2,
                        [[object objectForKey:@"y"] intValue] + [[object objectForKey:@"height"] intValue]/2);
@@ -508,7 +488,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
     } else if (other.categoryBitMask == categoryHospital) {
         if (_player.patient) {
-//            [scoreKeeper scoreEventPatientDeliveredPoints:_player.patient.severity.points timeToLive:30]; // timeToLive is temp
+            [scoreKeeper scoreEventDeliveredPatient:_player.patient];
             [_player unloadPatient];
         }
         
