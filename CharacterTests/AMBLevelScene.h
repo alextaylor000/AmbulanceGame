@@ -15,7 +15,7 @@
 
 #pragma Properties - Map
 @property (readonly, nonatomic) JSTileMap *tilemap; // the tilemap for this level
-@property (readonly, nonatomic) TMXLayer *mapLayerRoad; // road layer; driveable
+@property (readonly, nonatomic) TMXLayer *mapLayerRoad; // road layer and characters
 @property (readonly, nonatomic) TMXLayer *mapLayerScenery; // for buildings, grass, etc.
 
 // spawn point(s) will be kept on separate layers so we can choose them at random
@@ -33,11 +33,11 @@
 
 
 #pragma mark Methods
-/**
- Loads a tilemap from disk and sets up all the layers.
- */
+/** Loads a tilemap from disk and sets up all the layers.*/
 - (void)levelWithTilemap:(NSString *)tilemapFile;
 
+/** Adds a character sprite to the mapLayerRoad layer at the specified position within the layer's coordinate space. */
+- (void)addCharacter:(SKNode *)character atPosition:(CGPoint)pos;
 
 
 

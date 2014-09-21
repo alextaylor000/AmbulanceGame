@@ -258,7 +258,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
     if (_tilemap) { [_worldNode addChild:_tilemap]; }
     
-    
     // Set up spawn points
     NSDictionary *playerSpawn = [[_mapGroupSpawnPlayer objects] objectAtIndex:0];
     _playerSpawnPoint = [self centerOfObject:playerSpawn];
@@ -299,6 +298,11 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         [self createTileBoundingPaths];
 
     }
+}
+
+- (void)addCharacter:(SKNode *)character atPosition:(CGPoint)pos {
+    character.position = pos;
+    [_mapLayerRoad addChild:character];
 }
 
 - (void)createTileBoundingPaths {
