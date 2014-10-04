@@ -246,7 +246,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
     if (_tilemap) { [_worldNode addChild:_tilemap]; }
     
-    // Set up   xspawn points
+    // Set up spawn points
     NSDictionary *playerSpawn = [[_mapGroupSpawnPlayer objects] objectAtIndex:0];
     _playerSpawnPoint = [self centerOfObject:playerSpawn];
     
@@ -267,13 +267,25 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     for (NSDictionary *object in patientSpawns) {
         CGPoint spawnPoint = [self centerOfObject:object];
         
-        AMBSpawner *spawner = [[AMBSpawner alloc] initWithFirstSpawnAt:2
-                                                         withFrequency:60
-                                                   frequencyUpperRange:0
-                                                           withObjects:@[
-                                                                         [AMBPatient patientWithSeverity:LevelOne],
-                                                                         [AMBPatient patientWithSeverity:LevelTwo],
-                                                                         [AMBPatient patientWithSeverity:LevelThree]]];
+        // grab properties of the spawner from the TMX object directly
+        NSTimeInterval firstSpawnAt = [[object valueForKey:@"firstSpawnAt"] intValue];
+        NSTimeInterval frequency = [[object valueForKey:@"frequency"] intValue];
+        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperValue"] intValue]; // defaults to 0
+
+        // build an array of patients based on the severity property (can be comma-separated)
+        NSArray *severityArray = [[object valueForKey:@"severity"] componentsSeparatedByString:@","];
+        NSMutableArray *patientsForSpawner = [[NSMutableArray alloc]init];
+        
+        for (NSString *sev in severityArray) {
+            int index = [sev intValue];
+            [patientsForSpawner addObject:[AMBPatient patientWithSeverity:index]];
+
+        }
+        
+        AMBSpawner *spawner = [[AMBSpawner alloc] initWithFirstSpawnAt:firstSpawnAt
+                                                         withFrequency:frequency
+                                                   frequencyUpperRange:frequencyUpperRange
+                                                           withObjects:patientsForSpawner];
         
         [spawner addObjectToNode:_mapLayerRoad atPosition:spawnPoint];
         [_spawners addObject:spawner];
@@ -351,7 +363,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
             CGPathAddLineToPoint(path, NULL, 186 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 70 - offsetX, 256 - offsetY);
             
-        } else if ( [tileType isEqualToString:@"en"]) {
+        } else if ( [tileType isEqualToString:@"ne"]) {
             
             CGPathMoveToPoint(path, NULL, 70 - offsetX, 70 - offsetY);
             CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
@@ -521,6 +533,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
             CGPathAddLineToPoint(path, NULL, 256 - offsetX, 70 - offsetY);
             CGPathAddLineToPoint(path, NULL, 256 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 0 - offsetX, 256 - offsetY);
+        } else {
+            // if the tile is not one of these types, return
+            return;
         }
         
         
