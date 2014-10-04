@@ -14,6 +14,8 @@
 		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
+		B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
+		B92E752719DFA94600D61394 /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B92E752619DFA94600D61394 /* level01.tmx */; };
 		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
@@ -71,6 +73,8 @@
 		B91EF2491978E7BF00E66405 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
+		B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8bit_tileset_design_ver02.png; sourceTree = "<group>"; };
+		B92E752619DFA94600D61394 /* level01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01.tmx; sourceTree = "<group>"; };
 		B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01_with_spawn_points.tmx"; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* AMBScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBScoreKeeper.h; sourceTree = "<group>"; };
 		B96F159819BA8379003E9809 /* AMBScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBScoreKeeper.m; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 		B96A845219BAB723002E058B /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				B92E752619DFA94600D61394 /* level01.tmx */,
+				B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */,
 				B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */,
 				B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */,
 			);
@@ -406,12 +412,14 @@
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
+				B92E752719DFA94600D61394 /* level01.tmx in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
 				B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */,
 				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,
 				B9A4C30219CF501F00DE1ADA /* patient2.png in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
+				B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

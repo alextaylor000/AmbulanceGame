@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="40" tilewidth="256" tileheight="256">
+ <tileset firstgid="1" name="road_tiles" tilewidth="256" tileheight="256">
+  <image source="8bit_tileset_design_ver02.png" width="1536" height="1024"/>
+  <tile id="0">
+   <properties>
+    <property name="road" value="ew"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="road" value="nesw"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="road" value="nw"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="road" value="es"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="road" value="nes"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="road" value="esw"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="road" value="ne"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="road" value="ns"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="road" value="sw"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="road" value="new"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="road" value="nsw"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="road" value="b_ns_l"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="road" value="b_ns_r"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="road" value="b_nsw"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="road" value="b_nes"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="road" value="b_ew_t"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="road" value="b_new"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="road" value="bb_new_l"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="road" value="bb_new_r"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="road" value="bb_esw_l"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="road" value="bb_esw_r"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="road" value="b_ew_b"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="road" value="b_esw"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="scenery" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztw8EJAAAMA6H7Zv+Fu0dRcNVUVVVVVVUfPdKxOEE=
+  </data>
+ </layer>
+ <layer name="road" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztl9sKgzAQRNNIRbBXW2v//0u7ffAlGJxkUoxlDszL4q7HeAk6J4QQYk94yyEIWjtbLkS/B/w6ojb7lZxZcpb86vc7uvzn+2q5Ef0nwK/29ZNfWq3krF/43YMMRO1heZIzQ6Yg74UamtHyypw5H7MG8gzESLm/ueeVH3fe2v2W9rcWrMX2tx7oRfa22HWw37/ceUyv/LjerfyY/6PY+7H2vnzTgH4M6Ppthfw4avcT4l/4ABdHC4Y=
+  </data>
+ </layer>
+ <objectgroup name="spawn_player" width="40" height="40">
+  <object name="player.spawn" type="player.spawn" x="6912" y="6144" width="256" height="256"/>
+ </objectgroup>
+ <objectgroup name="spawn_patients" width="40" height="40">
+  <object name="patient" type="patient.spawn" x="1536" y="3840" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="5"/>
+    <property name="frequency" value="30"/>
+    <property name="severity" value="LevelOne"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="4114" y="4599" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="5"/>
+    <property name="frequency" value="30"/>
+    <property name="severity" value="LevelOne"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="8192" y="3584" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="5"/>
+    <property name="frequency" value="30"/>
+    <property name="severity" value="LevelThree"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="6144" y="7680" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="5"/>
+    <property name="frequency" value="30"/>
+    <property name="severity" value="LevelOne"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="2816" y="6400" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="5"/>
+    <property name="frequency" value="30"/>
+    <property name="severity" value="LevelTwo"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="spawn_hospitals" width="40" height="40">
+  <object name="hospital01" type="hospital" x="3072" y="3328" width="256" height="256"/>
+  <object name="hospital02" type="hospital" x="8192" y="6656" width="256" height="256"/>
+ </objectgroup>
+</map>
