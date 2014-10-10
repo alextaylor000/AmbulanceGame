@@ -37,6 +37,7 @@
     
     // set constants
     _CHARACTER_MOVEMENT_POINTS_PER_SEC = 600;
+    _CHARACTER_TURN_DELAY = 0.06;
 
     _CHARACTER_MOVEMENT_ACCEL_TIME_SECS = 0.75;
     _CHARACTER_MOVEMENT_DECEL_TIME_SECS = 0.35;
@@ -86,7 +87,6 @@
     self.sceneDelta = delta;
     
     if (_isMoving) {
-        [self rotateSprite:self toAngle:_targetAngleRadians];
         [self moveSprite:self directionNormalized:_direction];
     }
 
@@ -123,33 +123,28 @@
 }
 
 
--(void)turnByAngle:(CGFloat)degrees {
-/** Initiates a turn from the current position to a new position based on the degrees specified. */
-
-    _targetAngleRadians += DegreesToRadians(degrees);
-
-    
-    // wrap angles larger than +/- 360 degrees
-    if (_targetAngleRadians >= ( 2 * M_PI )) {
-        _targetAngleRadians -= (2 * M_PI);
-    } else if (_targetAngleRadians < -(2 * M_PI)) {
-        _targetAngleRadians += (2 * M_PI);
-    }
-
-}
-
-
 #pragma mark (Private) Sprite Movement
 
--(void)rotateSprite:(SKSpriteNode *)sprite toAngle:(CGFloat)angle {
+-(void)rotateByAngle:(CGFloat)degrees {
+    SKSpriteNode *sprite = self;
     
     // apply the rotation to the sprite
+    CGFloat angle = sprite.zRotation + DegreesToRadians(degrees);
+    
+    // wrap angles larger than +/- 360 degrees
+    if (angle >= ( 2 * M_PI )) {
+        angle -= (2 * M_PI);
+    } else if (angle < -(2 * M_PI)) {
+        angle += (2 * M_PI);
+    }
 
-    SKAction *rotateSprite = [SKAction rotateToAngle:angle duration:0.05];
-    [sprite runAction:rotateSprite];
+    SKAction *rotateSprite = [SKAction rotateToAngle:angle duration:_CHARACTER_TURN_DELAY];
+    [sprite runAction:rotateSprite completion:^(void) {
+        // update the direction of the sprite
+        _direction = CGPointForAngle(sprite.zRotation);
+        
+    }];
 
-    // update the direction of the sprite
-    _direction = CGPointForAngle(sprite.zRotation);
     
     //Fixes the directions so that you dont end up with a situation where you have -0.00000.  I dont even know how that could happen.  BUT IT DOES
     if (_direction.x <= 0.0001 && _direction.x >= -0.0001) {//slightly more than 0 and slightly less than 0

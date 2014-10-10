@@ -19,6 +19,7 @@ typedef enum {
 @interface AMBPlayer : AMBCharacter
 
 @property (readonly, nonatomic) float CHARACTER_MOVEMENT_POINTS_PER_SEC;
+@property (readonly, nonatomic) float CHARACTER_TURN_DELAY; // builds in a small animated rotation; tweak this to change the "feel" of the turning.
 
 @property CGFloat targetAngleRadians;
 @property (readonly, nonatomic) CGPoint direction;
@@ -33,7 +34,8 @@ typedef enum {
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;
 - (void)stopMoving;
-- (void)turnByAngle:(CGFloat)angle;
+//- (void)turnByAngle:(CGFloat)angle;
+- (void)rotateByAngle:(CGFloat)degrees;
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;
 - (BOOL)unloadPatient;

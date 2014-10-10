@@ -599,7 +599,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 - (void)authorizeTurnEvent: (CGFloat)degrees {
 
     
-    [_player turnByAngle:degrees]; // temp for testing
+    [_player rotateByAngle:degrees]; // temp for testing
     return; // temp for testing
     
     
@@ -654,7 +654,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         BOOL isWithinBounds = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
         if (isWithinBounds) { // if the point is within the bounding path..
-            [_player turnByAngle:degrees];
+            [_player rotateByAngle:degrees];
 #if DEBUG
             NSLog(@"turn initiated while on tile %@",currentTileType);
 #endif
