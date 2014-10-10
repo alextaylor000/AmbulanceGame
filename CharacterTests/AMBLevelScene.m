@@ -611,9 +611,11 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     NSString *currentTileType = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]][@"road"];
 #endif
     
+    CGFloat playerWidth = [self calculatePlayerWidth];
+    
     CGPoint directionNormalized = CGPointNormalize(_player.direction);
     CGPoint rotatedPointNormalized = CGPointRotate(directionNormalized, degrees);
-    CGPoint rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, _tilemap.tileSize.width); // tilemap width and height should be the same; multiply the result by this to get a point in the adjacent tile; the "target" tile of the turn
+    CGPoint rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, playerWidth/2);
     
     CGPoint targetPoint = CGPointAdd(rotatedPoint, _player.position);
     
@@ -624,7 +626,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
     CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_tilemap]; // the position of the target within the target tile
     
-        #if DEBUG
+#if DEBUG
         SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
         targetPointSprite.name = @"DEBUG_targetPointSprite";
         targetPointSprite.position = positionInTargetTile;
@@ -633,7 +635,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
 
         NSLog(@"targetTileRoadType = %@", targetTileRoadType);
-        #endif
+#endif
 
 
     if (targetTileRoadType) {
@@ -644,7 +646,15 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         BOOL isWithinBounds = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
         if (isWithinBounds) { // if the point is within the bounding path..
-            [_player rotateByAngle:degrees];
+
+            // is it an intersection?
+            if ([targetTileRoadType isEqualToString:@"nesw"]) { // TEMP just testing with nesw for now
+                [_player rotateByAngle:degrees];
+            } else {
+                NSLog(@"<<<<<<<<<<<< lane change >>>>>>>>>>>>>>");
+            }
+            
+
 #if DEBUG
             NSLog(@"turn initiated while on tile %@",currentTileType);
 #endif
@@ -672,6 +682,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
 }
 
+- (CGFloat)calculatePlayerWidth {
+    // calculates the player's width based on the current direction of travel.
+    if (_player.direction.x == 1) {
+        return _player.size.width;
+    } else {
+        return _player.size.height;
+    }
+}
 
 #pragma mark Controls
 - (void)handleKeyboardEvent: (NSEvent *)theEvent keyDown:(BOOL)downOrUp {
