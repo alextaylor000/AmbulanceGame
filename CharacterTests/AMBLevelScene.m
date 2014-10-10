@@ -614,9 +614,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
      Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
      */
     
-    // TODO: for testing, try throwing up some sort of overlay that lets you know when you need to make a turning decision; something that shows the directions you can turn right now. that might be enough to improve the feeling of the controls.
-
-    
     // begin by modeling the requested turn from the player's current position; return a target point
     CGFloat rads = DegreesToRadians(degrees);
     CGFloat newAngle = _player.targetAngleRadians + rads; // the angle the player will face after the turn
@@ -625,6 +622,11 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     CGPoint centerPoint = CGPointMake(_player.position.x + _player.CHARACTER_TURN_RADIUS * cosf(newAngle),
                                       _player.position.y + _player.CHARACTER_TURN_RADIUS * sinf(newAngle));
 
+#if DEBUG
+    SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
+    NSString *currentTileType = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]][@"road"];
+#endif
+    
     // normalize the center point. since the rotation function assumes an anchor point of zero, we need to perform the rotation on a point relative to the origin and then translate it back to get the real target.
     CGPoint centerPointNormalized = CGPointSubtract(_player.position, centerPoint);
    
@@ -660,9 +662,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         
         if (isWithinBounds) { // if the point is within the bounding path..
             [_player turnByAngle:degrees];
+#if DEBUG
+            NSLog(@"turn initiated while on tile %@",currentTileType);
+#endif
         }
 
-        #if DEBUG
+#if DEBUG
         if (isWithinBounds) {
             targetPointSprite.color = [SKColor blueColor];
         }
@@ -675,7 +680,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         
         [targetTile addChild:bounds];
         [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
-        #endif
+#endif
 
     }
 

@@ -70,10 +70,6 @@
         self.state = PatientIsWaitingForPickup;
         
         [self storePatientUserData];
-        
-#if DEBUG
-        NSLog(@"init patient [severity=%u, state=%u, spawned=%f", severity, _state, self.spawnTime);
-#endif
 
     }
     
