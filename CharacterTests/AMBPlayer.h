@@ -18,16 +18,8 @@ typedef enum {
 
 @interface AMBPlayer : AMBCharacter
 
-/*  the relationship between these two numbers is important to
- obtain realistic turning motion. the rotation should always
- be less than the speed, or else the car will not appear
- to describe an arc as it turns.
- 
- centripetal force probably has something to do with this ratio...
- */
 @property (readonly, nonatomic) float CHARACTER_MOVEMENT_POINTS_PER_SEC;
-@property (readonly, nonatomic) float CHARACTER_ROTATION_DEGREES_PER_SEC;
-@property (readonly, nonatomic) float CHARACTER_TURN_RADIUS;
+
 @property CGFloat targetAngleRadians;
 @property (readonly, nonatomic) CGPoint direction;
 
@@ -41,7 +33,7 @@ typedef enum {
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;
 - (void)stopMoving;
-- (void)turnByAngle:(CGFloat)degrees;
+- (void)turnByAngle:(CGFloat)angle;
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;
 - (BOOL)unloadPatient;

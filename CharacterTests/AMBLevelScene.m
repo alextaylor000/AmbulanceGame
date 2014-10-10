@@ -565,19 +565,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
 }
 
-- (void) rotateViewBy: (CGFloat)rotationDegrees {
-    // this seems vey jerky when the rotation happens.
-    CGFloat duration = (fabsf(rotationDegrees) / _player.CHARACTER_ROTATION_DEGREES_PER_SEC) * 1.05; // based on the speed of the player's rotation, how long will it take to rotate the target amount? This syncs the camera rotation with the player rotation.
-
-    // we can probably declare this as an ivar to save memory, right?
-    SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(rotationDegrees) duration:duration];
-    rotate.timingMode = SKActionTimingEaseInEaseOut;
-    
-    //[self runAction:rotate];
-}
-
-
-
 
 
 #pragma mark Game logic
@@ -610,6 +597,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 
 - (void)authorizeTurnEvent: (CGFloat)degrees {
+
+    
+    [_player turnByAngle:degrees]; // temp for testing
+    return; // temp for testing
+    
+    
     /*
      Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
      */
@@ -619,8 +612,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     CGFloat newAngle = _player.targetAngleRadians + rads; // the angle the player will face after the turn
     
     // calculate the center point of the turn. this makes it easy to figure out the target point.
-    CGPoint centerPoint = CGPointMake(_player.position.x + _player.CHARACTER_TURN_RADIUS * cosf(newAngle),
-                                      _player.position.y + _player.CHARACTER_TURN_RADIUS * sinf(newAngle));
+    CGPoint centerPoint = CGPointMake(_player.position.x + 0 * cosf(newAngle),
+                                      _player.position.y + 0 * sinf(newAngle));
 
 #if DEBUG
     SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
@@ -712,13 +705,11 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
                     
                 case NSLeftArrowFunctionKey:
                     [self authorizeTurnEvent:90];
-                    [self rotateViewBy:-90];
                     
                     break;
                     
                 case NSRightArrowFunctionKey:
                     [self authorizeTurnEvent:-90];
-                    [self rotateViewBy:90];
                     
                     break;
                     

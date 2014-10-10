@@ -37,9 +37,7 @@
     
     // set constants
     _CHARACTER_MOVEMENT_POINTS_PER_SEC = 600;
-    _CHARACTER_ROTATION_DEGREES_PER_SEC = 275;
-    _CHARACTER_TURN_RADIUS = _CHARACTER_MOVEMENT_POINTS_PER_SEC /
-                            ( 2 * M_PI * ( _CHARACTER_ROTATION_DEGREES_PER_SEC / 360 )  );
+
     _CHARACTER_MOVEMENT_ACCEL_TIME_SECS = 0.75;
     _CHARACTER_MOVEMENT_DECEL_TIME_SECS = 0.35;
     
@@ -88,7 +86,7 @@
     self.sceneDelta = delta;
     
     if (_isMoving) {
-        [self rotateSprite:self toAngle:_targetAngleRadians rotateDegreesPerSec:_CHARACTER_ROTATION_DEGREES_PER_SEC];
+        [self rotateSprite:self toAngle:_targetAngleRadians];
         [self moveSprite:self directionNormalized:_direction];
     }
 
@@ -143,18 +141,12 @@
 
 #pragma mark (Private) Sprite Movement
 
--(void)rotateSprite:(SKSpriteNode *)sprite toAngle:(CGFloat)angle rotateDegreesPerSec:(CGFloat)degreesPerSec {
-
-    CGFloat radiansPerSec = SK_DEGREES_TO_RADIANS(degreesPerSec);
-    
-    // determine how much we need to rotate in the current frame
-    //CGFloat amtToRotate = radiansPerSec * self.sceneDelta;
-    CGFloat amtToRotate = radiansPerSec * self.sceneDelta;
-    CGFloat shortest = ScalarShortestAngleBetween(sprite.zRotation, angle);
-    if (fabsf(shortest) < amtToRotate) amtToRotate = fabsf(shortest); // if we can make it to the target rotation in 1 frame, just do it
+-(void)rotateSprite:(SKSpriteNode *)sprite toAngle:(CGFloat)angle {
     
     // apply the rotation to the sprite
-    sprite.zRotation += ScalarSign(shortest) * amtToRotate;
+
+    SKAction *rotateSprite = [SKAction rotateToAngle:angle duration:0.05];
+    [sprite runAction:rotateSprite];
 
     // update the direction of the sprite
     _direction = CGPointForAngle(sprite.zRotation);
