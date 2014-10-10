@@ -33,6 +33,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 @property CGPoint playerSpawnPoint;
 @property NSInteger currentTileGid;
 
+@property BOOL turnRequested;
+@property CGFloat turnDegrees;
+
 @property (nonatomic) NSMutableArray *spawners; // store an array of all the spawners in order to update them on every frame
 
 
@@ -57,6 +60,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         [self createWorld]; // set up tilemap
         [self addPlayer];
 
+        _turnRequested = NO;
+        
         // scoring
         scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
         SKLabelNode *labelScore = [scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
@@ -233,6 +238,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         [patientNode updatePatient];
     }];
     
+    
+    // test turn
+    if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) {
+        NSLog(@" Can I turn now?");
+        [self authorizeTurnEvent:_turnDegrees];
+    }
 
 }
 
@@ -647,11 +658,16 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         
         if (isWithinBounds) { // if the point is within the bounding path..
                 [_player rotateByAngle:degrees];
+                _turnRequested = NO;
             
 
 #if DEBUG
             NSLog(@"turn initiated while on tile %@",currentTileType);
 #endif
+        } else {
+            // stash the turn request
+            _turnRequested = YES;
+            _turnDegrees = degrees;
         }
 
 #if DEBUG
