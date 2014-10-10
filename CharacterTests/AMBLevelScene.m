@@ -598,34 +598,24 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 
 - (void)authorizeTurnEvent: (CGFloat)degrees {
 
-    
-    [_player rotateByAngle:degrees]; // temp for testing
-    return; // temp for testing
-    
-    
     /*
      Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
      */
     
     // begin by modeling the requested turn from the player's current position; return a target point
     CGFloat rads = DegreesToRadians(degrees);
-    CGFloat newAngle = _player.targetAngleRadians + rads; // the angle the player will face after the turn
+    CGFloat newAngle = _player.zRotation + rads; // the angle the player will face after the turn
     
-    // calculate the center point of the turn. this makes it easy to figure out the target point.
-    CGPoint centerPoint = CGPointMake(_player.position.x + 0 * cosf(newAngle),
-                                      _player.position.y + 0 * sinf(newAngle));
-
 #if DEBUG
     SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
     NSString *currentTileType = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]][@"road"];
 #endif
     
-    // normalize the center point. since the rotation function assumes an anchor point of zero, we need to perform the rotation on a point relative to the origin and then translate it back to get the real target.
-    CGPoint centerPointNormalized = CGPointSubtract(_player.position, centerPoint);
-   
-    CGPoint rotatedPoint = CGPointRotate(centerPointNormalized, degrees);
+    CGPoint directionNormalized = CGPointNormalize(_player.direction);
+    CGPoint rotatedPointNormalized = CGPointRotate(directionNormalized, degrees);
+    CGPoint rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, _tilemap.tileSize.width); // tilemap width and height should be the same; multiply the result by this to get a point in the adjacent tile; the "target" tile of the turn
     
-    CGPoint targetPoint = CGPointAdd(rotatedPoint, centerPoint);
+    CGPoint targetPoint = CGPointAdd(rotatedPoint, _player.position);
     
     
     // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
@@ -640,7 +630,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         targetPointSprite.position = positionInTargetTile;
         targetPointSprite.zPosition = targetTile.zPosition + 1;
         [targetTile addChild:targetPointSprite];
-        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5],[SKAction removeFromParent]]]];
+        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
 
         NSLog(@"targetTileRoadType = %@", targetTileRoadType);
         #endif
