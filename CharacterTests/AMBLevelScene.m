@@ -187,7 +187,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 - (void) addPlayer {
     
     _player = [[AMBPlayer alloc] init];
-    _player.position = _playerSpawnPoint;
+    _player.position = CGPointMake(_playerSpawnPoint.x - 35, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
+
     [_tilemap addChild:_player];
 
 #if DEBUG
@@ -195,6 +196,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 #endif
 
 }
+
 
 - (float)randomValueBetween:(float)low andValue:(float)high {//Used to return a random value between two points
     return (((float) arc4random() / 0xFFFFFFFFu) * (high - low)) + low;
@@ -215,7 +217,17 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     [_player updateWithTimeSinceLastUpdate:self.sceneDelta];
 
-    
+    // lange change testing
+#if DEBUG
+    SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
+    CGPoint currentPlayerPos = [currentTile convertPoint:_player.position fromNode:_tilemap];
+    SKSpriteNode *testPoint = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(5, 5)];
+    testPoint.position = currentPlayerPos;
+    [currentTile addChild:testPoint];
+    [testPoint runAction:[SKAction fadeOutWithDuration:1.0]];
+    NSLog(@"currentPlayerPos = %1.0f,%1.0f",currentPlayerPos.x,currentPlayerPos.y);
+#endif
+
     [self centerOnNode:_player];
     
     
@@ -613,14 +625,13 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
      Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
      */
     
+    SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
+    NSString *currentTileType = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]][@"road"];
+
     // begin by modeling the requested turn from the player's current position; return a target point
     CGFloat rads = DegreesToRadians(degrees);
     CGFloat newAngle = _player.zRotation + rads; // the angle the player will face after the turn
     
-#if DEBUG
-    SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
-    NSString *currentTileType = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]][@"road"];
-#endif
     
     CGFloat playerWidth = [self calculatePlayerWidth];
     
@@ -634,33 +645,37 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
     SKSpriteNode *targetTile = [_mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn
     NSString *targetTileRoadType = [_tilemap propertiesForGid:  [_mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
-
+    
     CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_tilemap]; // the position of the target within the target tile
     
+    CGPoint playerInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
+    currentTile.color = [SKColor yellowColor];
+    //NSLog(@"playerInTile = %1.0f,%1.0f",playerInTile.x,playerInTile.y);
+    
 #if DEBUG
-        SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
-        targetPointSprite.name = @"DEBUG_targetPointSprite";
-        targetPointSprite.position = positionInTargetTile;
-        targetPointSprite.zPosition = targetTile.zPosition + 1;
-        [targetTile addChild:targetPointSprite];
-        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
-
-        NSLog(@"targetTileRoadType = %@", targetTileRoadType);
+    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+    targetPointSprite.name = @"DEBUG_targetPointSprite";
+    targetPointSprite.position = positionInTargetTile;
+    targetPointSprite.zPosition = targetTile.zPosition + 1;
+    [targetTile addChild:targetPointSprite];
+    [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
+    
+    NSLog(@"targetTileRoadType = %@", targetTileRoadType);
 #endif
-
-
+    
+    
     if (targetTileRoadType) {
         // check the coordinates to make sure it's on ROAD SURFACE within the tile
         
         CGPathRef path = (__bridge CGPathRef)([roadTilePaths objectForKey:targetTileRoadType]); // TODO: memory leak because of bridging?
-
+        
         BOOL isWithinBounds = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
         if (isWithinBounds) { // if the point is within the bounding path..
-                [_player rotateByAngle:degrees];
-                _turnRequested = NO;
+            [_player rotateByAngle:degrees];
+            _turnRequested = NO;
             
-
+            
 #if DEBUG
             NSLog(@"turn initiated while on tile %@",currentTileType);
 #endif
@@ -669,7 +684,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
             _turnRequested = YES;
             _turnDegrees = degrees;
         }
-
+        
 #if DEBUG
         if (isWithinBounds) {
             targetPointSprite.color = [SKColor blueColor];
@@ -684,12 +699,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         [targetTile addChild:bounds];
         [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
 #endif
-
+        
     }
 
-    
-
-    
+        
 }
 
 - (CGFloat)calculatePlayerWidth {
