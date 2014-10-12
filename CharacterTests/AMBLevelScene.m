@@ -18,6 +18,7 @@
 #define kNumberCars   15
 
 static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more frequent than this interval
+static const int TILE_LANE_WIDTH = 32;
 
 @interface AMBLevelScene ()
 
@@ -187,7 +188,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
 - (void) addPlayer {
     
     _player = [[AMBPlayer alloc] init];
-    _player.position = CGPointMake(_playerSpawnPoint.x - 35, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
+    _player.position = CGPointMake(_playerSpawnPoint.x - 32, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
 
     [_tilemap addChild:_player];
 
@@ -217,16 +218,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     
     [_player updateWithTimeSinceLastUpdate:self.sceneDelta];
 
-    // lange change testing
-#if DEBUG
-    SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
-    CGPoint currentPlayerPos = [currentTile convertPoint:_player.position fromNode:_tilemap];
-    SKSpriteNode *testPoint = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(5, 5)];
-    testPoint.position = currentPlayerPos;
-    [currentTile addChild:testPoint];
-    [testPoint runAction:[SKAction fadeOutWithDuration:1.0]];
-    NSLog(@"currentPlayerPos = %1.0f,%1.0f",currentPlayerPos.x,currentPlayerPos.y);
-#endif
 
     [self centerOnNode:_player];
     
@@ -628,8 +619,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
     SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
     NSDictionary *currentTileProperties = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]];
     NSString *currentTileType = currentTileProperties[@"road"];
+    CGPoint playerPosInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
 
-    CGPoint targetPoint;
+    CGPoint targetPoint;    // for turning
+    CGVector targetOffset = CGVectorMake(234, 34);   // for lane changes
     
     if (currentTileProperties[@"intersection"]) {
         // begin by modeling the requested turn from the player's current position; return a target point
@@ -645,8 +638,40 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
         targetPoint = CGPointAdd(rotatedPoint, _player.position);
         
     } else {
-        CGPoint laneChangeWidth = CGPointMultiplyScalar(  CGPointRotate(_player.direction, degrees)      , 35); // temp testing for NS lane change
-        targetPoint = CGPointAdd(laneChangeWidth, _player.position);
+        CGPoint laneChangeVector = CGPointMultiplyScalar(  CGPointRotate(_player.direction, degrees) , TILE_LANE_WIDTH);
+        CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector));
+        // determine if the vector is negative or positive
+
+        // TODO: refactor! what a mess.
+        NSInteger remainder;
+        if (angle > -1 ) {
+            // positive
+            if (laneChangeVector.x > laneChangeVector.y) {
+                remainder = ((int)playerPosInTile.x + (int)laneChangeVector.x) % (int)laneChangeVector.x;
+                CGFloat xOffset = playerPosInTile.x + TILE_LANE_WIDTH*2 - remainder;
+                CGVector targetOffset2 = CGVectorMake(xOffset, 0.0);
+                NSLog(@"TILE_LANE_WIDTH=%i",TILE_LANE_WIDTH);
+
+            } else {
+                remainder = ((int)playerPosInTile.y + (int)laneChangeVector.y) % (int)laneChangeVector.y;
+                targetOffset = CGVectorMake(playerPosInTile.y + TILE_LANE_WIDTH - remainder, 0.0);
+            }
+            
+        } else {
+            // negative
+            if (laneChangeVector.x > laneChangeVector.y) {
+                remainder = ((int)playerPosInTile.x + (int)laneChangeVector.x) % (int)laneChangeVector.x;
+                targetOffset = CGVectorMake(playerPosInTile.x - remainder, 0.0);
+                
+            } else {
+                remainder = ((int)playerPosInTile.y + (int)laneChangeVector.y) % (int)laneChangeVector.y;
+                targetOffset = CGVectorMake(playerPosInTile.y - remainder, 0.0);
+            }
+            
+            
+        }
+        
+
         
     }
 
@@ -686,7 +711,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more fr
             if (currentTileProperties[@"intersection"]) {
                 [_player rotateByAngle:degrees];
             } else {
-                [_player runAction:[SKAction moveByX:35 y:0 duration:0.25]];
+                [_player runAction:[SKAction moveBy:targetOffset duration:0.25]];
             }
             _turnRequested = NO;
             
