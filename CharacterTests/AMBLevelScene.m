@@ -641,7 +641,7 @@ static const int TILE_LANE_WIDTH = 32;
     CGPoint playerPosInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
 
     CGPoint targetPoint;    // for turning
-    CGVector targetOffset;
+    CGVector targetOffset;  // for lane changes
     
     if (currentTileProperties[@"intersection"]) {
         // begin by modeling the requested turn from the player's current position; return a target point
@@ -655,74 +655,6 @@ static const int TILE_LANE_WIDTH = 32;
         CGPoint rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, playerWidth);
         
         targetPoint = CGPointAdd(rotatedPoint, _player.position);
-
-        // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
-        SKSpriteNode *targetTile = [_mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn
-        NSString *targetTileRoadType = [_tilemap propertiesForGid:  [_mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
-        
-        CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_tilemap]; // the position of the target within the target tile
-        
-        CGPoint playerInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
-        currentTile.color = [SKColor yellowColor];
-        //NSLog(@"playerInTile = %1.0f,%1.0f",playerInTile.x,playerInTile.y);
-        
-#if DEBUG
-        SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
-        targetPointSprite.name = @"DEBUG_targetPointSprite";
-        targetPointSprite.position = positionInTargetTile;
-        targetPointSprite.zPosition = targetTile.zPosition + 1;
-        [targetTile addChild:targetPointSprite];
-        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
-        
-        NSLog(@"targetTileRoadType = %@", targetTileRoadType);
-#endif
-        
-        
-        if (targetTileRoadType) {
-            // check the coordinates to make sure it's on ROAD SURFACE within the tile
-            
-            CGPathRef path = (__bridge CGPathRef)([roadTilePaths objectForKey:targetTileRoadType]); // TODO: memory leak because of bridging?
-            
-            BOOL isWithinBounds = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
-            
-            if (isWithinBounds) { // if the point is within the bounding path..
-                if (currentTileProperties[@"intersection"]) {
-                    [_player rotateByAngle:degrees];
-                } else {
-#if DEBUG
-                    NSLog(@"changing lanes by %1.0f,%1.0f",targetOffset.dx,targetOffset.dy);
-#endif
-                    [_player runAction:[SKAction moveBy:targetOffset duration:0.25]];
-                }
-                _turnRequested = NO;
-                
-                
-#if DEBUG
-                NSLog(@"turn initiated while on tile %@",currentTileType);
-#endif
-            } else {
-                // stash the turn request
-                _turnRequested = YES;
-                _turnDegrees = degrees;
-            }
-            
-#if DEBUG
-            if (isWithinBounds) {
-                targetPointSprite.color = [SKColor blueColor];
-            }
-            
-            SKShapeNode *bounds = [SKShapeNode node];
-            bounds.path = path;
-            bounds.fillColor = [SKColor whiteColor];
-            bounds.alpha = 0.5;
-            bounds.zPosition = targetPointSprite.zPosition - 1;
-            
-            [targetTile addChild:bounds];
-            [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
-#endif
-            
-        }
-        
         
         
         
@@ -742,19 +674,21 @@ static const int TILE_LANE_WIDTH = 32;
 
             } else {
                 remainder = ((int)playerPosInTile.y + (int)laneChangeVector.y) % TILE_LANE_WIDTH;
-                targetPoint = CGPointMake(playerPosInTile.y + TILE_LANE_WIDTH*2 - remainder, 0.0);
+                targetPoint = CGPointMake(0, playerPosInTile.y + TILE_LANE_WIDTH*2 - remainder);
                 targetOffset = CGVectorMake(0, targetPoint.y - playerPosInTile.y  );
             }
             
         } else {
             // negative
             if (laneChangeVector.x > laneChangeVector.y) {
-                remainder = ((int)playerPosInTile.x + (int)laneChangeVector.x) % (int)laneChangeVector.x;
-                targetOffset = CGVectorMake(playerPosInTile.x - remainder, 0.0);
+                remainder = ((int)playerPosInTile.x + (int)laneChangeVector.x) % TILE_LANE_WIDTH;
+                targetPoint = CGPointMake(playerPosInTile.x - remainder, 0);
+                targetOffset = CGVectorMake(targetPoint.x - playerPosInTile.x, 0.0);
                 
             } else {
-                remainder = ((int)playerPosInTile.y + (int)laneChangeVector.y) % (int)laneChangeVector.y;
-                targetOffset = CGVectorMake(playerPosInTile.y - remainder, 0.0);
+                remainder = ((int)playerPosInTile.y + (int)laneChangeVector.y) % TILE_LANE_WIDTH;
+                targetPoint = CGPointMake(0, playerPosInTile.y - remainder);
+                targetOffset = CGVectorMake(0.0, playerPosInTile.y - remainder);
             }
             
             
@@ -768,10 +702,76 @@ static const int TILE_LANE_WIDTH = 32;
     }
 
     
+    // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
+    SKSpriteNode *targetTile = [_mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn
+    NSString *targetTileRoadType = [_tilemap propertiesForGid:  [_mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
+    
+    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_tilemap]; // the position of the target within the target tile
+    
+    CGPoint playerInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
+    currentTile.color = [SKColor yellowColor];
+    //NSLog(@"playerInTile = %1.0f,%1.0f",playerInTile.x,playerInTile.y);
+    
+#if DEBUG
+    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+    targetPointSprite.name = @"DEBUG_targetPointSprite";
+    targetPointSprite.position = positionInTargetTile;
+    targetPointSprite.zPosition = targetTile.zPosition + 1;
+    [targetTile addChild:targetPointSprite];
+    [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
+    
+    NSLog(@"targetTileRoadType = %@", targetTileRoadType);
+#endif
+    
+    
+    if (targetTileRoadType) {
+        // check the coordinates to make sure it's on ROAD SURFACE within the tile
+        
+        CGPathRef path = (__bridge CGPathRef)([roadTilePaths objectForKey:targetTileRoadType]); // TODO: memory leak because of bridging?
+        
+        BOOL isWithinBounds = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
+        
+        if (isWithinBounds) { // if the point is within the bounding path..
+            if (currentTileProperties[@"intersection"]) {
+                [_player rotateByAngle:degrees];
+            } else {
+#if DEBUG
+                NSLog(@"changing lanes by %1.0f,%1.0f",targetOffset.dx,targetOffset.dy);
+#endif
+                [_player runAction:[SKAction moveBy:targetOffset duration:0.25]];
+            }
+            _turnRequested = NO;
+            
+            
+#if DEBUG
+            NSLog(@"turn initiated while on tile %@",currentTileType);
+#endif
+        } else {
+            // stash the turn request
+            _turnRequested = YES;
+            _turnDegrees = degrees;
+        }
+        
+#if DEBUG
+        if (isWithinBounds) {
+            targetPointSprite.color = [SKColor blueColor];
+        }
+        
+        SKShapeNode *bounds = [SKShapeNode node];
+        bounds.path = path;
+        bounds.fillColor = [SKColor whiteColor];
+        bounds.alpha = 0.5;
+        bounds.zPosition = targetPointSprite.zPosition - 1;
+        
+        [targetTile addChild:bounds];
+        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
+#endif
+        
+    }
     
     
 
-        
+    
 }
 
 - (CGFloat)calculatePlayerWidth {
