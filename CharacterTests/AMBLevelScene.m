@@ -611,37 +611,15 @@ static const int TILE_LANE_WIDTH = 32;
 
 
 - (void)authorizeTurnEvent: (CGFloat)degrees {
-
-    /*
-     Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile.
-     */
-    
-    /*
-     logic pseudocode
-     
-     if (tile is intersection):
-        determine target point (TURNING)
-     else:
-        determine target point (LANE CHANGE)
-     
-     if (target point is road tile && in bounds)
-        if TURNING:
-            initiate turn
-
-        else if LANE CHANGE:
-            calculate target offset (targetPoint - player position)
-            initiate lane change
-     
-     
-     */
+    /* Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile. */
     
     SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
     NSDictionary *currentTileProperties = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]];
     NSString *currentTileType = currentTileProperties[@"road"];
     CGPoint playerPosInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
 
-    CGPoint targetPoint;    // for turning
-    CGVector targetOffset;  // for lane changes
+    CGPoint targetPoint; // the result of this tile calculation below
+    CGVector targetOffset; // how much we need to move over to get into the next lane
     
     if (currentTileProperties[@"intersection"]) {
         // begin by modeling the requested turn from the player's current position; return a target point
@@ -657,42 +635,49 @@ static const int TILE_LANE_WIDTH = 32;
         targetPoint = CGPointAdd(rotatedPoint, _player.position);
         
         
-        
     } else { // lane changes
-        CGPoint laneChangeVector = CGPointMultiplyScalar(  CGPointRotate(_player.direction, degrees) , TILE_LANE_WIDTH*2);
-        CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector));
-        // determine if the vector is negative or positive
+        CGPoint laneChangeVector = CGPointMultiplyScalar(  CGPointRotate(_player.direction, degrees) , TILE_LANE_WIDTH*2); // lane width * 2 because we're in the center of a lane and need to get across to the next one
 
-        // TODO: refactor! what a mess.
+        CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector));
         NSInteger remainder;
+        
+        /*
+         remainder (
+         remainder = playerPosInTile + laneChange % TILE_LANE_WIDTH
+         */
+
+        NSInteger pos;  // the player's position in the tile, either the x or the y value
+        NSInteger lane; // the lane change vector, either the x or the y value
+        NSInteger coordPoint; // the resulting point for targetPoint; calculated differently depending on whether we're moving left/up or right/down
+        
+        
+        if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
+            pos     = (int)playerPosInTile.x;
+            lane    = (int)laneChangeVector.x;
+            
+        } else {
+            pos     = (int)playerPosInTile.y;
+            lane    = (int)laneChangeVector.y;
+        }
+
+        // calculate remainder; how far are we going to overshoot the next lane?
+        remainder = (pos + lane) % TILE_LANE_WIDTH;
+        
         if (angle > -1 ) {
             // positive
-            if (laneChangeVector.x > laneChangeVector.y) {
-                remainder = ((int)playerPosInTile.x + (int)laneChangeVector.x) % TILE_LANE_WIDTH;
-                targetPoint = CGPointMake(playerPosInTile.x + TILE_LANE_WIDTH*2 - remainder, 0.0);
-                targetOffset = CGVectorMake(targetPoint.x - playerPosInTile.x, 0);
-
-            } else {
-                remainder = ((int)playerPosInTile.y + (int)laneChangeVector.y) % TILE_LANE_WIDTH;
-                targetPoint = CGPointMake(0, playerPosInTile.y + TILE_LANE_WIDTH*2 - remainder);
-                targetOffset = CGVectorMake(0, targetPoint.y - playerPosInTile.y  );
-            }
+            coordPoint = pos + TILE_LANE_WIDTH*2 - remainder;
             
         } else {
             // negative
-            if (laneChangeVector.x > laneChangeVector.y) {
-                remainder = ((int)playerPosInTile.x + (int)laneChangeVector.x) % TILE_LANE_WIDTH;
-                targetPoint = CGPointMake(playerPosInTile.x - remainder, 0);
-                targetOffset = CGVectorMake(targetPoint.x - playerPosInTile.x, 0.0);
-                
-            } else {
-                remainder = ((int)playerPosInTile.y + (int)laneChangeVector.y) % TILE_LANE_WIDTH;
-                targetPoint = CGPointMake(0, playerPosInTile.y - remainder);
-                targetOffset = CGVectorMake(0.0, playerPosInTile.y - remainder);
-            }
-            
+            coordPoint = pos - remainder;
             
         }
+        
+        targetPoint = CGPointMultiply(CGPointMake(coordPoint, coordPoint), CGPointRotate(_player.direction, degrees)); // multiplying the coordPoint against the direction should produce a vector in the correct direction
+        
+        
+        targetOffset = CGVectorMake(targetPoint.x - playerPosInTile.x, 0);
+        
         
         targetPoint = [_tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
         
