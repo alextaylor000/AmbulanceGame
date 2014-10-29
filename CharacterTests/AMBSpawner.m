@@ -95,9 +95,9 @@
     [objectToSpawn addObjectToNode:[owningScene mapLayerRoad] atPosition:self.position];
     
     
-#if DEBUG
-    NSLog(@"<<<< firing spawn event >>>>");
-#endif
+//#if DEBUG
+//    NSLog(@"<<<< firing spawn event >>>>");
+//#endif
 }
 
 @end

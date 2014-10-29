@@ -188,7 +188,7 @@ static const int TILE_LANE_WIDTH = 32;
 - (void) addPlayer {
     
     _player = [[AMBPlayer alloc] init];
-    _player.position = CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
+    _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
 
     [_tilemap addChild:_player];
 
@@ -244,7 +244,7 @@ static const int TILE_LANE_WIDTH = 32;
     
     // test turn
     if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) {
-        NSLog(@" Can I turn now?");
+//        NSLog(@" Can I turn now?");
         [self authorizeTurnEvent:_turnDegrees];
     }
 
@@ -602,7 +602,7 @@ static const int TILE_LANE_WIDTH = 32;
         }
         
 #if DEBUG
-        NSLog(@"at hospital");
+//        NSLog(@"at hospital");
 #endif
     }
     
@@ -688,7 +688,9 @@ static const int TILE_LANE_WIDTH = 32;
         
         targetPoint = [_tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
         
-        
+#if DEBUG
+        NSLog(@"LANE CHANGE: (%1.0f,%1.0f)[%ld] -> (%1.0f,%1.0f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
+#endif
 
         
     }
@@ -712,7 +714,7 @@ static const int TILE_LANE_WIDTH = 32;
     [targetTile addChild:targetPointSprite];
     [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
     
-    NSLog(@"targetTileRoadType = %@", targetTileRoadType);
+//    NSLog(@"targetTileRoadType = %@", targetTileRoadType);
 #endif
     
     
@@ -728,7 +730,7 @@ static const int TILE_LANE_WIDTH = 32;
                 [_player rotateByAngle:degrees];
             } else {
 #if DEBUG
-                NSLog(@"changing lanes by %1.0f,%1.0f",targetOffset.dx,targetOffset.dy);
+//                NSLog(@"changing lanes by %1.0f,%1.0f",targetOffset.dx,targetOffset.dy);
 #endif
                 [_player runAction:[SKAction moveBy:targetOffset duration:0.25]];
             }
@@ -736,7 +738,7 @@ static const int TILE_LANE_WIDTH = 32;
             
             
 #if DEBUG
-            NSLog(@"turn initiated while on tile %@",currentTileType);
+//            NSLog(@"turn initiated while on tile %@",currentTileType);
 #endif
         } else {
             // stash the turn request
