@@ -188,7 +188,7 @@ static const int TILE_LANE_WIDTH = 32;
 - (void) addPlayer {
     
     _player = [[AMBPlayer alloc] init];
-    _player.position = CGPointMake(_playerSpawnPoint.x - 32, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
+    _player.position = CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
 
     [_tilemap addChild:_player];
 
@@ -636,48 +636,55 @@ static const int TILE_LANE_WIDTH = 32;
         
         
     } else { // lane changes
-        CGPoint laneChangeVector = CGPointMultiplyScalar(  CGPointRotate(_player.direction, degrees) , TILE_LANE_WIDTH*2); // lane width * 2 because we're in the center of a lane and need to get across to the next one
+        CGPoint laneChangeVector = CGPointRotate(_player.direction, degrees);
+            // lane width * 2 because we're in the center of a lane and need to get across to the next one
+            // the result is something like (1, 0)
 
-        CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector));
+        CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector)); // result: 90, 0, etc
+
         NSInteger remainder;
-        
-        /*
-         remainder (
-         remainder = playerPosInTile + laneChange % TILE_LANE_WIDTH
-         */
-
         NSInteger pos;  // the player's position in the tile, either the x or the y value
-        NSInteger lane; // the lane change vector, either the x or the y value
+        NSInteger posNormalized ; // the player's position, normalized to the lane width
+        NSInteger targetLaneNormalized;
+        NSInteger direction; // the lane change vector, should either be 1 or -1
         NSInteger coordPoint; // the resulting point for targetPoint; calculated differently depending on whether we're moving left/up or right/down
         
         
         if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-            pos     = (int)playerPosInTile.x;
-            lane    = (int)laneChangeVector.x;
-            
+            pos     = (int)playerPosInTile.x + 128; // add 128 to make the coords corner-anchored
         } else {
-            pos     = (int)playerPosInTile.y;
-            lane    = (int)laneChangeVector.y;
+            pos     = (int)playerPosInTile.y + 128;
         }
-
-        // calculate remainder; how far are we going to overshoot the next lane?
-        remainder = (pos + lane) % TILE_LANE_WIDTH;
         
         if (angle > -1 ) {
             // positive
-            coordPoint = pos + TILE_LANE_WIDTH*2 - remainder;
-            
+            posNormalized = floorl(pos/TILE_LANE_WIDTH);
+            direction = 1;
         } else {
             // negative
-            coordPoint = pos - remainder;
-            
+            posNormalized = ceill(pos/TILE_LANE_WIDTH);
+            direction = -1;
         }
         
-        targetPoint = CGPointMultiply(CGPointMake(coordPoint, coordPoint), CGPointRotate(_player.direction, degrees)); // multiplying the coordPoint against the direction should produce a vector in the correct direction
+        if (posNormalized % 2 == 0) {
+            // the player is right on a lane
+            targetLaneNormalized = posNormalized + direction;
+            
+        } else {
+            // the player is somewhere between lanes
+            remainder = posNormalized % 2;
+            targetLaneNormalized = posNormalized + direction + (remainder * direction);
+        }
         
+        coordPoint = targetLaneNormalized * TILE_LANE_WIDTH; // un-normalize the target lane now
         
-        targetOffset = CGVectorMake(targetPoint.x - playerPosInTile.x, 0);
-        
+        if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
+            targetOffset = CGVectorMake((targetLaneNormalized - posNormalized) * TILE_LANE_WIDTH, 0);
+            
+        } else {
+            targetOffset = CGVectorMake(0, (targetLaneNormalized - posNormalized) * TILE_LANE_WIDTH);        }
+
+        targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
         
         targetPoint = [_tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
         
