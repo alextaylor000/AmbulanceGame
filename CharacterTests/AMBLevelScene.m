@@ -188,7 +188,7 @@ static const int TILE_LANE_WIDTH = 32;
 - (void) addPlayer {
     
     _player = [[AMBPlayer alloc] init];
-    _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
+    _player.position = CGPointMake(_playerSpawnPoint.x -32, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
 
     [_tilemap addChild:_player];
 
@@ -615,7 +615,6 @@ static const int TILE_LANE_WIDTH = 32;
     
     SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
     NSDictionary *currentTileProperties = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]];
-    NSString *currentTileType = currentTileProperties[@"road"];
     CGPoint playerPosInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
 
     CGPoint targetPoint; // the result of this tile calculation below
@@ -643,54 +642,51 @@ static const int TILE_LANE_WIDTH = 32;
         CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector)); // result: 90, 0, etc
 
         NSInteger remainder;
-        NSInteger pos;  // the player's position in the tile, either the x or the y value
-        NSInteger posNormalized ; // the player's position, normalized to the lane width
+        CGFloat pos;  // the player's position in the tile, either the x or the y value
+        CGFloat posNormalized ; // the player's position, normalized to the lane width
         NSInteger targetLaneNormalized;
         NSInteger direction; // the lane change vector, should either be 1 or -1
-        NSInteger coordPoint; // the resulting point for targetPoint; calculated differently depending on whether we're moving left/up or right/down
         
-        
+        // the lane change calculation is easiest in one dimension, so we want to extract the relevant details and forget about points until the end
         if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-            pos     = (int)playerPosInTile.x + 128; // add 128 to make the coords corner-anchored
+            pos     = playerPosInTile.x + 128; // add 128 to make the coords corner-anchored
         } else {
-            pos     = (int)playerPosInTile.y + 128;
+            pos     = playerPosInTile.y + 128;
         }
+    
         
-        if (angle > -1 ) {
-            // positive
-            posNormalized = floorl(pos/TILE_LANE_WIDTH);
+        // TODO: accept a range around the lane (e.g. if the lane is at 96, 94-98 should be considered the range)
+        
+        if (angle > -1 ) { // positive change
+            posNormalized = floorl( round(pos)/TILE_LANE_WIDTH);
             direction = 1;
-        } else {
-            // negative
-            posNormalized = ceill(pos/TILE_LANE_WIDTH);
+        } else { // negative change
+            posNormalized = ceilf( round(pos)/TILE_LANE_WIDTH);
             direction = -1;
         }
         
-        if (posNormalized % 2 == 0) {
-            // the player is right on a lane
+        if ( (int)posNormalized % 2 == 0) { // the player is right on a lane
             targetLaneNormalized = posNormalized + direction;
             
-        } else {
-            // the player is somewhere between lanes
-            remainder = posNormalized % 2;
+        } else { // the player is somewhere between lanes
+            remainder = (int)posNormalized % 2;
             targetLaneNormalized = posNormalized + direction + (remainder * direction);
         }
         
-        coordPoint = targetLaneNormalized * TILE_LANE_WIDTH; // un-normalize the target lane now
-        
+        // convert the result back into a point
         if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-            targetOffset = CGVectorMake((targetLaneNormalized - posNormalized) * TILE_LANE_WIDTH, 0);
+            targetOffset = CGVectorMake((targetLaneNormalized * TILE_LANE_WIDTH) - pos , 0);
             
         } else {
-            targetOffset = CGVectorMake(0, (targetLaneNormalized - posNormalized) * TILE_LANE_WIDTH);        }
+            targetOffset = CGVectorMake(0, (targetLaneNormalized * TILE_LANE_WIDTH) - pos);        }
 
         targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
+#if DEBUG
+        NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
+#endif
         
         targetPoint = [_tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
         
-#if DEBUG
-        NSLog(@"LANE CHANGE: (%1.0f,%1.0f)[%ld] -> (%1.0f,%1.0f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
-#endif
 
         
     }
@@ -732,7 +728,7 @@ static const int TILE_LANE_WIDTH = 32;
 #if DEBUG
 //                NSLog(@"changing lanes by %1.0f,%1.0f",targetOffset.dx,targetOffset.dy);
 #endif
-                [_player runAction:[SKAction moveBy:targetOffset duration:0.25]];
+                [_player runAction:[SKAction moveBy:targetOffset duration:0.15]];
             }
             _turnRequested = NO;
             
