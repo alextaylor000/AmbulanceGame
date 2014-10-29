@@ -188,7 +188,7 @@ static const int TILE_LANE_WIDTH = 32;
 - (void) addPlayer {
     
     _player = [[AMBPlayer alloc] init];
-    _player.position = CGPointMake(_playerSpawnPoint.x -32, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
+    _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
 
     [_tilemap addChild:_player];
 
@@ -617,13 +617,16 @@ static const int TILE_LANE_WIDTH = 32;
     NSDictionary *currentTileProperties = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]];
     CGPoint playerPosInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
 
+    BOOL currentTileIsMultiLane;
+    if([[currentTileProperties[@"road"] substringToIndex:1] isEqualToString:@"b"]) { currentTileIsMultiLane = YES; } else { currentTileIsMultiLane = NO; }
+
     CGPoint targetPoint; // the result of this tile calculation below
     CGVector targetOffset; // how much we need to move over to get into the next lane
     
-    if (currentTileProperties[@"intersection"]) {
+    if (currentTileProperties[@"intersection"] && !currentTileIsMultiLane) {
         // begin by modeling the requested turn from the player's current position; return a target point
+    
         CGFloat rads = DegreesToRadians(degrees);
-        CGFloat newAngle = _player.zRotation + rads; // the angle the player will face after the turn
         
         CGFloat playerWidth = [self calculatePlayerWidth];
         
@@ -633,6 +636,8 @@ static const int TILE_LANE_WIDTH = 32;
         
         targetPoint = CGPointAdd(rotatedPoint, _player.position);
         
+    } else if (currentTileProperties[@"intersection"] && currentTileIsMultiLane) {
+        // TODO: handle multi lane
         
     } else { // lane changes
         CGPoint laneChangeVector = CGPointRotate(_player.direction, degrees);
@@ -687,8 +692,6 @@ static const int TILE_LANE_WIDTH = 32;
         
         targetPoint = [_tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
         
-
-        
     }
 
     
@@ -728,7 +731,10 @@ static const int TILE_LANE_WIDTH = 32;
 #if DEBUG
 //                NSLog(@"changing lanes by %1.0f,%1.0f",targetOffset.dx,targetOffset.dy);
 #endif
-                [_player runAction:[SKAction moveBy:targetOffset duration:0.15]];
+                SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
+                changeLanes.timingMode = SKActionTimingEaseInEaseOut;
+                [_player runAction:changeLanes];
+
             }
             _turnRequested = NO;
             
