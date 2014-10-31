@@ -242,10 +242,9 @@ static const int TILE_LANE_WIDTH = 32;
     }];
     
     
-    // test turn
+    // turn if a turn was requested but hasn't been completed yet
     if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) {
-//        NSLog(@" Can I turn now?");
-        [self authorizeTurnEvent:_turnDegrees];
+        [self authorizeMoveEvent:_turnDegrees];
     }
 
 }
@@ -651,23 +650,19 @@ static const int TILE_LANE_WIDTH = 32;
             rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, TILE_LANE_WIDTH); // target tile is 1 over
         }
  
-        
-        //
         targetPoint = CGPointAdd(rotatedPoint, _player.position);
         isWithinBounds = [self isTargetPointValid:targetPoint];
         
-            if (isWithinBounds) {
-                [_player rotateByAngle:degrees];
-                return;
-            }
+        if (isWithinBounds) {
+            [_player rotateByAngle:degrees];
+            return;
+        }
 
     } // if currentTileProperties = intersection
 
     // fall through to a lane change if the whole turning thing didn't work out
+
     CGPoint laneChangeVector = CGPointRotate(_player.direction, degrees);
-    // lane width * 2 because we're in the center of a lane and need to get across to the next one
-    // the result is something like (1, 0)
-    
     CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector)); // result: 90, 0, etc
     
     NSInteger remainder;
@@ -675,15 +670,15 @@ static const int TILE_LANE_WIDTH = 32;
     CGFloat posNormalized ; // the player's position, normalized to the lane width
     NSInteger targetLaneNormalized;
     NSInteger direction; // the lane change vector, should either be 1 or -1
-    
+
     // the lane change calculation is easiest in one dimension, so we want to extract the relevant details and forget about points until the end
     if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-        pos     = playerPosInTile.x + 128; // add 128 to make the coords corner-anchored
+        pos     = playerPosInTile.x + (_tilemap.tileSize.width/2); // add half the width of the tile to make the coords corner-anchored.
     } else {
-        pos     = playerPosInTile.y + 128;
+        pos     = playerPosInTile.y + (_tilemap.tileSize.width/2);
     }
     
-    
+
     // TODO: accept a range around the lane (e.g. if the lane is at 96, 94-98 should be considered the range)
     
     if (angle > -1 ) { // positive change
@@ -965,12 +960,12 @@ static const int TILE_LANE_WIDTH = 32;
                     break;
                     
                 case NSLeftArrowFunctionKey:
-                    [self authorizeTurnEvent:90];
+                    [self authorizeMoveEvent:90];
                     
                     break;
                     
                 case NSRightArrowFunctionKey:
-                    [self authorizeTurnEvent:-90];
+                    [self authorizeMoveEvent:-90];
                     
                     break;
                     
