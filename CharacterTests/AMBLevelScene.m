@@ -121,70 +121,6 @@ static const int TILE_LANE_WIDTH = 32;
     
 }
 
--(void) updateCars {
-    double curTime = CACurrentMediaTime();//returns the current absolute time in seconds
-    if (curTime > _nextCarSpawn) {
-        //NSLog(@"spawning new asteroid");
-        float randSecs = [self randomValueBetween:0.20 andValue:1.0];//Creates a randome value to space out when cars appear
-        _nextCarSpawn = randSecs + curTime;//time until next car spawns, look at the if statment for why this is relivent
-        
-        SKSpriteNode *car = [_cars objectAtIndex:_nextCar];//Selects the next car in the list, starts at 0
-        _nextCar++;//Incraments up the next car in the list.  So that next time the loop is called this appears.
-        
-        if (_nextCar >= _cars.count) {//Checks to see that the number of cars has not exceeded the total number of cars in the m-array
-            _nextCar = 0;//If it has reset it to 0 and start from the front of the list
-        }
-        
-        [car removeAllActions];//Clears out the old actions so that they dont gum up the works.
-        float randDuration = [self randomValueBetween:2.0 andValue:10.0];//Car speed
-        CGPoint location;
-        
-        if ((_player.direction.x == 0.0 && _player.direction.y == 1.0)) {//up
-            float randx = [self randomValueBetween:-self.frame.size.width andValue:self.frame.size.width];//Cars appear somewhere on the right side of the screen
-            
-            car.position = CGPointMake(randx, self.frame.size.height+car.size.height/2);//Place the car on the far right side.  Plus its width(devided in half because it has been scalled in half).  This means it appears offscreen.  Se randY for meaning.
-            car.hidden = NO;//Unhide the car
-            
-            location = CGPointMake(randx, -self.frame.size.height-car.size.height);//sets the desctination for the oposite side of the screen, hence all those negatives.  In addition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.
-        }else if(_player.direction.x == -1.0 && _player.direction.y == 0.0){//left
-            float randY = [self randomValueBetween:0.0 andValue:self.frame.size.height];//Cars appear somewhere on the right side of the screen
-            
-            car.position = CGPointMake(-self.frame.size.width-car.size.width, randY);//Place the car on the far right side.  Plus its width(devided in half because it has been scalled in half).  This means it appears offscreen.  Se randY for meaning.
-            car.hidden = NO;//Unhide the car
-            
-            location = CGPointMake(self.frame.size.width+car.size.width/2 , randY);//sets the desctination for the oposite side of the screen, hence all those negatives.  In addition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.
-        }else if (_player.direction.x == 0.0 && _player.direction.y == -1.0){//down
-            float randx = [self randomValueBetween:-self.frame.size.width andValue:self.frame.size.width];//Cars appear somewhere on the right side of the screen
-            
-            car.position = CGPointMake(randx, -self.frame.size.height-car.size.height);//Place the car on the far right side.  Plus its width(devided in half because it has been scalled in half).  This means it appears offscreen.  Se randY for meaning.
-            car.hidden = NO;//Unhide the car
-            
-            location = CGPointMake(randx, self.frame.size.height+car.size.height/2);//sets the desctination for the oposite side of the screen, hence all those negatives.  In addition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.ddition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.
-        }else if (_player.direction.x == 1.0 && _player.direction.y == 0.0){//right
-            float randY = [self randomValueBetween:0.0 andValue:self.frame.size.height];//Cars appear somewhere on the right side of the screen
-            
-            car.position = CGPointMake(self.frame.size.width+car.size.width/2, randY);//Place the car on the far right side.  Plus its width(devided in half because it has been scalled in half).  This means it appears offscreen.  Se randY for meaning.
-            car.hidden = NO;//Unhide the car
-            
-            location = CGPointMake(-self.frame.size.width-car.size.width, randY);//sets the desctination for the oposite side of the screen, hence all those negatives.  In addition to this it subtracts the width of the car, so that it doesn't disapear until it compleatly falls off the screen.
-        }
-        
-        
-        
-        SKAction *moveAction = [SKAction moveTo:location duration:randDuration];//Actually create the action, moving image from A to B.
-        SKAction *doneAction = [SKAction runBlock:(dispatch_block_t)^() {//I think this creates a thread to cause the car to hide when it reaches the end of the screen.
-            //NSLog(@"Animation Completed");
-            car.hidden = YES;
-        }];
-        
-        SKAction *moveCarActionWithDone = [SKAction sequence:@[moveAction, doneAction ]];
-        [car runAction:moveCarActionWithDone withKey:@"carMoving"];
-    }
-    
-    
-    
-}
-
 - (void) addPlayer {
     
     _player = [[AMBPlayer alloc] init];
@@ -231,9 +167,6 @@ static const int TILE_LANE_WIDTH = 32;
         AMBSpawner *spawnerObj = (AMBSpawner *)obj;
         [spawnerObj updateWithTimeSinceLastUpdate:_sceneDelta];
     }];
-    
-// commented out during patient testing
-//    [self updateCars];
 
     // update all visible patients
     [_tilemap enumerateChildNodesWithName:@"patient" usingBlock:^(SKNode *node, BOOL *stop) {
@@ -244,6 +177,9 @@ static const int TILE_LANE_WIDTH = 32;
     
     // turn if a turn was requested but hasn't been completed yet
     if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) {
+#if DEBUG
+        NSLog(@"update loop: turn requested");
+#endif
         [self authorizeMoveEvent:_turnDegrees];
     }
 
@@ -645,9 +581,9 @@ static const int TILE_LANE_WIDTH = 32;
         
         // is it single-lane?
         if (currentTileIsMultiLane) {
-            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, TILE_LANE_WIDTH*2); // target tile is 2 over
+            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, _tilemap.tileSize.width*2); // target tile is 2 over
         } else {
-            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, TILE_LANE_WIDTH); // target tile is 1 over
+            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, _tilemap.tileSize.width); // target tile is 1 over
         }
  
         targetPoint = CGPointAdd(rotatedPoint, _player.position);
@@ -655,6 +591,7 @@ static const int TILE_LANE_WIDTH = 32;
         
         if (isWithinBounds) {
             [_player rotateByAngle:degrees];
+            _turnRequested = NO;
             return;
         }
 
@@ -717,7 +654,15 @@ static const int TILE_LANE_WIDTH = 32;
         SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
         changeLanes.timingMode = SKActionTimingEaseInEaseOut;
         [_player runAction:changeLanes];
+        _turnRequested = NO;
+        return;
     }
+    
+    // as a final fall-through, stash the turn request if it wasn't able to be completed.
+    // the update loop will keep requesting the turn for a while after the keypress, in order
+    // to reduce the precise timing required to turn on to other roads.
+    _turnRequested = YES;
+    _turnDegrees = degrees;
     
 }
 
@@ -732,7 +677,7 @@ static const int TILE_LANE_WIDTH = 32;
     CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_tilemap]; // the position of the target within the target tile
     
 #if DEBUG
-    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
     targetPointSprite.name = @"DEBUG_targetPointSprite";
     targetPointSprite.position = positionInTargetTile;
     targetPointSprite.zPosition = targetTile.zPosition + 1;
@@ -749,7 +694,7 @@ static const int TILE_LANE_WIDTH = 32;
         
 #if DEBUG
         if (pointIsValid) {
-            targetPointSprite.color = [SKColor blueColor];
+            targetPointSprite.color = [SKColor greenColor];
         }
         
         SKShapeNode *bounds = [SKShapeNode node];
@@ -767,167 +712,6 @@ static const int TILE_LANE_WIDTH = 32;
     }
     
     return pointIsValid;
-}
-
-- (void)authorizeTurnEvent: (CGFloat)degrees {
-    // DEPRECATED; USE authorizeMoveEvent INSTEAD
-    /* Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile. */
-    
-    SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
-    NSDictionary *currentTileProperties = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]];
-    CGPoint playerPosInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
-
-    BOOL currentTileIsMultiLane;
-    if([[currentTileProperties[@"road"] substringToIndex:1] isEqualToString:@"b"]) { currentTileIsMultiLane = YES; } else { currentTileIsMultiLane = NO; }
-
-    CGPoint targetPoint; // the result of this tile calculation below
-    CGVector targetOffset; // how much we need to move over to get into the next lane
-    
-    if (currentTileProperties[@"intersection"] && !currentTileIsMultiLane) {
-        // begin by modeling the requested turn from the player's current position; return a target point
-    
-        CGFloat rads = DegreesToRadians(degrees);
-        
-        CGFloat playerWidth = [self calculatePlayerWidth];
-        
-        CGPoint directionNormalized = CGPointNormalize(_player.direction);
-        CGPoint rotatedPointNormalized = CGPointRotate(directionNormalized, degrees);
-        CGPoint rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, playerWidth);
-        
-        targetPoint = CGPointAdd(rotatedPoint, _player.position);
-        
-    } else if (currentTileProperties[@"intersection"] && currentTileIsMultiLane) {
-        // TODO: handle multi lane
-        
-    } else { // lane changes
-        CGPoint laneChangeVector = CGPointRotate(_player.direction, degrees);
-            // lane width * 2 because we're in the center of a lane and need to get across to the next one
-            // the result is something like (1, 0)
-
-        CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector)); // result: 90, 0, etc
-
-        NSInteger remainder;
-        CGFloat pos;  // the player's position in the tile, either the x or the y value
-        CGFloat posNormalized ; // the player's position, normalized to the lane width
-        NSInteger targetLaneNormalized;
-        NSInteger direction; // the lane change vector, should either be 1 or -1
-        
-        // the lane change calculation is easiest in one dimension, so we want to extract the relevant details and forget about points until the end
-        if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-            pos     = playerPosInTile.x + 128; // add 128 to make the coords corner-anchored
-        } else {
-            pos     = playerPosInTile.y + 128;
-        }
-    
-        
-        // TODO: accept a range around the lane (e.g. if the lane is at 96, 94-98 should be considered the range)
-        
-        if (angle > -1 ) { // positive change
-            posNormalized = floorl( round(pos)/TILE_LANE_WIDTH);
-            direction = 1;
-        } else { // negative change
-            posNormalized = ceilf( round(pos)/TILE_LANE_WIDTH);
-            direction = -1;
-        }
-        
-        if ( (int)posNormalized % 2 == 0) { // the player is right on a lane
-            targetLaneNormalized = posNormalized + direction;
-            
-        } else { // the player is somewhere between lanes
-            remainder = (int)posNormalized % 2;
-            targetLaneNormalized = posNormalized + direction + (remainder * direction);
-        }
-        
-        // convert the result back into a point
-        if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-            targetOffset = CGVectorMake((targetLaneNormalized * TILE_LANE_WIDTH) - pos , 0);
-            
-        } else {
-            targetOffset = CGVectorMake(0, (targetLaneNormalized * TILE_LANE_WIDTH) - pos);        }
-
-        targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
-#if DEBUG
-        NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
-#endif
-        
-        targetPoint = [_tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
-        
-    }
-
-    
-    // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
-    SKSpriteNode *targetTile = [_mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn
-    NSString *targetTileRoadType = [_tilemap propertiesForGid:  [_mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
-    
-    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_tilemap]; // the position of the target within the target tile
-    
-    CGPoint playerInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
-    currentTile.color = [SKColor yellowColor];
-    //NSLog(@"playerInTile = %1.0f,%1.0f",playerInTile.x,playerInTile.y);
-    
-#if DEBUG
-    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
-    targetPointSprite.name = @"DEBUG_targetPointSprite";
-    targetPointSprite.position = positionInTargetTile;
-    targetPointSprite.zPosition = targetTile.zPosition + 1;
-    [targetTile addChild:targetPointSprite];
-    [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
-    
-//    NSLog(@"targetTileRoadType = %@", targetTileRoadType);
-#endif
-    
-    
-    if (targetTileRoadType) {
-        // check the coordinates to make sure it's on ROAD SURFACE within the tile
-        
-        CGPathRef path = (__bridge CGPathRef)([roadTilePaths objectForKey:targetTileRoadType]); // TODO: memory leak because of bridging?
-        
-        BOOL isWithinBounds = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
-        
-        if (isWithinBounds) { // if the point is within the bounding path..
-            if (currentTileProperties[@"intersection"]) {
-                [_player rotateByAngle:degrees];
-            } else {
-#if DEBUG
-//                NSLog(@"changing lanes by %1.0f,%1.0f",targetOffset.dx,targetOffset.dy);
-#endif
-                SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
-                changeLanes.timingMode = SKActionTimingEaseInEaseOut;
-                [_player runAction:changeLanes];
-
-            }
-            _turnRequested = NO;
-            
-            
-#if DEBUG
-//            NSLog(@"turn initiated while on tile %@",currentTileType);
-#endif
-        } else {
-            // stash the turn request
-            _turnRequested = YES;
-            _turnDegrees = degrees;
-        }
-        
-#if DEBUG
-        if (isWithinBounds) {
-            targetPointSprite.color = [SKColor blueColor];
-        }
-        
-        SKShapeNode *bounds = [SKShapeNode node];
-        bounds.path = path;
-        bounds.fillColor = [SKColor whiteColor];
-        bounds.alpha = 0.5;
-        bounds.zPosition = targetPointSprite.zPosition - 1;
-        
-        [targetTile addChild:bounds];
-        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
-#endif
-        
-    }
-    
-    
-
-    
 }
 
 - (CGFloat)calculatePlayerWidth {
