@@ -610,7 +610,172 @@ static const int TILE_LANE_WIDTH = 32;
 }
 
 
+- (void)authorizeMoveEvent: (CGFloat)degrees {
+    /* Called by user input. Initiates a turn or a lane change if the move is legal.
+    
+     The layout of this function is as follows:
+     
+     Is the tile an intersection?
+            Define the target point (slightly different for single lane vs. multi lane)
+     
+            Does the target point land on a road?
+                *TURN!*
+                return;
+     
+     Define the target point for a lane change
+            Does the target point land on a road?
+                *CHANGE LANES!*
+     
+     */
+    
+    SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
+    NSDictionary *currentTileProperties = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]];
+    CGPoint playerPosInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
+    
+    BOOL isWithinBounds;
+    BOOL currentTileIsMultiLane;
+    if([[currentTileProperties[@"road"] substringToIndex:1] isEqualToString:@"b"]) { currentTileIsMultiLane = YES; } else { currentTileIsMultiLane = NO; }
+    
+    CGPoint targetPoint; // the result of this tile calculation below
+    CGVector targetOffset; // how much we need to move over to get into the next lane
+
+    if (currentTileProperties[@"intersection"]) {
+        CGPoint directionNormalized = CGPointNormalize(_player.direction);
+        CGPoint rotatedPointNormalized = CGPointRotate(directionNormalized, degrees);
+        CGPoint rotatedPoint;
+        
+        // is it single-lane?
+        if (currentTileIsMultiLane) {
+            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, TILE_LANE_WIDTH*2); // target tile is 2 over
+        } else {
+            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, TILE_LANE_WIDTH); // target tile is 1 over
+        }
+ 
+        
+        //
+        targetPoint = CGPointAdd(rotatedPoint, _player.position);
+        isWithinBounds = [self isTargetPointValid:targetPoint];
+        
+            if (isWithinBounds) {
+                [_player rotateByAngle:degrees];
+                return;
+            }
+
+    } // if currentTileProperties = intersection
+
+    // fall through to a lane change if the whole turning thing didn't work out
+    CGPoint laneChangeVector = CGPointRotate(_player.direction, degrees);
+    // lane width * 2 because we're in the center of a lane and need to get across to the next one
+    // the result is something like (1, 0)
+    
+    CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector)); // result: 90, 0, etc
+    
+    NSInteger remainder;
+    CGFloat pos;  // the player's position in the tile, either the x or the y value
+    CGFloat posNormalized ; // the player's position, normalized to the lane width
+    NSInteger targetLaneNormalized;
+    NSInteger direction; // the lane change vector, should either be 1 or -1
+    
+    // the lane change calculation is easiest in one dimension, so we want to extract the relevant details and forget about points until the end
+    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
+        pos     = playerPosInTile.x + 128; // add 128 to make the coords corner-anchored
+    } else {
+        pos     = playerPosInTile.y + 128;
+    }
+    
+    
+    // TODO: accept a range around the lane (e.g. if the lane is at 96, 94-98 should be considered the range)
+    
+    if (angle > -1 ) { // positive change
+        posNormalized = floorl( round(pos)/TILE_LANE_WIDTH);
+        direction = 1;
+    } else { // negative change
+        posNormalized = ceilf( round(pos)/TILE_LANE_WIDTH);
+        direction = -1;
+    }
+    
+    if ( (int)posNormalized % 2 == 0) { // the player is right on a lane
+        targetLaneNormalized = posNormalized + direction;
+        
+    } else { // the player is somewhere between lanes
+        remainder = (int)posNormalized % 2;
+        targetLaneNormalized = posNormalized + direction + (remainder * direction);
+    }
+    
+    // convert the result back into a point
+    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
+        targetOffset = CGVectorMake((targetLaneNormalized * TILE_LANE_WIDTH) - pos , 0);
+        
+    } else {
+        targetOffset = CGVectorMake(0, (targetLaneNormalized * TILE_LANE_WIDTH) - pos);        }
+    
+    targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
+#if DEBUG
+    NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
+#endif
+    
+    targetPoint = [_tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
+
+    isWithinBounds = [self isTargetPointValid:targetPoint];
+    
+    if (isWithinBounds) {
+        SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
+        changeLanes.timingMode = SKActionTimingEaseInEaseOut;
+        [_player runAction:changeLanes];
+    }
+    
+}
+
+
+- (BOOL)isTargetPointValid: (CGPoint)targetPoint {
+    BOOL pointIsValid = NO;
+    
+    // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
+    SKSpriteNode *targetTile = [_mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn
+    
+    NSString *targetTileRoadType = [_tilemap propertiesForGid:  [_mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
+    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_tilemap]; // the position of the target within the target tile
+    
+#if DEBUG
+    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
+    targetPointSprite.name = @"DEBUG_targetPointSprite";
+    targetPointSprite.position = positionInTargetTile;
+    targetPointSprite.zPosition = targetTile.zPosition + 1;
+    [targetTile addChild:targetPointSprite];
+    [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
+#endif
+    
+    if (targetTileRoadType) {
+        // check the coordinates to make sure it's on ROAD SURFACE within the tile
+        
+        CGPathRef path = (__bridge CGPathRef)([roadTilePaths objectForKey:targetTileRoadType]); // TODO: memory leak because of bridging?
+        
+        pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
+        
+#if DEBUG
+        if (pointIsValid) {
+            targetPointSprite.color = [SKColor blueColor];
+        }
+        
+        SKShapeNode *bounds = [SKShapeNode node];
+        bounds.path = path;
+        bounds.fillColor = [SKColor whiteColor];
+        bounds.alpha = 0.5;
+        bounds.zPosition = targetPointSprite.zPosition - 1;
+        
+        [targetTile addChild:bounds];
+        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
+#endif
+        
+        
+        return CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
+    }
+    
+    return pointIsValid;
+}
+
 - (void)authorizeTurnEvent: (CGFloat)degrees {
+    // DEPRECATED; USE authorizeMoveEvent INSTEAD
     /* Called directly by user input. Evaluates the player's current position, and executes a turn only if it ends on a road tile. */
     
     SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
