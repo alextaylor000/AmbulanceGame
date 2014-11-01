@@ -197,6 +197,7 @@ static const int TILE_LANE_WIDTH = 32;
 - (void)createWorld {
     
     _worldNode = [SKNode node];
+    _worldNode.name = @"worldNode";
     [self addChild:_worldNode];
     
     [self levelWithTilemap:@"level01.tmx"];
