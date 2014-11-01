@@ -50,32 +50,34 @@
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     
-
-    _spritePosInBoundingBox = [_targetSprite.scene convertPoint:_targetSprite.position fromNode:_targetSprite.parent];
-    NSLog(@"_spritePosInBoundingBox=%1.0f,%1.0f",_spritePosInBoundingBox.x,_spritePosInBoundingBox.y);
-
-    
-    if (_cameraIsActive) {
-        _targetPosition = CGPointMultiplyScalar(_player.direction, -1 * _activeOffset);
-        _targetPosition = CGPointSubtract(_player.position, _targetPosition);
+    if (_player.isMoving) {
         
-        CGPoint targetOffset = CGPointSubtract(_targetPosition, self.position);
-        
-        if (targetOffset.x > 2 || targetOffset.y > 2) {
-            self.position = CGPointMake(self.position.x + targetOffset.x/2, self.position.y + targetOffset.y/2);
-            return;
+        _spritePosInBoundingBox = [_targetSprite.scene convertPoint:_targetSprite.position fromNode:_targetSprite.parent];
+        if (_spritePosInBoundingBox.x > (_boundingBox.width/2) || _spritePosInBoundingBox.y > (_boundingBox.height/2)) {
+            [self reframeCameraToOffset:_activeOffset]; // reframe to ACTIVE OFFSET
         }
-
-    }
-    
-    if (_spritePosInBoundingBox.x > (_boundingBox.width/2) || _spritePosInBoundingBox.y > (_boundingBox.height/2)) {
-        _cameraIsActive = YES;
-        return;
+        
+    } else {
+        [self reframeCameraToOffset:_idleOffset]; // reframe to IDLE OFFSET
     }
 
-    self.position = _targetPosition; // lock the camera if none of the above conditions were met
-    _cameraIsActive = NO;
+
 }
 
+
+- (void)reframeCameraToOffset:(CGFloat)offset {
+
+    _targetPosition = CGPointMultiplyScalar(_player.direction, -1 * offset);
+    _targetPosition = CGPointSubtract(_player.position, _targetPosition);
+    
+    CGPoint targetOffset = CGPointSubtract(_targetPosition, self.position);
+    
+    if (targetOffset.x > 2 || targetOffset.y > 2) {
+        self.position = CGPointMake(self.position.x + targetOffset.x/2, self.position.y + targetOffset.y/2);
+    } else {
+        self.position = _targetPosition;
+    }
+    
+}
 
 @end
