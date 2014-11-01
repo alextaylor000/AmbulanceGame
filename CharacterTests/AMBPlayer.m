@@ -18,7 +18,7 @@
 
 @property NSTimeInterval sceneDelta;
 
-@property BOOL isMoving;                    // YES if the character is moving at speed; NO if it's not.
+
 
 @property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
 

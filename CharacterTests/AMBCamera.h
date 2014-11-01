@@ -17,6 +17,8 @@
 @property (nonatomic) CGPoint idleOffset; // the target sprite's position in the frame, relative to center, when the target sprite is idle
 @property (nonatomic) CGPoint activeOffset; // the target sprite's position in the frame, relative to center, when the target sprite is moving. travelling outside of the bounding box triggers the camera to become active.
 
+
 - (instancetype)initWithTargetSprite:(SKNode *)targetSprite;
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 
 @end

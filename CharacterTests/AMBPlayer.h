@@ -18,6 +18,8 @@ typedef enum {
 
 @interface AMBPlayer : AMBCharacter
 
+@property (readonly, nonatomic) BOOL isMoving; // YES if the character is moving at speed; NO if it's not.
+
 @property (readonly, nonatomic) float CHARACTER_MOVEMENT_POINTS_PER_SEC;
 @property (readonly, nonatomic) float CHARACTER_TURN_DELAY; // builds in a small animated rotation; tweak this to change the "feel" of the turning.
 

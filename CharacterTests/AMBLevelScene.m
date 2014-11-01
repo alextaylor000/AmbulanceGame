@@ -12,6 +12,7 @@
 #import "AMBHospital.h"
 #import "AMBSpawner.h"
 #import "AMBScoreKeeper.h"
+#import "AMBCamera.h"
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 
@@ -28,6 +29,7 @@ static const int TILE_LANE_WIDTH = 32;
 @property JSTileMap *bgLayer;
 @property AMBPlayer *player;
 @property AMBSpawner *spawnerTest;
+@property AMBCamera *camera;
 
 @property TMXLayer *roadLayer;
 @property TMXObjectGroup *spawnPoints;
@@ -62,6 +64,11 @@ static const int TILE_LANE_WIDTH = 32;
         [self addPlayer];
 
         _turnRequested = NO;
+        
+        // camera
+        _camera = [[AMBCamera alloc] initWithTargetSprite:_player];
+        _camera.zPosition = 999;
+        [_worldNode addChild:_camera];
         
         // scoring
         scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
@@ -152,10 +159,11 @@ static const int TILE_LANE_WIDTH = 32;
 -(void)update:(CFTimeInterval)currentTime {
     [self calcDelta:currentTime];
     
-    [_player updateWithTimeSinceLastUpdate:self.sceneDelta];
+    [_player updateWithTimeSinceLastUpdate:_sceneDelta];
 
 
-    [self centerOnNode:_player];
+    [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
+    [self centerOnNode:_camera];
     
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
