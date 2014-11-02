@@ -68,7 +68,7 @@ static const int TILE_LANE_WIDTH = 32;
         // camera
         _camera = [[AMBCamera alloc] initWithTargetSprite:_player];
         _camera.zPosition = 999;
-        [_worldNode addChild:_camera];
+        [_tilemap addChild:_camera];
         
         // scoring
         scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
@@ -537,13 +537,10 @@ static const int TILE_LANE_WIDTH = 32;
 
 #pragma mark Camera
 
-- (void) centerOnNode: (SKNode *) node
-{
+- (void) centerOnNode: (SKNode *) node {
     CGPoint cameraPositionInScene = [node.scene convertPoint:node.position fromNode:node.parent];
     node.parent.position = CGPointMake(node.parent.position.x - cameraPositionInScene.x,
                                        node.parent.position.y - cameraPositionInScene.y);
-    
-    
 }
 
 
@@ -623,6 +620,7 @@ static const int TILE_LANE_WIDTH = 32;
         
         if (isWithinBounds) {
             [_player rotateByAngle:degrees];
+            [_camera rotateByAngle:degrees];
             _turnRequested = NO;
             return;
         }

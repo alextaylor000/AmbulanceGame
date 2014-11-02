@@ -144,4 +144,15 @@
 }
 
 
+- (void)rotateByAngle:(CGFloat)degrees {
+    SKNode *parentNode = self.parent.parent; // should be world node
+    SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(degrees*-1) duration:0.25];
+    rotate.timingMode = SKActionTimingEaseInEaseOut;
+    
+    // TODO: investigate this rotation. it works, but it causes the camera's calculations to go out of whack
+    //[parentNode runAction:rotate];
+    
+    
+}
+
 @end

@@ -28,5 +28,6 @@ typedef enum {
 
 - (instancetype)initWithTargetSprite:(SKNode *)targetSprite;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
+- (void)rotateByAngle:(CGFloat)degrees;
 
 @end
