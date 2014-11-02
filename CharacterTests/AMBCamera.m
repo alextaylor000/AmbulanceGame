@@ -28,7 +28,7 @@
         _player = (AMBPlayer *)_targetSprite; // cast the target sprite as a player so we can access its isMoving property
         
         // set properties
-        _boundingBox = CGSizeMake(300, 300);
+        _boundingBox = CGSizeMake(200, 200);
         _reorientsToTargetSpriteDirection = YES;
         _idleOffset = 0;
         _activeOffset = 200;
@@ -49,6 +49,7 @@
 
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
+    
     switch (_state) {
         case CameraIsIdle:
             [self checkBounds];
@@ -60,16 +61,17 @@
             break;
             
         case CameraIsFollowing:
-            [self reframeCameraToOffset:_activeOffset];
+            if (!_player.isMoving) {
+                [self changeState:CameraIsReframing];
+            }
+            
+            [self lockCameraToOffset:_currentOffset];
             break;
             
         default:
             break;
     }
     
-#if DEBUG
-    NSLog(@"Camera State: %u", self.state);
-#endif
 
 }
 
@@ -77,12 +79,33 @@
 
 - (void)changeState:(CameraState)newState {
     _state = newState;
+
+#if DEBUG
+    NSString *stateStr;
+    
+    switch (_state) {
+        case CameraIsIdle:
+            stateStr = @"CameraIsIdle";
+            break;
+            
+        case CameraIsReframing:
+            stateStr = @"CameraIsReframing";
+            break;
+            
+        case CameraIsFollowing:
+            stateStr = @"CameraIsFollowing";
+            break;
+    }
+    
+    NSLog(@"Changed camera state to: %@", stateStr);
+#endif
+    
 }
 
 - (void)checkBounds {
     if (_player.isMoving) {
         _spritePosInBoundingBox = [_targetSprite.scene convertPoint:_targetSprite.position fromNode:_targetSprite.parent];
-        if (_spritePosInBoundingBox.x > (_boundingBox.width/2) || _spritePosInBoundingBox.y > (_boundingBox.height/2)) {
+        if (fabsf(_spritePosInBoundingBox.x) > (_boundingBox.width/2) || fabsf(_spritePosInBoundingBox.y) > (_boundingBox.height/2)) {
             _currentOffset = _activeOffset; // reframe to ACTIVE OFFSET
             [self changeState:CameraIsReframing];
         }
@@ -96,17 +119,28 @@
     _targetPosition = CGPointSubtract(_player.position, _targetPosition);
     
     CGPoint targetOffset = CGPointSubtract(_targetPosition, self.position);
+
+#if DEBUG
+    NSLog(@"targetOffset=%1.0f,%1.0f",targetOffset.x,targetOffset.y);
+#endif
     
-    if (targetOffset.x > 2 || targetOffset.y > 2) {
-        self.position = CGPointMake(self.position.x + targetOffset.x/2, self.position.y + targetOffset.y/2);
+    if (fabsf(targetOffset.x) > 10 || fabsf(targetOffset.y) > 10) { // lock the camera if the camera is within 5 points of the target position
+        self.position = CGPointMake(self.position.x + (targetOffset.x*0.35), self.position.y + (targetOffset.y*0.35));
     } else {
         self.position = _targetPosition;
-        if (!_player.isMoving) {
+        
+        if (_player.isMoving) {
+            [self changeState:CameraIsFollowing];
+        } else {
             [self changeState:CameraIsIdle];
         }
-        
     }
-    
+}
+
+- (void)lockCameraToOffset:(CGFloat)offset {
+    _targetPosition = CGPointMultiplyScalar(_player.direction, -1 * offset);
+    _targetPosition = CGPointSubtract(_player.position, _targetPosition);
+    self.position = _targetPosition;
 }
 
 
