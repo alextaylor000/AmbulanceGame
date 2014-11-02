@@ -29,10 +29,10 @@
         
         // set properties
         _boundingBox = CGSizeMake(300, 300);
-        _cameraIsActive = NO;
         _reorientsToTargetSpriteDirection = YES;
         _idleOffset = 0;
         _activeOffset = 200;
+        _state = CameraIsIdle;
         
         // set initial position to center on the target sprite
         self.position = _targetSprite.position;
@@ -49,24 +49,49 @@
 
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
-    
-    if (_player.isMoving) {
-        
-        _spritePosInBoundingBox = [_targetSprite.scene convertPoint:_targetSprite.position fromNode:_targetSprite.parent];
-        if (_spritePosInBoundingBox.x > (_boundingBox.width/2) || _spritePosInBoundingBox.y > (_boundingBox.height/2)) {
-            [self reframeCameraToOffset:_activeOffset]; // reframe to ACTIVE OFFSET
-        }
-        
-    } else {
-        [self reframeCameraToOffset:_idleOffset]; // reframe to IDLE OFFSET
+    switch (_state) {
+        case CameraIsIdle:
+            [self checkBounds];
+            break;
+            
+        case CameraIsReframing:
+            _currentOffset = (_player.isMoving) ? _activeOffset : _idleOffset;
+            [self reframeCameraToOffset:_currentOffset];
+            break;
+            
+        case CameraIsFollowing:
+            [self reframeCameraToOffset:_activeOffset];
+            break;
+            
+        default:
+            break;
     }
-
+    
+#if DEBUG
+    NSLog(@"Camera State: %u", self.state);
+#endif
 
 }
 
 
-- (void)reframeCameraToOffset:(CGFloat)offset {
 
+- (void)changeState:(CameraState)newState {
+    _state = newState;
+}
+
+- (void)checkBounds {
+    if (_player.isMoving) {
+        _spritePosInBoundingBox = [_targetSprite.scene convertPoint:_targetSprite.position fromNode:_targetSprite.parent];
+        if (_spritePosInBoundingBox.x > (_boundingBox.width/2) || _spritePosInBoundingBox.y > (_boundingBox.height/2)) {
+            _currentOffset = _activeOffset; // reframe to ACTIVE OFFSET
+            [self changeState:CameraIsReframing];
+        }
+    }
+    
+}
+
+- (void)reframeCameraToOffset:(CGFloat)offset {
+    
     _targetPosition = CGPointMultiplyScalar(_player.direction, -1 * offset);
     _targetPosition = CGPointSubtract(_player.position, _targetPosition);
     
@@ -76,8 +101,13 @@
         self.position = CGPointMake(self.position.x + targetOffset.x/2, self.position.y + targetOffset.y/2);
     } else {
         self.position = _targetPosition;
+        if (!_player.isMoving) {
+            [self changeState:CameraIsIdle];
+        }
+        
     }
     
 }
+
 
 @end
