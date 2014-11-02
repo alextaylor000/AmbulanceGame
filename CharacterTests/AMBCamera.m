@@ -31,7 +31,7 @@
         _boundingBox = CGSizeMake(200, 200);
         _reorientsToTargetSpriteDirection = YES;
         _idleOffset = 0;
-        _activeOffset = 200;
+        _activeOffset = 0; // previously 200
         _state = CameraIsIdle;
         
         // set initial position to center on the target sprite
@@ -121,7 +121,7 @@
     CGPoint targetOffset = CGPointSubtract(_targetPosition, self.position);
 
 #if DEBUG
-    NSLog(@"targetOffset=%1.0f,%1.0f",targetOffset.x,targetOffset.y);
+   // NSLog(@"targetOffset=%1.0f,%1.0f",targetOffset.x,targetOffset.y);
 #endif
     
     if (fabsf(targetOffset.x) > 10 || fabsf(targetOffset.y) > 10) { // lock the camera if the camera is within 5 points of the target position
@@ -146,12 +146,13 @@
 
 - (void)rotateByAngle:(CGFloat)degrees {
     SKNode *parentNode = self.parent.parent; // should be world node
-    SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(degrees*-1) duration:0.25];
-    rotate.timingMode = SKActionTimingEaseInEaseOut;
+    SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(degrees*-1) duration:0.75];
+    rotate.timingMode = SKActionTimingEaseOut;
     
     // TODO: investigate this rotation. it works, but it causes the camera's calculations to go out of whack
-    //[parentNode runAction:rotate];
-    
+//    [parentNode runAction:rotate];
+//    [self.scene runAction:rotate];
+
     
 }
 
