@@ -150,7 +150,7 @@
     rotate.timingMode = SKActionTimingEaseOut;
     
     // TODO: investigate this rotation. it works, but it causes the camera's calculations to go out of whack
-//    [parentNode runAction:rotate];
+    [parentNode runAction:rotate];
 //    [self.scene runAction:rotate];
 
     

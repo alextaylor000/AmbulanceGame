@@ -538,9 +538,11 @@ static const int TILE_LANE_WIDTH = 32;
 #pragma mark Camera
 
 - (void) centerOnNode: (SKNode *) node {
-    CGPoint cameraPositionInScene = [node.scene convertPoint:node.position fromNode:node.parent];
-    node.parent.position = CGPointMake(node.parent.position.x - cameraPositionInScene.x,
-                                       node.parent.position.y - cameraPositionInScene.y);
+    // The offset is calculated from the world node now, instead of the scene. When converting the camera position into
+    // scene coordinates, the rotation would always cause the view to go completely off the rails around 65 degrees
+    CGPoint cameraPositionInWorldNode = [_worldNode convertPoint:node.position fromNode:node.parent];
+    node.parent.position = CGPointMake(node.parent.position.x - cameraPositionInWorldNode.x,
+                                       node.parent.position.y - cameraPositionInWorldNode.y);
 }
 
 

@@ -88,9 +88,6 @@
     
     if (_isMoving) {
         [self moveSprite:self directionNormalized:_direction];
-#if DEBUG
-        NSLog(@"player position:%1.0f,%1.0f",self.position.x,self.position.y);
-#endif
     }
 
 
@@ -157,6 +154,7 @@
         _direction.y = 0.0;
     }
     
+    NSLog(@"player vector=%1.0f,%1.0f",_direction.x, _direction.y);
 }
 
 
