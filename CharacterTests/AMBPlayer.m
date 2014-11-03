@@ -137,6 +137,8 @@
     } else if (angle < -(2 * M_PI)) {
         angle += (2 * M_PI);
     }
+    
+    NSLog(@"angle=%f",RadiansToDegrees(angle));
 
     SKAction *rotateSprite = [SKAction rotateToAngle:angle duration:_CHARACTER_TURN_DELAY];
     [sprite runAction:rotateSprite completion:^(void) {
@@ -154,7 +156,7 @@
         _direction.y = 0.0;
     }
     
-    NSLog(@"player vector=%1.0f,%1.0f",_direction.x, _direction.y);
+    NSLog(@"vector=%1.0f,%1.0f|z rotation=%1.5f",_direction.x, _direction.y,sprite.zRotation);
 }
 
 

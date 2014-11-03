@@ -632,7 +632,6 @@ static const int TILE_LANE_WIDTH = 32;
     // fall through to a lane change if the whole turning thing didn't work out
 
     CGPoint laneChangeVector = CGPointRotate(_player.direction, degrees);
-    CGFloat angle = RadiansToDegrees(CGPointToAngle(laneChangeVector)); // result: 90, 0, etc
     
     NSInteger remainder;
     CGFloat pos;  // the player's position in the tile, either the x or the y value
@@ -643,20 +642,17 @@ static const int TILE_LANE_WIDTH = 32;
     // the lane change calculation is easiest in one dimension, so we want to extract the relevant details and forget about points until the end
     if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
         pos     = playerPosInTile.x + (_tilemap.tileSize.width/2); // add half the width of the tile to make the coords corner-anchored.
+        direction = laneChangeVector.x;
+        
     } else {
         pos     = playerPosInTile.y + (_tilemap.tileSize.width/2);
+        direction = laneChangeVector.y;
     }
     
 
     // TODO: accept a range around the lane (e.g. if the lane is at 96, 94-98 should be considered the range)
+    posNormalized = (direction) > 0 ? floorl( round(pos)/TILE_LANE_WIDTH) : ceilf( round(pos)/TILE_LANE_WIDTH);
     
-    if (angle > -1 ) { // positive change
-        posNormalized = floorl( round(pos)/TILE_LANE_WIDTH);
-        direction = 1;
-    } else { // negative change
-        posNormalized = ceilf( round(pos)/TILE_LANE_WIDTH);
-        direction = -1;
-    }
     
     if ( (int)posNormalized % 2 == 0) { // the player is right on a lane
         targetLaneNormalized = posNormalized + direction;
