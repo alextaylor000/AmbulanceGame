@@ -36,8 +36,8 @@ typedef enum {
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;
 - (void)stopMoving;
-//- (void)turnByAngle:(CGFloat)angle;
 - (void)rotateByAngle:(CGFloat)degrees;
+- (void)moveBy:(CGVector)targetOffset;
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;
 - (BOOL)unloadPatient;

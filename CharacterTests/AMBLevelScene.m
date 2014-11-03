@@ -18,7 +18,8 @@
 
 #define kNumberCars   15
 
-static const float KEY_PRESS_INTERVAL_SECS = 0.25; // ignore key presses more frequent than this interval
+static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more frequent than this interval
+static const float TURN_BUFFER = 1; // attempt a turn every frame for this many seconds after initial keypress. this helps reduce the accuracy required to hit a corner just right.
 static const int TILE_LANE_WIDTH = 32;
 
 @interface AMBLevelScene ()
@@ -184,7 +185,7 @@ static const int TILE_LANE_WIDTH = 32;
     
     
     // turn if a turn was requested but hasn't been completed yet
-    if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) {
+    if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < TURN_BUFFER ) {
 #if DEBUG
         NSLog(@"update loop: turn requested");
 #endif
@@ -679,9 +680,7 @@ static const int TILE_LANE_WIDTH = 32;
     isWithinBounds = [self isTargetPointValid:targetPoint];
     
     if (isWithinBounds) {
-        SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
-        changeLanes.timingMode = SKActionTimingEaseInEaseOut;
-        [_player runAction:changeLanes];
+        [_player moveBy:targetOffset];
         _turnRequested = NO;
         return;
     }
@@ -755,6 +754,8 @@ static const int TILE_LANE_WIDTH = 32;
 - (void)handleKeyboardEvent: (NSEvent *)theEvent keyDown:(BOOL)downOrUp {
     
     if (self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) return;
+    
+    NSLog(@"<keypress>");
     
     if ([theEvent modifierFlags] & NSNumericPadKeyMask) { // arrow keys
         _lastKeyPress = self.sceneLastUpdate;

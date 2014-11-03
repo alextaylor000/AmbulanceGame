@@ -110,7 +110,7 @@
 }
 
 -(void)stopMoving {
-    if ([self hasActions]) return;
+    //if ([self hasActions]) return; // TODO: commented this out to improve the snappiness of the controls. this results in a jerky motion
     
     SKAction *stopMoving = [SKAction customActionWithDuration:_CHARACTER_MOVEMENT_DECEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
         float t = elapsedTime / _CHARACTER_MOVEMENT_DECEL_TIME_SECS;
@@ -125,7 +125,7 @@
 
 #pragma mark (Private) Sprite Movement
 
--(void)rotateByAngle:(CGFloat)degrees {
+- (void)rotateByAngle:(CGFloat)degrees {
     SKSpriteNode *sprite = self;
     
     // apply the rotation to the sprite
@@ -159,8 +159,18 @@
     NSLog(@"vector=%1.0f,%1.0f|z rotation=%1.5f",_direction.x, _direction.y,sprite.zRotation);
 }
 
+- (void)moveBy:(CGVector)targetOffset {
+    NSLog(@"<moveBy>");
+    if ([self actionForKey:@"moveBy"]) { return; }
+    
+    SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
+    changeLanes.timingMode = SKActionTimingEaseInEaseOut;
+    [self runAction:changeLanes withKey:@"moveBy"];
+    
+}
 
--(void)moveSprite:(SKSpriteNode *)sprite directionNormalized:(CGPoint)direction {
+
+- (void)moveSprite:(SKSpriteNode *)sprite directionNormalized:(CGPoint)direction {
 
     CGPoint velocity = CGPointMultiplyScalar(direction, _CHARACTER_MOVEMENT_POINTS_PER_SEC);
     CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
