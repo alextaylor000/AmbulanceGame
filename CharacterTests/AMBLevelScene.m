@@ -76,6 +76,7 @@ static const int TILE_LANE_WIDTH = 32;
         _camera.zPosition = 999;
         [_tilemap addChild:_camera];
         
+        [_indicator targetIsOnscreen:_camera];
         
         // scoring
         scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper

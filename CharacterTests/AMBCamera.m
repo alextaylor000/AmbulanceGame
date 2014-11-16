@@ -21,6 +21,21 @@
 
 @implementation AMBCamera
 
+/**
+ Instantiates a Camera instance, and ensures that only one instance can be created.
+ */
++ (AMBCamera *)sharedInstance {
+    static AMBCamera *_sharedInstance = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[AMBCamera alloc]init];
+    });
+    
+    return _sharedInstance;
+}
+
+
+
 - (instancetype)initWithTargetSprite:(SKSpriteNode *)targetSprite {
     
     if (self = [super init]) {

@@ -7,6 +7,7 @@
 //
 
 #import "AMBIndicator.h"
+#import "AMBCamera.h"
 
 @interface AMBIndicator ()
 
@@ -16,9 +17,24 @@
 
 @implementation AMBIndicator
 
+/**
+ Instantiates an Indicator instance, and ensures that only one instance can be created.
+ */
++ (AMBIndicator *)sharedInstance {
+    static AMBIndicator *_sharedInstance = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[AMBIndicator alloc]init];
+    });
+    
+    return _sharedInstance;
+}
+
+
 - (id)init {
     if (self = [super init]) {
         _targetObjects = [[NSMutableArray alloc]init];
+
     }
     
     return self;
@@ -40,7 +56,17 @@
             *stop = YES;
         }
     }];
+    
 }
 
+- (BOOL)targetIsOnscreen:(SKSpriteNode *)target {
+    CGPoint targetPos = target.position;
+
+    // test
+    AMBCamera *camera = [[AMBCamera alloc]init];
+    NSLog(@"camera instance added to indicator.. is it the same?");
+
+    return NO;
+}
 
 @end

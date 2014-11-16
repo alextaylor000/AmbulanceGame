@@ -14,8 +14,10 @@
 
 @property (nonatomic) NSMutableArray *targetObjects;
 
++ (AMBIndicator *)sharedInstance;
+
 - (void)addTarget:(id)object;
 - (void)removeTarget:(id)object;
-
+- (BOOL)targetIsOnscreen:(SKSpriteNode *)target;
 
 @end
