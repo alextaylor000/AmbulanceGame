@@ -17,6 +17,8 @@
 		B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
 		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
+		B97831431A190BF4002A10BC /* osi_hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B97831421A190BF4002A10BC /* osi_hospital.png */; };
+		B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
 		B988238D1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B988238B1969998400903B73 /* InfoPlist.strings */; };
@@ -78,6 +80,9 @@
 		B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01_with_spawn_points.tmx"; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* AMBScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBScoreKeeper.h; sourceTree = "<group>"; };
 		B96F159819BA8379003E9809 /* AMBScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBScoreKeeper.m; sourceTree = "<group>"; };
+		B97831421A190BF4002A10BC /* osi_hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_hospital.png; sourceTree = "<group>"; };
+		B97831441A190C1F002A10BC /* AMBIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBIndicator.h; sourceTree = "<group>"; };
+		B97831451A190C1F002A10BC /* AMBIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBIndicator.m; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823801969998400903B73 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B98823821969998400903B73 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -276,6 +281,7 @@
 				B9A4C2FF19CF501F00DE1ADA /* patient2.png */,
 				B9A4C30019CF501F00DE1ADA /* patient3.png */,
 				B9CC738E19B3DA0C00A376BC /* hospital.png */,
+				B97831421A190BF4002A10BC /* osi_hospital.png */,
 				B9CC738C19B3D26900A376BC /* sirens.atlas */,
 				B98823C219699E6200903B73 /* asset_ambulance_20140609.png */,
 			);
@@ -315,6 +321,8 @@
 				B9CC738319B26F9400A376BC /* AMBPatient.m */,
 				B98823BC19699C4400903B73 /* AMBPlayer.h */,
 				B98823BD19699C4400903B73 /* AMBPlayer.m */,
+				B97831441A190C1F002A10BC /* AMBIndicator.h */,
+				B97831451A190C1F002A10BC /* AMBIndicator.m */,
 				B9E959B519C9239C00ACD50F /* AMBHospital.h */,
 				B9E959B619C9239C00ACD50F /* AMBHospital.m */,
 				B9E959B819C92ADC00ACD50F /* AMBSpawner.h */,
@@ -411,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9A4C30119CF501F00DE1ADA /* patient1.png in Resources */,
+				B97831431A190BF4002A10BC /* osi_hospital.png in Resources */,
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
@@ -460,6 +469,7 @@
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
 				B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */,
+				B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */,
 				B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
