@@ -9,6 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "JSTileMap.h"
 #import "AMBGameScene.h"
+#import "AMBIndicator.h"
 
 @interface AMBLevelScene : AMBGameScene <SKPhysicsContactDelegate>
 

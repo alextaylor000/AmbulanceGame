@@ -31,6 +31,7 @@ static const int TILE_LANE_WIDTH = 32;
 @property AMBPlayer *player;
 @property AMBSpawner *spawnerTest;
 @property AMBCamera *camera;
+@property AMBIndicator *indicator;
 
 @property TMXLayer *roadLayer;
 @property TMXObjectGroup *spawnPoints;
@@ -60,6 +61,10 @@ static const int TILE_LANE_WIDTH = 32;
     if (self = [super initWithSize:size]) {
 
         self.physicsWorld.contactDelegate = self;
+
+        // indicator, created before createWorld so it can be referenced in initial spawns
+        _indicator = [[AMBIndicator alloc]init];
+        
         
         [self createWorld]; // set up tilemap
         [self addPlayer];
@@ -70,6 +75,7 @@ static const int TILE_LANE_WIDTH = 32;
         _camera = [[AMBCamera alloc] initWithTargetSprite:_player];
         _camera.zPosition = 999;
         [_tilemap addChild:_camera];
+        
         
         // scoring
         scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
@@ -93,6 +99,7 @@ static const int TILE_LANE_WIDTH = 32;
 
 
 - (void) addHospitalAtPoint:(CGPoint)point {
+    // TODO: this is deprecated, right? I think this was just for testing.
     SKSpriteNode *hospital = [SKSpriteNode spriteNodeWithImageNamed:@"hospital"];
     
     hospital.position = point;
@@ -102,6 +109,8 @@ static const int TILE_LANE_WIDTH = 32;
     hospital.physicsBody.collisionBitMask = 0x00000000;
     
     [_tilemap addChild:hospital];
+    
+    
 }
 
 - (void) initalizeCarVariables{
@@ -114,20 +123,7 @@ static const int TILE_LANE_WIDTH = 32;
     
 }
 
-- (void) addCars{//Adds inital enamies to the screen
-    
-    _cars = [[NSMutableArray alloc] initWithCapacity:kNumberCars];//Init the mutable array
-    for (int i = 0; i < kNumberCars; ++i) {//Fill m-array with X number of car sprites
-        SKSpriteNode *car = [SKSpriteNode spriteNodeWithImageNamed:@"car"];//Create car node
-        car.zPosition = 200;
-        car.hidden = YES;//Hide it so we dont have to bother with it until it is active
-        [car setXScale:0.5];//Dont really need
-        [car setYScale:0.5];//Dont need
-        [_cars addObject:car];//add the car to the m-array
-        [self addChild:car];//Add the car to the sceen
-    }
-    
-}
+
 
 - (void) addPlayer {
     
@@ -213,6 +209,11 @@ static const int TILE_LANE_WIDTH = 32;
     for (NSDictionary *object in hospitalSpawns) {
         AMBHospital *hospital = [[AMBHospital alloc] init];
         [hospital addObjectToNode:_mapLayerRoad atPosition:[self centerOfObject:object]];
+
+        // Test Indicator add
+        [_indicator addTarget:hospital];
+        [_indicator removeTarget:hospital];
+
     }
     
     [self createSpawners];
