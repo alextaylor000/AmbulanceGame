@@ -10,7 +10,7 @@
 
 @interface AMBIndicator ()
 
-@property (nonatomic) NSMutableArray *targetObjectSprites; // stores references to the sprites generated
+
 
 @end
 
@@ -25,12 +25,21 @@
 }
 
 - (void)addTarget:(id)object {
-    [_targetObjects addObject:object];
+    NSMutableDictionary *targetDict = [[NSMutableDictionary alloc]initWithCapacity:2];
+    
+    [targetDict setObject:object forKey:@"target"];
+    [_targetObjects addObject:targetDict];
 
 }
 
 - (void)removeTarget:(id)object {
-    [_targetObjects removeObject:object];
+    [_targetObjects enumerateObjectsUsingBlock:^(id arrObj, NSUInteger idx, BOOL *stop) {
+        id targetObject = [arrObj valueForKey:@"target"];
+        if ([targetObject isEqualTo:object]) {
+            [_targetObjects removeObjectAtIndex:idx];
+            *stop = YES;
+        }
+    }];
 }
 
 
