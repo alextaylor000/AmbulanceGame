@@ -8,6 +8,7 @@
 
 #import "AMBIndicator.h"
 #import "AMBCamera.h"
+#import "AMBLevelScene.h"
 
 @interface AMBIndicator ()
 
@@ -17,18 +18,7 @@
 
 @implementation AMBIndicator
 
-/**
- Instantiates an Indicator instance, and ensures that only one instance can be created.
- */
-+ (AMBIndicator *)sharedInstance {
-    static AMBIndicator *_sharedInstance = nil;
-    static dispatch_once_t oncePredicate;
-    dispatch_once(&oncePredicate, ^{
-        _sharedInstance = [[AMBIndicator alloc]init];
-    });
-    
-    return _sharedInstance;
-}
+
 
 
 - (id)init {
@@ -63,7 +53,8 @@
     CGPoint targetPos = target.position;
 
     // test
-    AMBCamera *camera = [[AMBCamera alloc]init];
+    AMBLevelScene *targetScene = (AMBLevelScene *)[target scene];
+    AMBCamera *camera = targetScene.camera;
     NSLog(@"camera instance added to indicator.. is it the same?");
 
     return NO;

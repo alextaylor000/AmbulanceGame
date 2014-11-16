@@ -10,6 +10,7 @@
 #import "JSTileMap.h"
 #import "AMBGameScene.h"
 #import "AMBIndicator.h"
+#import "AMBCamera.h"
 
 @interface AMBLevelScene : AMBGameScene <SKPhysicsContactDelegate>
 
@@ -18,6 +19,8 @@
 @property (readonly, nonatomic) JSTileMap *tilemap; // the tilemap for this level
 @property (readonly, nonatomic) TMXLayer *mapLayerRoad; // road layer and characters
 @property (readonly, nonatomic) TMXLayer *mapLayerScenery; // for buildings, grass, etc.
+
+@property AMBCamera *camera;
 
 // spawn point(s) will be kept on separate layers so we can choose them at random
 // in the spawn methods

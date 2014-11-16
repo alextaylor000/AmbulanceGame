@@ -25,7 +25,7 @@ typedef enum {
 @property (nonatomic) CGFloat currentOffset; // will be set with either the value of idleOffset or activeOffset when the CameraIsReframing
 @property (nonatomic) CameraState state;
 
-+ (AMBCamera *)sharedInstance;
+
 - (instancetype)initWithTargetSprite:(SKNode *)targetSprite;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)rotateByAngle:(CGFloat)degrees;

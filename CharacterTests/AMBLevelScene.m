@@ -12,7 +12,6 @@
 #import "AMBHospital.h"
 #import "AMBSpawner.h"
 #import "AMBScoreKeeper.h"
-#import "AMBCamera.h"
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 
@@ -30,7 +29,7 @@ static const int TILE_LANE_WIDTH = 32;
 @property JSTileMap *bgLayer;
 @property AMBPlayer *player;
 @property AMBSpawner *spawnerTest;
-@property AMBCamera *camera;
+
 @property AMBIndicator *indicator;
 
 @property TMXLayer *roadLayer;
