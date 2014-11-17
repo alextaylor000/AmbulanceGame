@@ -62,8 +62,7 @@ static const int TILE_LANE_WIDTH = 32;
         self.physicsWorld.contactDelegate = self;
 
         // indicator, created before createWorld so it can be referenced in initial spawns
-        _indicator = [[AMBIndicator alloc]init];
-        
+        _indicator = [[AMBIndicator alloc]initForScene:self];
         
         [self createWorld]; // set up tilemap
         [self addPlayer];
@@ -74,8 +73,6 @@ static const int TILE_LANE_WIDTH = 32;
         _camera = [[AMBCamera alloc] initWithTargetSprite:_player];
         _camera.zPosition = 999;
         [_tilemap addChild:_camera];
-        
-        [_indicator targetIsOnscreen:_camera];
         
         // scoring
         scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
@@ -179,6 +176,8 @@ static const int TILE_LANE_WIDTH = 32;
         [patientNode updatePatient];
     }];
     
+    // update the indicators
+    [_indicator update];
     
     // turn if a turn was requested but hasn't been completed yet
     if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < TURN_BUFFER ) {
@@ -210,9 +209,8 @@ static const int TILE_LANE_WIDTH = 32;
         AMBHospital *hospital = [[AMBHospital alloc] init];
         [hospital addObjectToNode:_mapLayerRoad atPosition:[self centerOfObject:object]];
 
-        // Test Indicator add
+        // add hospital indicator target
         [_indicator addTarget:hospital];
-        [_indicator removeTarget:hospital];
 
     }
     

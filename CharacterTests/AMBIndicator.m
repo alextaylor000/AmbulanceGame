@@ -9,24 +9,26 @@
 #import "AMBIndicator.h"
 #import "AMBCamera.h"
 #import "AMBLevelScene.h"
+#import "SKTUtils.h"
 
 @interface AMBIndicator ()
 
-
+@property (nonatomic)AMBLevelScene *scene;
 
 @end
 
 @implementation AMBIndicator
 
+        
 
 
-
-- (id)init {
+- (instancetype)initForScene:(AMBLevelScene *)scene {
     if (self = [super init]) {
         _targetObjects = [[NSMutableArray alloc]init];
-
+        
+        // store the scene and camera so we can reference its positioning in the update loop
+        _scene = scene;
     }
-    
     return self;
 }
 
@@ -49,15 +51,72 @@
     
 }
 
+- (void)update {
+    [_targetObjects enumerateObjectsUsingBlock:^(id arrObj, NSUInteger idx, BOOL *stop) {
+        id targetObject = [arrObj valueForKey:@"target"];
+        
+        SKSpriteNode *indicator;
+        
+        if ([arrObj valueForKey:@"indicator"] == nil) {
+            indicator = [self createIndicator];
+            [arrObj setObject:indicator forKey:@"indicator"];
+            [_scene addChild:indicator];
+            
+        } else {
+            indicator = [arrObj valueForKey:@"indicator"];
+        }
+        
+        if ([self targetIsOnscreen:targetObject]) {
+            indicator.hidden = YES;
+        } else {
+            indicator.hidden = NO;
+            indicator.position = [self calculateIndicatorPositionForTarget:targetObject];
+        }
+
+    }];
+}
+
 - (BOOL)targetIsOnscreen:(SKSpriteNode *)target {
     CGPoint targetPos = target.position;
-
-    // test
-    AMBLevelScene *targetScene = (AMBLevelScene *)[target scene];
-    AMBCamera *camera = targetScene.camera;
-    NSLog(@"camera instance added to indicator.. is it the same?");
+    CGRect screenRect;
+    screenRect.origin = CGPointMake(_scene.camera.position.x - (_scene.size.width/2), _scene.camera.position.y - (_scene.size.height/2));
+    screenRect.size = _scene.size;
+    
+    if (CGRectContainsPoint(screenRect, [target.parent convertPoint:targetPos toNode:_scene.camera])) {
+        return YES;
+    }
 
     return NO;
+}
+
+- (SKSpriteNode *)createIndicator {
+    SKSpriteNode *indicator = [SKSpriteNode spriteNodeWithImageNamed:@"osi_hospital"];
+    indicator.zPosition = 100;
+    return indicator;
+}
+
+- (CGPoint)calculateIndicatorPositionForTarget:(SKSpriteNode *)target {
+
+    CGPoint targetPos = [_scene.camera convertPoint:target.position fromNode:_scene.tilemap];
+    NSLog(@"targetPos=%1.0f,%1.0f",targetPos.x,targetPos.y);
+    CGFloat slope = targetPos.y / targetPos.x;
+    CGPoint indicatorPos;
+
+    
+    if (targetPos.y > 0) {
+        indicatorPos = CGPointMake(_scene.frame.size.height/2 / slope, _scene.frame.size.height/2);
+    } else {
+        indicatorPos = CGPointMake(_scene.frame.size.height/2 / slope, -(_scene.frame.size.height/2));
+    }
+    
+    if (indicatorPos.x > _scene.frame.size.width/2) {
+        indicatorPos = CGPointMake(_scene.frame.size.width/2, _scene.frame.size.width/2 * slope);
+    } else if (indicatorPos.x < -(_scene.frame.size.width/2)) {
+        indicatorPos = CGPointMake(-(_scene.frame.size.width/2), -(_scene.frame.size.width/2) * slope);
+    }
+   
+    return indicatorPos;
+    
 }
 
 @end

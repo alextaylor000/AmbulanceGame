@@ -15,9 +15,11 @@
 @property (nonatomic) NSMutableArray *targetObjects;
 
 
-
+- (instancetype)initForScene:(SKScene *)scene;
 - (void)addTarget:(id)object;
 - (void)removeTarget:(id)object;
-- (BOOL)targetIsOnscreen:(SKSpriteNode *)target;
+
+- (void)update;
+
 
 @end
