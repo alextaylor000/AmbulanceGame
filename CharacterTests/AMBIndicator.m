@@ -11,6 +11,8 @@
 #import "AMBLevelScene.h"
 #import "SKTUtils.h"
 
+
+
 @interface AMBIndicator ()
 
 @property (nonatomic)AMBLevelScene *scene;
@@ -71,6 +73,7 @@
         } else {
             indicator.hidden = NO;
             indicator.position = [self calculateIndicatorPositionForTarget:targetObject];
+            indicator.zRotation = atan2f(indicator.position.y, indicator.position.x);
         }
 
     }];
@@ -97,22 +100,28 @@
 
 - (CGPoint)calculateIndicatorPositionForTarget:(SKSpriteNode *)target {
 
+    CGFloat halfHeight = _scene.frame.size.height/2 - 40; // 20 points of padding from screen edge
+    CGFloat halfWidth = _scene.frame.size.width/2 - 40;
+    
     CGPoint targetPos = [_scene.camera convertPoint:target.position fromNode:_scene.tilemap];
+    targetPos = CGPointRotate(targetPos, RadiansToDegrees(_scene.camera.rotation)); // apply the camera's effective rotation. remember, it's the worldnode that is rotating, so the camera actually never rotates
+    
+#if DEBUG
     NSLog(@"targetPos=%1.0f,%1.0f",targetPos.x,targetPos.y);
+#endif
     CGFloat slope = targetPos.y / targetPos.x;
     CGPoint indicatorPos;
-
     
     if (targetPos.y > 0) {
-        indicatorPos = CGPointMake(_scene.frame.size.height/2 / slope, _scene.frame.size.height/2);
+        indicatorPos = CGPointMake(halfHeight / slope, halfHeight);
     } else {
-        indicatorPos = CGPointMake(_scene.frame.size.height/2 / slope, -(_scene.frame.size.height/2));
+        indicatorPos = CGPointMake(-halfHeight / slope, -halfHeight);
     }
     
-    if (indicatorPos.x > _scene.frame.size.width/2) {
-        indicatorPos = CGPointMake(_scene.frame.size.width/2, _scene.frame.size.width/2 * slope);
-    } else if (indicatorPos.x < -(_scene.frame.size.width/2)) {
-        indicatorPos = CGPointMake(-(_scene.frame.size.width/2), -(_scene.frame.size.width/2) * slope);
+    if (indicatorPos.x > halfWidth) {
+        indicatorPos = CGPointMake(halfWidth, halfWidth * slope);
+    } else if (indicatorPos.x < -halfWidth) {
+        indicatorPos = CGPointMake(-halfWidth, -halfWidth * slope);
     }
    
     return indicatorPos;

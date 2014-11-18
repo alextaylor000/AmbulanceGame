@@ -24,7 +24,7 @@ typedef enum {
 @property (nonatomic) CGFloat activeOffset; // the target sprite's position in the frame, relative to center, when the target sprite is moving. travelling outside of the bounding box triggers the camera to become active.
 @property (nonatomic) CGFloat currentOffset; // will be set with either the value of idleOffset or activeOffset when the CameraIsReframing
 @property (nonatomic) CameraState state;
-
+@property (readonly, nonatomic) CGFloat rotation; // the effective rotation of the camera; since it's the tilemap that actually rotates, this can be used in situations where you need to calculate coordinates as if the camera has been rotated (e.g. the onscreen indicators)
 
 - (instancetype)initWithTargetSprite:(SKNode *)targetSprite;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;

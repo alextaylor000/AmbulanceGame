@@ -15,6 +15,7 @@
 @property CGPoint spritePosInBoundingBox;
 @property CGPoint targetPosition;
 @property AMBPlayer *player;
+@property BOOL updateCameraRotation;
 
 @end
 
@@ -31,6 +32,7 @@
         _player = (AMBPlayer *)_targetSprite; // cast the target sprite as a player so we can access its isMoving property
         
         // set properties
+        _rotation = 0;
         _boundingBox = CGSizeMake(200, 200);
         _reorientsToTargetSpriteDirection = YES;
         _idleOffset = 0;
@@ -75,6 +77,11 @@
             break;
     }
     
+    
+    if (_updateCameraRotation) {
+        _rotation = self.parent.parent.zRotation; // the world node's zRotation
+        NSLog(@"camera rotation = %1.5f", _rotation);
+    }
 
 }
 
@@ -152,9 +159,8 @@
     SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(degrees*-1) duration:0.65];
     rotate.timingMode = SKActionTimingEaseOut;
     
-    // TODO: investigate this rotation. it works, but it causes the camera's calculations to go out of whack
-    [parentNode runAction:rotate];
-//    [self.scene runAction:rotate];
+    _updateCameraRotation = YES;
+    [parentNode runAction:rotate completion:^(void){ _updateCameraRotation = NO; }];
 
     
 }
