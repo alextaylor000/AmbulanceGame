@@ -12,6 +12,9 @@
 #import "SKTUtils.h"
 
 
+static const CGFloat OSI_PADDING =              40; // indicator padding from screen edge
+static const CGFloat OSI_DUR_FADE_IN =          0.25;
+static const CGFloat OSI_DUR_FADE_OUT =         0.25;
 
 @interface AMBIndicator ()
 
@@ -69,9 +72,14 @@
         }
         
         if ([self targetIsOnscreen:targetObject]) {
-            indicator.hidden = YES;
+            [indicator runAction:[SKAction fadeOutWithDuration:OSI_DUR_FADE_OUT] completion:^(void){
+                indicator.hidden = YES;
+            }];
+            
         } else {
             indicator.hidden = NO;
+            [indicator runAction:[SKAction fadeInWithDuration:OSI_DUR_FADE_IN]];
+            
             indicator.position = [self calculateIndicatorPositionForTarget:targetObject];
             indicator.zRotation = atan2f(indicator.position.y, indicator.position.x);
         }
@@ -100,8 +108,8 @@
 
 - (CGPoint)calculateIndicatorPositionForTarget:(SKSpriteNode *)target {
 
-    CGFloat halfHeight = _scene.frame.size.height/2 - 40; // 20 points of padding from screen edge
-    CGFloat halfWidth = _scene.frame.size.width/2 - 40;
+    CGFloat halfHeight = _scene.frame.size.height/2 - OSI_PADDING;
+    CGFloat halfWidth = _scene.frame.size.width/2 - OSI_PADDING;
     
     CGPoint targetPos = [_scene.camera convertPoint:target.position fromNode:_scene.tilemap];
     targetPos = CGPointRotate(targetPos, RadiansToDegrees(_scene.camera.rotation)); // apply the camera's effective rotation. remember, it's the worldnode that is rotating, so the camera actually never rotates
