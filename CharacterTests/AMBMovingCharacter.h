@@ -26,6 +26,7 @@
 - (void)stopMoving;
 - (void)rotateByAngle:(CGFloat)degrees;
 - (void)moveBy:(CGVector)targetOffset;
+- (void)adjustSpeedToTarget:(CGFloat)targetSpeed;
 
 
 @end

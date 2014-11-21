@@ -13,6 +13,7 @@ typedef enum {
     VehicleIsDrivingStraight,
     VehicleCanTurn,
     VehicleIsTailgating,
+    VehicleIsAdjustingSpeed
 } VehicleState;
 
 typedef enum {
@@ -34,6 +35,7 @@ typedef enum {
 @property VehicleState state;
 
 + (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation;
+- (void)changeSpeedTo:(CGFloat)newSpeed;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 
 @end

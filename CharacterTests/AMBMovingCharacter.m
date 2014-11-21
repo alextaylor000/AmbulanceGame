@@ -13,6 +13,7 @@
 
 @property NSTimeInterval sceneDelta;
 @property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
+@property CGFloat originalSpeed; // used as comparison when adjusting speed. there's probably a slicker way to do this.
 
 @end
 
@@ -70,6 +71,22 @@
     
 }
 
+- (void)adjustSpeedToTarget:(CGFloat)targetSpeed {
+    CGFloat delta = self.speedPointsPerSec - targetSpeed;
+    _originalSpeed = self.speedPointsPerSec;
+    
+    SKAction *adjustSpeed = [SKAction customActionWithDuration:self.decelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / self.decelTimeSeconds;
+        t = sinf(t * M_PI_2);
+        self.speedPointsPerSec = _originalSpeed - delta * t;
+        NSLog(@"-> %1.5f",self.speedPointsPerSec);
+    }];
+    
+    if (![self actionForKey:@"adjustSpeed"]) {
+        [self runAction:adjustSpeed withKey:@"adjustSpeed"];
+    }
+}
+
 
 #pragma mark (Private) Sprite Movement
 
@@ -122,12 +139,12 @@
     CGPoint velocity = CGPointMultiplyScalar(direction, self.speedPointsPerSec);
     CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
     
-    // we're not currently using the speed multiplier, but it may come in handy so I'll leave it in
     CGPoint amountToMoveSpeedMult = CGPointMultiplyScalar(amountToMove, _characterSpeedMultiplier);
     sprite.position = CGPointAdd(sprite.position, amountToMoveSpeedMult);
     
     
 }
+
 
 
 @end

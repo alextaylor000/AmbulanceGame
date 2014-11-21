@@ -31,7 +31,7 @@ static const int TILE_LANE_WIDTH = 32;
 @property AMBPlayer *player;
 @property AMBSpawner *spawnerTest;
 
-@property AMBCharacter *trafficGuineaPig; // TRAFFIC_AI_TESTING
+@property AMBTrafficVehicle *trafficGuineaPig; // TRAFFIC_AI_TESTING
 @property NSMutableArray *trafficVehicles;
 
 @property AMBIndicator *indicator;
@@ -71,13 +71,21 @@ static const int TILE_LANE_WIDTH = 32;
         [self createWorld]; // set up tilemap
         [self addPlayer];
 
-        // TRAFFIC_AI_TESTING
         _trafficVehicles = [[NSMutableArray alloc]init];
-        
-        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
+        // TRAFFIC_AI_TESTING
+        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
         [_tilemap addChild:_trafficGuineaPig]; // when adding this to mapLayerRoad and centerOnNode:_trafficGuineaPig, weird rendering errors occur
         [_trafficVehicles addObject:_trafficGuineaPig];
 
+        [_trafficGuineaPig runAction:[SKAction waitForDuration:5.0] completion:^(void){
+
+            NSLog(@"slowing down trafficGuineaPig..");
+
+            [_trafficGuineaPig changeSpeedTo:150];
+
+        }];
+
+        
         
         _turnRequested = NO;
         

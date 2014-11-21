@@ -11,6 +11,12 @@
 
 static CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
 
+@interface AMBTrafficVehicle ()
+
+@property CGFloat targetSpeed;
+
+@end
+
 @implementation AMBTrafficVehicle
 
 - (instancetype)init {
@@ -67,7 +73,19 @@ static CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multip
             // 
             break;
             
+        case VehicleIsAdjustingSpeed:
+            [self adjustSpeedToTarget:_targetSpeed];
+            break;
+            
     }
+}
+
+
+- (void)changeSpeedTo:(CGFloat)newSpeed {
+    _targetSpeed = newSpeed;
+//    [self changeState:VehicleIsAdjustingSpeed];
+    [self adjustSpeedToTarget:_targetSpeed];
+    NSLog(@"changeSpeedTo:");
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
