@@ -11,4 +11,8 @@
 
 @interface AMBMovingCharacter : AMBCharacter
 
+@property (nonatomic) BOOL isMoving; // YES if the character is moving at speed; NO if it's not.
+
+
+
 @end

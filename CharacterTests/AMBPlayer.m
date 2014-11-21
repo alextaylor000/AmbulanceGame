@@ -42,8 +42,6 @@
     _CHARACTER_MOVEMENT_ACCEL_TIME_SECS = 0.75;
     _CHARACTER_MOVEMENT_DECEL_TIME_SECS = 0.35;
     
-
-    
     self.name = @"player";
     self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
     self.anchorPoint = CGPointMake(0.35, 0.5);
@@ -86,7 +84,7 @@
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     self.sceneDelta = delta;
     
-    if (_isMoving) {
+    if (self.isMoving) {
         [self moveSprite:self directionNormalized:_direction];
     }
 
@@ -96,9 +94,9 @@
 #pragma mark (Public) Sprite Controls
 -(void)startMoving {
 
-    if (_isMoving == YES) return;
+    if (self.isMoving == YES) return;
 
-    _isMoving = YES;
+    self.isMoving = YES;
     
     SKAction *startMoving = [SKAction customActionWithDuration:_CHARACTER_MOVEMENT_ACCEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
         float t = elapsedTime / _CHARACTER_MOVEMENT_ACCEL_TIME_SECS;
@@ -117,7 +115,7 @@
         t = sinf(t * M_PI_2);
         _characterSpeedMultiplier = 1 - t;
     }];
-    [self runAction:stopMoving completion:^{_isMoving = NO;}];
+    [self runAction:stopMoving completion:^{self.isMoving = NO;}];
 
 
 }
