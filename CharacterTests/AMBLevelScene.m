@@ -164,10 +164,9 @@ static const int TILE_LANE_WIDTH = 32;
     [self calcDelta:currentTime];
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
-
-
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
     [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
+    
     
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
@@ -208,7 +207,10 @@ static const int TILE_LANE_WIDTH = 32;
     
     [self levelWithTilemap:@"level01.tmx"];
 
-    if (_tilemap) { [_worldNode addChild:_tilemap]; }
+    if (_tilemap) {
+        [_worldNode addChild:_tilemap];
+    }
+    
     
     // Set up spawn points
     NSDictionary *playerSpawn = [[_mapGroupSpawnPlayer objects] objectAtIndex:0];

@@ -7,7 +7,6 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import <Foundation/Foundation.h>
 #import "AMBTrafficVehicle.h"
 
 

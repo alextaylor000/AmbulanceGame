@@ -7,6 +7,7 @@
 //
 
 #import "AMBTrafficVehicle.h"
+#import "SKTUtils.h"
 
 static CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
 
@@ -36,6 +37,7 @@ static CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multip
     vehicle.speedPointsPerSec = speed * speedMultiplier;
     vehicle.position = point;
     vehicle.zRotation = rotation;
+    vehicle.direction = CGPointForAngle(rotation);
     vehicle.name = @"traffic"; // for grouped enumeration
     
     return vehicle;
@@ -52,7 +54,9 @@ static CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multip
             break;
             
         case VehicleIsDrivingStraight:
-            //
+            if (!self.isMoving) {
+                [self startMoving];
+            }
             break;
             
         case VehicleCanTurn:
