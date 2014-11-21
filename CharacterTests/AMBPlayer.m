@@ -16,11 +16,8 @@
 
 @interface AMBPlayer ()
 
-@property NSTimeInterval sceneDelta;
+//@property NSTimeInterval sceneDelta;
 
-
-
-@property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
 
 @property SKSpriteNode *sirens;
 @property SKAction *sirensOn;
@@ -30,17 +27,15 @@
 @implementation AMBPlayer
 
 
-
-
 - (instancetype) init {
     self = [super initWithImageNamed:@"asset_ambulance_20140609"];
     
     // set constants
-    _CHARACTER_MOVEMENT_POINTS_PER_SEC = 600;
-    _CHARACTER_TURN_DELAY = 0.00;
+    self.speedPointsPerSec = 600;
+    self.pivotSpeed = 0;
 
-    _CHARACTER_MOVEMENT_ACCEL_TIME_SECS = 0.75;
-    _CHARACTER_MOVEMENT_DECEL_TIME_SECS = 0.35;
+    self.accelTimeSeconds = 0.75;
+    self.decelTimeSeconds = 0.35;
     
     self.name = @"player";
     self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
@@ -55,8 +50,7 @@
     self.physicsBody.collisionBitMask = categoryTraffic;
 
     
-    _direction = CGPointMake(0, 1); // default direction, move up
-    _targetAngleRadians = DegreesToRadians(90);
+    self.direction = CGPointMake(0, 1); // default direction, move up
     
     _state = AmbulanceIsEmpty; // set initial ambulance state
     
@@ -80,105 +74,105 @@
 }
 
 
-#pragma mark Game Loop
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
-    self.sceneDelta = delta;
-    
-    if (self.isMoving) {
-        [self moveSprite:self directionNormalized:_direction];
-    }
-
-
-}
-
-#pragma mark (Public) Sprite Controls
--(void)startMoving {
-
-    if (self.isMoving == YES) return;
-
-    self.isMoving = YES;
-    
-    SKAction *startMoving = [SKAction customActionWithDuration:_CHARACTER_MOVEMENT_ACCEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
-        float t = elapsedTime / _CHARACTER_MOVEMENT_ACCEL_TIME_SECS;
-        t = sinf(t * M_PI_2);
-        _characterSpeedMultiplier = t;
-    }];
-    [self runAction:startMoving];
-    
-}
-
--(void)stopMoving {
-    //if ([self hasActions]) return; // TODO: commented this out to improve the snappiness of the controls. this results in a jerky motion
-    
-    SKAction *stopMoving = [SKAction customActionWithDuration:_CHARACTER_MOVEMENT_DECEL_TIME_SECS actionBlock:^(SKNode *node, CGFloat elapsedTime){
-        float t = elapsedTime / _CHARACTER_MOVEMENT_DECEL_TIME_SECS;
-        t = sinf(t * M_PI_2);
-        _characterSpeedMultiplier = 1 - t;
-    }];
-    [self runAction:stopMoving completion:^{self.isMoving = NO;}];
-
-
-}
-
-
-#pragma mark (Private) Sprite Movement
-
-- (void)rotateByAngle:(CGFloat)degrees {
-    SKSpriteNode *sprite = self;
-    
-    // apply the rotation to the sprite
-    CGFloat angle = sprite.zRotation + DegreesToRadians(degrees);
-    
-    // wrap angles larger than +/- 360 degrees
-    if (angle >= ( 2 * M_PI )) {
-        angle -= (2 * M_PI);
-    } else if (angle < -(2 * M_PI)) {
-        angle += (2 * M_PI);
-    }
-    
-    NSLog(@"angle=%f",RadiansToDegrees(angle));
-
-    SKAction *rotateSprite = [SKAction rotateToAngle:angle duration:_CHARACTER_TURN_DELAY];
-    [sprite runAction:rotateSprite completion:^(void) {
-        // update the direction of the sprite
-        _direction = CGPointForAngle(sprite.zRotation);
-        
-    }];
-
-    
-    //Fixes the directions so that you dont end up with a situation where you have -0.00000.  I dont even know how that could happen.  BUT IT DOES
-    if (_direction.x <= 0.0001 && _direction.x >= -0.0001) {//slightly more than 0 and slightly less than 0
-        _direction.x = 0.0;
-    }
-    if (_direction.y <= 0.0001 && _direction.y >= -0.0001) {//slightly more than 0 and slightly less than 0
-        _direction.y = 0.0;
-    }
-    
-    NSLog(@"vector=%1.0f,%1.0f|z rotation=%1.5f",_direction.x, _direction.y,sprite.zRotation);
-}
-
-- (void)moveBy:(CGVector)targetOffset {
-    NSLog(@"<moveBy>");
-    if ([self actionForKey:@"moveBy"]) { return; }
-    
-    SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
-    changeLanes.timingMode = SKActionTimingEaseInEaseOut;
-    [self runAction:changeLanes withKey:@"moveBy"];
-    
-}
-
-
-- (void)moveSprite:(SKSpriteNode *)sprite directionNormalized:(CGPoint)direction {
-
-    CGPoint velocity = CGPointMultiplyScalar(direction, _CHARACTER_MOVEMENT_POINTS_PER_SEC);
-    CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
-    
-    // we're not currently using the speed multiplier, but it may come in handy so I'll leave it in
-    CGPoint amountToMoveSpeedMult = CGPointMultiplyScalar(amountToMove, _characterSpeedMultiplier);
-    sprite.position = CGPointAdd(sprite.position, amountToMoveSpeedMult);
-
-    
-}
+//#pragma mark Game Loop
+//- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
+//    self.sceneDelta = delta;
+//    
+//    if (self.isMoving) {
+//        [self moveSprite:self directionNormalized:self.direction];
+//    }
+//
+//
+//}
+//
+//#pragma mark (Public) Sprite Controls
+//-(void)startMoving {
+//
+//    if (self.isMoving == YES) return;
+//
+//    self.isMoving = YES;
+//    
+//    SKAction *startMoving = [SKAction customActionWithDuration:self.accelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//        float t = elapsedTime / self.accelTimeSeconds;
+//        t = sinf(t * M_PI_2);
+//        _characterSpeedMultiplier = t;
+//    }];
+//    [self runAction:startMoving];
+//    
+//}
+//
+//-(void)stopMoving {
+//    //if ([self hasActions]) return; // TODO: commented this out to improve the snappiness of the controls. this results in a jerky motion
+//    
+//    SKAction *stopMoving = [SKAction customActionWithDuration:self.decelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//        float t = elapsedTime / self.decelTimeSeconds;
+//        t = sinf(t * M_PI_2);
+//        _characterSpeedMultiplier = 1 - t;
+//    }];
+//    [self runAction:stopMoving completion:^{self.isMoving = NO;}];
+//
+//
+//}
+//
+//
+//#pragma mark (Private) Sprite Movement
+//
+//- (void)rotateByAngle:(CGFloat)degrees {
+//    SKSpriteNode *sprite = self;
+//    
+//    // apply the rotation to the sprite
+//    CGFloat angle = sprite.zRotation + DegreesToRadians(degrees);
+//    
+//    // wrap angles larger than +/- 360 degrees
+//    if (angle >= ( 2 * M_PI )) {
+//        angle -= (2 * M_PI);
+//    } else if (angle < -(2 * M_PI)) {
+//        angle += (2 * M_PI);
+//    }
+//    
+//    NSLog(@"angle=%f",RadiansToDegrees(angle));
+//
+//    SKAction *rotateSprite = [SKAction rotateToAngle:angle duration:self.pivotSpeed];
+//    [sprite runAction:rotateSprite completion:^(void) {
+//        // update the direction of the sprite
+//        self.direction = CGPointForAngle(sprite.zRotation);
+//        
+//    }];
+//
+//    
+//    //Fixes the directions so that you dont end up with a situation where you have -0.00000.  I dont even know how that could happen.  BUT IT DOES
+//    if (self.direction.x <= 0.0001 && self.direction.x >= -0.0001) {//slightly more than 0 and slightly less than 0
+//        self.direction = CGPointMake(0, self.direction.y);
+//    }
+//    if (self.direction.y <= 0.0001 && self.direction.y >= -0.0001) {//slightly more than 0 and slightly less than 0
+//        self.direction = CGPointMake(self.direction.y, 0);
+//    }
+//    
+//    NSLog(@"vector=%1.0f,%1.0f|z rotation=%1.5f",self.direction.x, self.direction.y,sprite.zRotation);
+//}
+//
+//- (void)moveBy:(CGVector)targetOffset {
+//    NSLog(@"<moveBy>");
+//    if ([self actionForKey:@"moveBy"]) { return; }
+//    
+//    SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
+//    changeLanes.timingMode = SKActionTimingEaseInEaseOut;
+//    [self runAction:changeLanes withKey:@"moveBy"];
+//    
+//}
+//
+//
+//- (void)moveSprite:(SKSpriteNode *)sprite directionNormalized:(CGPoint)direction {
+//
+//    CGPoint velocity = CGPointMultiplyScalar(direction, self.speedPointsPerSec);
+//    CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
+//    
+//    // we're not currently using the speed multiplier, but it may come in handy so I'll leave it in
+//    CGPoint amountToMoveSpeedMult = CGPointMultiplyScalar(amountToMove, _characterSpeedMultiplier);
+//    sprite.position = CGPointAdd(sprite.position, amountToMoveSpeedMult);
+//
+//    
+//}
 
 #pragma mark Game Logic
 -(void)changeState:(AmbulanceState)newState {

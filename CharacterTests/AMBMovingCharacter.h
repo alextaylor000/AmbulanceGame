@@ -13,6 +13,19 @@
 
 @property (nonatomic) BOOL isMoving; // YES if the character is moving at speed; NO if it's not.
 
+@property (nonatomic) CGFloat speedPointsPerSec;
+@property (nonatomic) CGPoint direction;
+@property (nonatomic) CGFloat pivotSpeed; // how long it takes the character to rotate 90 degrees
+
+@property (nonatomic) CGFloat accelTimeSeconds; // how long it takes for the character to get up to speed; controls easing
+@property (nonatomic) CGFloat decelTimeSeconds;
+
+
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
+- (void)startMoving;
+- (void)stopMoving;
+- (void)rotateByAngle:(CGFloat)degrees;
+- (void)moveBy:(CGVector)targetOffset;
 
 
 @end

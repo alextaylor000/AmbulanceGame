@@ -18,24 +18,14 @@ typedef enum {
 
 @interface AMBPlayer : AMBMovingCharacter
 
-@property (readonly, nonatomic) float CHARACTER_MOVEMENT_POINTS_PER_SEC;
-@property (readonly, nonatomic) float CHARACTER_TURN_DELAY; // builds in a small animated rotation; tweak this to change the "feel" of the turning.
-
-@property CGFloat targetAngleRadians;
-@property (readonly, nonatomic) CGPoint direction;
-
-// controls easing
-@property (readonly, nonatomic) float CHARACTER_MOVEMENT_ACCEL_TIME_SECS;
-@property (readonly, nonatomic) float CHARACTER_MOVEMENT_DECEL_TIME_SECS;
-
 @property AmbulanceState state;
 @property AMBPatient *patient;
 
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
-- (void)startMoving;
-- (void)stopMoving;
-- (void)rotateByAngle:(CGFloat)degrees;
-- (void)moveBy:(CGVector)targetOffset;
+//- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
+//- (void)startMoving;
+//- (void)stopMoving;
+//- (void)rotateByAngle:(CGFloat)degrees;
+//- (void)moveBy:(CGVector)targetOffset;
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;
 - (BOOL)unloadPatient;
