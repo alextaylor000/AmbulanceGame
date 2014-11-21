@@ -12,6 +12,7 @@
 #import "AMBHospital.h"
 #import "AMBSpawner.h"
 #import "AMBScoreKeeper.h"
+#import "AMBTrafficController.h"
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 
@@ -67,6 +68,11 @@ static const int TILE_LANE_WIDTH = 32;
         [self createWorld]; // set up tilemap
         [self addPlayer];
 
+        // traffic test
+        AMBTrafficController *trafficController = [[AMBTrafficController alloc]init];
+        AMBCharacter *trafficGuineaPig = [trafficController createVehicle:Sedan atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
+        [_mapLayerRoad addChild:trafficGuineaPig];
+        
         _turnRequested = NO;
         
         // camera
