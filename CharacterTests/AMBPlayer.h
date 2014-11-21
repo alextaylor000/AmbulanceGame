@@ -21,11 +21,6 @@ typedef enum {
 @property AmbulanceState state;
 @property AMBPatient *patient;
 
-//- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
-//- (void)startMoving;
-//- (void)stopMoving;
-//- (void)rotateByAngle:(CGFloat)degrees;
-//- (void)moveBy:(CGVector)targetOffset;
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;
 - (BOOL)unloadPatient;

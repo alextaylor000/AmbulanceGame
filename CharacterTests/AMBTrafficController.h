@@ -10,22 +10,10 @@
 #import <Foundation/Foundation.h>
 #import "AMBTrafficVehicle.h"
 
-typedef enum {
-    VehicleTypeSedan = 1,
-    VehicleTypeVan,
-    VehicleTypeTruck,
-    VehicleTypeRandom
-} VehicleType;
-
-typedef enum {
-    VehicleSpeedSlow = 1,
-    VehicleSpeedMedium,
-    VehicleSpeedFast
-} VehicleSpeed;
 
 
 @interface AMBTrafficController : NSObject
 
-- (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation;
+
 
 @end

@@ -21,7 +21,7 @@
 -(id)init {
     if (self = [super init]) {
         // set parameter defaults; to be overridden by subclasses
-        self.speedPointsPerSec = 100;
+        self.speedPointsPerSec = 100.0;
         self.pivotSpeed = 0;
         self.direction = CGPointMake(1, 0);
         self.accelTimeSeconds = 0.75;

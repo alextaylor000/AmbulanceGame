@@ -8,18 +8,39 @@
 
 #import "AMBTrafficVehicle.h"
 
-static const CGFloat VEHICLE_BASE_SPEED_POINTS_PER_SEC = 150; // this value will be multiplied by the VehicleSpeed (currently 1, 2, or 3)
+static CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
 
 @implementation AMBTrafficVehicle
 
-- (id)init {
+- (instancetype)init {
     
-    if (self = [super init]) {
+    if (self = [super initWithColor:[SKColor whiteColor] size:CGSizeMake(80, 40)]) {
+        // set constants
+        self.speedPointsPerSec = 600;
+        self.pivotSpeed = 0;
+        
+        self.accelTimeSeconds = 0.75;
+        self.decelTimeSeconds = 0.35;
+        
+        
         // all new vehicles begin by driving straight
         [self changeState:VehicleIsDrivingStraight];
     }
     return self;
 }
+
++ (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation {
+    
+    AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]init];
+    
+    vehicle.speedPointsPerSec = speed * speedMultiplier;
+    vehicle.position = point;
+    vehicle.zRotation = rotation;
+    vehicle.name = @"traffic"; // for grouped enumeration
+    
+    return vehicle;
+}
+
 
 - (void)changeState:(VehicleState)newState {
     _state = newState;

@@ -72,7 +72,7 @@ static const int TILE_LANE_WIDTH = 32;
 
         // TRAFFIC_AI_TESTING
         AMBTrafficController *trafficController = [[AMBTrafficController alloc]init];
-        _trafficGuineaPig = [trafficController createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
+        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
         [_tilemap addChild:_trafficGuineaPig]; // when adding this to mapLayerRoad and centerOnNode:_trafficGuineaPig, weird rendering errors occur
         
 
