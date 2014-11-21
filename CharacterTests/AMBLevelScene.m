@@ -12,7 +12,7 @@
 #import "AMBHospital.h"
 #import "AMBSpawner.h"
 #import "AMBScoreKeeper.h"
-#import "AMBTrafficController.h"
+#import "AMBTrafficVehicle.h"
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 
@@ -32,6 +32,7 @@ static const int TILE_LANE_WIDTH = 32;
 @property AMBSpawner *spawnerTest;
 
 @property AMBCharacter *trafficGuineaPig; // TRAFFIC_AI_TESTING
+@property NSMutableArray *trafficVehicles;
 
 @property AMBIndicator *indicator;
 
@@ -71,10 +72,11 @@ static const int TILE_LANE_WIDTH = 32;
         [self addPlayer];
 
         // TRAFFIC_AI_TESTING
-        AMBTrafficController *trafficController = [[AMBTrafficController alloc]init];
+        _trafficVehicles = [[NSMutableArray alloc]init];
+        
         _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
         [_tilemap addChild:_trafficGuineaPig]; // when adding this to mapLayerRoad and centerOnNode:_trafficGuineaPig, weird rendering errors occur
-        
+        [_trafficVehicles addObject:_trafficGuineaPig];
 
         
         _turnRequested = NO;
@@ -187,6 +189,11 @@ static const int TILE_LANE_WIDTH = 32;
     
     // update the indicators
     [_indicator update];
+    
+    // update traffic
+    for (AMBTrafficVehicle *vehicle in _trafficVehicles) {
+        [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
+    }
     
     // turn if a turn was requested but hasn't been completed yet
     if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < TURN_BUFFER ) {

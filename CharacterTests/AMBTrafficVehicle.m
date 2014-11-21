@@ -70,4 +70,9 @@ static CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multip
     }
 }
 
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
+    // the superclass handles moving the sprite
+    [super updateWithTimeSinceLastUpdate:delta];
+}
+
 @end

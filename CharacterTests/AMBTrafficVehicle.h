@@ -34,5 +34,6 @@ typedef enum {
 @property VehicleState state;
 
 + (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation;
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 
 @end

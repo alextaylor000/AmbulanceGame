@@ -43,7 +43,6 @@
 		B9A4C30119CF501F00DE1ADA /* patient1.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FE19CF501F00DE1ADA /* patient1.png */; };
 		B9A4C30219CF501F00DE1ADA /* patient2.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FF19CF501F00DE1ADA /* patient2.png */; };
 		B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C30019CF501F00DE1ADA /* patient3.png */; };
-		B9B3EDAD1A1EBEBB0068C52B /* AMBTrafficController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAC1A1EBEBB0068C52B /* AMBTrafficController.m */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
 		B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* AMBPatient.m */; };
@@ -123,8 +122,6 @@
 		B9A4C2FE19CF501F00DE1ADA /* patient1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient1.png; sourceTree = "<group>"; };
 		B9A4C2FF19CF501F00DE1ADA /* patient2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient2.png; sourceTree = "<group>"; };
 		B9A4C30019CF501F00DE1ADA /* patient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient3.png; sourceTree = "<group>"; };
-		B9B3EDAB1A1EBEBB0068C52B /* AMBTrafficController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficController.h; sourceTree = "<group>"; };
-		B9B3EDAC1A1EBEBB0068C52B /* AMBTrafficController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficController.m; sourceTree = "<group>"; };
 		B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicle.h; sourceTree = "<group>"; };
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
@@ -351,8 +348,6 @@
 			children = (
 				B96F159719BA8379003E9809 /* AMBScoreKeeper.h */,
 				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
-				B9B3EDAB1A1EBEBB0068C52B /* AMBTrafficController.h */,
-				B9B3EDAC1A1EBEBB0068C52B /* AMBTrafficController.m */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -472,7 +467,6 @@
 				B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */,
 				B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */,
 				B98823971969998400903B73 /* AMBLevelScene.m in Sources */,
-				B9B3EDAD1A1EBEBB0068C52B /* AMBTrafficController.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
 				B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */,
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
