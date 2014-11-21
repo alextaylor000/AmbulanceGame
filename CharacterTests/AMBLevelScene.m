@@ -31,6 +31,8 @@ static const int TILE_LANE_WIDTH = 32;
 @property AMBPlayer *player;
 @property AMBSpawner *spawnerTest;
 
+@property AMBCharacter *trafficGuineaPig; // TRAFFIC_AI_TESTING
+
 @property AMBIndicator *indicator;
 
 @property TMXLayer *roadLayer;
@@ -68,10 +70,10 @@ static const int TILE_LANE_WIDTH = 32;
         [self createWorld]; // set up tilemap
         [self addPlayer];
 
-        // traffic test
+        // TRAFFIC_AI_TESTING
         AMBTrafficController *trafficController = [[AMBTrafficController alloc]init];
-        AMBCharacter *trafficGuineaPig = [trafficController createVehicle:Sedan atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
-        [_mapLayerRoad addChild:trafficGuineaPig];
+        _trafficGuineaPig = [trafficController createVehicle:Sedan atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
+        [_tilemap addChild:_trafficGuineaPig]; // when adding this to mapLayerRoad and centerOnNode:_trafficGuineaPig, weird rendering errors occur
         
         _turnRequested = NO;
         
@@ -163,7 +165,7 @@ static const int TILE_LANE_WIDTH = 32;
 
 
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
-    [self centerOnNode:_camera];
+    [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
     
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
