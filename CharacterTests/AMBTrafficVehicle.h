@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
 
-#import "AMBCharacter.h"
+#import "AMBMovingCharacter.h"
 
 typedef enum {
     VehicleIsStopped,
@@ -15,7 +15,7 @@ typedef enum {
     VehicleIsTailgating,
 } VehicleState;
 
-@interface AMBTrafficVehicle : AMBCharacter
+@interface AMBTrafficVehicle : AMBMovingCharacter
 
 @property VehicleState state;
 @property CGFloat speed;

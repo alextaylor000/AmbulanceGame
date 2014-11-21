@@ -7,7 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "AMBCharacter.h"
+#import "AMBMovingCharacter.h"
 #import "AMBPatient.h"
 
 typedef enum {
@@ -16,7 +16,7 @@ typedef enum {
 } AmbulanceState;
 
 
-@interface AMBPlayer : AMBCharacter
+@interface AMBPlayer : AMBMovingCharacter
 
 @property (readonly, nonatomic) BOOL isMoving; // YES if the character is moving at speed; NO if it's not.
 
