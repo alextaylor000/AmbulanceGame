@@ -66,14 +66,16 @@ static const int TILE_LANE_WIDTH = 32;
 
         // indicator, created before createWorld so it can be referenced in initial spawns
         _indicator = [[AMBIndicator alloc]initForScene:self];
-        
+
         [self createWorld]; // set up tilemap
         [self addPlayer];
 
         // TRAFFIC_AI_TESTING
         AMBTrafficController *trafficController = [[AMBTrafficController alloc]init];
-        _trafficGuineaPig = [trafficController createVehicle:Sedan atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
+        _trafficGuineaPig = [trafficController createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
         [_tilemap addChild:_trafficGuineaPig]; // when adding this to mapLayerRoad and centerOnNode:_trafficGuineaPig, weird rendering errors occur
+        
+
         
         _turnRequested = NO;
         

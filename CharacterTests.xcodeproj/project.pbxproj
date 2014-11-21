@@ -44,6 +44,7 @@
 		B9A4C30219CF501F00DE1ADA /* patient2.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FF19CF501F00DE1ADA /* patient2.png */; };
 		B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C30019CF501F00DE1ADA /* patient3.png */; };
 		B9B3EDAD1A1EBEBB0068C52B /* AMBTrafficController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAC1A1EBEBB0068C52B /* AMBTrafficController.m */; };
+		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* AMBPatient.m */; };
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
@@ -123,6 +124,8 @@
 		B9A4C30019CF501F00DE1ADA /* patient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient3.png; sourceTree = "<group>"; };
 		B9B3EDAB1A1EBEBB0068C52B /* AMBTrafficController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficController.h; sourceTree = "<group>"; };
 		B9B3EDAC1A1EBEBB0068C52B /* AMBTrafficController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficController.m; sourceTree = "<group>"; };
+		B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicle.h; sourceTree = "<group>"; };
+		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9CC738219B26F9400A376BC /* AMBPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPatient.h; sourceTree = "<group>"; };
 		B9CC738319B26F9400A376BC /* AMBPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPatient.m; sourceTree = "<group>"; };
 		B9CC738C19B3D26900A376BC /* sirens.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sirens.atlas; sourceTree = "<group>"; };
@@ -324,6 +327,8 @@
 				B9CC738319B26F9400A376BC /* AMBPatient.m */,
 				B98823BC19699C4400903B73 /* AMBPlayer.h */,
 				B98823BD19699C4400903B73 /* AMBPlayer.m */,
+				B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */,
+				B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */,
 				B97831441A190C1F002A10BC /* AMBIndicator.h */,
 				B97831451A190C1F002A10BC /* AMBIndicator.m */,
 				B9E959B519C9239C00ACD50F /* AMBHospital.h */,
@@ -460,6 +465,7 @@
 				B988238F1969998400903B73 /* main.m in Sources */,
 				B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */,
 				B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */,
+				B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */,
 				B98823971969998400903B73 /* AMBLevelScene.m in Sources */,
 				B9B3EDAD1A1EBEBB0068C52B /* AMBTrafficController.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,

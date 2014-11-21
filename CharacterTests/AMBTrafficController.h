@@ -8,18 +8,24 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import <Foundation/Foundation.h>
-#import "AMBCharacter.h"
+#import "AMBTrafficVehicle.h"
 
 typedef enum {
-    Sedan = 1,
-    Van,
-    Truck,
-    RandomType
+    VehicleTypeSedan = 1,
+    VehicleTypeVan,
+    VehicleTypeTruck,
+    VehicleTypeRandom
 } VehicleType;
+
+typedef enum {
+    VehicleSpeedSlow = 1,
+    VehicleSpeedMedium,
+    VehicleSpeedFast
+} VehicleSpeed;
 
 
 @interface AMBTrafficController : NSObject
 
-- (AMBCharacter *)createVehicle:(VehicleType)type atPoint:(CGPoint)point withRotation:(CGFloat)rotation;
+- (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation;
 
 @end

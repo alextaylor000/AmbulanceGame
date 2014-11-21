@@ -10,14 +10,18 @@
 
 @implementation AMBTrafficController
 
-- (AMBCharacter *)createVehicle:(VehicleType)type atPoint:(CGPoint)point withRotation:(CGFloat)rotation {
+- (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation {
     
-    AMBCharacter *vehicle = (AMBCharacter *)[SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(80, 40)]; // placeholder sprite; the real texture and size would be determined by the type of vehicle
-    
+    AMBTrafficVehicle *vehicle = (AMBTrafficVehicle *)[SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(80, 40)]; // placeholder sprite; the real texture and size would be determined by the type of vehicle
+
+    vehicle.state = VehicleIsDrivingStraight;
+    vehicle.speed = speed;
     vehicle.position = point;
     vehicle.zRotation = rotation;
     vehicle.name = @"traffic"; // for grouped enumeration
+
     return vehicle;
 }
+
 
 @end

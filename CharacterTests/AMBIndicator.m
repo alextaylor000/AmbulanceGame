@@ -33,6 +33,7 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
         
         // store the scene and camera so we can reference its positioning in the update loop
         _scene = scene;
+
     }
     return self;
 }
