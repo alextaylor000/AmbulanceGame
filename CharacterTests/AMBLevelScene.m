@@ -53,10 +53,7 @@ static const int TILE_LANE_WIDTH = 32;
     
     NSMutableDictionary *roadTilePaths;
     
-    NSMutableArray *_cars;
     AMBScoreKeeper *scoreKeeper;
-    int _nextCar;
-    double _nextCarSpawn;
     
 }
 
@@ -73,20 +70,10 @@ static const int TILE_LANE_WIDTH = 32;
 
         _trafficVehicles = [[NSMutableArray alloc]init];
         // TRAFFIC_AI_TESTING
-        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:_playerSpawnPoint withRotation:DegreesToRadians(90)];
+        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y - 1536) withRotation:DegreesToRadians(90)];
         [_tilemap addChild:_trafficGuineaPig]; // when adding this to mapLayerRoad and centerOnNode:_trafficGuineaPig, weird rendering errors occur
         [_trafficVehicles addObject:_trafficGuineaPig];
 
-        [_trafficGuineaPig runAction:[SKAction waitForDuration:5.0] completion:^(void){
-
-            NSLog(@"slowing down trafficGuineaPig..");
-
-            [_trafficGuineaPig changeSpeedTo:150];
-
-        }];
-
-        
-        
         _turnRequested = NO;
         
         // camera
@@ -129,17 +116,6 @@ static const int TILE_LANE_WIDTH = 32;
     
     
 }
-
-- (void) initalizeCarVariables{
-    
-    _nextCarSpawn = 0;
-    
-    for (SKSpriteNode *car in _cars) {
-        car.hidden = YES;
-    }
-    
-}
-
 
 
 - (void) addPlayer {
@@ -594,9 +570,6 @@ static const int TILE_LANE_WIDTH = 32;
             [_player unloadPatient];
         }
         
-#if DEBUG
-//        NSLog(@"at hospital");
-#endif
     }
     
     

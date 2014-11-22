@@ -62,6 +62,7 @@
         self.physicsBody.categoryBitMask = categoryPatient;
         self.physicsBody.collisionBitMask = 0x00000000;
 
+
         
         self.name = @"patient";
         self.position = position;

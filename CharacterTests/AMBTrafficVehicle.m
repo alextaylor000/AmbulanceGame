@@ -9,7 +9,9 @@
 #import "AMBTrafficVehicle.h"
 #import "SKTUtils.h"
 
-static CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
+static const CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
+static const int tailgateZoneMultiplier = 2.5; // the zone in which tailgating is enabled is the vehicle's height multiplied by this value.
+
 
 @interface AMBTrafficVehicle ()
 
@@ -45,6 +47,13 @@ static CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multip
     vehicle.zRotation = rotation;
     vehicle.direction = CGPointForAngle(rotation);
     vehicle.name = @"traffic"; // for grouped enumeration
+    
+    // collision areas
+    SKSpriteNode *collisionZoneTailgating = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(vehicle.size.width * tailgateZoneMultiplier, vehicle.size.height)]; // the coordinates are based on the node being oriented to the right
+    collisionZoneTailgating.zPosition = -1;
+    collisionZoneTailgating.position = CGPointMake(vehicle.size.width/2 + collisionZoneTailgating.size.width/2, 0); // put the collision zone out in front
+    [vehicle addChild:collisionZoneTailgating];
+    
     
     return vehicle;
 }
