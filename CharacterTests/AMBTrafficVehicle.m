@@ -48,11 +48,17 @@ static const int tailgateZoneMultiplier = 2.5; // the zone in which tailgating i
     vehicle.direction = CGPointForAngle(rotation);
     vehicle.name = @"traffic"; // for grouped enumeration
     
-    // collision zone(s)
+    // physics
+    vehicle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:vehicle.size];
+    vehicle.physicsBody.categoryBitMask = categoryTraffic;
+    vehicle.physicsBody.collisionBitMask = 0;
+    vehicle.physicsBody.contactTestBitMask = 0;
+    
     SKSpriteNode *collisionZoneTailgating = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(vehicle.size.width * tailgateZoneMultiplier, vehicle.size.height)]; // the coordinates are based on the node being oriented to the right
     collisionZoneTailgating.zPosition = -1;
     collisionZoneTailgating.position = CGPointMake(vehicle.size.width/2 + collisionZoneTailgating.size.width/2, 0); // put the collision zone out in front
     collisionZoneTailgating.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:collisionZoneTailgating.size];
+    collisionZoneTailgating.physicsBody.categoryBitMask = categoryTrafficCollisionZone;
     collisionZoneTailgating.physicsBody.collisionBitMask = 0;
     collisionZoneTailgating.physicsBody.contactTestBitMask = categoryPlayer | categoryTraffic;
     [vehicle addChild:collisionZoneTailgating];

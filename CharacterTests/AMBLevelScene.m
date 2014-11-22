@@ -11,7 +11,6 @@
 #import "AMBPatient.h"
 #import "AMBHospital.h"
 #import "AMBSpawner.h"
-#import "AMBScoreKeeper.h"
 #import "AMBTrafficVehicle.h"
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
@@ -53,8 +52,6 @@ static const int TILE_LANE_WIDTH = 32;
     
     NSMutableDictionary *roadTilePaths;
     
-    AMBScoreKeeper *scoreKeeper;
-    
 }
 
 -(id)initWithSize:(CGSize)size {    
@@ -82,12 +79,12 @@ static const int TILE_LANE_WIDTH = 32;
         [_tilemap addChild:_camera];
         
         // scoring
-        scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
-        SKLabelNode *labelScore = [scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
+        _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
+        SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
         [self addChild:labelScore];
      
 #if DEBUG
-        NSLog(@"[[   SCORE:  %ld   ]]", scoreKeeper.score);
+        NSLog(@"[[   SCORE:  %ld   ]]", _scoreKeeper.score);
 #endif
         
     }
@@ -553,41 +550,38 @@ static const int TILE_LANE_WIDTH = 32;
 #pragma mark Game logic
 - (void)didBeginContact:(SKPhysicsContact *)contact {
 
-    SKPhysicsBody *other =
-    (contact.bodyA.categoryBitMask == categoryPlayer ?
-     contact.bodyB : contact.bodyA);
-    
-    switch (other.categoryBitMask) {
-        case categoryPatient:
-            [_player loadPatient:(AMBPatient *)other.node];
-            break;
-            
-            
-        case categoryHospital:
-            if (_player.patient) {
-                [scoreKeeper scoreEventDeliveredPatient:_player.patient];
-                [_player unloadPatient];
-            }
-            break;
-        
-            
-        case categoryTraffic:
-            //
-            break;
+    SKNode *node = contact.bodyA.node;
+    if ([node isKindOfClass:[AMBCharacter class]]) {
+        [(AMBCharacter *)node collidedWith:contact.bodyB];
     }
     
+    node = contact.bodyB.node;
+    if ([node isKindOfClass:[AMBCharacter class]]) {
+        [(AMBCharacter *)node collidedWith:contact.bodyA];
+    }
+
     
-//    if (other.categoryBitMask == categoryPatient) {
-//        AMBPatient *patientNode = (AMBPatient *)other.node;
-//        [_player loadPatient:patientNode];
-//
-//
-//    } else if (other.categoryBitMask == categoryHospital) {
-//        if (_player.patient) {
-//            [scoreKeeper scoreEventDeliveredPatient:_player.patient];
-//            [_player unloadPatient];
-//        }
+//    SKPhysicsBody *other =
+//    (contact.bodyA.categoryBitMask == categoryPlayer ?
+//     contact.bodyB : contact.bodyA);
+//    
+//    switch (other.categoryBitMask) {
+//        case categoryPatient:
+//            [_player loadPatient:(AMBPatient *)other.node];
+//            break;
+//            
+//            
+//        case categoryHospital:
+//            if (_player.patient) {
+//                [_scoreKeeper scoreEventDeliveredPatient:_player.patient];
+//                [_player unloadPatient];
+//            }
+//            break;
 //        
+//            
+//        case categoryTrafficCollisionZone:
+//            
+//            break;
 //    }
     
     

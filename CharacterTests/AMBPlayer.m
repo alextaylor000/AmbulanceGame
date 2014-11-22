@@ -21,6 +21,7 @@
 
 @property SKSpriteNode *sirens;
 @property SKAction *sirensOn;
+@property AMBScoreKeeper *scoreKeeper;
 
 @end
 
@@ -67,7 +68,7 @@
 
     [self addChild:_sirens];
     
-//    [sirens runAction:[SKAction repeatActionForever:sirensOn]];
+    _scoreKeeper = [AMBScoreKeeper sharedInstance]; // hook up the shared instance of the score keeper so we can talk to it
     
     
     return self;
@@ -117,6 +118,23 @@
     return NO;
 }
 
+- (void)collidedWith:(SKPhysicsBody *)other {
+    
+    switch (other.categoryBitMask) {
+        case categoryPatient:
+            [self loadPatient:(AMBPatient *)other.node];
+            break;
+            
+            
+        case categoryHospital:
+            if (self.patient) {
+                [_scoreKeeper scoreEventDeliveredPatient:self.patient];
+                [self unloadPatient];
+            }
+            break;
+            
+    }
+}
 
 
 

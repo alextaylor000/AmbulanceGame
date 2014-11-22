@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
-#import "AMBPatient.h"
+//#import "AMBPatient.h"
+@class AMBPatient;
 
 /* Game rules used by other classes */
 

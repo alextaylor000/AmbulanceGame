@@ -8,6 +8,7 @@
 
 #import "AMBScoreKeeper.h"
 #import "AMBLevelScene.h" 
+#import "AMBPatient.h"
 #import "SKTUtils.h" // for RandomFloatRange
 
 @implementation AMBScoreKeeper

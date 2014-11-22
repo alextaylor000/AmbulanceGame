@@ -37,4 +37,8 @@
     }
 }
 
+- (void)collidedWith:(SKPhysicsBody *)other {
+    // overridden by subclasses.
+}
+
 @end

@@ -11,6 +11,7 @@
 #import "AMBGameScene.h"
 #import "AMBIndicator.h"
 #import "AMBCamera.h"
+#import "AMBScoreKeeper.h"
 
 @interface AMBLevelScene : AMBGameScene <SKPhysicsContactDelegate>
 
@@ -34,7 +35,7 @@
 #pragma mark Update Loop
 @property NSTimeInterval sceneLastUpdate;
 @property CGFloat sceneDelta;
-
+@property AMBScoreKeeper *scoreKeeper;
 
 #pragma mark Methods
 /** Loads a tilemap from disk and sets up all the layers.*/
