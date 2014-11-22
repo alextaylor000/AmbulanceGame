@@ -47,7 +47,7 @@
     self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
     self.physicsBody.categoryBitMask = categoryPlayer;
     self.physicsBody.contactTestBitMask = categoryHospital | categoryPatient | categoryTraffic;
-    self.physicsBody.collisionBitMask = categoryTraffic;
+    self.physicsBody.collisionBitMask = 0;
 
     
     self.direction = CGPointMake(0, 1); // default direction, move up

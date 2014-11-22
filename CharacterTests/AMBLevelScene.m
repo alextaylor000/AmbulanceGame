@@ -552,25 +552,43 @@ static const int TILE_LANE_WIDTH = 32;
 
 #pragma mark Game logic
 - (void)didBeginContact:(SKPhysicsContact *)contact {
-    /* This method is basically handling all the game logic right now */
 
     SKPhysicsBody *other =
     (contact.bodyA.categoryBitMask == categoryPlayer ?
      contact.bodyB : contact.bodyA);
     
-    
-    if (other.categoryBitMask == categoryPatient) {
-        AMBPatient *patientNode = (AMBPatient *)other.node;
-        [_player loadPatient:patientNode];
-
-
-    } else if (other.categoryBitMask == categoryHospital) {
-        if (_player.patient) {
-            [scoreKeeper scoreEventDeliveredPatient:_player.patient];
-            [_player unloadPatient];
-        }
+    switch (other.categoryBitMask) {
+        case categoryPatient:
+            [_player loadPatient:(AMBPatient *)other.node];
+            break;
+            
+            
+        case categoryHospital:
+            if (_player.patient) {
+                [scoreKeeper scoreEventDeliveredPatient:_player.patient];
+                [_player unloadPatient];
+            }
+            break;
         
+            
+        case categoryTraffic:
+            //
+            break;
     }
+    
+    
+//    if (other.categoryBitMask == categoryPatient) {
+//        AMBPatient *patientNode = (AMBPatient *)other.node;
+//        [_player loadPatient:patientNode];
+//
+//
+//    } else if (other.categoryBitMask == categoryHospital) {
+//        if (_player.patient) {
+//            [scoreKeeper scoreEventDeliveredPatient:_player.patient];
+//            [_player unloadPatient];
+//        }
+//        
+//    }
     
     
 }
