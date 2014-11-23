@@ -71,12 +71,12 @@ static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is 
 
 - (void)changeState:(VehicleState)newState {
     _state = newState;
-    SKAction *moveAction;
     
     switch (_state) {
         case VehicleIsStopped:
-            //
+            [self stopMoving];
             break;
+            
             
         case VehicleIsDrivingStraight:
             if (!self.isMoving) {
@@ -84,13 +84,16 @@ static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is 
             }
             break;
             
+            
         case VehicleCanTurn:
             //
             break;
         
+            
         case VehicleIsTailgating:
             // 
             break;
+            
             
         case VehicleIsAdjustingSpeed:
             [self adjustSpeedToTarget:_targetSpeed];
@@ -102,13 +105,19 @@ static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is 
 
 - (void)changeSpeedTo:(CGFloat)newSpeed {
     _targetSpeed = newSpeed;
-//    [self changeState:VehicleIsAdjustingSpeed];
     [self adjustSpeedToTarget:_targetSpeed];
     NSLog(@"changeSpeedTo:");
 }
 
 - (void)collidedWith:(SKPhysicsBody *)other {
-    _collisionZoneTailgating.color = [SKColor redColor];
+    
+    AMBMovingCharacter *node = (AMBMovingCharacter *)other.node;
+    if (node.isMoving) {
+        [self changeSpeedTo:node.speedPointsPerSec];
+    } else {
+        [self changeState:VehicleIsStopped];
+    }
+    
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {

@@ -83,6 +83,7 @@ static const int TILE_LANE_WIDTH = 32;
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
         [self addChild:labelScore];
      
+    
 #if DEBUG
         NSLog(@"[[   SCORE:  %ld   ]]", _scoreKeeper.score);
 #endif
@@ -549,20 +550,19 @@ static const int TILE_LANE_WIDTH = 32;
 
 #pragma mark Game logic
 - (void)didBeginContact:(SKPhysicsContact *)contact {
-
     
     SKNode *node = contact.bodyA.node;
-    if ([node isKindOfClass:[AMBCharacter class]]) {
-        [(AMBCharacter *)node collidedWith:contact.bodyB];
+    if ([node isKindOfClass:[AMBPlayer class]]) {
+        [(AMBPlayer *)node collidedWith:contact.bodyB];
     } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"]) {
-        [(AMBTrafficVehicle *)node collidedWith:contact.bodyB];
+        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyB];
     }
     
     node = contact.bodyB.node;
-    if ([node isKindOfClass:[AMBCharacter class]]) {
-        [(AMBCharacter *)node collidedWith:contact.bodyA];
+    if ([node isKindOfClass:[AMBPlayer class]]) {
+        [(AMBPlayer *)node collidedWith:contact.bodyA];
     } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"]) {
-        [(AMBTrafficVehicle *)node collidedWith:contact.bodyA];
+        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyA];
     }
 
 }
