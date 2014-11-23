@@ -20,10 +20,10 @@ static const uint32_t categoryTrafficCollisionZone =    0x1 << 4; // the tailgat
 @interface AMBCharacter : SKSpriteNode
 
 @property NSTimeInterval spawnTime;
+@property AMBLevelScene *levelScene;
 
 /** Adds the character object to the scene, or other specified node. */
 - (void)addObjectToNode:(SKNode *)node atPosition:(CGPoint)position;
-
 + (void)loadSharedAssets;
 
 /** Returns the scene that the character is a part of. */

@@ -14,6 +14,7 @@
     if (self = [super init]) {
         // set the spawn time in init because we want to make absolutely sure it runs no matter how the object is created
         self.spawnTime = CACurrentMediaTime();
+
     }
     return self;
 }

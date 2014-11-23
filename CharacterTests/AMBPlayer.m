@@ -74,6 +74,15 @@
     return self;
 }
 
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
+    // the superclass handles moving the sprite
+    [super updateWithTimeSinceLastUpdate:delta];
+
+    if (self.requestedMoveEvent && self.levelScene.sceneLastUpdate - self.levelScene.lastKeyPress < TURN_BUFFER) {
+        [self authorizeMoveEvent:self.requestedMoveEventDegrees];
+    }
+}
+
 
 #pragma mark Game Logic
 -(void)changeState:(AmbulanceState)newState {

@@ -9,6 +9,8 @@
 
 #import "AMBCharacter.h"
 
+static const float TURN_BUFFER = 1; // attempt a turn every frame for this many seconds after initial keypress. this helps reduce the accuracy required to hit a corner just right.
+
 @interface AMBMovingCharacter : AMBCharacter
 
 @property (nonatomic) BOOL isMoving; // YES if the character is moving at speed; NO if it's not.
@@ -20,12 +22,16 @@
 @property (nonatomic) CGFloat accelTimeSeconds; // how long it takes for the character to get up to speed; controls easing
 @property (nonatomic) CGFloat decelTimeSeconds;
 
+@property (readonly, nonatomic) BOOL requestedMoveEvent; // YES if a move event has been requested but not yet completed
+@property (readonly, nonatomic) CGFloat requestedMoveEventDegrees;
+
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;
 - (void)stopMoving;
 - (void)rotateByAngle:(CGFloat)degrees;
 - (void)moveBy:(CGVector)targetOffset;
+- (void)authorizeMoveEvent: (CGFloat)degrees;
 - (void)adjustSpeedToTarget:(CGFloat)targetSpeed;
 
 

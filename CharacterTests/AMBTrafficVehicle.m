@@ -126,7 +126,9 @@ static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is 
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
     
-    
+    if (self.requestedMoveEvent) {
+        [self authorizeMoveEvent:self.requestedMoveEventDegrees];
+    }
     
 }
 

@@ -30,12 +30,14 @@
 @property (readonly, nonatomic) TMXObjectGroup *mapGroupSpawnHospitals;
 @property (readonly, nonatomic) TMXObjectGroup *mapGroupSpawnTraffic;
 @property (readonly, nonatomic) TMXObjectGroup *mapGroupSpawnPowerups;
-
+@property (readonly, nonatomic) NSMutableDictionary *roadTilePaths;
 
 #pragma mark Update Loop
-@property NSTimeInterval sceneLastUpdate;
-@property CGFloat sceneDelta;
+@property (readonly, nonatomic) NSTimeInterval sceneLastUpdate;
+@property (readonly, nonatomic) NSTimeInterval lastKeyPress;
+@property (readonly, nonatomic) CGFloat sceneDelta;
 @property AMBScoreKeeper *scoreKeeper;
+
 
 #pragma mark Methods
 /** Loads a tilemap from disk and sets up all the layers.*/

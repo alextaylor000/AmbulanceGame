@@ -18,13 +18,12 @@
 #define kNumberCars   15
 
 static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more frequent than this interval
-static const float TURN_BUFFER = 1; // attempt a turn every frame for this many seconds after initial keypress. this helps reduce the accuracy required to hit a corner just right.
-static const int TILE_LANE_WIDTH = 32;
+
 
 @interface AMBLevelScene ()
 
 @property NSTimeInterval lastUpdateTimeInterval;
-@property NSTimeInterval lastKeyPress;
+
 @property SKNode *worldNode;
 @property JSTileMap *bgLayer;
 @property AMBPlayer *player;
@@ -48,11 +47,7 @@ static const int TILE_LANE_WIDTH = 32;
 
 @end
 
-@implementation AMBLevelScene{
-    
-    NSMutableDictionary *roadTilePaths;
-    
-}
+@implementation AMBLevelScene
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
@@ -68,11 +63,11 @@ static const int TILE_LANE_WIDTH = 32;
         _trafficVehicles = [[NSMutableArray alloc]init];
         // TRAFFIC_AI_TESTING
         _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y + 256) withRotation:DegreesToRadians(90)];
-        [_tilemap addChild:_trafficGuineaPig]; // when adding this to mapLayerRoad and centerOnNode:_trafficGuineaPig, weird rendering errors occur
+        [self addMovingCharacterToTileMap:_trafficGuineaPig];
         [_trafficVehicles addObject:_trafficGuineaPig];
 
         AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 1536) withRotation:DegreesToRadians(90)];
-        [_tilemap addChild:traffic2];
+        [self addMovingCharacterToTileMap:traffic2];
         [_trafficVehicles addObject:traffic2];
         
         _turnRequested = NO;
@@ -119,14 +114,18 @@ static const int TILE_LANE_WIDTH = 32;
     
 }
 
+- (void)addMovingCharacterToTileMap:(AMBMovingCharacter *)character {
+    // encapsulated like this because we need to make sure levelScene is set on all the player/traffic nodes
+    [_tilemap addChild:character];
+    character.levelScene = self;
+}
 
 - (void) addPlayer {
     
     _player = [[AMBPlayer alloc] init];
     _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
 
-    [_tilemap addChild:_player];
-
+    [self addMovingCharacterToTileMap:_player];
 #if DEBUG
     NSLog(@"adding player at %1.0f,%1.0f",_playerSpawnPoint.x,_playerSpawnPoint.y);
 #endif
@@ -140,12 +139,12 @@ static const int TILE_LANE_WIDTH = 32;
 
 -(void)calcDelta:(CFTimeInterval)currentTime {
     if (self.sceneLastUpdate) {
-        self.sceneDelta = currentTime - self.sceneLastUpdate;
+        _sceneDelta = currentTime - self.sceneLastUpdate;
     } else {
-        self.sceneDelta = 0;
+        _sceneDelta = 0;
     }
     
-    self.sceneLastUpdate = currentTime;
+    _sceneLastUpdate = currentTime;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
@@ -153,7 +152,8 @@ static const int TILE_LANE_WIDTH = 32;
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
-    [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
+//    [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
+    [self centerOnNode:_camera];
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
 
@@ -179,13 +179,13 @@ static const int TILE_LANE_WIDTH = 32;
         [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
     }
     
-    // turn if a turn was requested but hasn't been completed yet
-    if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < TURN_BUFFER ) {
-#if DEBUG
-        NSLog(@"update loop: turn requested");
-#endif
-        [self authorizeMoveEvent:_turnDegrees];
-    }
+//    // turn if a turn was requested but hasn't been completed yet
+//    if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < TURN_BUFFER ) {
+//#if DEBUG
+//        NSLog(@"update loop: turn requested");
+//#endif
+//        [self authorizeMoveEvent:_turnDegrees];
+//    }
 
 }
 
@@ -280,7 +280,7 @@ static const int TILE_LANE_WIDTH = 32;
     
     NSMutableDictionary *tileProperties =[_tilemap tileProperties];
     
-    roadTilePaths = [[NSMutableDictionary alloc] init];
+    _roadTilePaths = [[NSMutableDictionary alloc] init];
     
     for (id key in tileProperties) {
         // get the tile type (e.g. nsw, new, ne, etc)
@@ -525,7 +525,7 @@ static const int TILE_LANE_WIDTH = 32;
         
         CGPathCloseSubpath(path); // close the path
         
-        [roadTilePaths setObject:(__bridge id)path forKey:tileType]; // TODO: memory leak because of bridging?
+        [_roadTilePaths setObject:(__bridge id)path forKey:tileType]; // TODO: memory leak because of bridging?
         
     } // end for
 }
@@ -570,169 +570,7 @@ static const int TILE_LANE_WIDTH = 32;
 }
 
 
-- (void)authorizeMoveEvent: (CGFloat)degrees {
-    /* Called by user input. Initiates a turn or a lane change if the move is legal.
-    
-     The layout of this function is as follows:
-     
-     Is the tile an intersection?
-            Define the target point (slightly different for single lane vs. multi lane)
-     
-            Does the target point land on a road?
-                *TURN!*
-                return;
-     
-     Define the target point for a lane change
-            Does the target point land on a road?
-                *CHANGE LANES!*
-     
-     */
-    
-    SKSpriteNode *currentTile = [_mapLayerRoad tileAt:_player.position];
-    NSDictionary *currentTileProperties = [_tilemap propertiesForGid:[_mapLayerRoad tileGidAt:_player.position]];
-    CGPoint playerPosInTile = [currentTile convertPoint:_player.position fromNode:_tilemap];
-    
-    BOOL isWithinBounds;
-    BOOL currentTileIsMultiLane;
-    if([[currentTileProperties[@"road"] substringToIndex:1] isEqualToString:@"b"]) { currentTileIsMultiLane = YES; } else { currentTileIsMultiLane = NO; }
-    
-    CGPoint targetPoint; // the result of this tile calculation below
-    CGVector targetOffset; // how much we need to move over to get into the next lane
 
-    if (currentTileProperties[@"intersection"]) {
-        CGPoint directionNormalized = CGPointNormalize(_player.direction);
-        CGPoint rotatedPointNormalized = CGPointRotate(directionNormalized, degrees);
-        CGPoint rotatedPoint;
-        
-        // is it single-lane?
-        if (currentTileIsMultiLane) {
-            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, _tilemap.tileSize.width*2); // target tile is 2 over
-        } else {
-            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, _tilemap.tileSize.width); // target tile is 1 over
-        }
- 
-        targetPoint = CGPointAdd(rotatedPoint, _player.position);
-        isWithinBounds = [self isTargetPointValid:targetPoint];
-        
-        if (isWithinBounds) {
-            [_player rotateByAngle:degrees];
-            [_camera rotateByAngle:degrees];
-            _turnRequested = NO;
-            return;
-        }
-
-    } // if currentTileProperties = intersection
-
-    // fall through to a lane change if the whole turning thing didn't work out
-
-    CGPoint laneChangeVector = CGPointRotate(_player.direction, degrees);
-    
-    NSInteger remainder;
-    CGFloat pos;  // the player's position in the tile, either the x or the y value
-    CGFloat posNormalized ; // the player's position, normalized to the lane width
-    NSInteger targetLaneNormalized;
-    NSInteger direction; // the lane change vector, should either be 1 or -1
-
-    // the lane change calculation is easiest in one dimension, so we want to extract the relevant details and forget about points until the end
-    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-        pos     = playerPosInTile.x + (_tilemap.tileSize.width/2); // add half the width of the tile to make the coords corner-anchored.
-        direction = laneChangeVector.x;
-        
-    } else {
-        pos     = playerPosInTile.y + (_tilemap.tileSize.width/2);
-        direction = laneChangeVector.y;
-    }
-    
-
-    // TODO: accept a range around the lane (e.g. if the lane is at 96, 94-98 should be considered the range)
-    posNormalized = (direction) > 0 ? floorl( round(pos)/TILE_LANE_WIDTH) : ceilf( round(pos)/TILE_LANE_WIDTH);
-    
-    
-    if ( (int)posNormalized % 2 == 0) { // the player is right on a lane
-        targetLaneNormalized = posNormalized + direction;
-        
-    } else { // the player is somewhere between lanes
-        remainder = (int)posNormalized % 2;
-        targetLaneNormalized = posNormalized + direction + (remainder * direction);
-    }
-    
-    // convert the result back into a point
-    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-        targetOffset = CGVectorMake((targetLaneNormalized * TILE_LANE_WIDTH) - pos , 0);
-        
-    } else {
-        targetOffset = CGVectorMake(0, (targetLaneNormalized * TILE_LANE_WIDTH) - pos);        }
-    
-    targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
-#if DEBUG
-    NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
-#endif
-    
-    targetPoint = [_tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
-
-    isWithinBounds = [self isTargetPointValid:targetPoint];
-    
-    if (isWithinBounds) {
-        [_player moveBy:targetOffset];
-        _turnRequested = NO;
-        return;
-    }
-    
-    // as a final fall-through, stash the turn request if it wasn't able to be completed.
-    // the update loop will keep requesting the turn for a while after the keypress, in order
-    // to reduce the precise timing required to turn on to other roads.
-    _turnRequested = YES;
-    _turnDegrees = degrees;
-    
-}
-
-
-- (BOOL)isTargetPointValid: (CGPoint)targetPoint {
-    BOOL pointIsValid = NO;
-    
-    // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
-    SKSpriteNode *targetTile = [_mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn
-    
-    NSString *targetTileRoadType = [_tilemap propertiesForGid:  [_mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
-    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:_tilemap]; // the position of the target within the target tile
-    
-#if DEBUG
-    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
-    targetPointSprite.name = @"DEBUG_targetPointSprite";
-    targetPointSprite.position = positionInTargetTile;
-    targetPointSprite.zPosition = targetTile.zPosition + 1;
-    [targetTile addChild:targetPointSprite];
-    [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
-#endif
-    
-    if (targetTileRoadType) {
-        // check the coordinates to make sure it's on ROAD SURFACE within the tile
-        
-        CGPathRef path = (__bridge CGPathRef)([roadTilePaths objectForKey:targetTileRoadType]); // TODO: memory leak because of bridging?
-        
-        pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
-        
-#if DEBUG
-        if (pointIsValid) {
-            targetPointSprite.color = [SKColor greenColor];
-        }
-        
-        SKShapeNode *bounds = [SKShapeNode node];
-        bounds.path = path;
-        bounds.fillColor = [SKColor whiteColor];
-        bounds.alpha = 0.5;
-        bounds.zPosition = targetPointSprite.zPosition - 1;
-        
-        [targetTile addChild:bounds];
-        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
-#endif
-        
-        
-        return CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
-    }
-    
-    return pointIsValid;
-}
 
 - (CGFloat)calculatePlayerWidth {
     // calculates the player's width based on the current direction of travel.
@@ -766,12 +604,12 @@ static const int TILE_LANE_WIDTH = 32;
                     break;
                     
                 case NSLeftArrowFunctionKey:
-                    [self authorizeMoveEvent:90];
+                    [_player authorizeMoveEvent:90];
                     
                     break;
                     
                 case NSRightArrowFunctionKey:
-                    [self authorizeMoveEvent:-90];
+                    [_player authorizeMoveEvent:-90];
                     
                     break;
                     
