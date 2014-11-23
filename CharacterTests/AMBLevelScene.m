@@ -67,10 +67,14 @@ static const int TILE_LANE_WIDTH = 32;
 
         _trafficVehicles = [[NSMutableArray alloc]init];
         // TRAFFIC_AI_TESTING
-        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y - 1536) withRotation:DegreesToRadians(90)];
+        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y + 256) withRotation:DegreesToRadians(90)];
         [_tilemap addChild:_trafficGuineaPig]; // when adding this to mapLayerRoad and centerOnNode:_trafficGuineaPig, weird rendering errors occur
         [_trafficVehicles addObject:_trafficGuineaPig];
 
+        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 1536) withRotation:DegreesToRadians(90)];
+        [_tilemap addChild:traffic2];
+        [_trafficVehicles addObject:traffic2];
+        
         _turnRequested = NO;
         
         // camera
@@ -150,8 +154,6 @@ static const int TILE_LANE_WIDTH = 32;
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
     [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
-    
-    
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
 

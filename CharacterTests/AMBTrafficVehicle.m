@@ -113,7 +113,9 @@ static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is 
     
     AMBMovingCharacter *node = (AMBMovingCharacter *)other.node;
     if (node.isMoving) {
-        [self changeSpeedTo:node.speedPointsPerSec];
+        if ([node isKindOfClass:[AMBTrafficVehicle class]]) {
+            [self changeSpeedTo:node.speedPointsPerSec];
+        }
     } else {
         [self changeState:VehicleIsStopped];
     }
@@ -123,6 +125,9 @@ static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
+    
+    
+    
 }
 
 @end

@@ -143,11 +143,11 @@
  </layer>
  <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztl8EOgjAQRCtGQyICoqL//6UsBy4NDUOnpNXMS+YyYbdDoWxwTgghxC9RmU6eUK8z9UR9BeSrCe9uahP3TNlL+crPd3H5zkcD5Ct9/5Rvn5ey1xH5Hp4GwnuaXmRPn4+n74qH6m0aI3su12yBvAMh9jzf2HWVj1u39Hxr8+0KeqH5dgNqkdkWug/2+xfbj6lVPq42V74j/o+2zsusM5iPAd2/XCgfR+n5hPgXJmNvC4o=
+   eJztl10PgjAMRScEYyKCil///5faF16WErveOZt4T3Jfmq07g7CFlNpxaLiWB/ph0A+Dfhj/5NdJdlmstVlyBuZ3Bj9tr9baSTJV7lmzF/3i+w3pd9/HaPCL/vzoV1ar2esbfpcsV6C2SG5gz5xnlpdSs+YueTh7rmM+gdzlJe/Xuy79sHWj+2n3295Ys95v2lzL3ba1j9rnn/dsLplLP53ofi3+j47KmN7oh4CcLy2gH0Z0vy3oh0E/DI/fG/3YDDI=
   </data>
  </layer>
  <objectgroup name="spawn_player" width="40" height="40">
-  <object name="player.spawn" type="player.spawn" x="6912" y="4864" width="256" height="256"/>
+  <object name="player.spawn" type="player.spawn" x="6912" y="9984" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="spawn_patients" width="40" height="40">
   <object name="patient" type="patient.spawn" x="1536" y="3840" width="256" height="256">
