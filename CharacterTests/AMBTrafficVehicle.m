@@ -10,12 +10,13 @@
 #import "SKTUtils.h"
 
 static const CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
-static const int tailgateZoneMultiplier = 2.5; // the zone in which tailgating is enabled is the vehicle's height multiplied by this value.
+static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is enabled is the vehicle's height multiplied by this value.
 
 
 @interface AMBTrafficVehicle ()
 
 @property CGFloat targetSpeed;
+@property SKSpriteNode *collisionZoneTailgating;
 
 @end
 
@@ -54,14 +55,15 @@ static const int tailgateZoneMultiplier = 2.5; // the zone in which tailgating i
     vehicle.physicsBody.collisionBitMask = 0;
     vehicle.physicsBody.contactTestBitMask = 0;
     
-    SKSpriteNode *collisionZoneTailgating = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(vehicle.size.width * tailgateZoneMultiplier, vehicle.size.height)]; // the coordinates are based on the node being oriented to the right
-    collisionZoneTailgating.zPosition = -1;
-    collisionZoneTailgating.position = CGPointMake(vehicle.size.width/2 + collisionZoneTailgating.size.width/2, 0); // put the collision zone out in front
-    collisionZoneTailgating.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:collisionZoneTailgating.size];
-    collisionZoneTailgating.physicsBody.categoryBitMask = categoryTrafficCollisionZone;
-    collisionZoneTailgating.physicsBody.collisionBitMask = 0;
-    collisionZoneTailgating.physicsBody.contactTestBitMask = categoryPlayer | categoryTraffic;
-    [vehicle addChild:collisionZoneTailgating];
+    vehicle.collisionZoneTailgating = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(vehicle.size.width * tailgateZoneMultiplier, vehicle.size.height)]; // the coordinates are based on the node being oriented to the right
+    vehicle.collisionZoneTailgating.name = @"trafficVehicleCollisionZone";
+    vehicle.collisionZoneTailgating.zPosition = -1;
+    vehicle.collisionZoneTailgating.position = CGPointMake(vehicle.size.width/2 + vehicle.collisionZoneTailgating.size.width/2 + 2, 0); // put the collision zone out in front; add two pixels to prevent the collision from registering
+    vehicle.collisionZoneTailgating.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:vehicle.collisionZoneTailgating.size];
+    vehicle.collisionZoneTailgating.physicsBody.categoryBitMask = categoryTrafficCollisionZone;
+    vehicle.collisionZoneTailgating.physicsBody.collisionBitMask = 0;
+    vehicle.collisionZoneTailgating.physicsBody.contactTestBitMask = categoryPlayer | categoryTraffic;
+    [vehicle addChild:vehicle.collisionZoneTailgating];
     
     return vehicle;
 }
@@ -103,6 +105,10 @@ static const int tailgateZoneMultiplier = 2.5; // the zone in which tailgating i
 //    [self changeState:VehicleIsAdjustingSpeed];
     [self adjustSpeedToTarget:_targetSpeed];
     NSLog(@"changeSpeedTo:");
+}
+
+- (void)collidedWith:(SKPhysicsBody *)other {
+    _collisionZoneTailgating.color = [SKColor redColor];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {

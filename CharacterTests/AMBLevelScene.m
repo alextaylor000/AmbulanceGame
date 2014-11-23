@@ -550,41 +550,21 @@ static const int TILE_LANE_WIDTH = 32;
 #pragma mark Game logic
 - (void)didBeginContact:(SKPhysicsContact *)contact {
 
+    
     SKNode *node = contact.bodyA.node;
     if ([node isKindOfClass:[AMBCharacter class]]) {
         [(AMBCharacter *)node collidedWith:contact.bodyB];
+    } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"]) {
+        [(AMBTrafficVehicle *)node collidedWith:contact.bodyB];
     }
     
     node = contact.bodyB.node;
     if ([node isKindOfClass:[AMBCharacter class]]) {
         [(AMBCharacter *)node collidedWith:contact.bodyA];
+    } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"]) {
+        [(AMBTrafficVehicle *)node collidedWith:contact.bodyA];
     }
 
-    
-//    SKPhysicsBody *other =
-//    (contact.bodyA.categoryBitMask == categoryPlayer ?
-//     contact.bodyB : contact.bodyA);
-//    
-//    switch (other.categoryBitMask) {
-//        case categoryPatient:
-//            [_player loadPatient:(AMBPatient *)other.node];
-//            break;
-//            
-//            
-//        case categoryHospital:
-//            if (_player.patient) {
-//                [_scoreKeeper scoreEventDeliveredPatient:_player.patient];
-//                [_player unloadPatient];
-//            }
-//            break;
-//        
-//            
-//        case categoryTrafficCollisionZone:
-//            
-//            break;
-//    }
-    
-    
 }
 
 
