@@ -75,17 +75,18 @@ static const int TILE_LANE_WIDTH = 32;
 }
 
 - (void)adjustSpeedToTarget:(CGFloat)targetSpeed {
-    CGFloat delta = self.speedPointsPerSec - targetSpeed;
-    _originalSpeed = self.speedPointsPerSec;
-    
-    SKAction *adjustSpeed = [SKAction customActionWithDuration:self.decelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
-        float t = elapsedTime / self.decelTimeSeconds;
-        t = sinf(t * M_PI_2);
-        self.speedPointsPerSec = _originalSpeed - delta * t;
-        NSLog(@"-> %1.5f",self.speedPointsPerSec);
-    }];
-    
+
     if (![self actionForKey:@"adjustSpeed"]) {
+        CGFloat delta = self.speedPointsPerSec - targetSpeed;
+        _originalSpeed = self.speedPointsPerSec;
+        
+        SKAction *adjustSpeed = [SKAction customActionWithDuration:self.decelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
+            float t = elapsedTime / self.decelTimeSeconds;
+            t = sinf(t * M_PI_2);
+            self.speedPointsPerSec = _originalSpeed - delta * t;
+            NSLog(@"[adjustSpeedToTarget] %1.5f-> %1.5f",_originalSpeed, self.speedPointsPerSec);
+        }];
+        
         [self runAction:adjustSpeed withKey:@"adjustSpeed"];
     }
 }

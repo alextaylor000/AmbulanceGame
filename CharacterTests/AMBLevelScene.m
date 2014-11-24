@@ -152,8 +152,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
-//    [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
-    [self centerOnNode:_camera];
+    [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
+//    [self centerOnNode:_camera];
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
 

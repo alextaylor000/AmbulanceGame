@@ -96,25 +96,36 @@ static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is 
             
             
         case VehicleIsAdjustingSpeed:
-            [self adjustSpeedToTarget:_targetSpeed];
+            
+            [self runAction:
+             [SKAction customActionWithDuration:self.decelTimeSeconds*4 actionBlock:
+                ^(SKNode *node, CGFloat t){
+                    [self adjustSpeedToTarget:_targetSpeed * 0.75];
+                    NSLog(@"adjust speed to %1.5f", _targetSpeed*0.75);
+                    }] completion:
+             
+                ^(void){
+                     [self runAction:[SKAction customActionWithDuration:self.decelTimeSeconds*4 actionBlock:
+                        ^(SKNode *node, CGFloat t){
+                            [self adjustSpeedToTarget:_targetSpeed];
+                            NSLog(@"(match) adjust speed to %1.5f", _targetSpeed);
+                        }]];
+                    }
+             ];
+            
             break;
             
     }
 }
 
 
-- (void)changeSpeedTo:(CGFloat)newSpeed {
-    _targetSpeed = newSpeed;
-    [self adjustSpeedToTarget:_targetSpeed];
-    NSLog(@"changeSpeedTo:");
-}
-
 - (void)collidedWith:(SKPhysicsBody *)other {
     
     AMBMovingCharacter *node = (AMBMovingCharacter *)other.node;
     if (node.isMoving) {
         if ([node isKindOfClass:[AMBTrafficVehicle class]]) {
-            [self changeSpeedTo:node.speedPointsPerSec];
+            _targetSpeed = node.speedPointsPerSec;
+            [self changeState:VehicleIsAdjustingSpeed];
         }
     } else {
         [self changeState:VehicleIsStopped];
