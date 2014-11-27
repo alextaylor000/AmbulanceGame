@@ -127,7 +127,7 @@
     return NO;
 }
 
-- (void)collidedWith:(SKPhysicsBody *)other {
+- (void)collidedWith:(SKPhysicsBody *)other victimNodeName:(NSString *)name {
     
     switch (other.categoryBitMask) {
         case categoryPatient:
