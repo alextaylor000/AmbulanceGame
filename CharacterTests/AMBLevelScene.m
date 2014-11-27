@@ -62,11 +62,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 
         _trafficVehicles = [[NSMutableArray alloc]init];
         // TRAFFIC_AI_TESTING
-        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y + 256) withRotation:DegreesToRadians(90)];
+        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y + 256) withRotation:DegreesToRadians(90)];
         [self addMovingCharacterToTileMap:_trafficGuineaPig];
         [_trafficVehicles addObject:_trafficGuineaPig];
 
         AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 1536) withRotation:DegreesToRadians(90)];
+
         [self addMovingCharacterToTileMap:traffic2];
         [_trafficVehicles addObject:traffic2];
         
@@ -552,24 +553,43 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 
 #pragma mark Game logic
 - (void)didBeginContact:(SKPhysicsContact *)contact {
+
     
     SKNode *node = contact.bodyA.node;
     if ([node isKindOfClass:[AMBPlayer class]]) {
-        [(AMBPlayer *)node collidedWith:contact.bodyB];
+        [(AMBPlayer *)node collidedWith:contact.bodyB victimNodeName:node.name];
     } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"]) {
-        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyB];
+        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyB victimNodeName:node.name];
+    } else if ([node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
+        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyB victimNodeName:node.name];
     }
     
     node = contact.bodyB.node;
     if ([node isKindOfClass:[AMBPlayer class]]) {
-        [(AMBPlayer *)node collidedWith:contact.bodyA];
+        [(AMBPlayer *)node collidedWith:contact.bodyA victimNodeName:node.name];
     } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"]) {
-        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyA];
+        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyA victimNodeName:node.name];
+    } else if ([node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
+        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyA victimNodeName:node.name];
     }
 
 }
 
-
+- (void)didEndContact:(SKPhysicsContact *)contact {
+    SKNode *node = contact.bodyA.node;
+    
+    if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
+        [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
+        [(AMBTrafficVehicle *)node.parent endedContactWith:contact.bodyB victimNodeName:node.name];
+    }
+        
+    node = contact.bodyB.node;
+    if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
+        [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
+        [(AMBTrafficVehicle *)node.parent endedContactWith:contact.bodyA victimNodeName:node.name];
+    }
+    
+}
 
 
 - (CGFloat)calculatePlayerWidth {

@@ -84,7 +84,7 @@ static const int TILE_LANE_WIDTH = 32;
             float t = elapsedTime / self.decelTimeSeconds;
             t = sinf(t * M_PI_2);
             self.speedPointsPerSec = _originalSpeed - delta * t;
-            NSLog(@"[adjustSpeedToTarget] %1.5f-> %1.5f",_originalSpeed, self.speedPointsPerSec);
+            //NSLog(@"[adjustSpeedToTarget] %1.5f-> %1.5f",_originalSpeed, self.speedPointsPerSec);
         }];
         
         [self runAction:adjustSpeed withKey:@"adjustSpeed"];

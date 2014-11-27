@@ -15,6 +15,7 @@
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
 		B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
+		B96482D61A26E8640013B654 /* FiniteStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = B96482D51A26E8640013B654 /* FiniteStateMachine.m */; };
 		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
 		B97831431A190BF4002A10BC /* osi_hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B97831421A190BF4002A10BC /* osi_hospital.png */; };
@@ -79,6 +80,8 @@
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8bit_tileset_design_ver02.png; sourceTree = "<group>"; };
+		B96482D41A26E8640013B654 /* FiniteStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiniteStateMachine.h; sourceTree = "<group>"; };
+		B96482D51A26E8640013B654 /* FiniteStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiniteStateMachine.m; sourceTree = "<group>"; };
 		B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01_with_spawn_points.tmx"; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* AMBScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBScoreKeeper.h; sourceTree = "<group>"; };
 		B96F159819BA8379003E9809 /* AMBScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBScoreKeeper.m; sourceTree = "<group>"; };
@@ -348,6 +351,8 @@
 			children = (
 				B96F159719BA8379003E9809 /* AMBScoreKeeper.h */,
 				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
+				B96482D41A26E8640013B654 /* FiniteStateMachine.h */,
+				B96482D51A26E8640013B654 /* FiniteStateMachine.m */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -480,6 +485,7 @@
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
 				B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */,
+				B96482D61A26E8640013B654 /* FiniteStateMachine.m in Sources */,
 				B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */,
 				B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */,
 				B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */,
