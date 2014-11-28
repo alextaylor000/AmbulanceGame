@@ -21,7 +21,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
 @property SKSpriteNode *collisionZoneTailgating; // if a vehicle enters this zone in front of this vehicle, this vehicle's speed will be adjusted.
 @property SKSpriteNode *collisionZoneStopping; // if a vehicle enters this zone in front of this vehicle, this vehicle will stop quickly.
 @property AMBMovingCharacter *blockingVehicle; // the vehicle in front of this vechicle which is preventing it from moving. if this vehicle is stopped, blockingVehicle will be checked to determine when it's OK to begin moving again.
-
+@property BOOL isAtIntersection; // YES if this vehicle just entered an intersection
 
 @end
 
@@ -201,9 +201,20 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
     
-    NSLog(@"[%@] speed: %1.5f",self.name, self.speedPointsPerSec);
+    if (!_isAtIntersection && self.currentTileProperties[@"intersection"]) {
+        _isAtIntersection = YES;
+        NSLog(@"[%@] entered intersection",self.name);
+        
+        // here's where we would randomly decide on a direction for it to turn. this is where it could be driven by a seed so we can have repeatable results for testing
+        [self authorizeMoveEvent:-90];
+        
+    } else if (!self.currentTileProperties[@"intersection"]) {
+        // TODO: concerned about performance since this is running every frame..
+        _isAtIntersection = NO;
+    }
     
     if (self.requestedMoveEvent) {
+        NSLog(@"[%@] requested turn...", self.name);
         [self authorizeMoveEvent:self.requestedMoveEventDegrees];
     }
     

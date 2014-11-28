@@ -38,6 +38,8 @@ static const int TILE_LANE_WIDTH = 32;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     self.sceneDelta = delta;
     
+    _currentTileProperties = [self.levelScene.tilemap propertiesForGid:[self.levelScene.mapLayerRoad tileGidAt:self.position]]; // store the current tile properties every frame. this allows us to ask each traffic vehicle if it's on an intersection.
+    
     if (self.isMoving) {
         [self moveSprite:self directionNormalized:self.direction];
     }
@@ -176,17 +178,17 @@ static const int TILE_LANE_WIDTH = 32;
     
     
     SKSpriteNode *currentTile = [self.levelScene.mapLayerRoad tileAt:self.position];
-    NSDictionary *currentTileProperties = [self.levelScene.tilemap propertiesForGid:[self.levelScene.mapLayerRoad tileGidAt:self.position]];
+//    _currentTileProperties = [self.levelScene.tilemap propertiesForGid:[self.levelScene.mapLayerRoad tileGidAt:self.position]]; // moved this into update so we can get it every frame, since I'd like to check if traffic is on an intersection or not
     CGPoint playerPosInTile = [currentTile convertPoint:self.position fromNode:self.levelScene.tilemap];
     
     BOOL isWithinBounds;
     BOOL currentTileIsMultiLane;
-    if([[currentTileProperties[@"road"] substringToIndex:1] isEqualToString:@"b"]) { currentTileIsMultiLane = YES; } else { currentTileIsMultiLane = NO; }
+    if([[_currentTileProperties[@"road"] substringToIndex:1] isEqualToString:@"b"]) { currentTileIsMultiLane = YES; } else { currentTileIsMultiLane = NO; }
     
     CGPoint targetPoint; // the result of this tile calculation below
     CGVector targetOffset; // how much we need to move over to get into the next lane
     
-    if (currentTileProperties[@"intersection"]) {
+    if (_currentTileProperties[@"intersection"]) {
         CGPoint directionNormalized = CGPointNormalize(self.direction);
         CGPoint rotatedPointNormalized = CGPointRotate(directionNormalized, degrees);
         CGPoint rotatedPoint;
@@ -320,6 +322,7 @@ static const int TILE_LANE_WIDTH = 32;
     
     return pointIsValid;
 }
+
 
 
 @end

@@ -25,6 +25,8 @@ static const float TURN_BUFFER = 1; // attempt a turn every frame for this many 
 @property (readonly, nonatomic) BOOL requestedMoveEvent; // YES if a move event has been requested but not yet completed
 @property (readonly, nonatomic) CGFloat requestedMoveEventDegrees;
 
+@property (readonly, nonatomic) NSDictionary *currentTileProperties;
+
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;

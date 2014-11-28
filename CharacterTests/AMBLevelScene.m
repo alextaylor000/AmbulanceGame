@@ -67,10 +67,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [self addMovingCharacterToTileMap:_trafficGuineaPig];
         [_trafficVehicles addObject:_trafficGuineaPig];
 
-        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 3536) withRotation:DegreesToRadians(90)];
-        traffic2.name = @"traffic2";
-        [self addMovingCharacterToTileMap:traffic2];
-        [_trafficVehicles addObject:traffic2];
+//        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 3536) withRotation:DegreesToRadians(90)];
+//        traffic2.name = @"traffic2";
+//        [self addMovingCharacterToTileMap:traffic2];
+//        [_trafficVehicles addObject:traffic2];
 
         
         _turnRequested = NO;
