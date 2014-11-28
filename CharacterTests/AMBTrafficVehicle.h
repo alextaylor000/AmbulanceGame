@@ -33,8 +33,10 @@ typedef enum {
 @interface AMBTrafficVehicle : AMBMovingCharacter
 
 @property VehicleState state;
+@property CGFloat nativeSpeed; // the speed of the vehicle when it was first created
 
 + (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
+- (void)changeState:(VehicleState)newState;
 
 @end

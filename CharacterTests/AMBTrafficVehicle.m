@@ -49,6 +49,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]init];
     
     vehicle.speedPointsPerSec = speed * speedMultiplier;
+    vehicle.nativeSpeed = vehicle.speedPointsPerSec; // store the native speed so we can refer to it later
     vehicle.position = point;
     vehicle.zRotation = rotation;
     vehicle.direction = CGPointForAngle(rotation);
@@ -117,19 +118,6 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
             
         case VehicleIsAdjustingSpeed:
             [self adjustSpeedToTarget:_targetSpeed];
-//            [self runAction:
-//             [SKAction customActionWithDuration:self.decelTimeSeconds*8 actionBlock:
-//                ^(SKNode *node, CGFloat t){
-//                    [self adjustSpeedToTarget:_targetSpeed * 0.75];
-//                    }] completion:
-//             
-//                ^(void){
-//                     [self runAction:[SKAction customActionWithDuration:self.decelTimeSeconds*4 actionBlock:
-//                        ^(SKNode *node, CGFloat t){
-//                            [self adjustSpeedToTarget:_targetSpeed];
-//                        }]];
-//                    }
-//             ];
             break;
             
     }
@@ -141,20 +129,26 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     AMBMovingCharacter *node = (AMBMovingCharacter *)other.node;
     
     if ([name isEqualToString:@"trafficVehicleCollisionZone"]) {
-        NSLog(@"%@ collisionZone", NSStringFromSelector(_cmd));
+        NSLog(@"[%@] %@ collisionZone", self.name, NSStringFromSelector(_cmd));
         if (node.isMoving) {
             if ([node isKindOfClass:[AMBTrafficVehicle class]]) {
+                NSLog(@"[%@] %@ collisionZone | encountered traffic vehicle; state -> VehicleIsAdjustingSpeed", self.name, NSStringFromSelector(_cmd));
                 _targetSpeed = node.speedPointsPerSec * 0.75;
+                [self changeState:VehicleIsAdjustingSpeed];
+            } else {
+                NSLog(@"[%@] %@ collisionZone | encountered non-traffic entity; speed -> 80%% native", self.name, NSStringFromSelector(_cmd));
+                _targetSpeed = self.speedPointsPerSec * 0.8;
                 [self changeState:VehicleIsAdjustingSpeed];
             }
             
         } else {
+            NSLog(@"[%@] %@ collisionZone | encountered stopped node; state -> VehicleIsStopped", self.name, NSStringFromSelector(_cmd));
             [self changeState:VehicleIsStopped];
             _blockingVehicle = node;
         }
         
     } else if ([name isEqualToString:@"trafficVehicleStoppingZone"]) {
-        NSLog(@"%@ stoppingZone, speed %1.5f", NSStringFromSelector(_cmd), self.speedPointsPerSec);
+        NSLog(@"[%@] %@ stoppingZone | state -> VehicleIsStopped; previous speed: %1.5f", self.name, NSStringFromSelector(_cmd), self.speedPointsPerSec);
         [self changeState:VehicleIsStopped]; // screech to a halt if anything comes up in this zone
         _blockingVehicle = node;
     }
@@ -167,16 +161,34 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
     if (_state == VehicleIsAdjustingSpeed) {
         if ([name isEqualToString:@"trafficVehicleCollisionZone"]) {
-            _targetSpeed = node.speedPointsPerSec;
+            if ([node isKindOfClass:[AMBTrafficVehicle class]]) {
+                NSLog(@"[%@] %@ collisionZone | AdjustSpeed to match; targetSpeed: %1.5f", self.name, NSStringFromSelector(_cmd), node.speedPointsPerSec);
+                _targetSpeed = node.speedPointsPerSec;
+
+            } else {
+                NSLog(@"[%@] %@ collisionZone | AdjustSpeed to native; targetSpeed: %1.5f", self.name, NSStringFromSelector(_cmd), _nativeSpeed);
+                _targetSpeed = _nativeSpeed; // revert to native speed if we're not matching
+            }
+
+            [self removeActionForKey:@"adjustSpeed"];
             [self changeState:VehicleIsAdjustingSpeed];
+
+            NSLog(@"[%@] %@ collisionZone | state VehicleIsDrivingStraight", self.name, NSStringFromSelector(_cmd));
             [self changeState:VehicleIsDrivingStraight];
+
         }
     } else if (_state == VehicleIsStopped) {
         if ([name isEqualToString:@"trafficVehicleCollisionZone"]) {
+
             if ([node isKindOfClass:[AMBTrafficVehicle class]]) {
+                NSLog(@"[%@] %@ collisionZone | setting speed to target node speed: %1.f", self.name, NSStringFromSelector(_cmd), node.speedPointsPerSec);
                 self.speedPointsPerSec = node.speedPointsPerSec;
+            } else {
+                NSLog(@"[%@] %@ collisionZone | setting speed to native speed: %1.5f", self.name, NSStringFromSelector(_cmd), _nativeSpeed);
+                self.speedPointsPerSec = _nativeSpeed;
             }
-            
+
+            NSLog(@"[%@] %@ collisionZone | state VehicleStopped -> VehicleIsDrivingStraight; speed %1.5f", self.name, NSStringFromSelector(_cmd),self.speedPointsPerSec);
             [self runAction:[SKAction waitForDuration:RandomFloatRange(resumeMovementDelayLower, resumeMovementDelayUpper)]
                  completion:^(void){
                      [self changeState:VehicleIsDrivingStraight];
@@ -188,19 +200,12 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
-        
+    
+    NSLog(@"[%@] speed: %1.5f",self.name, self.speedPointsPerSec);
+    
     if (self.requestedMoveEvent) {
         [self authorizeMoveEvent:self.requestedMoveEventDegrees];
     }
-    
-//    if (_blockingVehicle.isMoving) {
-//        
-//        [self runAction:[SKAction waitForDuration:RandomFloatRange(resumeMovementDelayLower, resumeMovementDelayUpper)]
-//             completion:^(void){
-//                 [self changeState:VehicleIsDrivingStraight];
-//             }];
-//        
-//    }
     
 }
 

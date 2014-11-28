@@ -134,6 +134,7 @@
             [self loadPatient:(AMBPatient *)other.node];
             break;
             
+        case categoryTraffic:
             
         case categoryHospital:
             if (self.patient) {
