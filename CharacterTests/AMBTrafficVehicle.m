@@ -44,8 +44,6 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
         self.accelTimeSeconds = 0.75;
         self.decelTimeSeconds = 0.35;
         
-        [self changeState:VehicleIsDrivingStraight];
-        
         
     }
     return self;
