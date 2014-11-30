@@ -10,8 +10,27 @@
 
 @implementation AMBTrafficVehicleState
 
-- (void)stateTest:(id)vehicle {
+- (void)enterState:(AMBTrafficVehicle *)vehicle {
     // overridden by subclasses.
+}
+
+- (void)exitState:(AMBTrafficVehicle *)vehicle {
+    // overridden by subclasses.
+}
+
+- (AMBTrafficVehicleState *)beganCollision:(SKPhysicsContact *)contact context:(AMBTrafficVehicle *)vehicle {
+    // overridden by subclasses.
+    return nil;
+}
+
+- (AMBTrafficVehicleState *)endedCollision:(SKPhysicsContact *)contact context:(AMBTrafficVehicle *)vehicle {
+    // overridden by subclasses.
+    return nil;
+}
+
+- (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
+    // overridden by subclasses.
+    return nil;
 }
 
 @end
@@ -22,9 +41,37 @@
 
 @implementation AMBTrafficVehicleIsDrivingStraight
 
-- (void)stateTest:(id)vehicle {
-    AMBTrafficVehicle *trafficVehicle = (AMBTrafficVehicle *)vehicle;
-    NSLog(@"State: VehicleIsDrivingStraight: %@", trafficVehicle.name);
++ (AMBTrafficVehicleIsDrivingStraight *)sharedInstance {
+    static AMBTrafficVehicleIsDrivingStraight *_sharedInstance = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[AMBTrafficVehicleIsDrivingStraight alloc]init];
+    });
+    return _sharedInstance;
 }
+
+- (void)enterState:(AMBTrafficVehicle *)vehicle {
+    if (!vehicle.isMoving) {
+        [vehicle startMoving];
+    }
+}
+
+
+- (AMBTrafficVehicleState *)beganCollision:(SKPhysicsContact *)contact context:(AMBTrafficVehicle *)vehicle {
+    return nil;
+    
+}
+
+- (AMBTrafficVehicleState *)endedCollision:(SKPhysicsContact *)contact context:(AMBTrafficVehicle *)vehicle {
+    
+    return nil;
+}
+
+- (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
+    
+    return nil;
+}
+
+
 
 @end

@@ -91,10 +91,9 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     [vehicle addChild:vehicle.collisionZoneTailgating];
     [vehicle addChild:vehicle.collisionZoneStopping];
 
-    // class state tests
-    vehicle.currentState = [[AMBTrafficVehicleIsDrivingStraight alloc]init ];
-    [vehicle stateTest];
-
+    // enter the initial state
+    vehicle.currentState = [AMBTrafficVehicleIsDrivingStraight sharedInstance];
+    [vehicle.currentState enterState:vehicle];
     
     return vehicle;
 }
@@ -136,6 +135,24 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     }
 }
 
+- (void)beganCollision:(SKPhysicsContact *)contact {
+    AMBTrafficVehicleState *newState = [_currentState beganCollision:contact  context:self];
+    
+    if (newState) {
+        _currentState = newState;
+        [_currentState enterState:self];
+    }
+}
+
+- (void)endedCollision:(SKPhysicsContact *)contact {
+    AMBTrafficVehicleState *newState = [_currentState endedCollision:contact  context:self];
+    
+    if (newState) {
+        _currentState = newState;
+        [_currentState enterState:self];
+    }
+
+}
 
 - (void)collidedWith:(SKPhysicsBody *)other victimNodeName:(NSString *)name {
     
@@ -213,6 +230,14 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
+
+    // state
+    AMBTrafficVehicleState *newState = [_currentState updateWithTimeSinceLastUpdate:delta context:self];
+    
+    if (newState) {
+        _currentState = newState;
+        [_currentState enterState:self];
+    }
     
     if (!_isAtIntersection && self.currentTileProperties[@"intersection"]) {
         _isAtIntersection = YES;
@@ -233,11 +258,6 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
 }
 
-#pragma mark State class methods
-- (void)stateTest {
-    // this stateTest will call through to the stateTest method implemented by the current state.
-    [_currentState performSelector:@selector(stateTest:) withObject:self];
-}
 
 @end
 

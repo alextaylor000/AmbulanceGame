@@ -13,13 +13,21 @@
 
 @interface AMBTrafficVehicleState : NSObject 
 
-- (void)stateTest:(id)vehicle;
-
-
+- (void)enterState:(AMBTrafficVehicle *)vehicle;
+- (void)exitState:(AMBTrafficVehicle *)vehicle;
+- (AMBTrafficVehicleState *)beganCollision:(SKPhysicsContact *)contact context:(AMBTrafficVehicle *)vehicle;
+- (AMBTrafficVehicleState *)endedCollision:(SKPhysicsContact *)contact context:(AMBTrafficVehicle *)vehicle;
+- (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle;
 
 @end
+
+
 
 @interface AMBTrafficVehicleIsDrivingStraight : AMBTrafficVehicleState
 
++ (AMBTrafficVehicleIsDrivingStraight *)sharedInstance; // since this state doesn't have any unique properties of its own, we can use a static instance
 
 @end
+
+
+

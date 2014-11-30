@@ -38,6 +38,8 @@ typedef enum {
 
 
 + (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation;
+- (void)beganCollision:(SKPhysicsContact *)contact;
+- (void)endedCollision:(SKPhysicsContact *)contact;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)changeState:(VehicleState)newState;
 

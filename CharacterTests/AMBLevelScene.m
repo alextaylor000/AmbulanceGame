@@ -555,24 +555,21 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 
 #pragma mark Game logic
 - (void)didBeginContact:(SKPhysicsContact *)contact {
-
     
     SKNode *node = contact.bodyA.node;
     if ([node isKindOfClass:[AMBPlayer class]]) {
         [(AMBPlayer *)node collidedWith:contact.bodyB victimNodeName:node.name];
-    } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"]) {
-        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyB victimNodeName:node.name];
-    } else if ([node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
-        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyB victimNodeName:node.name];
+    } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
+               [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
+        [(AMBTrafficVehicle *)node.parent beganCollision:contact];
     }
     
     node = contact.bodyB.node;
     if ([node isKindOfClass:[AMBPlayer class]]) {
         [(AMBPlayer *)node collidedWith:contact.bodyA victimNodeName:node.name];
-    } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"]) {
-        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyA victimNodeName:node.name];
-    } else if ([node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
-        [(AMBTrafficVehicle *)node.parent collidedWith:contact.bodyA victimNodeName:node.name];
+    } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
+               [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
+        [(AMBTrafficVehicle *)node.parent beganCollision:contact];
     }
 
 }
