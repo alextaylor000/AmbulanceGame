@@ -7,7 +7,9 @@
 //
 
 #import "AMBTrafficVehicle.h"
+#import "AMBTrafficVehicleState.h"
 #import "SKTUtils.h"
+
 
 static const CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
 static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is enabled is the vehicle's height multiplied by this value.
@@ -22,6 +24,11 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
 @property SKSpriteNode *collisionZoneStopping; // if a vehicle enters this zone in front of this vehicle, this vehicle will stop quickly.
 @property AMBMovingCharacter *blockingVehicle; // the vehicle in front of this vechicle which is preventing it from moving. if this vehicle is stopped, blockingVehicle will be checked to determine when it's OK to begin moving again.
 @property BOOL isAtIntersection; // YES if this vehicle just entered an intersection
+
+
+@property AMBTrafficVehicleState *currentState;
+
+
 
 @end
 
@@ -38,6 +45,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
         self.decelTimeSeconds = 0.35;
         
         [self changeState:VehicleIsDrivingStraight];
+        
         
     }
     return self;
@@ -82,6 +90,11 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
     [vehicle addChild:vehicle.collisionZoneTailgating];
     [vehicle addChild:vehicle.collisionZoneStopping];
+
+    // class state tests
+    vehicle.currentState = [[AMBTrafficVehicleIsDrivingStraight alloc]init ];
+    [vehicle stateTest];
+
     
     return vehicle;
 }
@@ -220,4 +233,12 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
 }
 
+#pragma mark State class methods
+- (void)stateTest {
+    // this stateTest will call through to the stateTest method implemented by the current state.
+    [_currentState performSelector:@selector(stateTest:) withObject:self];
+}
+
 @end
+
+
