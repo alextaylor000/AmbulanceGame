@@ -53,13 +53,17 @@ static const int TILE_LANE_WIDTH = 32;
     if (self.isMoving == YES) return;
     
     self.isMoving = YES;
-    
+
+
     SKAction *startMoving = [SKAction customActionWithDuration:self.accelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
         float t = elapsedTime / self.accelTimeSeconds;
         t = sinf(t * M_PI_2);
         _characterSpeedMultiplier = t;
     }];
-    [self runAction:startMoving];
+    [self runAction:startMoving withKey:@"isMoving"];
+    
+
+    
     
 }
 

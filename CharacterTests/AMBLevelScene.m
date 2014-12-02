@@ -67,10 +67,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [self addMovingCharacterToTileMap:_trafficGuineaPig];
         [_trafficVehicles addObject:_trafficGuineaPig];
 
-//        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 3536) withRotation:DegreesToRadians(90)];
-//        traffic2.name = @"traffic2";
-//        [self addMovingCharacterToTileMap:traffic2];
-//        [_trafficVehicles addObject:traffic2];
+        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 3536) withRotation:DegreesToRadians(90)];
+        traffic2.name = @"traffic2";
+        [self addMovingCharacterToTileMap:traffic2];
+        [_trafficVehicles addObject:traffic2];
 
         
         _turnRequested = NO;
@@ -559,16 +559,14 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     SKNode *node = contact.bodyA.node;
     if ([node isKindOfClass:[AMBPlayer class]]) {
         [(AMBPlayer *)node collidedWith:contact.bodyB victimNodeName:node.name];
-    } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
-               [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
+    } else if ([node.parent isKindOfClass:[AMBTrafficVehicle class]]) {
         [(AMBTrafficVehicle *)node.parent beganCollision:contact];
     }
     
     node = contact.bodyB.node;
     if ([node isKindOfClass:[AMBPlayer class]]) {
         [(AMBPlayer *)node collidedWith:contact.bodyA victimNodeName:node.name];
-    } else if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
-               [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
+    } else if ([node.parent isKindOfClass:[AMBTrafficVehicle class]]) {
         [(AMBTrafficVehicle *)node.parent beganCollision:contact];
     }
 
