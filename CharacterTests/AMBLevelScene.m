@@ -32,7 +32,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 @property AMBTrafficVehicle *trafficGuineaPig; // TRAFFIC_AI_TESTING
 @property NSMutableArray *trafficVehicles;
 
-@property AMBIndicator *indicator;
+
 
 @property TMXLayer *roadLayer;
 @property TMXObjectGroup *spawnPoints;
@@ -127,6 +127,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     
     _player = [[AMBPlayer alloc] init];
     _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
+
 
     [self addMovingCharacterToTileMap:_player];
 #if DEBUG

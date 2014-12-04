@@ -93,7 +93,10 @@
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
     [objectToSpawn addObjectToNode:[owningScene mapLayerRoad] atPosition:self.position];
-    
+
+    // add indicator here
+    [owningScene.indicator addTarget:objectToSpawn];
+    NSLog(@"Adding indicator for patient");
     
 //#if DEBUG
 //    NSLog(@"<<<< firing spawn event >>>>");

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="256" tileheight="256">
  <tileset firstgid="1" name="road_tiles" tilewidth="256" tileheight="256">
-  <image source="../../../Xcode/CharacterTests/CharacterTests/CharacterTests/8bit_tileset_design_ver02.png" width="1536" height="1024"/>
+  <image source="8bit_tileset_design_ver02.png" width="1536" height="1024"/>
   <tile id="0">
    <properties>
     <property name="road" value="ew"/>
@@ -153,70 +153,70 @@
   <object name="patient" type="patient.spawn" x="1536" y="3840" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="5"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
   <object name="patient" type="patient.spawn" x="4114" y="4599" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="25"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
   <object name="patient" type="patient.spawn" x="8192" y="3584" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="45"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
   <object name="patient" type="patient.spawn" x="6144" y="7680" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="65"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
   <object name="patient" type="patient.spawn" x="2816" y="6400" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="85"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
   <object name="patient" type="patient.spawn" x="2816" y="2304" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="105"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
   <object name="patient" type="patient.spawn" x="8448" y="8960" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="125"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="3"/>
    </properties>
   </object>
   <object name="patient" type="patient.spawn" x="1536" y="7424" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="145"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="3"/>
    </properties>
   </object>
   <object name="patient" type="patient.spawn" x="6912" y="1792" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="165"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="3"/>
    </properties>
   </object>
   <object name="patient" type="patient.spawn" x="7936" y="6656" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="185"/>
-    <property name="frequency" value="0"/>
+    <property name="frequency" value="9999"/>
     <property name="severity" value="3"/>
    </properties>
   </object>

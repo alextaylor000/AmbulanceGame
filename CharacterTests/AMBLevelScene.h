@@ -38,6 +38,7 @@
 @property (readonly, nonatomic) CGFloat sceneDelta;
 @property AMBScoreKeeper *scoreKeeper;
 
+@property AMBIndicator *indicator;
 
 #pragma mark Methods
 /** Loads a tilemap from disk and sets up all the layers.*/
