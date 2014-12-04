@@ -100,7 +100,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         // patient TTL
         _patientTimeToLive = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
         _patientTimeToLive.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
-        _patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: 0.0"];
+        _patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: --"];
         _patientTimeToLive.fontColor = [SKColor yellowColor];
         _patientTimeToLive.position = CGPointMake(self.size.width/2 - 250, self.size.height/2-100);
         _patientTimeToLive.zPosition = 999;
@@ -191,9 +191,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     }];
 
     // update all visible patients
-    [_tilemap enumerateChildNodesWithName:@"patient" usingBlock:^(SKNode *node, BOOL *stop) {
+    [_mapLayerRoad enumerateChildNodesWithName:@"patient" usingBlock:^(SKNode *node, BOOL *stop) {
         AMBPatient *patientNode = (AMBPatient *)node;
         [patientNode updatePatient];
+        //NSLog(@"update patient");
     }];
     
     // update the indicators

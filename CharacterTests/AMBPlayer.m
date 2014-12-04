@@ -82,8 +82,16 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
 
+    AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
+    
     if (self.requestedMoveEvent && self.levelScene.sceneLastUpdate - self.levelScene.lastKeyPress < TURN_BUFFER) {
         [self authorizeMoveEvent:self.requestedMoveEventDegrees];
+    }
+    
+    // update the patient timer
+    if (self.patient) {
+        NSTimeInterval ttl = [self.patient getPatientTTL];
+        owningScene.patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: %1.1f",ttl];
     }
     
     // update fuel if we're moving
@@ -94,7 +102,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             _fuel--; // decrement fuel
             NSLog(@"fuel is now %f",_fuel);
 
-            AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
+            
             owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
             
             if (_fuel < 1) {
@@ -118,11 +126,17 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 #pragma mark Game Logic
 -(void)changeState:(AmbulanceState)newState {
     _state = newState;
+
+    AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
     switch (_state) {
         case AmbulanceIsEmpty:
             [_sirens removeActionForKey:@"sirensOn"];
             _sirens.hidden = YES;
+            
+            owningScene.patientTimeToLive.text = @"PATIENT: --";
+            
+            
             break;
             
         case AmbulanceIsOccupied:

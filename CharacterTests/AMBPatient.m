@@ -33,7 +33,9 @@
 
 @end
 
-@implementation AMBPatient
+@implementation AMBPatient {
+    NSTimeInterval patientTTL;
+}
 
 #pragma mark Assets
 + (void)loadSharedAssets {
@@ -69,7 +71,7 @@
 
         self.severity = severity;
         self.state = PatientIsWaitingForPickup;
-        
+        patientTTL = 30; // temp set ttl
         [self storePatientUserData];
 
     }
@@ -77,19 +79,29 @@
     return self;
 }
 
+- (NSTimeInterval)getPatientTTL {
+    return patientTTL;
+}
 
 - (void)updatePatient {
-
+   // NSLog(@"updatePatient");
     // update TTL
-    NSTimeInterval newTimeToLive = CACurrentMediaTime() - self.spawnTime;
-    [self.userData setObject:[NSNumber numberWithDouble:newTimeToLive] forKey:@"timeToLive"];
+    patientTTL = CACurrentMediaTime() - self.spawnTime;
+    NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
+    
+    
 
-    if (newTimeToLive <= 0)   {
+    //[self.userData setObject:ttl forKey:@"timeToLive"];
+
+
+    if (patientTTL <= 0)   {
         [self changeState:PatientIsDead];
     }
     
     
 }
+
+
 
 
 - (void)changeState:(PatientState)newState {

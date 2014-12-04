@@ -31,9 +31,11 @@ typedef enum {
 @property PatientSeverity severity;
 @property PatientState state;
 
+
 + (instancetype) patientWithSeverity:(PatientSeverity)severity;
 - (instancetype) initWithSeverity:(PatientSeverity)severity position:(CGPoint)position;
 - (void)updatePatient;
 - (void)changeState:(PatientState)newState;
+- (NSTimeInterval)getPatientTTL;
 
 @end
