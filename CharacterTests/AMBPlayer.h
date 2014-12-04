@@ -20,6 +20,7 @@ typedef enum {
 
 @property AmbulanceState state;
 @property AMBPatient *patient;
+@property CGFloat fuel;
 
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;

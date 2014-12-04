@@ -13,6 +13,8 @@
 #import "AMBScoreKeeper.h"
 #import "SKTUtils.h"
 
+static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decremented
+
 
 @interface AMBPlayer ()
 
@@ -22,6 +24,7 @@
 @property SKSpriteNode *sirens;
 @property SKAction *sirensOn;
 @property AMBScoreKeeper *scoreKeeper;
+@property NSTimeInterval fuelTimer; // times when the fuel started being depleted by startMoving
 
 @end
 
@@ -70,6 +73,7 @@
     
     _scoreKeeper = [AMBScoreKeeper sharedInstance]; // hook up the shared instance of the score keeper so we can talk to it
     
+    _fuel = 3;
     
     return self;
 }
@@ -80,6 +84,33 @@
 
     if (self.requestedMoveEvent && self.levelScene.sceneLastUpdate - self.levelScene.lastKeyPress < TURN_BUFFER) {
         [self authorizeMoveEvent:self.requestedMoveEventDegrees];
+    }
+    
+    // update fuel if we're moving
+    if (self.isMoving) {
+        NSTimeInterval now = CACurrentMediaTime();
+        if (now - _fuelTimer > FUEL_TIMER_INCREMENT) {
+            _fuelTimer = now;
+            _fuel--; // decrement fuel
+            NSLog(@"fuel is now %f",_fuel);
+
+            AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
+            owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
+            
+            if (_fuel < 1) {
+                [self stopMoving];
+                SKLabelNode *gameOver = [SKLabelNode labelNodeWithFontNamed:@"Impact"];
+                gameOver.text = @"GAME OVER!";
+                gameOver.fontColor = [SKColor yellowColor];
+                gameOver.zPosition = 1000;
+                gameOver.fontSize = 80;
+                [owningScene addChild:gameOver];
+                
+                
+                
+            }
+            
+        }
     }
 }
 
@@ -146,6 +177,14 @@
     }
 }
 
+
+- (void)startMoving {
+    [super startMoving];
+    
+    // update fuel counter
+    _fuelTimer = CACurrentMediaTime();
+    NSLog(@"started fuel timer");
+}
 
 
 @end

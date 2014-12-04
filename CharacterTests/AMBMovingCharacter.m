@@ -258,7 +258,7 @@ static const int TILE_LANE_WIDTH = 32;
     
     targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
 #if DEBUG
-    NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
+    //NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
 #endif
     
     targetPoint = [self.levelScene.tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords

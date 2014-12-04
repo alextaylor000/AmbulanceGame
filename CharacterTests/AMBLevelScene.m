@@ -85,6 +85,27 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
         [self addChild:labelScore];
      
+        
+        // fuel
+        _fuelStatus = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
+        _fuelStatus.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+        _fuelStatus.text = [NSString stringWithFormat:@"FUEL: 3/3"];
+        _fuelStatus.fontColor = [SKColor yellowColor];
+        _fuelStatus.position = CGPointMake(self.size.width/2 - 250, self.size.height/2-75);
+        _fuelStatus.zPosition = 999;
+        [self addChild:_fuelStatus];
+        
+
+        
+        // patient TTL
+        _patientTimeToLive = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
+        _patientTimeToLive.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+        _patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: 0.0"];
+        _patientTimeToLive.fontColor = [SKColor yellowColor];
+        _patientTimeToLive.position = CGPointMake(self.size.width/2 - 250, self.size.height/2-100);
+        _patientTimeToLive.zPosition = 999;
+        [self addChild:_patientTimeToLive];
+
     
 #if DEBUG
         NSLog(@"[[   SCORE:  %ld   ]]", _scoreKeeper.score);

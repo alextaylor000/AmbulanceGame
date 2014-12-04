@@ -80,7 +80,7 @@
     
     if (_updateCameraRotation) {
         _rotation = self.parent.parent.zRotation; // the world node's zRotation
-        NSLog(@"camera rotation = %1.5f", _rotation);
+        //NSLog(@"camera rotation = %1.5f", _rotation);
     }
 
 }
