@@ -60,18 +60,18 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [self createWorld]; // set up tilemap
         [self addPlayer];
 
-        _trafficVehicles = [[NSMutableArray alloc]init];
-        // TRAFFIC_AI_TESTING
-        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y + 20) withRotation:DegreesToRadians(90)];
-        _trafficGuineaPig.name = @"trafficGuineaPig";
-        [self addMovingCharacterToTileMap:_trafficGuineaPig];
-        [_trafficVehicles addObject:_trafficGuineaPig];
-
-        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 3536) withRotation:DegreesToRadians(90)];
-        traffic2.name = @"traffic2";
-        [self addMovingCharacterToTileMap:traffic2];
-        [_trafficVehicles addObject:traffic2];
-
+//        _trafficVehicles = [[NSMutableArray alloc]init];
+//        // TRAFFIC_AI_TESTING
+//        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y + 20) withRotation:DegreesToRadians(90)];
+//        _trafficGuineaPig.name = @"trafficGuineaPig";
+//        [self addMovingCharacterToTileMap:_trafficGuineaPig];
+//        [_trafficVehicles addObject:_trafficGuineaPig];
+//
+//        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 3536) withRotation:DegreesToRadians(90)];
+//        traffic2.name = @"traffic2";
+//        [self addMovingCharacterToTileMap:traffic2];
+//        [_trafficVehicles addObject:traffic2];
+//
         
         _turnRequested = NO;
         
@@ -155,8 +155,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
-    [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
-//    [self centerOnNode:_camera];
+
+    [self centerOnNode:_camera];
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
 
@@ -199,7 +199,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     _worldNode.name = @"worldNode";
     [self addChild:_worldNode];
     
-    [self levelWithTilemap:@"level01.tmx"];
+    [self levelWithTilemap:@"level01_firstdraft.tmx"];
 
     if (_tilemap) {
         [_worldNode addChild:_tilemap];

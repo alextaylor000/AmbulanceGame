@@ -46,6 +46,8 @@
 		B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C30019CF501F00DE1ADA /* patient3.png */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
+		B9C449561A30144700093CC4 /* fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C449541A30144700093CC4 /* fuel.png */; };
+		B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
 		B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* AMBPatient.m */; };
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
@@ -129,6 +131,8 @@
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
 		B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBMovingCharacter.m; sourceTree = "<group>"; };
+		B9C449541A30144700093CC4 /* fuel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fuel.png; sourceTree = "<group>"; };
+		B9C449551A30144700093CC4 /* level01_firstdraft.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_firstdraft.tmx; sourceTree = "<group>"; };
 		B9CC738219B26F9400A376BC /* AMBPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPatient.h; sourceTree = "<group>"; };
 		B9CC738319B26F9400A376BC /* AMBPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPatient.m; sourceTree = "<group>"; };
 		B9CC738C19B3D26900A376BC /* sirens.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sirens.atlas; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 		B96A845219BAB723002E058B /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				B9C449551A30144700093CC4 /* level01_firstdraft.tmx */,
 				B97831491A198950002A10BC /* level01.tmx */,
 				B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */,
 				B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */,
@@ -286,6 +291,7 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B9C449541A30144700093CC4 /* fuel.png */,
 				B9A4C2FE19CF501F00DE1ADA /* patient1.png */,
 				B9A4C2FF19CF501F00DE1ADA /* patient2.png */,
 				B9A4C30019CF501F00DE1ADA /* patient3.png */,
@@ -437,12 +443,14 @@
 				B97831431A190BF4002A10BC /* osi_hospital.png in Resources */,
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
+				B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
+				B9C449561A30144700093CC4 /* fuel.png in Resources */,
 				B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */,
 				B978314A1A198950002A10BC /* level01.tmx in Resources */,
 				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,

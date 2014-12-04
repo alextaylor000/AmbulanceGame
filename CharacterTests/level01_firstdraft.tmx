@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="256" tileheight="256">
+ <tileset firstgid="1" name="road_tiles" tilewidth="256" tileheight="256">
+  <image source="../../../Xcode/CharacterTests/CharacterTests/CharacterTests/8bit_tileset_design_ver02.png" width="1536" height="1024"/>
+  <tile id="0">
+   <properties>
+    <property name="road" value="ew"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="nesw"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="road" value="nw"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="road" value="es"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="nes"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="esw"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="road" value="ne"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="road" value="ns"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="wall" value="1"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="road" value="sw"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="new"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="nsw"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="road" value="b_ns_l"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="road" value="b_ns_r"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="b_nsw"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="b_nes"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="road" value="b_ew_t"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="b_new"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="bb_new_l"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="bb_new_r"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="bb_esw_l"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="bb_esw_r"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="road" value="b_ew_b"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="intersection" value="1"/>
+    <property name="road" value="b_esw"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="scenery" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztz7ENACAQA7Fv2X9hVqDjEI50fbxmZoU73e2fHBwcHBytOFpxtOJoxdGKoxVHK45WHK04WnG04mjF0YqjFUcrjla/OczMzOz9baYVOEE=
+  </data>
+ </layer>
+ <layer name="road" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztmdsOgjAQROvdeBev//+lLg8muG1xlq1CdE4yD510SyZlA5QQyrMV7T6w7rdhjmHRZ46paNTQXI0t3l50cNSvHDmWb8YWL7cfnjVRmCOGOfIeiq6dhbj/xqCX63O0flMwx6/sB3MwR5uHovsa7Un2uc1DYY4Y5sh7KJXo2JAeW7yT6Oyorxw57qJbQ3ps0UV0TfjIms85XUHuKxTLfdVljqWeOZjDe90a5L3Ee86g10zVet5Javp4fpR+dniuwRzM0UYf5wylvz1SOX5lP5iDOXKehUV47bd1iHsQ9XJ9ruemaifOHCXh/6hhwRyEEEII+WcehJQQMg==
+  </data>
+ </layer>
+ <objectgroup name="spawn_player" width="50" height="50">
+  <object name="player.spawn" type="player.spawn" x="2816" y="3328" width="256" height="256"/>
+ </objectgroup>
+ <objectgroup name="spawn_patients" width="50" height="50">
+  <object name="patient" type="patient.spawn" x="1536" y="3840" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="5"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="4114" y="4599" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="25"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="8192" y="3584" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="45"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="6144" y="7680" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="65"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="2"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="2816" y="6400" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="85"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="2"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="2816" y="2304" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="105"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="2"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="8448" y="8960" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="125"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="3"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="1536" y="7424" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="145"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="3"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="6912" y="1792" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="165"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="3"/>
+   </properties>
+  </object>
+  <object name="patient" type="patient.spawn" x="7936" y="6656" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="185"/>
+    <property name="frequency" value="0"/>
+    <property name="severity" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="spawn_hospitals" width="50" height="50">
+  <object name="hospital01" type="hospital" x="3072" y="3328" width="256" height="256"/>
+ </objectgroup>
+ <objectgroup name="spawn_fuel" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="2304" width="256" height="256"/>
+  <object name="fuel.spawn" type="fuel.spawn" x="7936" y="2304" width="256" height="256"/>
+  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="7680" width="256" height="256"/>
+  <object name="fuel.spawn" type="fuel.spawn" x="5376" y="4864" width="256" height="256"/>
+  <object name="fuel.spawn" type="fuel.spawn" x="7680" y="7680" width="256" height="256"/>
+  <object x="4224" y="2400" height="96"/>
+ </objectgroup>
+</map>
