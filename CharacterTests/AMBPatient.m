@@ -86,7 +86,7 @@
 - (void)updatePatient {
    // NSLog(@"updatePatient");
     // update TTL
-    patientTTL = CACurrentMediaTime() - self.spawnTime;
+    patientTTL = [self.userData[@"timeToLive"]doubleValue] - (CACurrentMediaTime() - self.spawnTime);
     NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
     
     

@@ -11,10 +11,14 @@
 #import "AMBLevelScene.h"
 #import "SKTUtils.h"
 
+#import "AMBHospital.h" // we need access to these to test for class type
+#import "AMBPatient.h"
+#import "AMBPowerup.h"
 
 static const CGFloat OSI_PADDING =              40; // indicator padding from screen edge
 static const CGFloat OSI_DUR_FADE_IN =          0.25;
 static const CGFloat OSI_DUR_FADE_OUT =         0.25;
+
 
 @interface AMBIndicator ()
 
@@ -38,9 +42,9 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
     return self;
 }
 
-- (void)addTarget:(id)object {
+- (void)addTarget:(id)object type:(IndicatorType)type {
     NSMutableDictionary *targetDict = [[NSMutableDictionary alloc]initWithCapacity:2];
-    
+    // TODO: we don't use type here at the moment, do we need it?
     [targetDict setObject:object forKey:@"target"];
     [_targetObjects addObject:targetDict];
 
@@ -64,7 +68,7 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
         SKSpriteNode *indicator;
         
         if ([arrObj valueForKey:@"indicator"] == nil) {
-            indicator = [self createIndicator];
+            indicator = [self createIndicatorForNode:targetObject];
             [arrObj setObject:indicator forKey:@"indicator"];
             [_scene addChild:indicator];
             
@@ -101,8 +105,19 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
     return NO;
 }
 
-- (SKSpriteNode *)createIndicator {
-    SKSpriteNode *indicator = [SKSpriteNode spriteNodeWithImageNamed:@"osi_hospital"];
+- (SKSpriteNode *)createIndicatorForNode:(SKNode *)node {
+
+    NSString *spriteName;
+    
+    if ([node isKindOfClass:[AMBHospital class]]) {
+            spriteName = @"osi_hospital";
+    } else if ([node isKindOfClass:[AMBPatient class]]) {
+            spriteName = @"osi_patient";
+    } else if ([node isKindOfClass:[AMBPowerup class]]) {
+            spriteName = @"osi_fuel";
+    }
+    
+    SKSpriteNode *indicator = [SKSpriteNode spriteNodeWithImageNamed:spriteName];
     indicator.zPosition = 100;
     return indicator;
 }

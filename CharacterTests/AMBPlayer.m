@@ -142,6 +142,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
         case AmbulanceIsOccupied:
             [_sirens runAction:[SKAction repeatActionForever:_sirensOn] withKey:@"sirensOn"];
             _sirens.hidden = NO;
+            [owningScene.indicator removeTarget:self.patient];
             break;
     }
 }
@@ -151,9 +152,9 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     // loads a given patient into the ambulance. returns true on success, false on failure (if the ambulance was already occupied)
     
     if (_state == AmbulanceIsEmpty) {
-        [self changeState:AmbulanceIsOccupied];
         [patient changeState:PatientIsEnRoute];
         _patient = patient; // load the patient into the ambulance
+        [self changeState:AmbulanceIsOccupied];
         return YES;
     }
     

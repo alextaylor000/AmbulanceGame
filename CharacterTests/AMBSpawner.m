@@ -95,8 +95,8 @@
     [objectToSpawn addObjectToNode:[owningScene mapLayerRoad] atPosition:self.position];
 
     // add indicator here
-    [owningScene.indicator addTarget:objectToSpawn];
-    NSLog(@"Adding indicator for patient");
+    [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
+    NSLog(@"Adding indicator for target");
     
 //#if DEBUG
 //    NSLog(@"<<<< firing spawn event >>>>");

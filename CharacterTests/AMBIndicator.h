@@ -10,13 +10,19 @@
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
 
+typedef enum {
+    IndicatorHospital,
+    IndicatorPatient,
+    IndicatorFuel
+} IndicatorType;
+
 @interface AMBIndicator : NSObject
 
 @property (nonatomic) NSMutableArray *targetObjects;
 
 
 - (instancetype)initForScene:(SKScene *)scene;
-- (void)addTarget:(id)object;
+- (void)addTarget:(id)object type:(IndicatorType)type;
 - (void)removeTarget:(id)object;
 
 - (void)update;

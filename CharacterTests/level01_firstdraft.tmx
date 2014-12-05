@@ -224,12 +224,36 @@
  <objectgroup name="spawn_hospitals" width="50" height="50">
   <object name="hospital01" type="hospital" x="3072" y="3328" width="256" height="256"/>
  </objectgroup>
- <objectgroup name="spawn_fuel" width="50" height="50">
-  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="2304" width="256" height="256"/>
-  <object name="fuel.spawn" type="fuel.spawn" x="7936" y="2304" width="256" height="256"/>
-  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="7680" width="256" height="256"/>
-  <object name="fuel.spawn" type="fuel.spawn" x="5376" y="4864" width="256" height="256"/>
-  <object name="fuel.spawn" type="fuel.spawn" x="7680" y="7680" width="256" height="256"/>
-  <object x="4224" y="2400" height="96"/>
+ <objectgroup name="spawn_powerups" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="2304" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="90"/>
+   </properties>
+  </object>
+  <object name="fuel.spawn" type="fuel.spawn" x="7936" y="2304" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="90"/>
+   </properties>
+  </object>
+  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="7680" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="90"/>
+   </properties>
+  </object>
+  <object name="fuel.spawn" type="fuel.spawn" x="5376" y="4864" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="90"/>
+   </properties>
+  </object>
+  <object name="fuel.spawn" type="fuel.spawn" x="7680" y="7680" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="90"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

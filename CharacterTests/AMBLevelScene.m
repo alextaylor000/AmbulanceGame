@@ -11,6 +11,7 @@
 #import "AMBPatient.h"
 #import "AMBHospital.h"
 #import "AMBSpawner.h"
+#import "AMBPowerup.h"
 #import "AMBTrafficVehicle.h"
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
@@ -239,7 +240,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [hospital addObjectToNode:_mapLayerRoad atPosition:[self centerOfObject:object]];
 
         // add hospital indicator target
-        [_indicator addTarget:hospital];
+        [_indicator addTarget:hospital type:IndicatorHospital];
 
     }
     
@@ -278,6 +279,34 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [_spawners addObject:spawner];
     }
 
+    
+    
+    
+    // fuel powerup spawners
+    NSArray *fuelSpawns = [_mapGroupSpawnPowerups objects];
+    for (NSDictionary *object in fuelSpawns) {
+        CGPoint spawnPoint = [self centerOfObject:object];
+        
+        // grab properties of the spawner from the TMX object directly
+        NSTimeInterval firstSpawnAt = [[object valueForKey:@"firstSpawnAt"] intValue];
+        NSTimeInterval frequency = [[object valueForKey:@"frequency"] intValue];
+        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperValue"] intValue]; // defaults to 0
+        
+        // build an array of patients based on the severity property (can be comma-separated)
+        NSArray *fuelArray = [NSArray arrayWithObject:[[AMBPowerup alloc]init]];
+        
+        
+        AMBSpawner *spawner = [[AMBSpawner alloc] initWithFirstSpawnAt:firstSpawnAt
+                                                         withFrequency:frequency
+                                                   frequencyUpperRange:frequencyUpperRange
+                                                           withObjects:fuelArray];
+        
+        [spawner addObjectToNode:_mapLayerRoad atPosition:spawnPoint];
+        [_spawners addObject:spawner];
+    }
+    
+    
+    
 }
 
 - (void)levelWithTilemap:(NSString *)tilemapFile {

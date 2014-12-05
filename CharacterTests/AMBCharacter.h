@@ -16,6 +16,7 @@ static const uint32_t categoryHospital =                0x1 << 2;
 static const uint32_t categoryTraffic =                 0x1 << 3; // the real body of the traffic vehicle
 static const uint32_t categoryTrafficCollisionZone =    0x1 << 4; // the tailgate zone which the AI uses to determine if it should slow down
 static const uint32_t categoryTrafficStoppingZone =     0x1 << 5; // the stopping zone which the AI uses to determine if it should stop
+static const uint32_t categoryPowerup =                 0x1 << 6; // powerups (fuel etc)
 
 @interface AMBCharacter : SKSpriteNode
 
