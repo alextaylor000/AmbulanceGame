@@ -229,22 +229,6 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [_worldNode addChild:_tilemap];
     }
     
-    // set up temp static traffic
-    for (NSDictionary *object in [_mapGroupSpawnTraffic objects]) {
-        SKSpriteNode *traffic = [SKSpriteNode spriteNodeWithImageNamed:@"traffic"];
-        if ([[object valueForKey:@"orientation"] isEqualToString:@"up"]) {
-            traffic.zRotation = DegreesToRadians(90);
-        }
-        traffic.position = [self centerOfObject:object];
-
-        traffic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
-        traffic.physicsBody.categoryBitMask = categoryTraffic;
-        traffic.physicsBody.collisionBitMask = 0x00000000;
-        
-        
-        [_mapLayerRoad addChild:traffic];
-    }
-    
     
     // Set up spawn points
     NSDictionary *playerSpawn = [[_mapGroupSpawnPlayer objects] objectAtIndex:0];
