@@ -107,12 +107,22 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             
             if (_fuel < 1) {
                 [self stopMoving];
+                SKLabelNode *outOfFuel = [SKLabelNode labelNodeWithFontNamed:@"Impact"];
+                outOfFuel.text = @"** OUT OF FUEL **";
+                outOfFuel.fontColor =[ SKColor yellowColor];
+                outOfFuel.zPosition = 1000;
+                outOfFuel.fontSize = 80;
+                outOfFuel.position = CGPointMake(0, 100);
+                
                 SKLabelNode *gameOver = [SKLabelNode labelNodeWithFontNamed:@"Impact"];
                 gameOver.text = @"GAME OVER!";
                 gameOver.fontColor = [SKColor yellowColor];
                 gameOver.zPosition = 1000;
                 gameOver.fontSize = 80;
+                
+                [owningScene addChild:outOfFuel];                
                 [owningScene addChild:gameOver];
+
                 
                 
                 
@@ -177,12 +187,17 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
+    SKAction *action;
+    
     switch (other.categoryBitMask) {
         case categoryPatient:
             [self loadPatient:(AMBPatient *)other.node];
             break;
             
         case categoryTraffic:
+            action = [SKAction sequence:@[[SKAction fadeAlphaTo:0.1 duration:0],[SKAction waitForDuration:0.1],[SKAction fadeAlphaTo:1.0 duration:0.1],[SKAction waitForDuration:0.1]]];
+            [self runAction:[SKAction repeatAction:action count:5]];
+            break;
             
         case categoryHospital:
             if (self.patient) {

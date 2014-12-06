@@ -224,35 +224,88 @@
  <objectgroup name="spawn_hospitals" width="50" height="50">
   <object name="hospital01" type="hospital" x="3072" y="3328" width="256" height="256"/>
  </objectgroup>
- <objectgroup name="spawn_powerups" width="50" height="50">
-  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="2304" width="256" height="256">
+ <objectgroup name="spawn_fuel" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="2304" width="256" height="256"/>
+  <object name="fuel.spawn" type="fuel.spawn" x="7936" y="2304" width="256" height="256"/>
+  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="7680" width="256" height="256"/>
+  <object name="fuel.spawn" type="fuel.spawn" x="5376" y="4864" width="256" height="256"/>
+  <object name="fuel.spawn" type="fuel.spawn" x="7680" y="7680" width="256" height="256"/>
+  <object x="4224" y="2400" height="96"/>
+ </objectgroup>
+ <objectgroup name="spawn_traffic" width="50" height="50">
+  <object x="1541" y="1083" width="64" height="64">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="90"/>
+    <property name="orientation" value="side"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="7936" y="2304" width="256" height="256">
+  <object x="1601" y="1313" width="64" height="64">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="90"/>
+    <property name="orientation" value="up"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="1792" y="7680" width="256" height="256">
+  <object x="2880" y="2075" width="64" height="64">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="90"/>
+    <property name="orientation" value="up"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5376" y="4864" width="256" height="256">
+  <object x="2944" y="1619" width="64" height="64">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="90"/>
+    <property name="orientation" value="up"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="7680" y="7680" width="256" height="256">
+  <object x="2944" y="1296" width="64" height="64">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="90"/>
+    <property name="orientation" value="up"/>
+   </properties>
+  </object>
+  <object x="2877" y="2955" width="64" height="64">
+   <properties>
+    <property name="orientation" value="up"/>
+   </properties>
+  </object>
+  <object x="2947" y="2437" width="64" height="64">
+   <properties>
+    <property name="orientation" value="up"/>
+   </properties>
+  </object>
+  <object x="1666" y="1880" width="64" height="64">
+   <properties>
+    <property name="orientation" value="up"/>
+   </properties>
+  </object>
+  <object x="1666" y="2128" width="64" height="64">
+   <properties>
+    <property name="orientation" value="up"/>
+   </properties>
+  </object>
+  <object x="1592" y="2890" width="64" height="64">
+   <properties>
+    <property name="orientation" value="up"/>
+   </properties>
+  </object>
+  <object x="1664" y="3388" width="64" height="64">
+   <properties>
+    <property name="orientation" value="up"/>
+   </properties>
+  </object>
+  <object x="1662" y="4188" width="64" height="64">
+   <properties>
+    <property name="orientation" value="up"/>
+   </properties>
+  </object>
+  <object x="2130" y="1144" width="64" height="64">
+   <properties>
+    <property name="orientation" value="side"/>
+   </properties>
+  </object>
+  <object x="2134" y="2434" width="64" height="64">
+   <properties>
+    <property name="orientation" value="side"/>
+   </properties>
+  </object>
+  <object x="2622" y="2366" width="64" height="64">
+   <properties>
+    <property name="orientation" value="side"/>
    </properties>
   </object>
  </objectgroup>
