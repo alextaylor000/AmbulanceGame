@@ -20,7 +20,6 @@
         self.physicsBody.collisionBitMask = 0x00000000;
         
         
-        
     }
     
     return self;

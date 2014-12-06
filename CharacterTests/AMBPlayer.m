@@ -50,7 +50,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     // physics (for collisions)
     self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
     self.physicsBody.categoryBitMask = categoryPlayer;
-    self.physicsBody.contactTestBitMask = categoryHospital | categoryPatient | categoryTraffic;
+    self.physicsBody.contactTestBitMask = categoryHospital | categoryPatient | categoryTraffic | categoryPowerup;
     self.physicsBody.collisionBitMask = 0;
 
     
@@ -175,6 +175,8 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 
 - (void)collidedWith:(SKPhysicsBody *)other victimNodeName:(NSString *)name {
     
+    AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
+    
     switch (other.categoryBitMask) {
         case categoryPatient:
             [self loadPatient:(AMBPatient *)other.node];
@@ -186,6 +188,14 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             if (self.patient) {
                 [_scoreKeeper scoreEventDeliveredPatient:self.patient];
                 [self unloadPatient];
+            }
+            break;
+            
+        case categoryPowerup:
+            // fuel! add 1
+            if (_fuel < 3) {
+                _fuel++;
+                owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
             }
             break;
             
