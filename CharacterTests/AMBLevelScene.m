@@ -230,17 +230,25 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     }
     
     // set up temp static traffic
+    // and an array to randomize the colour
+    NSArray *colours = [NSArray arrayWithObjects:[SKColor redColor], [SKColor orangeColor], [SKColor yellowColor], [SKColor whiteColor], nil];
+    
     for (NSDictionary *object in [_mapGroupSpawnTraffic objects]) {
-        SKSpriteNode *traffic = [SKSpriteNode spriteNodeWithImageNamed:@"traffic"];
+        SKTexture *trafficTexture = [SKTexture textureWithImageNamed:@"traffic"];
+        SKSpriteNode *traffic = [SKSpriteNode spriteNodeWithTexture:trafficTexture];
+
         if ([[object valueForKey:@"orientation"] isEqualToString:@"up"]) {
             traffic.zRotation = DegreesToRadians(90);
         }
         traffic.position = [self centerOfObject:object];
 
-        traffic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+        traffic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:traffic.size];
         traffic.physicsBody.categoryBitMask = categoryTraffic;
         traffic.physicsBody.collisionBitMask = 0x00000000;
         
+        traffic.color = [colours objectAtIndex:(NSUInteger)RandomFloatRange(0, 4)];
+
+        traffic.colorBlendFactor = 0.35;
         
         [_mapLayerRoad addChild:traffic];
     }
