@@ -25,7 +25,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 
 @property NSTimeInterval lastUpdateTimeInterval;
 
-@property SKNode *worldNode;
+@property SKSpriteNode *worldNode;
 @property JSTileMap *bgLayer;
 @property AMBPlayer *player;
 @property AMBSpawner *spawnerTest;
@@ -219,8 +219,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 #pragma mark World Building
 - (void)createWorld {
     
-    _worldNode = [SKNode node];
+    _worldNode = [SKSpriteNode spriteNodeWithImageNamed:@"border"];
+    _worldNode.hidden = YES;
     _worldNode.name = @"worldNode";
+    _worldNode.position = CGPointMake(0, -150);
     [self addChild:_worldNode];
     
     [self levelWithTilemap:@"level01_firstdraft.tmx"];

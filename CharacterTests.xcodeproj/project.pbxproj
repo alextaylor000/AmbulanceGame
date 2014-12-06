@@ -55,6 +55,7 @@
 		B9D840D21A31762D0073407C /* osi_fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D01A31762D0073407C /* osi_fuel.png */; };
 		B9D840D31A31762D0073407C /* osi_patient.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D11A31762D0073407C /* osi_patient.png */; };
 		B9D840D51A32B6B50073407C /* traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D41A32B6B50073407C /* traffic.png */; };
+		B9D840D71A32E0520073407C /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D61A32E0520073407C /* border.png */; };
 		B9E959B719C9239C00ACD50F /* AMBHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B619C9239C00ACD50F /* AMBHospital.m */; };
 		B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B919C92ADC00ACD50F /* AMBSpawner.m */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
@@ -146,6 +147,7 @@
 		B9D840D01A31762D0073407C /* osi_fuel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_fuel.png; sourceTree = "<group>"; };
 		B9D840D11A31762D0073407C /* osi_patient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_patient.png; sourceTree = "<group>"; };
 		B9D840D41A32B6B50073407C /* traffic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = traffic.png; sourceTree = "<group>"; };
+		B9D840D61A32E0520073407C /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		B9E959B519C9239C00ACD50F /* AMBHospital.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBHospital.h; sourceTree = "<group>"; };
 		B9E959B619C9239C00ACD50F /* AMBHospital.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBHospital.m; sourceTree = "<group>"; };
 		B9E959B819C92ADC00ACD50F /* AMBSpawner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBSpawner.h; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B9D840D61A32E0520073407C /* border.png */,
 				B9C449541A30144700093CC4 /* fuel.png */,
 				B9A4C2FE19CF501F00DE1ADA /* patient1.png */,
 				B9A4C2FF19CF501F00DE1ADA /* patient2.png */,
@@ -342,6 +345,8 @@
 		B9E959BC19C93C8D00ACD50F /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				B99FD09F1A046FE1007FC685 /* AMBCamera.h */,
+				B99FD0A01A046FE1007FC685 /* AMBCamera.m */,
 				B911C9E719C656CC00EA85D9 /* AMBCharacter.h */,
 				B911C9E819C656CC00EA85D9 /* AMBCharacter.m */,
 				B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */,
@@ -362,8 +367,6 @@
 				B9E959B619C9239C00ACD50F /* AMBHospital.m */,
 				B9E959B819C92ADC00ACD50F /* AMBSpawner.h */,
 				B9E959B919C92ADC00ACD50F /* AMBSpawner.m */,
-				B99FD09F1A046FE1007FC685 /* AMBCamera.h */,
-				B99FD0A01A046FE1007FC685 /* AMBCamera.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B9D840D21A31762D0073407C /* osi_fuel.png in Resources */,
+				B9D840D71A32E0520073407C /* border.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
 				B9C449561A30144700093CC4 /* fuel.png in Resources */,
