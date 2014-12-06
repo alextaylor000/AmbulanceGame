@@ -8,6 +8,7 @@
 
 #import "SKTUtils.h"
 #import "AMBSpawner.h"
+#import "AMBPatient.h"
 #import "AMBLevelScene.h"
 
 @interface AMBSpawner ()
@@ -95,8 +96,11 @@
     [objectToSpawn addObjectToNode:[owningScene mapLayerRoad] atPosition:self.position];
 
     // add indicator here
+    if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
     [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
+        
     NSLog(@"Adding indicator for target");
+    }
     
 //#if DEBUG
 //    NSLog(@"<<<< firing spawn event >>>>");

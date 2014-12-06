@@ -82,20 +82,20 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
             }];
             
         } else {
-            // hide if it's too far away
-            if ([indicator.name isEqualToString:@"osi_fuel"]) {
-                SKNode *targetObj = (SKNode *)targetObject;
-
-                // indicator position will always be 0,0
-                CGFloat dist = CGPointLength(CGPointSubtract(targetObj.position, indicator.position));
-                NSLog(@"fuel dist=%1.5f",dist);
-                if (dist > 6000) {
-                    indicator.hidden = YES;
-                }
-            } else  {
-                indicator.hidden = NO;
-            }
-            
+//            // hide if it's too far away
+//            if ([indicator.name isEqualToString:@"osi_fuel"]) {
+//                SKNode *targetObj = (SKNode *)targetObject;
+//
+//                // indicator position will always be 0,0
+//                CGFloat dist = CGPointLength(CGPointSubtract(targetObj.position, indicator.position));
+//                NSLog(@"fuel dist=%1.5f",dist);
+//                if (dist > 6000) {
+//                    indicator.hidden = YES;
+//                }
+//            } else  {
+//                indicator.hidden = NO;
+//            }
+            indicator.hidden = NO;
 
             [indicator runAction:[SKAction fadeInWithDuration:OSI_DUR_FADE_IN]]; // TODO: wtf, this is running every frame! bad coding!
 

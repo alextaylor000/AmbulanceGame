@@ -14,7 +14,7 @@
     SKTexture *fuelTexture = [SKTexture textureWithImageNamed:@"fuel"];
     
     if (self = [super initWithTexture:fuelTexture]) {
-        self.size = CGSizeMake(75, 75);
+//        self.size = CGSizeMake(75, 75);
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
         self.physicsBody.categoryBitMask = categoryPowerup;
         self.physicsBody.collisionBitMask = 0x00000000;
