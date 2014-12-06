@@ -156,7 +156,6 @@
 
 - (void)rotateByAngle:(CGFloat)degrees {
     SKNode *parentNode = self.parent.parent; // should be world node
-
     SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(degrees*-1) duration:0.65];
     rotate.timingMode = SKActionTimingEaseOut;
     
