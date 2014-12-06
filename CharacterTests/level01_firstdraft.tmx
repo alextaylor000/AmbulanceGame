@@ -224,7 +224,7 @@
  <objectgroup name="spawn_hospitals" width="50" height="50">
   <object name="hospital01" type="hospital" x="3072" y="3328" width="256" height="256"/>
  </objectgroup>
- <objectgroup name="spawn_fuel" width="50" height="50">
+ <objectgroup name="spawn_powerups" width="50" height="50">
   <object name="fuel.spawn" type="fuel.spawn" x="1792" y="2304" width="256" height="256"/>
   <object name="fuel.spawn" type="fuel.spawn" x="7936" y="2304" width="256" height="256"/>
   <object name="fuel.spawn" type="fuel.spawn" x="1792" y="7680" width="256" height="256"/>
