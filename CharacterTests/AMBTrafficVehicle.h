@@ -8,7 +8,7 @@
 
 #import "AMBMovingCharacter.h"
 
-
+static const CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
 typedef enum {
     VehicleIsStopped,
     VehicleIsDrivingStraight,
@@ -34,7 +34,8 @@ typedef enum {
 @interface AMBTrafficVehicle : AMBMovingCharacter
 
 @property VehicleState state;
-@property CGFloat nativeSpeed; // the speed of the vehicle when it was first created
+
+
 @property SKSpriteNode *collisionZoneTailgating; // if a vehicle enters this zone in front of this vehicle, this vehicle's speed will be adjusted.
 @property SKSpriteNode *collisionZoneStopping; // if a vehicle enters this zone in front of this vehicle, this vehicle will stop quickly.
 

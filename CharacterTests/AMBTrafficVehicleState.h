@@ -49,5 +49,11 @@
 
 @end
 
+@interface AMBTrafficVehicleIsStopped : AMBTrafficVehicleState
+
++ (AMBTrafficVehicleIsStopped *)sharedInstance; // since this state doesn't have any unique properties of its own, we can use a static instance
+
+@end
+
 
 

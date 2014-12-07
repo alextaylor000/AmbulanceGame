@@ -32,7 +32,8 @@
     self = [super initWithImageNamed:@"asset_ambulance_20140609"];
     
     // set constants
-    self.speedPointsPerSec = 600;
+    self.nativeSpeed = 600;
+    self.speedPointsPerSec = self.nativeSpeed;
     self.pivotSpeed = 0;
 
     self.accelTimeSeconds = 0.75;

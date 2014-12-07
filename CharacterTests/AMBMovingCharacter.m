@@ -53,12 +53,13 @@ static const int TILE_LANE_WIDTH = 32;
     if (self.isMoving == YES) return;
     
     self.isMoving = YES;
-
+    self.speedPointsPerSec = self.nativeSpeed; // reset speedPointsPerSec
 
     SKAction *startMoving = [SKAction customActionWithDuration:self.accelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
         float t = elapsedTime / self.accelTimeSeconds;
         t = sinf(t * M_PI_2);
         _characterSpeedMultiplier = t;
+
     }];
     [self runAction:startMoving withKey:@"isMoving"];
     
@@ -75,7 +76,7 @@ static const int TILE_LANE_WIDTH = 32;
         t = sinf(t * M_PI_2);
         _characterSpeedMultiplier = 1 - t;
     }];
-    [self runAction:stopMoving completion:^{self.isMoving = NO;}];
+    [self runAction:stopMoving completion:^{self.isMoving = NO; self.speedPointsPerSec = 0;}];
     
     
 }

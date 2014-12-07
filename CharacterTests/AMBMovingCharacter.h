@@ -15,6 +15,9 @@ static const float TURN_BUFFER = 1; // attempt a turn every frame for this many 
 
 @property (nonatomic) BOOL isMoving; // YES if the character is moving at speed; NO if it's not.
 
+/** the speed of the vehicle when it was first created. */
+@property CGFloat nativeSpeed;
+
 @property (nonatomic) CGFloat speedPointsPerSec;
 @property (nonatomic) CGPoint direction;
 @property (nonatomic) CGFloat pivotSpeed; // how long it takes the character to rotate 90 degrees

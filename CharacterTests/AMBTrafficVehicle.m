@@ -11,7 +11,7 @@
 #import "SKTUtils.h"
 
 
-static const CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
+
 static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is enabled is the vehicle's height multiplied by this value.
 static const CGFloat resumeMovementDelayLower = 0.5; // if the vehicle is stopped, a random delay between when the blocking vehicle starts moving and when this vehicle starts moving.
 static const CGFloat resumeMovementDelayUpper = 1.25;
@@ -193,8 +193,8 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
                 _targetSpeed = node.speedPointsPerSec;
 
             } else {
-                NSLog(@"[%@] %@ collisionZone | AdjustSpeed to native; targetSpeed: %1.5f", self.name, NSStringFromSelector(_cmd), _nativeSpeed);
-                _targetSpeed = _nativeSpeed; // revert to native speed if we're not matching
+                NSLog(@"[%@] %@ collisionZone | AdjustSpeed to native; targetSpeed: %1.5f", self.name, NSStringFromSelector(_cmd), self.nativeSpeed);
+                _targetSpeed = self.nativeSpeed; // revert to native speed if we're not matching
             }
 
             [self removeActionForKey:@"adjustSpeed"];
@@ -211,8 +211,8 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
                 NSLog(@"[%@] %@ collisionZone | setting speed to target node speed: %1.f", self.name, NSStringFromSelector(_cmd), node.speedPointsPerSec);
                 self.speedPointsPerSec = node.speedPointsPerSec;
             } else {
-                NSLog(@"[%@] %@ collisionZone | setting speed to native speed: %1.5f", self.name, NSStringFromSelector(_cmd), _nativeSpeed);
-                self.speedPointsPerSec = _nativeSpeed;
+                NSLog(@"[%@] %@ collisionZone | setting speed to native speed: %1.5f", self.name, NSStringFromSelector(_cmd), self.nativeSpeed);
+                self.speedPointsPerSec = self.nativeSpeed;
             }
 
             NSLog(@"[%@] %@ collisionZone | state VehicleStopped -> VehicleIsDrivingStraight; speed %1.5f", self.name, NSStringFromSelector(_cmd),self.speedPointsPerSec);

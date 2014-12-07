@@ -62,12 +62,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 
         _trafficVehicles = [[NSMutableArray alloc]init];
         // TRAFFIC_AI_TESTING
-        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y + 20) withRotation:DegreesToRadians(90)];
+        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y + 20) withRotation:DegreesToRadians(90)];
         _trafficGuineaPig.name = @"trafficGuineaPig";
         [self addMovingCharacterToTileMap:_trafficGuineaPig];
         [_trafficVehicles addObject:_trafficGuineaPig];
 
-        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 3536) withRotation:DegreesToRadians(90)];
+        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 1200) withRotation:DegreesToRadians(90)];
         traffic2.name = @"traffic2";
         [self addMovingCharacterToTileMap:traffic2];
         [_trafficVehicles addObject:traffic2];
@@ -155,8 +155,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
-    [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
-//    [self centerOnNode:_camera];
+//    [self centerOnNode:_trafficGuineaPig]; // TRAFFIC_AI_TESTING
+    [self centerOnNode:_camera];
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
 
@@ -573,17 +573,15 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 }
 
 - (void)didEndContact:(SKPhysicsContact *)contact {
-    SKNode *node = contact.bodyA.node;
     
-    if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
-        [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
-        [(AMBTrafficVehicle *)node.parent endedContactWith:contact.bodyB victimNodeName:node.name];
+    SKNode *node = contact.bodyA.node;
+    if ([node.parent isKindOfClass:[AMBTrafficVehicle class]]) {
+        [(AMBTrafficVehicle *)node.parent endedCollision:contact];
     }
-        
+    
     node = contact.bodyB.node;
-    if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
-        [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
-        [(AMBTrafficVehicle *)node.parent endedContactWith:contact.bodyA victimNodeName:node.name];
+    if ([node.parent isKindOfClass:[AMBTrafficVehicle class]]) {
+        [(AMBTrafficVehicle *)node.parent endedCollision:contact];
     }
     
 }
