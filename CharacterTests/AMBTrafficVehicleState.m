@@ -85,9 +85,9 @@
 - (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
 
     // are we at an intersection?
-    if (vehicle.currentTileProperties[@"intersection"]) {
-        //[self exitState:vehicle];
-        //return [[AMBTrafficVehicleIsTurning alloc]init];
+    if (vehicle.currentTileProperties[@"intersection"] && vehicle.shouldTurnAtIntersections) {
+        [self exitState:vehicle];
+        return [[AMBTrafficVehicleIsTurning alloc]init];
     }
     
     return nil;
@@ -96,13 +96,31 @@
 
 @end
 
-@implementation AMBTrafficVehicleIsTurning {
-    
-}
+@implementation AMBTrafficVehicleIsTurning
 
 - (void)enterState:(AMBTrafficVehicle *)vehicle {
     NSLog(@"%@ enterState: AMBTrafficVehicleIsTurning", vehicle.name);
+    [vehicle authorizeMoveEvent:-90];
 }
+
+- (void)exitState:(AMBTrafficVehicle *)vehicle {
+    NSLog(@"%@ exitState: AMBTrafficVehicleIsTurning", vehicle.name);
+}
+
+- (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
+    if (vehicle.requestedMoveEvent) {
+        [vehicle authorizeMoveEvent:vehicle.requestedMoveEventDegrees];
+    }
+    
+    if (!vehicle.currentTileProperties[@"intersection"]) {    
+        [self exitState:vehicle];
+        return [AMBTrafficVehicleIsDrivingStraight sharedInstance];
+    }
+    
+    
+    return nil;
+}
+
 
 @end
 

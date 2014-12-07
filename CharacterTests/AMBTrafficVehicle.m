@@ -48,10 +48,11 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
 }
 
 
-+ (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation {
++ (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation shouldTurnAtIntersections:(BOOL)shouldTurn {
     
     AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]init];
     
+    vehicle.shouldTurnAtIntersections = shouldTurn;
     vehicle.speedPointsPerSec = speed * speedMultiplier;
     vehicle.nativeSpeed = vehicle.speedPointsPerSec; // store the native speed so we can refer to it later
     vehicle.position = point;
