@@ -96,19 +96,28 @@
 
 @end
 
-@implementation AMBTrafficVehicleIsTurning
+@implementation AMBTrafficVehicleIsTurning {
+    NSUInteger i;
+}
 
 - (void)enterState:(AMBTrafficVehicle *)vehicle {
     NSLog(@"%@ enterState: AMBTrafficVehicleIsTurning", vehicle.name);
     [vehicle authorizeMoveEvent:-90];
+    i = 0; // this will increment on every tick, and attempt a turn every five ticks
 }
 
 - (void)exitState:(AMBTrafficVehicle *)vehicle {
     NSLog(@"%@ exitState: AMBTrafficVehicleIsTurning", vehicle.name);
+    
+    // one last lane change to ensure the vehicle is fully in its lane (this assumes the right lane always)
+    [vehicle authorizeMoveEvent:-90];
 }
 
 - (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
-    if (vehicle.requestedMoveEvent) {
+
+    if (vehicle.requestedMoveEvent && i == 4) {
+        i = 0;
+
         [vehicle authorizeMoveEvent:vehicle.requestedMoveEventDegrees];
     }
     
@@ -117,7 +126,7 @@
         return [AMBTrafficVehicleIsDrivingStraight sharedInstance];
     }
     
-    
+    i++;
     return nil;
 }
 
