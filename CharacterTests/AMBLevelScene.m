@@ -651,17 +651,15 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 }
 
 - (void)didEndContact:(SKPhysicsContact *)contact {
-    SKNode *node = contact.bodyA.node;
     
-    if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
-        [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
-        [(AMBTrafficVehicle *)node.parent endedContactWith:contact.bodyB victimNodeName:node.name];
+    SKNode *node = contact.bodyA.node;
+    if ([node.parent isKindOfClass:[AMBTrafficVehicle class]]) {
+        [(AMBTrafficVehicle *)node.parent endedCollision:contact];
     }
-        
+    
     node = contact.bodyB.node;
-    if ([node.name isEqualToString:@"trafficVehicleCollisionZone"] ||
-        [node.name isEqualToString:@"trafficVehicleStoppingZone"]) {
-        [(AMBTrafficVehicle *)node.parent endedContactWith:contact.bodyA victimNodeName:node.name];
+    if ([node.parent isKindOfClass:[AMBTrafficVehicle class]]) {
+        [(AMBTrafficVehicle *)node.parent endedCollision:contact];
     }
     
 }

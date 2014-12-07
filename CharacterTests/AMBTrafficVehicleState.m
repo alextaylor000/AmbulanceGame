@@ -85,9 +85,9 @@
 - (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
 
     // are we at an intersection?
-    if (vehicle.currentTileProperties[@"intersection"]) {
-        //[self exitState:vehicle];
-        //return [[AMBTrafficVehicleIsTurning alloc]init];
+    if (vehicle.currentTileProperties[@"intersection"] && vehicle.shouldTurnAtIntersections) {
+        [self exitState:vehicle];
+        return [[AMBTrafficVehicleIsTurning alloc]init];
     }
     
     return nil;
@@ -97,12 +97,39 @@
 @end
 
 @implementation AMBTrafficVehicleIsTurning {
-    
+    NSUInteger i;
 }
 
 - (void)enterState:(AMBTrafficVehicle *)vehicle {
     NSLog(@"%@ enterState: AMBTrafficVehicleIsTurning", vehicle.name);
+    [vehicle authorizeMoveEvent:-90];
+    i = 0; // this will increment on every tick, and attempt a turn every five ticks
 }
+
+- (void)exitState:(AMBTrafficVehicle *)vehicle {
+    NSLog(@"%@ exitState: AMBTrafficVehicleIsTurning", vehicle.name);
+    
+    // one last lane change to ensure the vehicle is fully in its lane (this assumes the right lane always)
+    [vehicle authorizeMoveEvent:-90];
+}
+
+- (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
+
+    if (vehicle.requestedMoveEvent && i == 4) {
+        i = 0;
+
+        [vehicle authorizeMoveEvent:vehicle.requestedMoveEventDegrees];
+    }
+    
+    if (!vehicle.currentTileProperties[@"intersection"]) {    
+        [self exitState:vehicle];
+        return [AMBTrafficVehicleIsDrivingStraight sharedInstance];
+    }
+    
+    i++;
+    return nil;
+}
+
 
 @end
 
@@ -122,9 +149,12 @@
 - (void)enterState:(AMBTrafficVehicle *)vehicle {
     NSLog(@"%@ enterState: AMBTrafficVehicleIsAdjustingSpeed", vehicle.name);
     
-    // the speed should be adjusted to 75% of the target speed OR the fastest a traffic vehicle can travel
-    targetSpeed = fmaxf(targetVehicle.speedPointsPerSec * 0.75, VehicleSpeedFast);
-    NSLog(@"    targetSpeed=%f",targetSpeed);
+    targetSpeed = targetVehicle.speedPointsPerSec * 0.75;
+    
+    // the speed should be adjusted to 75% of the target speed OR the vehicle's native speed
+    targetSpeed = (targetSpeed > vehicle.nativeSpeed) ? vehicle.nativeSpeed : targetSpeed;
+    
+    NSLog(@" - targetSpeed=%f",targetSpeed);
     [vehicle adjustSpeedToTarget:targetSpeed];
 }
 
@@ -135,10 +165,57 @@
 - (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
     if (vehicle.speedPointsPerSec == targetSpeed) {
         [self exitState:vehicle];
-        return [AMBTrafficVehicleIsDrivingStraight sharedInstance];
+        
+        if (targetSpeed > 0) {
+            return [AMBTrafficVehicleIsDrivingStraight sharedInstance];
+        } else {
+            return [AMBTrafficVehicleIsStopped sharedInstance];
+        }
     }
     
     return nil;
+}
+
+
+@end
+
+@implementation AMBTrafficVehicleIsStopped {
+    
+}
+
++ (AMBTrafficVehicleIsStopped *)sharedInstance {
+    static AMBTrafficVehicleIsStopped *_sharedInstance = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[AMBTrafficVehicleIsStopped alloc]init];
+    });
+    return _sharedInstance;
+}
+
+- (void)enterState:(AMBTrafficVehicle *)vehicle {
+    NSLog(@"%@ enterState: AMBTrafficVehicleIsStopped", vehicle.name);
+}
+
+- (void)exitState:(AMBTrafficVehicle *)vehicle {
+    NSLog(@"%@ exitState: AMBTrafficVehicleIsStopped", vehicle.name);
+    vehicle.speedPointsPerSec = vehicle.nativeSpeed;
+    
+    // TODO: how do we have this wait a random amount of time? waitForDuration doesn't seem to have an effect on this.
+    [vehicle startMoving];
+    
+    
+}
+
+- (AMBTrafficVehicleState *)endedCollision:(SKPhysicsContact *)contact context:(AMBTrafficVehicle *)vehicle {
+    if (contact.bodyA.node == vehicle.collisionZoneTailgating || contact.bodyB.node == vehicle.collisionZoneTailgating) {
+        
+        [self exitState:vehicle];
+        return [AMBTrafficVehicleIsDrivingStraight sharedInstance];
+
+    } else {
+        return nil; // if the blocking object has to exit the collision zone; if there's something in the stopping zone, don't move!
+    }
+    
 }
 
 
