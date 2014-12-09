@@ -306,23 +306,32 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     }
 
     // traffic spawners
+    int i = 0;
     CGSize gridSize = _mapLayerTraffic.layerInfo.layerGridSize;
     for (int w = 0 ; w < gridSize.width; ++w) {
         for(int h = 0; h < gridSize.height; ++h) {
             
             CGPoint coord = CGPointMake(w, h);
-            //2
+
             int tileGid =
             [_mapLayerTraffic.layerInfo tileGidAtCoord:coord];
 
             if(!tileGid)
                 continue;
 
-            // parsing goes here
-            NSDictionary *tileProperties = [_tilemap propertiesForGid:tileGid];
-            // properties will be name (traffic), center_x, center_y, orientation
+            NSDictionary *tileProperties = [_tilemap propertiesForGid:tileGid];            // properties will be name (traffic), center_x, center_y, orientation
+            if ([tileProperties[@"name"] isEqualToString:@"traffic"]) {
+                // spawn the thing!
+                CGPoint center = CGPointMake([tileProperties[@"center_x"] floatValue], [tileProperties[@"center_y"] floatValue]);
+                CGPoint point = [_mapLayerTraffic pointForCoord:coord]; // TODO: this is being weird, layerGridSize is returning 50 for this layer and messing things up
+                center = CGPointAdd(center, point);
+                
+                [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"]];
+            }
+
         }
     }
+    NSLog(@"found %d traffic objects",i);
     
     
     // fuel powerup spawners
@@ -350,6 +359,30 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     
     
     
+}
+
+- (void)spawnTrafficObjectAt:(CGPoint)pos rotation:(NSString *)rot {
+        SKTexture *trafficTexture = [SKTexture textureWithImageNamed:@"traffic"];
+        SKSpriteNode *traffic = [SKSpriteNode spriteNodeWithTexture:trafficTexture];
+
+        if ([rot isEqualToString:@"n"]) {
+            traffic.zRotation = DegreesToRadians(90);
+        } else if ([rot isEqualToString:@"e"]) {
+            traffic.zRotation = DegreesToRadians(0);
+        } else if ([rot isEqualToString:@"s"]) {
+            traffic.zRotation = DegreesToRadians(-90);
+        } else if ([rot isEqualToString:@"w"]) {
+            traffic.zRotation = DegreesToRadians(180);
+        }
+
+        traffic.position = pos;
+
+        traffic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:traffic.size];
+        traffic.physicsBody.categoryBitMask = categoryTraffic;
+        traffic.physicsBody.collisionBitMask = 0x00000000;
+    
+        NSLog(@"spawning traffic object at %1.0f,%1.0f",traffic.position.x,traffic.position.y);
+
 }
 
 - (void)levelWithTilemap:(NSString *)tilemapFile {

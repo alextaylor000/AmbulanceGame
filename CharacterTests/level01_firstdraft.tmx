@@ -140,6 +140,7 @@
   <image source="traffic_spawns.png" trans="ff00ff" width="1024" height="1024"/>
   <tile id="0">
    <properties>
+    <property name="name" value="traffic"/>
     <property name="center_x" value="128"/>
     <property name="center_y" value="160"/>
     <property name="orientation" value="e"/>
@@ -147,6 +148,7 @@
   </tile>
   <tile id="1">
    <properties>
+    <property name="name" value="traffic"/>
     <property name="center_x" value="128"/>
     <property name="center_y" value="95"/>
     <property name="orientation" value="w"/>
@@ -154,71 +156,85 @@
   </tile>
   <tile id="2">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="s"/>
    </properties>
   </tile>
   <tile id="3">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="n"/>
    </properties>
   </tile>
   <tile id="4">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="s"/>
    </properties>
   </tile>
   <tile id="5">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="n"/>
    </properties>
   </tile>
   <tile id="6">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="e"/>
    </properties>
   </tile>
   <tile id="7">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="w"/>
    </properties>
   </tile>
   <tile id="8">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="s"/>
    </properties>
   </tile>
   <tile id="9">
-   <properties>
+  <properties>
+    <property name="name" value="traffic"/>   
     <property name="orientation" value="n"/>
    </properties>
   </tile>
   <tile id="10">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="w"/>
    </properties>
   </tile>
   <tile id="11">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="w"/>
    </properties>
   </tile>
   <tile id="12">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="s"/>
    </properties>
   </tile>
   <tile id="13">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="n"/>
    </properties>
   </tile>
   <tile id="14">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="e"/>
    </properties>
   </tile>
   <tile id="15">
    <properties>
+    <property name="name" value="traffic"/>	   
     <property name="orientation" value="e"/>
    </properties>
   </tile>
