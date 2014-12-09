@@ -30,8 +30,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 @property AMBPlayer *player;
 @property AMBSpawner *spawnerTest;
 
-@property AMBTrafficVehicle *trafficGuineaPig; // TRAFFIC_AI_TESTING
-@property NSMutableArray *trafficVehicles;
+
+@property NSMutableArray *trafficVehicles; // for enumerating the traffic objects during update loop
 
 
 
@@ -61,7 +61,10 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [self createWorld]; // set up tilemap
         [self addPlayer];
 
-//        _trafficVehicles = [[NSMutableArray alloc]init];
+    
+
+        
+        
 //        // TRAFFIC_AI_TESTING
 //        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y + 20) withRotation:DegreesToRadians(90)];
 //        _trafficGuineaPig.name = @"trafficGuineaPig";
@@ -306,7 +309,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     }
 
     // traffic spawners
-    int i = 0;
+    _trafficVehicles = [[NSMutableArray alloc]init];
+    
     CGSize gridSize = _mapLayerTraffic.layerInfo.layerGridSize;
     for (int w = 0 ; w < gridSize.width; ++w) {
         for(int h = 0; h < gridSize.height; ++h) {
@@ -323,17 +327,17 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
             if ([tileProperties[@"name"] isEqualToString:@"traffic"]) {
                 // spawn the thing!
                 CGPoint center = CGPointMake([tileProperties[@"center_x"] floatValue], [tileProperties[@"center_y"] floatValue]);
-                CGPoint point = [_mapLayerTraffic pointForCoord:coord]; // TODO: this is being weird, layerGridSize is returning 50 for this layer and messing things up
+                CGPoint point = [_mapLayerTraffic pointForCoord:coord];
                 center = CGPointAdd(center, point);
-                
-                [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"]];
+
+                NSLog(@"Adding traffic object at %1.0f,%1.0f",center.x,center.y);
+                [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"] shouldTurnAtIntersections:YES];
             }
 
         }
     }
-    NSLog(@"found %d traffic objects",i);
     
-    
+
     // fuel powerup spawners
     NSArray *fuelSpawns = [_mapGroupSpawnPowerups objects];
     for (NSDictionary *object in fuelSpawns) {
@@ -361,27 +365,26 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     
 }
 
-- (void)spawnTrafficObjectAt:(CGPoint)pos rotation:(NSString *)rot {
-        SKTexture *trafficTexture = [SKTexture textureWithImageNamed:@"traffic"];
-        SKSpriteNode *traffic = [SKSpriteNode spriteNodeWithTexture:trafficTexture];
+- (void)spawnTrafficObjectAt:(CGPoint)pos rotation:(NSString *)rot shouldTurnAtIntersections:(BOOL)intersections {
 
-        if ([rot isEqualToString:@"n"]) {
-            traffic.zRotation = DegreesToRadians(90);
-        } else if ([rot isEqualToString:@"e"]) {
-            traffic.zRotation = DegreesToRadians(0);
-        } else if ([rot isEqualToString:@"s"]) {
-            traffic.zRotation = DegreesToRadians(-90);
-        } else if ([rot isEqualToString:@"w"]) {
-            traffic.zRotation = DegreesToRadians(180);
-        }
+    CGFloat rotation;
 
-        traffic.position = pos;
+    if ([rot isEqualToString:@"n"]) {
+        rotation = DegreesToRadians(90);
+    } else if ([rot isEqualToString:@"e"]) {
+        rotation = DegreesToRadians(0);
+    } else if ([rot isEqualToString:@"s"]) {
+        rotation = DegreesToRadians(-90);
+    } else if ([rot isEqualToString:@"w"]) {
+        rotation = DegreesToRadians(180);
+    }
 
-        traffic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:traffic.size];
-        traffic.physicsBody.categoryBitMask = categoryTraffic;
-        traffic.physicsBody.collisionBitMask = 0x00000000;
+    AMBTrafficVehicle *traffic = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:pos withRotation:rotation shouldTurnAtIntersections:intersections];
+
+    traffic.name = @"real_traffic";
+    [self addMovingCharacterToTileMap:traffic];
+    [_trafficVehicles addObject:traffic];
     
-        NSLog(@"spawning traffic object at %1.0f,%1.0f",traffic.position.x,traffic.position.y);
 
 }
 

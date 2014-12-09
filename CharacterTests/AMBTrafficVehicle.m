@@ -34,7 +34,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
 
 - (instancetype)init {
     
-    if (self = [super initWithColor:[SKColor whiteColor] size:CGSizeMake(80, 40)]) {
+    if (self = [super initWithImageNamed:@"traffic"]) {
         // set constants
         self.speedPointsPerSec = 600;
         self.pivotSpeed = 0;
@@ -64,7 +64,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     vehicle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:vehicle.size];
     vehicle.physicsBody.categoryBitMask = categoryTraffic;
     vehicle.physicsBody.collisionBitMask = 0;
-    vehicle.physicsBody.contactTestBitMask = 0;
+//    vehicle.physicsBody.contactTestBitMask = 0;
     
     vehicle.collisionZoneTailgating = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(vehicle.size.width * tailgateZoneMultiplier, vehicle.size.height)]; // the coordinates are based on the node being oriented to the right
     vehicle.collisionZoneTailgating.name = @"trafficVehicleCollisionZone";
@@ -87,6 +87,9 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
     [vehicle addChild:vehicle.collisionZoneTailgating];
     [vehicle addChild:vehicle.collisionZoneStopping];
+    
+    vehicle.collisionZoneStopping.hidden = YES;
+    vehicle.collisionZoneTailgating.hidden = YES;
 
     // enter the initial state
     vehicle.currentState = [AMBTrafficVehicleIsDrivingStraight sharedInstance];

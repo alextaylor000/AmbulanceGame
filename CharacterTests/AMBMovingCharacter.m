@@ -210,7 +210,12 @@ static const int TILE_LANE_WIDTH = 32;
         
         if (isWithinBounds) {
             [self rotateByAngle:degrees];
-            [self.levelScene.camera rotateByAngle:degrees];
+            
+            if ([self.name isEqualToString:@"player"]) {
+                [self.levelScene.camera rotateByAngle:degrees];
+            }
+            
+            
             _requestedMoveEvent = NO; // put this in MovingCharacter's update loop
             return;
         }
