@@ -176,8 +176,8 @@
     return nil;
 }
 
-
 @end
+
 
 @implementation AMBTrafficVehicleIsStopped {
     

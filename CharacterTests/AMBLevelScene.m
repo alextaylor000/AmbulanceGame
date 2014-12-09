@@ -233,27 +233,27 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     
     // set up temp static traffic
     // and an array to randomize the colour
-    NSArray *colours = [NSArray arrayWithObjects:[SKColor redColor], [SKColor orangeColor], [SKColor yellowColor], [SKColor whiteColor], nil];
-    
-    for (NSDictionary *object in [_mapGroupSpawnTraffic objects]) {
-        SKTexture *trafficTexture = [SKTexture textureWithImageNamed:@"traffic"];
-        SKSpriteNode *traffic = [SKSpriteNode spriteNodeWithTexture:trafficTexture];
-
-        if ([[object valueForKey:@"orientation"] isEqualToString:@"up"]) {
-            traffic.zRotation = DegreesToRadians(90);
-        }
-        traffic.position = [self centerOfObject:object];
-
-        traffic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:traffic.size];
-        traffic.physicsBody.categoryBitMask = categoryTraffic;
-        traffic.physicsBody.collisionBitMask = 0x00000000;
-        
-        traffic.color = [colours objectAtIndex:(NSUInteger)RandomFloatRange(0, 4)];
-
-        traffic.colorBlendFactor = 0.35;
-        
-        [_mapLayerRoad addChild:traffic];
-    }
+//    NSArray *colours = [NSArray arrayWithObjects:[SKColor redColor], [SKColor orangeColor], [SKColor yellowColor], [SKColor whiteColor], nil];
+//    
+//    for (NSDictionary *object in [_mapGroupSpawnTraffic objects]) {
+//        SKTexture *trafficTexture = [SKTexture textureWithImageNamed:@"traffic"];
+//        SKSpriteNode *traffic = [SKSpriteNode spriteNodeWithTexture:trafficTexture];
+//
+//        if ([[object valueForKey:@"orientation"] isEqualToString:@"up"]) {
+//            traffic.zRotation = DegreesToRadians(90);
+//        }
+//        traffic.position = [self centerOfObject:object];
+//
+//        traffic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:traffic.size];
+//        traffic.physicsBody.categoryBitMask = categoryTraffic;
+//        traffic.physicsBody.collisionBitMask = 0x00000000;
+//        
+//        traffic.color = [colours objectAtIndex:(NSUInteger)RandomFloatRange(0, 4)];
+//
+//        traffic.colorBlendFactor = 0.35;
+//        
+//        [_mapLayerRoad addChild:traffic];
+//    }
     
     
     // Set up spawn points
@@ -305,7 +305,24 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [_spawners addObject:spawner];
     }
 
-    
+    // traffic spawners
+    CGSize gridSize = _mapLayerTraffic.layerInfo.layerGridSize;
+    for (int w = 0 ; w < gridSize.width; ++w) {
+        for(int h = 0; h < gridSize.height; ++h) {
+            
+            CGPoint coord = CGPointMake(w, h);
+            //2
+            int tileGid =
+            [_mapLayerTraffic.layerInfo tileGidAtCoord:coord];
+
+            if(!tileGid)
+                continue;
+
+            // parsing goes here
+            NSDictionary *tileProperties = [_tilemap propertiesForGid:tileGid];
+            // properties will be name (traffic), center_x, center_y, orientation
+        }
+    }
     
     
     // fuel powerup spawners
@@ -342,11 +359,12 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         // set up the layers/groups
         _mapLayerRoad =     [_tilemap layerNamed:@"road"];
         _mapLayerScenery =  [_tilemap layerNamed:@"scenery"];
+        _mapLayerTraffic =  [_tilemap layerNamed:@"spawn_traffic"];
         
         _mapGroupSpawnPlayer =      [_tilemap groupNamed:@"spawn_player"];
         _mapGroupSpawnPatients =    [_tilemap groupNamed:@"spawn_patients"];
         _mapGroupSpawnHospitals =   [_tilemap groupNamed:@"spawn_hospitals"];
-        _mapGroupSpawnTraffic =     [_tilemap groupNamed:@"spawn_traffic"];
+//        _mapGroupSpawnTraffic =     [_tilemap groupNamed:@"spawn_traffic"];
         _mapGroupSpawnPowerups =    [_tilemap groupNamed:@"spawn_powerups"];
         
 
