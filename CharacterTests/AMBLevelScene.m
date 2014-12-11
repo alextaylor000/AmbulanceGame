@@ -19,6 +19,7 @@
 #define kNumberCars   15
 
 static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more frequent than this interval
+static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 
 
 @interface AMBLevelScene ()
@@ -29,6 +30,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
 @property JSTileMap *bgLayer;
 @property AMBPlayer *player;
 @property AMBSpawner *spawnerTest;
+
+
+@property SKSpriteNode *miniPlayer; // for the minimap
 
 
 @property NSMutableArray *trafficVehicles; // for enumerating the traffic objects during update loop
@@ -111,6 +115,9 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [self addChild:_patientTimeToLive];
 
     
+        // minimap
+        [self createMinimap];
+        
 #if DEBUG
         NSLog(@"[[   SCORE:  %ld   ]]", _scoreKeeper.score);
 #endif
@@ -119,6 +126,20 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     return self;
 }
 
+- (void)createMinimap {
+    JSTileMap *minimap = [JSTileMap mapNamed:LEVEL_NAME];
+    [minimap setScale:0.01]; // 1% scale
+    minimap.zPosition = 1000;
+    minimap.position = CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
+    [self addChild:minimap];
+
+    
+    _miniPlayer = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(256, 256)];
+    _miniPlayer.position = _player.position;
+    
+    [minimap addChild:_miniPlayer];
+    
+}
 
 - (void) addPatientSeverity:(PatientSeverity)severity atPoint:(CGPoint)point {
     CGPoint patientPosition = point;
@@ -209,14 +230,8 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
         [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
     }
     
-//    // turn if a turn was requested but hasn't been completed yet
-//    if (_turnRequested && self.sceneLastUpdate - _lastKeyPress < TURN_BUFFER ) {
-//#if DEBUG
-//        NSLog(@"update loop: turn requested");
-//#endif
-//        [self authorizeMoveEvent:_turnDegrees];
-//    }
-
+    // update minimap
+    _miniPlayer.position = _player.position;
 }
 
 #pragma mark World Building
@@ -228,7 +243,7 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more fre
     _worldNode.position = CGPointMake(0, -150);
     [self addChild:_worldNode];
     
-    [self levelWithTilemap:@"level01_firstdraft.tmx"];
+    [self levelWithTilemap:LEVEL_NAME];
 
     if (_tilemap) {
         [_worldNode addChild:_tilemap];

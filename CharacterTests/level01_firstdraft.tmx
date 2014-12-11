@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="256" tileheight="256">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="256" tileheight="256">
  <tileset firstgid="1" name="road_tiles" tilewidth="256" tileheight="256">
   <image source="8bit_tileset_design_ver02.png" width="1536" height="1024"/>
   <tile id="0">
@@ -267,19 +267,19 @@
    </properties>
   </tile>
  </tileset>
- <layer name="scenery" width="50" height="50">
+ <layer name="scenery" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztz7ENACAQA7Fv2X9hVqDjEI50fbxmZoU73e2fHBwcHBytOFpxtOJoxdGKoxVHK45WHK04WnG04mjF0YqjFUcrjla/OczMzOz9baYVOEE=
+   eJztw8EJAAAMA6H7Zv+Fu0dRcNVUVVVVVVUfPdKxOEE=
   </data>
  </layer>
- <layer name="road" width="50" height="50">
+ <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmdsOgjAQROvdeBev//+lLg8muG1xlq1CdE4yD510SyZlA5QQyrMV7T6w7rdhjmHRZ46paNTQXI0t3l50cNSvHDmWb8YWL7cfnjVRmCOGOfIeiq6dhbj/xqCX63O0flMwx6/sB3MwR5uHovsa7Un2uc1DYY4Y5sh7KJXo2JAeW7yT6Oyorxw57qJbQ3ps0UV0TfjIms85XUHuKxTLfdVljqWeOZjDe90a5L3Ee86g10zVet5Javp4fpR+dniuwRzM0UYf5wylvz1SOX5lP5iDOXKehUV47bd1iHsQ9XJ9ruemaifOHCXh/6hhwRyEEEII+WcehJQQMg==
+   eJztmFkKwzAMRN29dG+63v+kFZRCqshkzDipqSWYDw+WePESxwkhf+xFhwHq5grn42IIvrlo0tJStVO8o+hE5G8MvnVPO8WLjR9T0/nq4luE7rqdgl5sf6D5O4Cv9PFzPs4rjU/vB3Qt+/6wPefjvNL4GtG5Jd1O8S6iK5HfGHxP0aMl3U7RTXQ3fKTmp0/fmFpjjEbK/KJ9nO+/+ZDzjb0f6ZpWrnW2WdxjvP/Qekyu83G5v+Ib436Efvsxz+bzy+U63ztW4XudbkN37aJebH/ovlbuLMKXM2r8f5ozauJ7ASuWEDI=
   </data>
  </layer>
- <layer name="spawn_traffic" width="50" height="50">
+ <layer name="spawn_traffic" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmIsKwyAMRf0NZY/CGPv/PxzCCiVLfLSxydw9UKwxWqne+AgBAHCEWMlLtkwSyhN1BN1crTuwg5t1B8AXWZtUj5I+I0lLdSJj19K95jx6KrY1ghE696xDaTws+sx90/O/K5FISonMe03n0vrOxZR/Zu+c4ep5j1c9XBibF53/IgvJPwp+UllLWwtjO8L981Bb5lWxrXlan2uL1qn5WMPp4wxm0YMmOe5ajceMbPcO3NlB2j+0+PacaYAeiFd+sIxX0nhkDbacFTi/ULCNuGMA/tDW+QzruYfzoHT3R20tfmt7LfqH1scCffhihvEAAAAAwLm8ARClC74=
+   eJztlw0KwyAMhb2Gsp/CGLv/DYewQhdeNLYJ2poPSmuMQTSv0RAcZ2xipc3ZMonpT9RxAu69J7Dh0XsCFyDnNM1jLq8jeZfGRGCv6UVzP9+KsVqw0EePPOfWT3MuKNZomk7kTYngu6YPrp4gLZ6JvXuHxvXSbws3YLPWx0gspP0q+HF9klgLsCGev4faMp+KbW3T8SgWHVPzsQLl3xFGzzdN8v9Fe/3OxLYGobMbV4ckvi1nyplx/e7HQr/c+uXclZzVkF8o2FruRs5xtPUxcv2wPD9zd31qk/it8SS6cY38M2v+aaG1fl+TdQu+
   </data>
  </layer>
  <objectgroup name="spawn_player">
