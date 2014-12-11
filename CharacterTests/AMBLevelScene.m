@@ -32,7 +32,9 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 @property AMBSpawner *spawnerTest;
 
 
+@property JSTileMap *miniMap; // the minimap!
 @property SKSpriteNode *miniPlayer; // for the minimap
+@property SKSpriteNode *miniHospital;
 
 
 @property NSMutableArray *trafficVehicles; // for enumerating the traffic objects during update loop
@@ -62,6 +64,11 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         // indicator, created before createWorld so it can be referenced in initial spawns
         _indicator = [[AMBIndicator alloc]initForScene:self];
 
+
+        // minimap
+        [self createMinimap];
+
+        
         [self createWorld]; // set up tilemap
         [self addPlayer];
 
@@ -115,8 +122,6 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         [self addChild:_patientTimeToLive];
 
     
-        // minimap
-        [self createMinimap];
         
 #if DEBUG
         NSLog(@"[[   SCORE:  %ld   ]]", _scoreKeeper.score);
@@ -127,18 +132,24 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 }
 
 - (void)createMinimap {
-    JSTileMap *minimap = [JSTileMap mapNamed:LEVEL_NAME];
-    [minimap setScale:0.01]; // 1% scale
-    minimap.zPosition = 1000;
-    minimap.position = CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
-    [self addChild:minimap];
+    _miniMap = [JSTileMap mapNamed:LEVEL_NAME];
+    [_miniMap setScale:0.01]; // 1% scale
+    _miniMap.zPosition = 1000;
+    _miniMap.position = CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
+    [self addChild:_miniMap];
 
     
-    _miniPlayer = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(256, 256)];
-    _miniPlayer.position = _player.position;
+    _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withScale:1.0];
     
-    [minimap addChild:_miniPlayer];
-    
+}
+
+- (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withScale:(CGFloat)scale {
+    SKSpriteNode *object = [SKSpriteNode spriteNodeWithColor:colour size:CGSizeMake(256*scale, 256*scale)];
+    object.position = position;
+    object.zPosition = 100;
+    [_miniMap addChild:object];
+
+    return object;
 }
 
 - (void) addPatientSeverity:(PatientSeverity)severity atPoint:(CGPoint)point {
@@ -148,20 +159,22 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 }
 
 
-- (void) addHospitalAtPoint:(CGPoint)point {
-    // TODO: this is deprecated, right? I think this was just for testing.
-    SKSpriteNode *hospital = [SKSpriteNode spriteNodeWithImageNamed:@"hospital"];
-    
-    hospital.position = point;
-    hospital.zPosition = 200;
-    hospital.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(hospital.size.width * 3, hospital.size.height * 3)]; // for the physics body, expand the hospital's size so that it encompasses all the surrounding road blocks.
-    hospital.physicsBody.categoryBitMask = categoryHospital;
-    hospital.physicsBody.collisionBitMask = 0x00000000;
-    
-    [_tilemap addChild:hospital];
-    
-    
-}
+//- (void) addHospitalAtPoint:(CGPoint)point {
+//    // TODO: this is deprecated, right? I think this was just for testing.
+//    SKSpriteNode *hospital = [SKSpriteNode spriteNodeWithImageNamed:@"hospital"];
+//    
+//    hospital.position = point;
+//    hospital.zPosition = 200;
+//    hospital.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(hospital.size.width * 3, hospital.size.height * 3)]; // for the physics body, expand the hospital's size so that it encompasses all the surrounding road blocks.
+//    hospital.physicsBody.categoryBitMask = categoryHospital;
+//    hospital.physicsBody.collisionBitMask = 0x00000000;
+//    
+//    [_tilemap addChild:hospital];
+//    
+//    
+//    
+//    
+//}
 
 - (void)addMovingCharacterToTileMap:(AMBMovingCharacter *)character {
     // encapsulated like this because we need to make sure levelScene is set on all the player/traffic nodes
@@ -281,11 +294,12 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     NSArray *hospitalSpawns = [_mapGroupSpawnHospitals objects];
     for (NSDictionary *object in hospitalSpawns) {
         AMBHospital *hospital = [[AMBHospital alloc] init];
-        [hospital addObjectToNode:_mapLayerRoad atPosition:[self centerOfObject:object]];
+        CGPoint hospitalPos = [self centerOfObject:object];
+        [hospital addObjectToNode:_mapLayerRoad atPosition:hospitalPos];
 
         // add hospital indicator target
         [_indicator addTarget:hospital type:IndicatorHospital];
-
+        _miniHospital = [self addObjectToMinimapAtPoint:hospitalPos withColour:[SKColor whiteColor] withScale:1.5]; // TODO: this assumes just one hospital. does it matter?
     }
     
     [self createSpawners];
@@ -371,6 +385,8 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
                                                          withFrequency:frequency
                                                    frequencyUpperRange:frequencyUpperRange
                                                            withObjects:fuelArray];
+        
+        SKSpriteNode *fuelSpawn = [self addObjectToMinimapAtPoint:spawnPoint withColour:[SKColor orangeColor] withScale:1.0];
         
         [spawner addObjectToNode:_mapLayerRoad atPosition:spawnPoint];
         [_spawners addObject:spawner];
