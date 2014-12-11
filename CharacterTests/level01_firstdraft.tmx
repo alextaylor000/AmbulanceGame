@@ -279,7 +279,7 @@
  </layer>
  <layer name="spawn_traffic" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt0zEKgEAMBMB8Q8H7/zP1wOrYykYjMxASUmWLVAEAyXbVfs9r7+x4+4AHRth1zJGkbF+Xbu6YY/rTbwMAAAAAAABVJ2SlAU4=
+   eJztmIsKwyAMRf0NZY/CGPv/PxzCCiVLfLSxydw9UKwxWqne+AgBAHCEWMlLtkwSyhN1BN1crTuwg5t1B8AXWZtUj5I+I0lLdSJj19K95jx6KrY1ghE696xDaTws+sx90/O/K5FISonMe03n0vrOxZR/Zu+c4ep5j1c9XBibF53/IgvJPwp+UllLWwtjO8L981Bb5lWxrXlan2uL1qn5WMPp4wxm0YMmOe5ajceMbPcO3NlB2j+0+PacaYAeiFd+sIxX0nhkDbacFTi/ULCNuGMA/tDW+QzruYfzoHT3R20tfmt7LfqH1scCffhihvEAAAAAwLm8ARClC74=
   </data>
  </layer>
  <objectgroup name="spawn_player">
