@@ -97,6 +97,8 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         
         // scoring
         _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
+        _scoreKeeper.scene = self;
+        
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
         [self addChild:labelScore];
      

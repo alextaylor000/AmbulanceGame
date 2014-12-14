@@ -16,8 +16,11 @@
 
 @interface AMBScoreKeeper : NSObject
 
+@property SKScene *scene; // stores the scene instance so we can create labels
+
 @property (readonly, nonatomic) NSInteger score;
 @property (readonly, nonatomic) NSTimeInterval elapsedTime;
+
 
 @property SKLabelNode *labelScore;
 
@@ -30,5 +33,6 @@
 
 /* Scoring Events */
 - (void) scoreEventDeliveredPatient:(AMBPatient *)patient;
+- (void) eventLabelWithText:(NSString *)text;
 
 @end

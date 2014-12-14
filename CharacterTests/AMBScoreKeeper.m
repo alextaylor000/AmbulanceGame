@@ -87,6 +87,21 @@
     
 }
 
+- (void)eventLabelWithText:(NSString *)text {
+    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"Upheaval Pro"];
+    label.text = text;
+    label.fontColor = [SKColor yellowColor];
+    label.fontSize = 60;
+    label.alpha = 0;
+    label.zPosition = 1000;
+    [self.scene addChild:label];
+    
+    SKAction *action;
+    action = [SKAction sequence:@[[SKAction fadeInWithDuration:0.075],[SKAction waitForDuration:2.0],[SKAction fadeOutWithDuration:0.075]]];
+    [label runAction:action];
+    
+}
+
 
 #pragma mark Misc. Game Logic
 

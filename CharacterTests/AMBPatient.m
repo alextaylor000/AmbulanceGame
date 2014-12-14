@@ -26,6 +26,7 @@
 
 #import "SKTUtils.h" // for RandomFloatRange
 #import "AMBPatient.h"
+#import "AMBScoreKeeper.h"
 
 @interface AMBPatient ()
 
@@ -36,6 +37,7 @@
 @implementation AMBPatient {
     NSTimeInterval patientTTL;
     SKLabelNode *debugPatientTTL;
+    AMBScoreKeeper *scoreKeeper;
 }
 
 #pragma mark Assets
@@ -76,12 +78,6 @@
         [self storePatientUserData];
 
         
-#if DEBUG_PATIENT
-        debugPatientTTL = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
-        debugPatientTTL.text = [NSString stringWithFormat:@"%1.0f",patientTTL];
-        debugPatientTTL.fontColor = [SKColor yellowColor];
-        [self addChild:debugPatientTTL];
-#endif
         
     }
     
@@ -120,6 +116,15 @@
     switch (_state) {
         case PatientIsWaitingForPickup:
             self.spawnTime = CACurrentMediaTime(); // reset spawn time when a copy is made
+            scoreKeeper = [AMBScoreKeeper sharedInstance]; 
+            
+#if DEBUG_PATIENT
+            debugPatientTTL = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+            debugPatientTTL.text = [NSString stringWithFormat:@"%1.0f",patientTTL];
+            debugPatientTTL.fontColor = [SKColor yellowColor];
+            [self addChild:debugPatientTTL];
+#endif
+            
             break;
         
         case PatientIsEnRoute:
@@ -131,21 +136,45 @@
             break;
             
         case PatientIsDelivered:
+            [scoreKeeper eventLabelWithText:@"PATIENT DELIVERED! +points"];            
             [self removeFromParent];
+            
+
             break;
             
         case PatientIsDead:
-            [self.miniPatient removeFromParent];
+            [scoreKeeper eventLabelWithText:@"YOUR PATIENT HAS DIED! -points"]; // TODO: this should only be displayed when the patient was previously in the ambulance
             
+            [self.miniPatient removeFromParent];
             [self removeFromParent];
 
             #if DEBUG_PATIENT
                 NSLog(@"patient has DIED!!");
             #endif
             
+
+
+            
+            
             break;
             
     }
+}
+
+
+- (void)labelDisplay:(NSString *)text {
+    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"Upheaval Pro"];
+    label.text = text;
+    label.fontColor = [SKColor yellowColor];
+    label.fontSize = 80;
+    label.alpha = 0;
+    label.zPosition = 1000;
+    [self.parent addChild:label];
+    
+    SKAction *action;
+    action = [SKAction sequence:@[[SKAction fadeInWithDuration:0.075],[SKAction waitForDuration:2.0],[SKAction fadeOutWithDuration:0.075]]];
+    [label runAction:action];
+
 }
 
 - (void)storePatientUserData {
