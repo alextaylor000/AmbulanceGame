@@ -52,14 +52,14 @@
 
 - (void)enterState:(AMBTrafficVehicle *)vehicle {
 #if DEBUG
-    NSLog(@"%@ enterState: AMBTrafficVehicleIsDrivingStraight", vehicle.name);
+    //NSLog(@"%@ enterState: AMBTrafficVehicleIsDrivingStraight", vehicle.name);
 #endif
     [vehicle startMoving];
 
 }
 
 - (void)exitState:(AMBTrafficVehicle *)vehicle {
-    NSLog(@"%@ exitState: AMBTrafficVehicleIsDrivingStraight", vehicle.name);
+    //NSLog(@"%@ exitState: AMBTrafficVehicleIsDrivingStraight", vehicle.name);
 }
 
 - (AMBTrafficVehicleState *)beganCollision:(SKPhysicsContact *)contact context:(AMBTrafficVehicle *)vehicle {
@@ -101,13 +101,13 @@
 }
 
 - (void)enterState:(AMBTrafficVehicle *)vehicle {
-    NSLog(@"%@ enterState: AMBTrafficVehicleIsTurning", vehicle.name);
+    //NSLog(@"%@ enterState: AMBTrafficVehicleIsTurning", vehicle.name);
     [vehicle authorizeMoveEvent:-90];
     i = 0; // this will increment on every tick, and attempt a turn every five ticks
 }
 
 - (void)exitState:(AMBTrafficVehicle *)vehicle {
-    NSLog(@"%@ exitState: AMBTrafficVehicleIsTurning", vehicle.name);
+    //NSLog(@"%@ exitState: AMBTrafficVehicleIsTurning", vehicle.name);
     
     // one last lane change to ensure the vehicle is fully in its lane (this assumes the right lane always)
     [vehicle authorizeMoveEvent:-90];
@@ -147,19 +147,19 @@
 }
 
 - (void)enterState:(AMBTrafficVehicle *)vehicle {
-    NSLog(@"%@ enterState: AMBTrafficVehicleIsAdjustingSpeed", vehicle.name);
+    //NSLog(@"%@ enterState: AMBTrafficVehicleIsAdjustingSpeed", vehicle.name);
     
     targetSpeed = targetVehicle.speedPointsPerSec * 0.75;
     
     // the speed should be adjusted to 75% of the target speed OR the vehicle's native speed
     targetSpeed = (targetSpeed > vehicle.nativeSpeed) ? vehicle.nativeSpeed : targetSpeed;
     
-    NSLog(@" - targetSpeed=%f",targetSpeed);
+    //NSLog(@" - targetSpeed=%f",targetSpeed);
     [vehicle adjustSpeedToTarget:targetSpeed];
 }
 
 - (void)exitState:(AMBTrafficVehicle *)vehicle {
-    NSLog(@"%@ exitState: AMBTrafficVehicleIsAdjustingSpeed", vehicle.name);
+    //NSLog(@"%@ exitState: AMBTrafficVehicleIsAdjustingSpeed", vehicle.name);
 }
 
 - (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
@@ -193,11 +193,11 @@
 }
 
 - (void)enterState:(AMBTrafficVehicle *)vehicle {
-    NSLog(@"%@ enterState: AMBTrafficVehicleIsStopped", vehicle.name);
+    //NSLog(@"%@ enterState: AMBTrafficVehicleIsStopped", vehicle.name);
 }
 
 - (void)exitState:(AMBTrafficVehicle *)vehicle {
-    NSLog(@"%@ exitState: AMBTrafficVehicleIsStopped", vehicle.name);
+    //NSLog(@"%@ exitState: AMBTrafficVehicleIsStopped", vehicle.name);
     vehicle.speedPointsPerSec = vehicle.nativeSpeed;
     
     // TODO: how do we have this wait a random amount of time? waitForDuration doesn't seem to have an effect on this.

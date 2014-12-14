@@ -89,7 +89,7 @@
         i = RandomFloatRange(0, _spawnObjectsCount - 1);
     }
     
-    objectToSpawn = (AMBCharacter *)[[_spawnObjects objectAtIndex:i] copy];
+    objectToSpawn = (AMBCharacter *)[[_spawnObjects objectAtIndex:i] copy]; // this becomes an immutable copy
     
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
@@ -97,14 +97,23 @@
 
     // add indicator here
     if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
-    [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
+#if DEBUG_PATIENT
+        NSLog(@"Spawning patient");
+#endif
         
-    // add to minimap
-    SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withScale:1.75];
-    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.25];
-    [miniPatient runAction:[SKAction repeatActionForever:[SKAction sequence:@[fadeOut, [fadeOut reversedAction]]]]];
+        [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
+            
+        // add to minimap
+        SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withScale:1.75];
+        SKAction *fadeOut = [SKAction fadeOutWithDuration:0.25];
+        [miniPatient runAction:[SKAction repeatActionForever:[SKAction sequence:@[fadeOut, [fadeOut reversedAction]]]]];
+
+        AMBPatient *patient = (AMBPatient *)objectToSpawn;
+        patient.miniPatient = miniPatient;
         
-    NSLog(@"Adding indicator for target");
+        [patient changeState:PatientIsWaitingForPickup];
+            
+        NSLog(@"Adding indicator for target");
     }
     
 //#if DEBUG

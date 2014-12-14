@@ -54,6 +54,7 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
     [_targetObjects enumerateObjectsUsingBlock:^(id arrObj, NSUInteger idx, BOOL *stop) {
         id targetObject = [arrObj valueForKey:@"target"];
         if ([targetObject isEqualTo:object]) {
+            [arrObj[@"indicator"] removeFromParent];
             [_targetObjects removeObjectAtIndex:idx];
             *stop = YES;
         }
@@ -82,19 +83,6 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
             }];
             
         } else {
-//            // hide if it's too far away
-//            if ([indicator.name isEqualToString:@"osi_fuel"]) {
-//                SKNode *targetObj = (SKNode *)targetObject;
-//
-//                // indicator position will always be 0,0
-//                CGFloat dist = CGPointLength(CGPointSubtract(targetObj.position, indicator.position));
-//                NSLog(@"fuel dist=%1.5f",dist);
-//                if (dist > 6000) {
-//                    indicator.hidden = YES;
-//                }
-//            } else  {
-//                indicator.hidden = NO;
-//            }
             indicator.hidden = NO;
 
             [indicator runAction:[SKAction fadeInWithDuration:OSI_DUR_FADE_IN]]; // TODO: wtf, this is running every frame! bad coding!
@@ -102,6 +90,14 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
             indicator.position = [self calculateIndicatorPositionForTarget:targetObject];
             indicator.zRotation = atan2f(indicator.position.y, indicator.position.x);
             
+            SKSpriteNode *targetObjSprite = targetObject;
+
+            if (targetObjSprite.parent == nil) {
+#if DEBUG_INDICATOR
+                NSLog(@"Removing indicator for target");
+#endif
+                [self removeTarget:targetObject];
+            }
             
             
         }

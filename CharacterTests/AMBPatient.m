@@ -35,6 +35,7 @@
 
 @implementation AMBPatient {
     NSTimeInterval patientTTL;
+    SKLabelNode *debugPatientTTL;
 }
 
 #pragma mark Assets
@@ -71,9 +72,17 @@
 
         self.severity = severity;
         self.state = PatientIsWaitingForPickup;
-        patientTTL = 30; // temp set ttl
+        //patientTTL = 30; // temp set ttl
         [self storePatientUserData];
 
+        
+#if DEBUG_PATIENT
+        debugPatientTTL = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+        debugPatientTTL.text = [NSString stringWithFormat:@"%1.0f",patientTTL];
+        debugPatientTTL.fontColor = [SKColor yellowColor];
+        [self addChild:debugPatientTTL];
+#endif
+        
     }
     
     return self;
@@ -89,10 +98,11 @@
     patientTTL = [self.userData[@"timeToLive"]doubleValue] - (CACurrentMediaTime() - self.spawnTime);
     NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
     
+#if DEBUG_PATIENT
+    NSLog(@"patient ttl=%1.5f",patientTTL);
+    debugPatientTTL.text = [NSString stringWithFormat:@"%1.0f",patientTTL];
     
-
-    //[self.userData setObject:ttl forKey:@"timeToLive"];
-
+#endif
 
     if (patientTTL <= 0)   {
         [self changeState:PatientIsDead];
@@ -109,12 +119,13 @@
     
     switch (_state) {
         case PatientIsWaitingForPickup:
+            self.spawnTime = CACurrentMediaTime(); // reset spawn time when a copy is made
             break;
         
         case PatientIsEnRoute:
             self.hidden = YES;
             
-            #if DEBUG
+            #if DEBUG_PATIENT
                 NSLog(@"patient is EN-ROUTE!");
             #endif
             break;
@@ -124,9 +135,11 @@
             break;
             
         case PatientIsDead:
+            [self.miniPatient removeFromParent];
+            
             [self removeFromParent];
 
-            #if DEBUG
+            #if DEBUG_PATIENT
                 NSLog(@"patient has DIED!!");
             #endif
             
@@ -148,7 +161,7 @@
     switch (self.severity) {
         case LevelOne:
             medicalSupplies = 5;
-            timeToLive = 60;
+            timeToLive = 10;
             points = 100;
             break;
         

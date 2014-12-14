@@ -114,7 +114,7 @@ static const int TILE_LANE_WIDTH = 32;
         angle += (2 * M_PI);
     }
     
-    NSLog(@"angle=%f",RadiansToDegrees(angle));
+    //NSLog(@"angle=%f",RadiansToDegrees(angle));
     
     SKAction *rotateSprite = [SKAction rotateToAngle:angle duration:self.pivotSpeed];
     [sprite runAction:rotateSprite completion:^(void) {
@@ -132,11 +132,11 @@ static const int TILE_LANE_WIDTH = 32;
         self.direction = CGPointMake(self.direction.y, 0);
     }
     
-    NSLog(@"vector=%1.0f,%1.0f|z rotation=%1.5f",self.direction.x, self.direction.y,sprite.zRotation);
+    //NSLog(@"vector=%1.0f,%1.0f|z rotation=%1.5f",self.direction.x, self.direction.y,sprite.zRotation);
 }
 
 - (void)moveBy:(CGVector)targetOffset {
-    NSLog(@"<moveBy>");
+    //NSLog(@"<moveBy>");
     if ([self actionForKey:@"moveBy"]) { return; }
     
     SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
