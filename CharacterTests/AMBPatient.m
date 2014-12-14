@@ -124,7 +124,7 @@
         
         case PatientIsEnRoute:
             self.hidden = YES;
-            
+            [self.miniPatient removeFromParent];
             #if DEBUG_PATIENT
                 NSLog(@"patient is EN-ROUTE!");
             #endif
