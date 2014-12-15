@@ -7,7 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-@class JSTileMap; // for declaring miniMap below
+
 
 typedef enum {
     CameraIsIdle,
@@ -26,7 +26,7 @@ typedef enum {
 @property (nonatomic) CGFloat currentOffset; // will be set with either the value of idleOffset or activeOffset when the CameraIsReframing
 @property (nonatomic) CameraState state;
 @property (readonly, nonatomic) CGFloat rotation; // the effective rotation of the camera; since it's the tilemap that actually rotates, this can be used in situations where you need to calculate coordinates as if the camera has been rotated (e.g. the onscreen indicators)
-@property JSTileMap *miniMap; // declared here so we can access it to rotate it
+@property SKSpriteNode *miniMap; // declared here so we can access it to rotate it
 
 - (instancetype)initWithTargetSprite:(SKNode *)targetSprite;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;

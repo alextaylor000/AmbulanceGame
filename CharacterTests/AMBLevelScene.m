@@ -32,7 +32,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 @property AMBSpawner *spawnerTest;
 
 
-
+@property SKSpriteNode *miniMapContainer; // the sprite node that holds the minimap, so we can rotate it easily
 @property SKSpriteNode *miniPlayer; // for the minimap
 @property SKSpriteNode *miniHospital;
 
@@ -95,7 +95,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         _camera.zPosition = 999;
         [_tilemap addChild:_camera];
         
-        _camera.miniMap = _miniMap; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
+        _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap container so it can rotate it at the same time as the real world
         
         // scoring
         _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
@@ -136,18 +136,30 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 }
 
 - (void)createMinimap {
+    
+
+    
     _miniMap = [JSTileMap mapNamed:LEVEL_NAME];
-    [_miniMap setScale:0.01]; // 1% scale
+    [_miniMap setScale:0.0125]; // 1.25% scale on this map should be 128x128 minimap (because map is 40 tiles squared * 256 pixels per tile)
     _miniMap.zPosition = 1000;
-    _miniMap.position = CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
+//    _miniMap.position = CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
 
-    [self addChild:_miniMap];
+    _miniMapContainer = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(150,150)];
+    _miniMapContainer.anchorPoint = CGPointMake(0.5, 0.5);
+    _miniMap.position = CGPointZero;
+//    minimapContainer.position =CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
+    _miniMap.position = CGPointMake(-64,-64);
+//    [self addChild:_miniMap];
+    [_miniMapContainer addChild:_miniMap];
+    _miniMapContainer.position = CGPointMake(-400, 300);
+    [self addChild:_miniMapContainer];
 
+    
+    //[minimapContainer runAction:[SKAction rotateByAngle:DegreesToRadians(90) duration:5]];
     
     _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withScale:1.0];
-    
-    
-    
+
+
 
     
 }
