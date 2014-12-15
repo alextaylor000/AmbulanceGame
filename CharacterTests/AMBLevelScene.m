@@ -32,7 +32,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 @property AMBSpawner *spawnerTest;
 
 
-@property JSTileMap *miniMap; // the minimap!
+
 @property SKSpriteNode *miniPlayer; // for the minimap
 @property SKSpriteNode *miniHospital;
 
@@ -95,6 +95,8 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         _camera.zPosition = 999;
         [_tilemap addChild:_camera];
         
+        _camera.miniMap = _miniMap; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
+        
         // scoring
         _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
         _scoreKeeper.scene = self;
@@ -138,10 +140,15 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     [_miniMap setScale:0.01]; // 1% scale
     _miniMap.zPosition = 1000;
     _miniMap.position = CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
+
     [self addChild:_miniMap];
 
     
     _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withScale:1.0];
+    
+    
+    
+
     
 }
 

@@ -21,6 +21,7 @@
 @property (readonly, nonatomic) TMXLayer *mapLayerRoad; // road layer and characters
 @property (readonly, nonatomic) TMXLayer *mapLayerScenery; // for buildings, grass, etc.
 @property (readonly, nonatomic) TMXLayer *mapLayerTraffic; // for placement of traffic - will be hidden during gameplay
+@property JSTileMap *miniMap; // the minimap!
 
 @property AMBCamera *camera;
 
@@ -43,11 +44,16 @@
 
 @property AMBIndicator *indicator;
 
+
+
 #pragma mark Methods
 /** Loads a tilemap from disk and sets up all the layers.*/
 - (void)levelWithTilemap:(NSString *)tilemapFile;
 
 - (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withScale:(CGFloat)scale; // for adding patients to the minimap from the spawner class
+
+/** rotates the minimap when the camera rotates. called by the rotation method in the camera class. */
+- (void)rotateMinimapWithAction:(SKAction *)action;
 
 
 

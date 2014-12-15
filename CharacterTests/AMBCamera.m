@@ -39,6 +39,7 @@
         _activeOffset = 0; // previously 200
         _state = CameraIsIdle;
         
+        
         // set initial position to center on the target sprite
         self.position = _targetSprite.position;
         
@@ -155,13 +156,16 @@
 
 
 - (void)rotateByAngle:(CGFloat)degrees {
+    
     SKNode *parentNode = self.parent.parent; // should be world node
-
+    
     SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(degrees*-1) duration:0.65];
     rotate.timingMode = SKActionTimingEaseOut;
     
+    
     _updateCameraRotation = YES;
     [parentNode runAction:rotate completion:^(void){ _updateCameraRotation = NO; }];
+    [_miniMap runAction:rotate];
 
     
 }
