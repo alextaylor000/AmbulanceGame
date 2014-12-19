@@ -165,7 +165,7 @@
     
     _updateCameraRotation = YES;
     [parentNode runAction:rotate completion:^(void){ _updateCameraRotation = NO; }];
-    [_miniMap runAction:rotate];
+    // [_miniMap runAction:rotate];
 
     
 }

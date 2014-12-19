@@ -98,7 +98,8 @@
     // add indicator here
     if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
 #if DEBUG_PATIENT
-        NSLog(@"Spawning patient");
+        
+        NSLog(@"[patient] Spawning patient '%@'...", objectToSpawn.name);
 #endif
         
         [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
@@ -112,8 +113,9 @@
         patient.miniPatient = miniPatient;
         
         [patient changeState:PatientIsWaitingForPickup];
-            
+#if DEBUG_INDICATOR
         NSLog(@"Adding indicator for target");
+#endif
     }
     
 //#if DEBUG

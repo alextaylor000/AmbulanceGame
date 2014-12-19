@@ -44,7 +44,7 @@
 
 @property AMBIndicator *indicator;
 
-
+@property NSTimeInterval gameStartTime; // when the game started (init)
 
 #pragma mark Methods
 /** Loads a tilemap from disk and sets up all the layers.*/

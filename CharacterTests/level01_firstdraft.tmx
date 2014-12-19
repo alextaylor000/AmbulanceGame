@@ -274,7 +274,7 @@
  </layer>
  <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmFkKwzAMRN29dG+63v+kFZRCqshkzDipqSWYDw+WePESxwkhf+xFhwHq5grn42IIvrlo0tJStVO8o+hE5G8MvnVPO8WLjR9T0/nq4luE7rqdgl5sf6D5O4Cv9PFzPs4rjU/vB3Qt+/6wPefjvNL4GtG5Jd1O8S6iK5HfGHxP0aMl3U7RTXQ3fKTmp0/fmFpjjEbK/KJ9nO+/+ZDzjb0f6ZpWrnW2WdxjvP/Qekyu83G5v+Ib436Efvsxz+bzy+U63ztW4XudbkN37aJebH/ovlbuLMKXM2r8f5ozauJ7ASuWEDI=
+   eJztmOsKwyAMhV2hY7B1l667vP+TLjAGkkV65NhOZgLnhwcjX6O21RDKxyA6LjBuqXA+Lpbg60SbSFvVzvFOojOR3xl8u5l2jpeqHzOm87XF1wd73SJean+g+QeAr/b6OR/n1can9wO6ln1/2J7zcV5tfKPoEkm3c7yraCLyR4PvKXpE0u0c3UR3w0fG/PSZq6lVYzRy5hft43z/zYd839jzEXIGs75tFvca7z90PCbX+bjcX/GtcT5C//2YZ/P55XKd7x16re7D99pFvdT+0H2tXOturXS0eH9aMlriewE9LxAi
   </data>
  </layer>
  <layer name="spawn_traffic" width="40" height="40">
@@ -283,83 +283,47 @@
   </data>
  </layer>
  <objectgroup name="spawn_player">
-  <object name="player.spawn" type="player.spawn" x="2816" y="3584" width="256" height="256"/>
-  <object name="player.spawn" type="player.spawn" x="2816" y="3584" width="256" height="256"/>
+  <object name="player.spawn" type="player.spawn" x="4125.45" y="4395.57" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="spawn_patients">
-  <object name="patient" type="patient.spawn" x="1536" y="3840" width="256" height="256">
+  <object name="patient_01" type="patient.spawn" x="1536" y="3840" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="5"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient" type="patient.spawn" x="4114" y="4599" width="256" height="256">
+  <object name="patient_02" type="patient.spawn" x="6941.56" y="1193.8" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="25"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient" type="patient.spawn" x="8192" y="3584" width="256" height="256">
+  <object name="patient_03" type="patient.spawn" x="9440" y="4649.33" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="45"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient" type="patient.spawn" x="6144" y="7680" width="256" height="256">
+  <object name="patient_04" type="patient.spawn" x="4908" y="8932" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="65"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
-  <object name="patient" type="patient.spawn" x="2816" y="6400" width="256" height="256">
+  <object name="patient_05" type="patient.spawn" x="8521.33" y="8928" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="85"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
-  <object name="patient" type="patient.spawn" x="2816" y="2304" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="105"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="2"/>
-   </properties>
-  </object>
-  <object name="patient" type="patient.spawn" x="8448" y="8960" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="125"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="3"/>
-   </properties>
-  </object>
-  <object name="patient" type="patient.spawn" x="1536" y="7424" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="145"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="3"/>
-   </properties>
-  </object>
-  <object name="patient" type="patient.spawn" x="6912" y="1792" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="165"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="3"/>
-   </properties>
-  </object>
-  <object name="patient" type="patient.spawn" x="7936" y="6656" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="185"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="3"/>
-   </properties>
-  </object>
  </objectgroup>
  <objectgroup name="spawn_hospitals">
-  <object name="hospital01" type="hospital" x="3072" y="3328" width="256" height="256"/>
+  <object name="hospital01" type="hospital" x="4353" y="4354.2" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="spawn_powerups">
   <object name="fuel.spawn" type="fuel.spawn" x="1792" y="2304" width="256" height="256">

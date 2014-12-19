@@ -74,7 +74,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     
     _scoreKeeper = [AMBScoreKeeper sharedInstance]; // hook up the shared instance of the score keeper so we can talk to it
     
-    _fuel = 3;
+    _fuel = 99;
     
     return self;
 }
@@ -101,7 +101,9 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
         if (now - _fuelTimer > FUEL_TIMER_INCREMENT) {
             _fuelTimer = now;
             _fuel--; // decrement fuel
+#if DEBUG_FUEL
             NSLog(@"fuel is now %f",_fuel);
+#endif
 
             
             owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];

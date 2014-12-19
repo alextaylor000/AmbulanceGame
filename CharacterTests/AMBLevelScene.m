@@ -18,7 +18,7 @@
 
 #define kNumberCars   15
 
-static const float KEY_PRESS_INTERVAL_SECS = 0.1; // ignore key presses more frequent than this interval
+static const float KEY_PRESS_INTERVAL_SECS = 0.2; // ignore key presses more frequent than this interval
 static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 
 
@@ -50,6 +50,8 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 @property CGFloat turnDegrees;
 
 @property (nonatomic) NSMutableArray *spawners; // store an array of all the spawners in order to update them on every frame
+
+@property SKLabelNode *labelClock;
 
 
 @end
@@ -104,6 +106,13 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
         [self addChild:labelScore];
      
+        // clock... for testing at the moment, but who knows...?
+        _labelClock = [SKLabelNode labelNodeWithFontNamed:@"Courier"];
+        _labelClock.text = @"00:00";
+        _labelClock.position = CGPointMake(-self.size.width/2 + 100, -self.size.height/2 + 90);
+        [self addChild:_labelClock];
+        
+        
         
         // fuel
         _fuelStatus = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
@@ -130,6 +139,11 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 #if DEBUG
         NSLog(@"[[   SCORE:  %ld   ]]", _scoreKeeper.score);
 #endif
+        
+        // start the clock
+        _gameStartTime = CACurrentMediaTime();
+
+
         
     }
     return self;
@@ -232,7 +246,15 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 }
 
 -(void)update:(CFTimeInterval)currentTime {
+    
     [self calcDelta:currentTime];
+    
+    // update the clock
+    
+    CGFloat seconds = currentTime - _gameStartTime; // Modulo (%) operator below needs int or long
+    
+    _labelClock.text = [NSString stringWithFormat:@"%1.2f",seconds];
+
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
@@ -785,7 +807,9 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     
     if (self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) return;
     
+#if DEBUG_PLAYER_CONTROL
     NSLog(@"<keypress>");
+#endif
     
     if ([theEvent modifierFlags] & NSNumericPadKeyMask) { // arrow keys
         _lastKeyPress = self.sceneLastUpdate;

@@ -184,6 +184,13 @@ static const int TILE_LANE_WIDTH = 32;
     
     SKSpriteNode *currentTile = [self.levelScene.mapLayerRoad tileAt:self.position];
 //    _currentTileProperties = [self.levelScene.tilemap propertiesForGid:[self.levelScene.mapLayerRoad tileGidAt:self.position]]; // moved this into update so we can get it every frame, since I'd like to check if traffic is on an intersection or not
+    
+    // catch bug for nil currentTile (can happen when traffic drives off the map)
+    if (!currentTile) {
+        NSLog(@"currentTile is nil - returning from method");
+        return;
+    }
+    
     CGPoint playerPosInTile = [currentTile convertPoint:self.position fromNode:self.levelScene.tilemap];
     
     BOOL isWithinBounds;
@@ -210,9 +217,13 @@ static const int TILE_LANE_WIDTH = 32;
         
         if (isWithinBounds) {
             [self rotateByAngle:degrees];
-            
             if ([self.name isEqualToString:@"player"]) {
                 [self.levelScene.camera rotateByAngle:degrees];
+#if DEBUG_PLAYER_CONTROL
+                
+                NSLog(@"turning and returning");
+#endif
+                
             }
             
             
@@ -274,6 +285,13 @@ static const int TILE_LANE_WIDTH = 32;
     if (isWithinBounds) {
         [self moveBy:targetOffset];
         _requestedMoveEvent = NO;
+        
+#if DEBUG_PLAYER_CONTROL
+        if ([self.name isEqualToString:@"player"]) {
+            NSLog(@"lane change");
+        }
+#endif
+        
         return;
     }
     

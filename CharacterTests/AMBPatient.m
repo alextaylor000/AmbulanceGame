@@ -74,7 +74,6 @@
 
         self.severity = severity;
         self.state = PatientIsWaitingForPickup;
-        //patientTTL = 30; // temp set ttl
         [self storePatientUserData];
 
         
@@ -95,7 +94,6 @@
     NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
     
 #if DEBUG_PATIENT
-    NSLog(@"patient ttl=%1.5f",patientTTL);
     debugPatientTTL.text = [NSString stringWithFormat:@"%1.0f",patientTTL];
     
 #endif
@@ -131,7 +129,7 @@
             self.hidden = YES;
             [self.miniPatient removeFromParent];
             #if DEBUG_PATIENT
-                NSLog(@"patient is EN-ROUTE!");
+                NSLog(@"[patient] patient is EN-ROUTE!");
             #endif
             break;
             
@@ -139,6 +137,9 @@
             [scoreKeeper eventLabelWithText:@"PATIENT DELIVERED! +points"];            
             [self removeFromParent];
             
+#if DEBUG_PATIENT
+            NSLog(@"[patient] Patient DELIVERED. Time remaining: %1.0f", patientTTL);
+#endif
 
             break;
             
@@ -149,7 +150,7 @@
             [self removeFromParent];
 
             #if DEBUG_PATIENT
-                NSLog(@"patient has DIED!!");
+                NSLog(@"[patient] patient has DIED!!");
             #endif
             
 
@@ -190,7 +191,7 @@
     switch (self.severity) {
         case LevelOne:
             medicalSupplies = 5;
-            timeToLive = 10;
+            timeToLive = 40;
             points = 100;
             break;
         
