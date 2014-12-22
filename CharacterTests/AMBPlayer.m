@@ -15,6 +15,17 @@
 
 static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decremented
 
+// control state enum
+typedef enum {
+    PlayerIsStopped,
+    PlayerIsAccelerating,
+    PlayerIsDecelerating,
+    PlayerIsDrivingStraight,
+    PlayerIsTurning,
+    PlayerIsChangingLanes
+} PlayerControlState;
+
+
 
 @interface AMBPlayer ()
 
@@ -25,6 +36,8 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 @property SKAction *sirensOn;
 @property AMBScoreKeeper *scoreKeeper;
 @property NSTimeInterval fuelTimer; // times when the fuel started being depleted by startMoving
+
+@property PlayerControlState controlState;
 
 @end
 
@@ -75,6 +88,8 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     _scoreKeeper = [AMBScoreKeeper sharedInstance]; // hook up the shared instance of the score keeper so we can talk to it
     
     _fuel = 99;
+    
+    self.controlState = PlayerIsStopped;
     
     return self;
 }
@@ -241,6 +256,138 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     _fuelTimer = CACurrentMediaTime();
     NSLog(@"started fuel timer");
 }
+
+
+- (void)handleInput:(PlayerControls)input keyDown:(BOOL)keyDown {
+
+    NSString *message; // for debug only
+
+    
+    switch (_controlState) {
+        case PlayerIsStopped:
+            
+            // valid inputs: <UP>
+            if (input == PlayerControlsStartMoving) {
+                [self startMoving];
+                _controlState = PlayerIsAccelerating;
+                message = @"[control] PlayerIsStopped -> handleInput:startMoving -> PlayerIsAccelerating";
+            }
+            
+            break;
+    
+        case PlayerIsAccelerating:
+            
+            // valid inputs: <DOWN>,<LEFT>,<RIGHT>
+            if (input == PlayerControlsStopMoving) {
+                [self stopMoving];
+                _controlState = PlayerIsDecelerating;
+                message = @"[control] PlayerIsAccelerating -> handleInput:stopMoving -> PlayerIsDecelerating";
+                
+            } else if   (input == PlayerControlsTurnLeft) {
+                [self authorizeMoveEvent:90];
+                _controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsAccelerating -> handleInput:turnLeft -> PlayerIsTurning";
+                
+            } else if   (input == PlayerControlsTurnRight) {
+                [self authorizeMoveEvent:-90];
+                _controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsAccelerating -> handleInput:turnRight -> PlayerIsTurning";
+            }
+            
+            break;
+            
+        case PlayerIsDecelerating:
+            
+            // valid inputs: <UP>,<LEFT>,<RIGHT>
+            if (input == PlayerControlsStartMoving) {
+                [self startMoving];
+                _controlState = PlayerIsAccelerating;
+                message = @"[control] PlayerIsDecelerating -> handleInput:startMoving -> PlayerIsAccelerating";
+                
+            } else if   (input == PlayerControlsTurnLeft) {
+                [self authorizeMoveEvent:90];
+                _controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsDecelerating -> handleInput:turnLeft -> PlayerIsTurning";
+                
+            } else if   (input == PlayerControlsTurnRight) {
+                [self authorizeMoveEvent:-90];
+                _controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsDecelerating -> handleInput:turnRight -> PlayerIsTurning";
+            }
+
+            break;
+            
+        case PlayerIsDrivingStraight:
+            
+            // valid inputs: <DOWN>,<LEFT>,<RIGHT>
+            if (input == PlayerControlsStopMoving) {
+                [self stopMoving];
+                _controlState = PlayerIsDecelerating;
+                message = @"[control] PlayerIsDrivingStraight -> handleInput:stopMoving -> PlayerIsDecelerating";
+                
+            } else if   (input == PlayerControlsTurnLeft) {
+                [self authorizeMoveEvent:90];
+                _controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsDrivingStraight -> handleInput:turnLeft -> PlayerIsTurning";
+                
+            } else if   (input == PlayerControlsTurnRight) {
+                [self authorizeMoveEvent:-90];
+                _controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsDrivingStraight -> handleInput:turnRight -> PlayerIsTurning";
+            }
+            
+            break;
+
+        case PlayerIsTurning:
+            
+            // valid inputs: none
+            // authorizeMoveEvent will be overridden in the Player class to change its state when complete
+            message = @"[control] PlayerIsTurning -> nil";
+            
+            break;
+
+        case PlayerIsChangingLanes:
+            
+            // valid inputs: <DOWN>,<LEFT>,<RIGHT>
+            if (input == PlayerControlsStopMoving) {
+                [self stopMoving];
+                _controlState = PlayerIsDecelerating;
+                message = @"[control] PlayerIsChangingLanes -> handleInput:stopMoving -> PlayerIsDecelerating";
+            }
+            
+            if (keyDown) {
+                if   (input == PlayerControlsTurnLeft) {
+                    [self authorizeMoveEvent:90];
+                    message = @"[control] PlayerIsChangingLanes -> handleInput:keyDOWN/turnLeft";
+                    
+                } else if   (input == PlayerControlsTurnRight) {
+                    [self authorizeMoveEvent:-90];
+                    message = @"[control] PlayerIsChangingLanes -> handleInput:keyDOWN/turnRight";
+                }
+
+                
+                
+            } else if (!keyDown) {
+                if   (input == PlayerControlsTurnLeft) {
+                    [self authorizeMoveEvent:90];
+                    _controlState = PlayerIsDrivingStraight;
+                    message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnLeft";
+                    
+                } else if   (input == PlayerControlsTurnRight) {
+                    [self authorizeMoveEvent:-90];
+                    _controlState = PlayerIsDrivingStraight;
+                    message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnRight";                                        
+                }
+                
+            }
+            
+            
+            break;
+            
+    }
+    
+}
+
 
 
 @end

@@ -140,7 +140,7 @@ static const int TILE_LANE_WIDTH = 32;
     if ([self actionForKey:@"moveBy"]) { return; }
     
     SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
-    changeLanes.timingMode = SKActionTimingEaseInEaseOut;
+    //changeLanes.timingMode = SKActionTimingEaseInEaseOut;
     [self runAction:changeLanes withKey:@"moveBy"];
     
 }

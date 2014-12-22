@@ -592,8 +592,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"DEBUG=0",
-					"DEBUG_PATIENT=1",
-					"DEBUG_PLAYER_CONTROL=0",
+					"DEBUG_PATIENT=0",
+					"DEBUG_PLAYER_CONTROL=1",
 					"DEBUG_INDICATOR=0",
 					"DEBUG_FUEL=0",
 				);

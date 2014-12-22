@@ -15,6 +15,13 @@ typedef enum {
     AmbulanceIsEmpty
 } AmbulanceState;
 
+typedef enum {
+    PlayerControlsStartMoving,
+    PlayerControlsStopMoving,
+    PlayerControlsTurnLeft,
+    PlayerControlsTurnRight
+} PlayerControls;
+
 
 @interface AMBPlayer : AMBMovingCharacter
 
@@ -25,4 +32,5 @@ typedef enum {
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;
 - (BOOL)unloadPatient;
+- (void)handleInput:(PlayerControls)input keyDown:(BOOL)keyDown;
 @end

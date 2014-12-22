@@ -402,7 +402,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
                 CGPoint point = [_mapLayerTraffic pointForCoord:coord];
                 center = CGPointAdd(center, point);
 
-                NSLog(@"Adding traffic object at %1.0f,%1.0f",center.x,center.y);
+//                NSLog(@"Adding traffic object at %1.0f,%1.0f",center.x,center.y);
                 [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"] shouldTurnAtIntersections:YES];
             }
 
@@ -805,11 +805,8 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 #pragma mark Controls
 - (void)handleKeyboardEvent: (NSEvent *)theEvent keyDown:(BOOL)downOrUp {
     
-    if (self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) return;
+//    if (self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) return;
     
-#if DEBUG_PLAYER_CONTROL
-    NSLog(@"<keypress>");
-#endif
     
     if ([theEvent modifierFlags] & NSNumericPadKeyMask) { // arrow keys
         _lastKeyPress = self.sceneLastUpdate;
@@ -820,24 +817,28 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         
         if ([theArrow length] == 1) {
             keyChar = [theArrow characterAtIndex:0];
+
+            
             
             switch (keyChar) {
                 case NSUpArrowFunctionKey:
-                    [_player startMoving];
+//                    [_player startMoving];
+                    [_player handleInput:PlayerControlsStartMoving keyDown:downOrUp];
                     break;
                     
                 case NSLeftArrowFunctionKey:
-                    [_player authorizeMoveEvent:90];
-                    
+//                    [_player authorizeMoveEvent:90];
+                    [_player handleInput:PlayerControlsTurnLeft keyDown:downOrUp];
                     break;
                     
                 case NSRightArrowFunctionKey:
-                    [_player authorizeMoveEvent:-90];
-                    
+//                    [_player authorizeMoveEvent:-90];
+                    [_player handleInput:PlayerControlsTurnRight keyDown:downOrUp];
                     break;
                     
                 case NSDownArrowFunctionKey:
-                    [_player stopMoving];
+//                    [_player stopMoving];
+                    [_player handleInput:PlayerControlsStopMoving keyDown:downOrUp];
                     break;
                 
                     
