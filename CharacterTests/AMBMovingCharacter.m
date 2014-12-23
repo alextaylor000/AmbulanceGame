@@ -146,7 +146,7 @@ static const int TILE_LANE_WIDTH = 32;
         
     }];
     
-    SKAction *wait = [SKAction waitForDuration:0.25]; // wait this duration before being allowed to change lanes
+    SKAction *wait = [SKAction waitForDuration:0.35]; // wait this duration before being allowed to change lanes
     [sprite runAction:wait completion:^(void){
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsDrivingStraight;
@@ -260,6 +260,7 @@ static const int TILE_LANE_WIDTH = 32;
         isWithinBounds = [self isTargetPointValid:targetPoint];
         
         if (isWithinBounds) {
+            self.controlState = PlayerIsTurning;
             [self rotateByAngle:degrees];
             if ([self.name isEqualToString:@"player"]) {
                 [self.levelScene.camera rotateByAngle:degrees];

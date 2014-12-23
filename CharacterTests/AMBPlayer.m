@@ -95,10 +95,11 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     
 
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
-    
-    if (self.requestedMoveEvent && self.levelScene.sceneLastUpdate - self.levelScene.lastKeyPress < TURN_BUFFER) {
-        [self authorizeMoveEvent:self.requestedMoveEventDegrees];
-    }
+
+    // removed this in favour of allowing the player to hold down the turn button to accomplish the same thing
+//    if (self.requestedMoveEvent && self.levelScene.sceneLastUpdate - self.levelScene.lastKeyPress < TURN_BUFFER) {
+//        [self authorizeMoveEvent:self.requestedMoveEventDegrees];
+//    }
     
     // update the patient timer
     if (self.patient) {
@@ -276,9 +277,6 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 message = @"[control] PlayerIsStopped -> handleInput:startMoving -> PlayerIsAccelerating";
                 [self printMessage:message];
                 [self startMoving];
-                
-
-                
             }
             
             break;
@@ -293,15 +291,15 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 [self stopMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
-                self.controlState = PlayerIsTurning;
-                message = @"[control] PlayerIsAccelerating -> handleInput:turnLeft -> PlayerIsTurning";
+//                self.controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsAccelerating -> handleInput:turnLeft";
                 [self printMessage:message];
                 [self authorizeMoveEvent:90];
 
                 
             } else if   (input == PlayerControlsTurnRight) {
-                self.controlState = PlayerIsTurning;
-                message = @"[control] PlayerIsAccelerating -> handleInput:turnRight -> PlayerIsTurning";
+//                self.controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsAccelerating -> handleInput:turnRight";
                 [self printMessage:message];
                 [self authorizeMoveEvent:-90];
             }
@@ -318,14 +316,14 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 [self startMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
-                self.controlState = PlayerIsTurning;
-                message = @"[control] PlayerIsDecelerating -> handleInput:turnLeft -> PlayerIsTurning";
+//                self.controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsDecelerating -> handleInput:turnLeft";
                 [self printMessage:message];
                 [self authorizeMoveEvent:90];
                 
             } else if   (input == PlayerControlsTurnRight) {
-                self.controlState = PlayerIsTurning;
-                message = @"[control] PlayerIsDecelerating -> handleInput:turnRight -> PlayerIsTurning";
+//                self.controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsDecelerating -> handleInput:turnRight";
                 [self printMessage:message];
                 [self authorizeMoveEvent:-90];
             }
@@ -342,14 +340,14 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 [self stopMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
-                self.controlState = PlayerIsTurning;
-                message = @"[control] PlayerIsDrivingStraight -> handleInput:turnLeft -> PlayerIsTurning";
+//                self.controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsDrivingStraight -> handleInput:turnLeft";
                 [self printMessage:message];
                 [self authorizeMoveEvent:90];
                 
             } else if   (input == PlayerControlsTurnRight) {
-                self.controlState = PlayerIsTurning;
-                message = @"[control] PlayerIsDrivingStraight -> handleInput:turnRight -> PlayerIsTurning";
+//                self.controlState = PlayerIsTurning;
+                message = @"[control] PlayerIsDrivingStraight -> handleInput:turnRight";
                 [self printMessage:message];
                 [self authorizeMoveEvent:-90];
 
