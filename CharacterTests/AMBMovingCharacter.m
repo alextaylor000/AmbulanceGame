@@ -404,8 +404,9 @@ static const int TILE_LANE_WIDTH = 32;
 - (void)changeLanes: (CGFloat)degrees {
     // "manual" player control, using the left or right controls slides the player over a set amount
     CGPoint laneChangeVector = CGPointRotate(self.direction, degrees);
-    CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 32*self.sceneDelta); // # of points to move
-
+    CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 256*self.sceneDelta); // # of points to move
+    CGVector moveVector = CGVectorMake(moveAmt.x, moveAmt.y);
+    [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
 }
 
 @end

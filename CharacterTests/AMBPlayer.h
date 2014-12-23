@@ -28,6 +28,7 @@ typedef enum {
 @property AmbulanceState state;
 @property AMBPatient *patient;
 @property CGFloat fuel;
+@property CGFloat laneChangeDegrees; // target degrees for lane change
 
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;

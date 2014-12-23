@@ -19,8 +19,8 @@
 #define kNumberCars   15
 
 static const float KEY_PRESS_INTERVAL_SECS = 0.2; // ignore key presses more frequent than this interval
-static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
-
+//static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
+static NSString * const LEVEL_NAME = @"test_controls.tmx";
 
 @interface AMBLevelScene ()
 

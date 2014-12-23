@@ -15,6 +15,7 @@
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
 		B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
+		B94CEF1E1A4A2EC800037DDA /* test_controls.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */; };
 		B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */ = {isa = PBXBuildFile; fileRef = B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */; };
 		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
@@ -87,6 +88,7 @@
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8bit_tileset_design_ver02.png; sourceTree = "<group>"; };
+		B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test_controls.tmx; sourceTree = "<group>"; };
 		B966BA701A2A9A9900145FA9 /* AMBTrafficVehicleState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicleState.h; sourceTree = "<group>"; };
 		B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicleState.m; sourceTree = "<group>"; };
 		B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01_with_spawn_points.tmx"; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 		B96A845219BAB723002E058B /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */,
 				B9C449551A30144700093CC4 /* level01_firstdraft.tmx */,
 				B97831491A198950002A10BC /* level01.tmx */,
 				B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */,
@@ -459,6 +462,7 @@
 				B9A4C30119CF501F00DE1ADA /* patient1.png in Resources */,
 				B9D840D31A31762D0073407C /* osi_patient.png in Resources */,
 				B97831431A190BF4002A10BC /* osi_hospital.png in Resources */,
+				B94CEF1E1A4A2EC800037DDA /* test_controls.tmx in Resources */,
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
 				B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */,

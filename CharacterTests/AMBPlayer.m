@@ -92,7 +92,9 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     
     
 
-    
+    if (self.controlState == PlayerIsChangingLanes) {
+        [self changeLanes:_laneChangeDegrees];
+    }
 
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
 
@@ -291,17 +293,16 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 [self stopMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
-//                self.controlState = PlayerIsTurning;
+                self.laneChangeDegrees = 90;
+                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsAccelerating -> handleInput:turnLeft";
                 [self printMessage:message];
-                [self authorizeMoveEvent:90];
-
                 
             } else if   (input == PlayerControlsTurnRight) {
-//                self.controlState = PlayerIsTurning;
+                self.laneChangeDegrees = -90;
+                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsAccelerating -> handleInput:turnRight";
                 [self printMessage:message];
-                [self authorizeMoveEvent:-90];
             }
             
             break;
@@ -316,16 +317,16 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 [self startMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
-//                self.controlState = PlayerIsTurning;
+                self.laneChangeDegrees = 90;
+                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDecelerating -> handleInput:turnLeft";
                 [self printMessage:message];
-                [self authorizeMoveEvent:90];
                 
             } else if   (input == PlayerControlsTurnRight) {
-//                self.controlState = PlayerIsTurning;
+                self.laneChangeDegrees = -90;
+                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDecelerating -> handleInput:turnRight";
                 [self printMessage:message];
-                [self authorizeMoveEvent:-90];
             }
 
             break;
@@ -340,17 +341,16 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 [self stopMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
-//                self.controlState = PlayerIsTurning;
+                self.laneChangeDegrees = 90;
+                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:turnLeft";
                 [self printMessage:message];
-                [self authorizeMoveEvent:90];
                 
             } else if   (input == PlayerControlsTurnRight) {
-//                self.controlState = PlayerIsTurning;
+                self.laneChangeDegrees = -90;
+                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:turnRight";
                 [self printMessage:message];
-                [self authorizeMoveEvent:-90];
-
             }
             
             break;
@@ -374,21 +374,20 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             }
             
             if (keyDown) {
+                // TODO: these are actually redundant at the moment, since once this state is enabled it can only be disabled by a keyUp event.
                 if   (input == PlayerControlsTurnLeft) {
-                    [self authorizeMoveEvent:90];
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyDOWN/turnLeft";
                     [self printMessage:message];
                     
                 } else if   (input == PlayerControlsTurnRight) {
-                    [self authorizeMoveEvent:-90];
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyDOWN/turnRight";
                     [self printMessage:message];
                 }
-
                 
                 
             } else if (!keyDown) {
                 if   (input == PlayerControlsTurnLeft) {
+                    // TODO: consider changing this to ONLY change lanes on keyUp, not introduce the possibility of turning.
                     [self authorizeMoveEvent:90];
                     self.controlState = PlayerIsDrivingStraight;
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnLeft -> PlayerIsDrivingStraight";
