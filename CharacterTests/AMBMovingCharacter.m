@@ -281,7 +281,6 @@ static const int TILE_LANE_WIDTH = 32;
     // fall through to a lane change if the whole turning thing didn't work out
     
     CGPoint laneChangeVector = CGPointRotate(self.direction, degrees);
-    
     NSInteger remainder;
     CGFloat pos;  // the player's position in the tile, either the x or the y value
     CGFloat posNormalized ; // the player's position, normalized to the lane width
@@ -328,14 +327,15 @@ static const int TILE_LANE_WIDTH = 32;
     isWithinBounds = [self isTargetPointValid:targetPoint];
     
     if (isWithinBounds) {
+        self.controlState = PlayerIsChangingLanes;
         [self moveBy:targetOffset];
         _requestedMoveEvent = NO;
         
-#if DEBUG_PLAYER_CONTROL
-        if ([self.name isEqualToString:@"player"]) {
-            NSLog(@"lane change");
-        }
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//        if ([self.name isEqualToString:@"player"]) {
+//            NSLog(@"lane change");
+//        }
+//#endif
         
         return;
     }
@@ -401,6 +401,11 @@ static const int TILE_LANE_WIDTH = 32;
     return pointIsValid;
 }
 
+- (void)changeLanes: (CGFloat)degrees {
+    // "manual" player control, using the left or right controls slides the player over a set amount
+    CGPoint laneChangeVector = CGPointRotate(self.direction, degrees);
+    CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 32*self.sceneDelta); // # of points to move
 
+}
 
 @end
