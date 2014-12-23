@@ -10,6 +10,17 @@
 #import "AMBCharacter.h"
 
 static const float TURN_BUFFER = 1; // attempt a turn every frame for this many seconds after initial keypress. this helps reduce the accuracy required to hit a corner just right.
+// control state enum
+typedef enum {
+    PlayerIsStopped,
+    PlayerIsAccelerating,
+    PlayerIsDecelerating,
+    PlayerIsDrivingStraight,
+    PlayerIsTurning,
+    PlayerIsChangingLanes
+} PlayerControlState;
+
+
 
 @interface AMBMovingCharacter : AMBCharacter
 
@@ -31,6 +42,7 @@ static const float TURN_BUFFER = 1; // attempt a turn every frame for this many 
 /** the current tile properties that the character is on. this allows us to ask each traffic vehicle if it's on an intersection. */
 @property (readonly, nonatomic) NSDictionary *currentTileProperties;
 
+@property PlayerControlState controlState;
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;

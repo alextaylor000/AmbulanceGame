@@ -15,15 +15,6 @@
 
 static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decremented
 
-// control state enum
-typedef enum {
-    PlayerIsStopped,
-    PlayerIsAccelerating,
-    PlayerIsDecelerating,
-    PlayerIsDrivingStraight,
-    PlayerIsTurning,
-    PlayerIsChangingLanes
-} PlayerControlState;
 
 
 
@@ -37,7 +28,6 @@ typedef enum {
 @property AMBScoreKeeper *scoreKeeper;
 @property NSTimeInterval fuelTimer; // times when the fuel started being depleted by startMoving
 
-@property PlayerControlState controlState;
 
 @end
 
@@ -91,12 +81,18 @@ typedef enum {
     
     self.controlState = PlayerIsStopped;
     
+    
+    
     return self;
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
+    
+    
+
+    
 
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
@@ -119,6 +115,7 @@ typedef enum {
 #if DEBUG_FUEL
             NSLog(@"fuel is now %f",_fuel);
 #endif
+            
 
             
             owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
@@ -252,25 +249,36 @@ typedef enum {
 - (void)startMoving {
     [super startMoving];
     
+    
     // update fuel counter
     _fuelTimer = CACurrentMediaTime();
+#if DEBUG_FUEL
     NSLog(@"started fuel timer");
+#endif
 }
 
+
+- (void)authorizeMoveEvent:(CGFloat)degrees {
+    [super authorizeMoveEvent:degrees];
+    
+}
 
 - (void)handleInput:(PlayerControls)input keyDown:(BOOL)keyDown {
 
     NSString *message; // for debug only
-
     
-    switch (_controlState) {
+    switch (self.controlState) {
         case PlayerIsStopped:
             
             // valid inputs: <UP>
             if (input == PlayerControlsStartMoving) {
-                [self startMoving];
-                _controlState = PlayerIsAccelerating;
+                self.controlState = PlayerIsAccelerating;
                 message = @"[control] PlayerIsStopped -> handleInput:startMoving -> PlayerIsAccelerating";
+                [self printMessage:message];
+                [self startMoving];
+                
+
+                
             }
             
             break;
@@ -279,19 +287,23 @@ typedef enum {
             
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStopMoving) {
-                [self stopMoving];
-                _controlState = PlayerIsDecelerating;
+                self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsAccelerating -> handleInput:stopMoving -> PlayerIsDecelerating";
+                [self printMessage:message];
+                [self stopMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
-                [self authorizeMoveEvent:90];
-                _controlState = PlayerIsTurning;
+                self.controlState = PlayerIsTurning;
                 message = @"[control] PlayerIsAccelerating -> handleInput:turnLeft -> PlayerIsTurning";
+                [self printMessage:message];
+                [self authorizeMoveEvent:90];
+
                 
             } else if   (input == PlayerControlsTurnRight) {
-                [self authorizeMoveEvent:-90];
-                _controlState = PlayerIsTurning;
+                self.controlState = PlayerIsTurning;
                 message = @"[control] PlayerIsAccelerating -> handleInput:turnRight -> PlayerIsTurning";
+                [self printMessage:message];
+                [self authorizeMoveEvent:-90];
             }
             
             break;
@@ -300,19 +312,22 @@ typedef enum {
             
             // valid inputs: <UP>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStartMoving) {
-                [self startMoving];
-                _controlState = PlayerIsAccelerating;
+                self.controlState = PlayerIsAccelerating;
                 message = @"[control] PlayerIsDecelerating -> handleInput:startMoving -> PlayerIsAccelerating";
+                [self printMessage:message];
+                [self startMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
-                [self authorizeMoveEvent:90];
-                _controlState = PlayerIsTurning;
+                self.controlState = PlayerIsTurning;
                 message = @"[control] PlayerIsDecelerating -> handleInput:turnLeft -> PlayerIsTurning";
+                [self printMessage:message];
+                [self authorizeMoveEvent:90];
                 
             } else if   (input == PlayerControlsTurnRight) {
-                [self authorizeMoveEvent:-90];
-                _controlState = PlayerIsTurning;
+                self.controlState = PlayerIsTurning;
                 message = @"[control] PlayerIsDecelerating -> handleInput:turnRight -> PlayerIsTurning";
+                [self printMessage:message];
+                [self authorizeMoveEvent:-90];
             }
 
             break;
@@ -321,19 +336,23 @@ typedef enum {
             
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStopMoving) {
-                [self stopMoving];
-                _controlState = PlayerIsDecelerating;
+                self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:stopMoving -> PlayerIsDecelerating";
+                [self printMessage:message];
+                [self stopMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
-                [self authorizeMoveEvent:90];
-                _controlState = PlayerIsTurning;
+                self.controlState = PlayerIsTurning;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:turnLeft -> PlayerIsTurning";
+                [self printMessage:message];
+                [self authorizeMoveEvent:90];
                 
             } else if   (input == PlayerControlsTurnRight) {
-                [self authorizeMoveEvent:-90];
-                _controlState = PlayerIsTurning;
+                self.controlState = PlayerIsTurning;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:turnRight -> PlayerIsTurning";
+                [self printMessage:message];
+                [self authorizeMoveEvent:-90];
+
             }
             
             break;
@@ -343,26 +362,29 @@ typedef enum {
             // valid inputs: none
             // authorizeMoveEvent will be overridden in the Player class to change its state when complete
             message = @"[control] PlayerIsTurning -> nil";
-            
+            [self printMessage:message];
             break;
 
         case PlayerIsChangingLanes:
             
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStopMoving) {
-                [self stopMoving];
-                _controlState = PlayerIsDecelerating;
+                self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsChangingLanes -> handleInput:stopMoving -> PlayerIsDecelerating";
+                [self printMessage:message];
+                [self stopMoving];
             }
             
             if (keyDown) {
                 if   (input == PlayerControlsTurnLeft) {
                     [self authorizeMoveEvent:90];
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyDOWN/turnLeft";
+                    [self printMessage:message];
                     
                 } else if   (input == PlayerControlsTurnRight) {
                     [self authorizeMoveEvent:-90];
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyDOWN/turnRight";
+                    [self printMessage:message];
                 }
 
                 
@@ -370,13 +392,15 @@ typedef enum {
             } else if (!keyDown) {
                 if   (input == PlayerControlsTurnLeft) {
                     [self authorizeMoveEvent:90];
-                    _controlState = PlayerIsDrivingStraight;
-                    message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnLeft";
+                    self.controlState = PlayerIsDrivingStraight;
+                    message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnLeft -> PlayerIsDrivingStraight";
+                    [self printMessage:message];
                     
                 } else if   (input == PlayerControlsTurnRight) {
                     [self authorizeMoveEvent:-90];
-                    _controlState = PlayerIsDrivingStraight;
-                    message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnRight";                                        
+                    self.controlState = PlayerIsDrivingStraight;
+                    message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnRight -> PlayerIsDrivingStraight";
+                    [self printMessage:message];
                 }
                 
             }
@@ -385,9 +409,15 @@ typedef enum {
             break;
             
     }
+   
     
 }
 
-
+- (void)printMessage:(NSString *)message {
+    #if DEBUG_PLAYER_CONTROL
+        NSLog(@"%@", message);
+    #endif
+    
+}
 
 @end

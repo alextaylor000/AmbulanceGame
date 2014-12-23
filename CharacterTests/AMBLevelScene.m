@@ -53,6 +53,10 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 
 @property SKLabelNode *labelClock;
 
+#if DEBUG_PLAYER_CONTROL
+@property SKLabelNode *controlStateLabel; // for the player
+#endif
+
 
 @end
 
@@ -74,6 +78,14 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         [self createWorld]; // set up tilemap
         [self addPlayer];
 
+#if DEBUG_PLAYER_CONTROL
+        _controlStateLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+        _controlStateLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+        _controlStateLabel.fontColor = [SKColor yellowColor];
+        _controlStateLabel.position = CGPointMake(-400,0);
+        _controlStateLabel.text = @"PlayerIsStopped";
+        [self addChild:_controlStateLabel];
+#endif
     
 
         
@@ -288,6 +300,30 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     
     // update minimap
     _miniPlayer.position = _player.position;
+    
+    
+#if DEBUG_PLAYER_CONTROL
+    switch (_player.controlState) {
+        case PlayerIsStopped:
+            _controlStateLabel.text = @"PlayerIsStopped";
+            break;
+        case PlayerIsDrivingStraight:
+            _controlStateLabel.text = @"PlayerIsDrivingStraight";
+            break;
+        case PlayerIsAccelerating:
+            _controlStateLabel.text = @"PlayerIsAccelerating";
+            break;
+        case PlayerIsChangingLanes:
+            _controlStateLabel.text = @"PlayerIsChangingLanes";
+            break;
+        case PlayerIsDecelerating:
+            _controlStateLabel.text = @"PlayerIsDecelerating";
+            break;
+        case PlayerIsTurning:
+            _controlStateLabel.text = @"PlayerIsTurning";
+            break;
+    }
+#endif
 }
 
 #pragma mark World Building

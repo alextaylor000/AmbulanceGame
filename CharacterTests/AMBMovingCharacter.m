@@ -11,6 +11,8 @@
 
 static const int TILE_LANE_WIDTH = 32;
 
+
+
 @interface AMBMovingCharacter ()
 
 
@@ -26,7 +28,7 @@ static const int TILE_LANE_WIDTH = 32;
     if (self = [super init]) {
         // set parameter defaults; to be overridden by subclasses
         self.speedPointsPerSec = 100.0;
-        self.pivotSpeed = 0;
+        self.pivotSpeed = 0.25;
         self.direction = CGPointMake(1, 0);
         self.accelTimeSeconds = 0.75;
         self.decelTimeSeconds = 0.35;
@@ -61,7 +63,16 @@ static const int TILE_LANE_WIDTH = 32;
         _characterSpeedMultiplier = t;
 
     }];
-    [self runAction:startMoving withKey:@"isMoving"];
+    [self runAction:startMoving completion:^(void){
+        if ([self.name isEqualToString:@"player"]) {
+            _controlState = PlayerIsDrivingStraight;
+            #if DEBUG_PLAYER_CONTROL
+
+                NSLog(@"[control] PlayerIsAccelerating -> startMoving -> PlayerIsDrivingStraight");
+            }
+            #endif
+    
+    }];
     
 
     
@@ -76,7 +87,18 @@ static const int TILE_LANE_WIDTH = 32;
         t = sinf(t * M_PI_2);
         _characterSpeedMultiplier = 1 - t;
     }];
-    [self runAction:stopMoving completion:^{self.isMoving = NO; self.speedPointsPerSec = 0;}];
+    [self runAction:stopMoving completion:^{
+        self.isMoving = NO;
+        self.speedPointsPerSec = 0;
+        
+        if ([self.name isEqualToString:@"player"]) {
+            _controlState = PlayerIsStopped;
+            #if DEBUG_PLAYER_CONTROL
+                    NSLog(@"[control] PlayerIsDecelerating -> stopMoving -> PlayerIsStopped");
+            #endif
+        }
+    
+    }];
     
     
 }
@@ -121,6 +143,18 @@ static const int TILE_LANE_WIDTH = 32;
         // update the direction of the sprite
         self.direction = CGPointForAngle(sprite.zRotation);
         
+        
+    }];
+    
+    SKAction *wait = [SKAction waitForDuration:0.25]; // wait this duration before being allowed to change lanes
+    [sprite runAction:wait completion:^(void){
+        if ([self.name isEqualToString:@"player"]) {
+            _controlState = PlayerIsDrivingStraight;
+#if DEBUG_PLAYER_CONTROL
+            NSLog(@"[control] PlayerIsTurning -> rotateByAngle -> PlayerIsDrivingStraight");
+#endif
+        }
+        
     }];
     
     
@@ -137,11 +171,21 @@ static const int TILE_LANE_WIDTH = 32;
 
 - (void)moveBy:(CGVector)targetOffset {
     //NSLog(@"<moveBy>");
-    if ([self actionForKey:@"moveBy"]) { return; }
+    //if ([self actionForKey:@"moveBy"]) { return; }
     
     SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
     //changeLanes.timingMode = SKActionTimingEaseInEaseOut;
-    [self runAction:changeLanes withKey:@"moveBy"];
+    [self runAction:changeLanes completion:^(void){
+
+        if ([self.name isEqualToString:@"player"]) {
+            _controlState = PlayerIsDrivingStraight;
+            #if DEBUG_PLAYER_CONTROL
+
+                NSLog(@"[control] PlayerIsChangingLanes -> moveBy -> PlayerIsDrivingStraight");
+            #endif
+        }
+
+    }];
     
 }
 
@@ -187,7 +231,7 @@ static const int TILE_LANE_WIDTH = 32;
     
     // catch bug for nil currentTile (can happen when traffic drives off the map)
     if (!currentTile) {
-        NSLog(@"currentTile is nil - returning from method");
+//        NSLog(@"currentTile is nil - returning from method");
         return;
     }
     
@@ -221,7 +265,7 @@ static const int TILE_LANE_WIDTH = 32;
                 [self.levelScene.camera rotateByAngle:degrees];
 #if DEBUG_PLAYER_CONTROL
                 
-                NSLog(@"turning and returning");
+                NSLog(@"[control]    Valid turn; executing rotateByAngle");
 #endif
                 
             }
@@ -313,13 +357,16 @@ static const int TILE_LANE_WIDTH = 32;
     NSString *targetTileRoadType = [self.levelScene.tilemap propertiesForGid:  [self.levelScene.mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
     CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:self.levelScene.tilemap]; // the position of the target within the target tile
     
-#if DEBUG
+#if DEBUG_PLAYER_CONTROL
     SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
     targetPointSprite.name = @"DEBUG_targetPointSprite";
     targetPointSprite.position = positionInTargetTile;
     targetPointSprite.zPosition = targetTile.zPosition + 1;
-    [targetTile addChild:targetPointSprite];
-    [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
+
+    if ([self.name isEqualToString:@"player"]) {
+        [targetTile addChild:targetPointSprite];
+        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
+    }
 #endif
     
     if (targetTileRoadType) {
@@ -329,19 +376,21 @@ static const int TILE_LANE_WIDTH = 32;
         
         pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
-#if DEBUG
-        if (pointIsValid) {
-            targetPointSprite.color = [SKColor greenColor];
+#if DEBUG_PLAYER_CONTROL
+        if ([self.name isEqualToString:@"player"]) {
+            if (pointIsValid) {
+                targetPointSprite.color = [SKColor greenColor];
+            }
+            
+            SKShapeNode *bounds = [SKShapeNode node];
+            bounds.path = path;
+            bounds.fillColor = [SKColor whiteColor];
+            bounds.alpha = 0.5;
+            bounds.zPosition = targetPointSprite.zPosition - 1;
+            
+            [targetTile addChild:bounds];
+            [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
         }
-        
-        SKShapeNode *bounds = [SKShapeNode node];
-        bounds.path = path;
-        bounds.fillColor = [SKColor whiteColor];
-        bounds.alpha = 0.5;
-        bounds.zPosition = targetPointSprite.zPosition - 1;
-        
-        [targetTile addChild:bounds];
-        [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
 #endif
         
         
