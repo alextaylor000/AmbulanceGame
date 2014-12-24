@@ -50,7 +50,7 @@ typedef enum {
 - (void)rotateByAngle:(CGFloat)degrees;
 - (void)moveBy:(CGVector)targetOffset;
 - (void)authorizeMoveEvent: (CGFloat)degrees;
-- (void)changeLanes: (CGFloat)degrees snapToLane:(BOOL)snap;
+- (void)changeLanes: (CGFloat)degrees;
 - (void)adjustSpeedToTarget:(CGFloat)targetSpeed;
 
 

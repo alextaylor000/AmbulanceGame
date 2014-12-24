@@ -93,7 +93,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     
 
     if (self.controlState == PlayerIsChangingLanes) {
-        [self changeLanes:_laneChangeDegrees snapToLane:NO];
+        [self changeLanes:_laneChangeDegrees];
     }
 
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
