@@ -53,7 +53,8 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
 - (void)removeTarget:(id)object {
     [_targetObjects enumerateObjectsUsingBlock:^(id arrObj, NSUInteger idx, BOOL *stop) {
         id targetObject = [arrObj valueForKey:@"target"];
-        if ([targetObject isEqualTo:object]) {
+//        if ([targetObject isEqualTo:object]) { // no known instance of isEqualTo for iOS target
+        if (targetObject == object) {
             [arrObj[@"indicator"] removeFromParent];
             [_targetObjects removeObjectAtIndex:idx];
             *stop = YES;

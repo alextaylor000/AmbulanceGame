@@ -839,6 +839,10 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 }
 
 #pragma mark Controls
+#if TARGET_OS_IPHONE
+
+#else
+// OS X controls
 - (void)handleKeyboardEvent: (NSEvent *)theEvent keyDown:(BOOL)downOrUp {
     
 //    if (self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) return;
@@ -893,5 +897,6 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 - (void)keyUp:(NSEvent *)theEvent {
     [self handleKeyboardEvent:theEvent keyDown:NO];
 }
+#endif
 
 @end

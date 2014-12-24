@@ -49,6 +49,52 @@
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
 		B9C449561A30144700093CC4 /* fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C449541A30144700093CC4 /* fuel.png */; };
 		B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
+		B9C8E4971A4B73F0003F7354 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4961A4B73F0003F7354 /* main.m */; };
+		B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4991A4B73F0003F7354 /* AppDelegate.m */; };
+		B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4A11A4B73F0003F7354 /* GameViewController.m */; };
+		B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4A31A4B73F0003F7354 /* Main.storyboard */; };
+		B9C8E4A71A4B73F0003F7354 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4A61A4B73F0003F7354 /* Images.xcassets */; };
+		B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */; };
+		B9C8E4B61A4B73F0003F7354 /* CharacterTests_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4B51A4B73F0003F7354 /* CharacterTests_iOSTests.m */; };
+		B9C8E4BE1A4B747E003F7354 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
+		B9C8E4C01A4B747E003F7354 /* AMBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = B99FD0A01A046FE1007FC685 /* AMBCamera.m */; };
+		B9C8E4C21A4B747E003F7354 /* AMBCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E819C656CC00EA85D9 /* AMBCharacter.m */; };
+		B9C8E4C41A4B747E003F7354 /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
+		B9C8E4C61A4B747E003F7354 /* AMBPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* AMBPatient.m */; };
+		B9C8E4C81A4B747E003F7354 /* AMBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* AMBPlayer.m */; };
+		B9C8E4CA1A4B747E003F7354 /* AMBPowerup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D840CE1A3172CF0073407C /* AMBPowerup.m */; };
+		B9C8E4CC1A4B747E003F7354 /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
+		B9C8E4CE1A4B747E003F7354 /* AMBTrafficVehicleState.m in Sources */ = {isa = PBXBuildFile; fileRef = B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */; };
+		B9C8E4D01A4B747E003F7354 /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
+		B9C8E4D21A4B747E003F7354 /* AMBHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B619C9239C00ACD50F /* AMBHospital.m */; };
+		B9C8E4D41A4B747E003F7354 /* AMBSpawner.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B919C92ADC00ACD50F /* AMBSpawner.m */; };
+		B9C8E4D61A4B747E003F7354 /* AMBGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */; };
+		B9C8E4D81A4B747E003F7354 /* AMBLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* AMBLevelScene.m */; };
+		B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */; };
+		B9C8E4DA1A4B749D003F7354 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
+		B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B97831491A198950002A10BC /* level01.tmx */; };
+		B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
+		B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
+		B9C8E4DE1A4B749D003F7354 /* road-tileset-hc.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */; };
+		B9C8E4DF1A4B749D003F7354 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D61A32E0520073407C /* border.png */; };
+		B9C8E4E01A4B749D003F7354 /* fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C449541A30144700093CC4 /* fuel.png */; };
+		B9C8E4E11A4B749D003F7354 /* patient1.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FE19CF501F00DE1ADA /* patient1.png */; };
+		B9C8E4E21A4B749D003F7354 /* patient2.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FF19CF501F00DE1ADA /* patient2.png */; };
+		B9C8E4E31A4B749D003F7354 /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C30019CF501F00DE1ADA /* patient3.png */; };
+		B9C8E4E41A4B749D003F7354 /* traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D41A32B6B50073407C /* traffic.png */; };
+		B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
+		B9C8E4E61A4B749D003F7354 /* osi_fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D01A31762D0073407C /* osi_fuel.png */; };
+		B9C8E4E71A4B749D003F7354 /* osi_patient.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D11A31762D0073407C /* osi_patient.png */; };
+		B9C8E4E81A4B749D003F7354 /* osi_hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B97831421A190BF4002A10BC /* osi_hospital.png */; };
+		B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
+		B9C8E4EA1A4B749D003F7354 /* asset_ambulance_20140609.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C219699E6200903B73 /* asset_ambulance_20140609.png */; };
+		B9C8E4EB1A4B7769003F7354 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
+		B9C8E4EC1A4B7769003F7354 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
+		B9C8E4ED1A4B7769003F7354 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */; };
+		B9C8E4EE1A4B7769003F7354 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2451978E7BF00E66405 /* SKEmitterNode+SKTExtras.m */; };
+		B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
+		B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
+		B9C8E4F21A4B77AC003F7354 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C8E4F11A4B77AC003F7354 /* libz.dylib */; };
 		B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* AMBPatient.m */; };
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
@@ -69,6 +115,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = B988237C1969998400903B73;
 			remoteInfo = CharacterTests;
+		};
+		B9C8E4B01A4B73F0003F7354 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B98823751969998400903B73 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B9C8E4911A4B73F0003F7354;
+			remoteInfo = CharacterTests_iOS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -140,6 +193,20 @@
 		B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBMovingCharacter.m; sourceTree = "<group>"; };
 		B9C449541A30144700093CC4 /* fuel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fuel.png; sourceTree = "<group>"; };
 		B9C449551A30144700093CC4 /* level01_firstdraft.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_firstdraft.tmx; sourceTree = "<group>"; };
+		B9C8E4921A4B73F0003F7354 /* CharacterTests_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9C8E4951A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9C8E4961A4B73F0003F7354 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B9C8E4981A4B73F0003F7354 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B9C8E4991A4B73F0003F7354 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B9C8E4A01A4B73F0003F7354 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		B9C8E4A11A4B73F0003F7354 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		B9C8E4A41A4B73F0003F7354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B9C8E4A61A4B73F0003F7354 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B9C8E4A91A4B73F0003F7354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		B9C8E4AF1A4B73F0003F7354 /* CharacterTests_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CharacterTests_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9C8E4B41A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9C8E4B51A4B73F0003F7354 /* CharacterTests_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CharacterTests_iOSTests.m; sourceTree = "<group>"; };
+		B9C8E4F11A4B77AC003F7354 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		B9CC738219B26F9400A376BC /* AMBPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPatient.h; sourceTree = "<group>"; };
 		B9CC738319B26F9400A376BC /* AMBPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPatient.m; sourceTree = "<group>"; };
 		B9CC738C19B3D26900A376BC /* sirens.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sirens.atlas; sourceTree = "<group>"; };
@@ -174,6 +241,21 @@
 			files = (
 				B98823A71969998400903B73 /* Cocoa.framework in Frameworks */,
 				B98823A61969998400903B73 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9C8E48F1A4B73F0003F7354 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9C8E4F21A4B77AC003F7354 /* libz.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9C8E4AC1A4B73F0003F7354 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +313,8 @@
 			children = (
 				B988237D1969998400903B73 /* CharacterTests.app */,
 				B98823A41969998400903B73 /* CharacterTestsTests.xctest */,
+				B9C8E4921A4B73F0003F7354 /* CharacterTests_iOS.app */,
+				B9C8E4AF1A4B73F0003F7354 /* CharacterTests_iOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -238,6 +322,7 @@
 		B988237F1969998400903B73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B9C8E4F11A4B77AC003F7354 /* libz.dylib */,
 				B9F4F0A61985626600578DA4 /* libz.dylib */,
 				B98823801969998400903B73 /* Cocoa.framework */,
 				B98823821969998400903B73 /* SpriteKit.framework */,
@@ -334,6 +419,8 @@
 		B9C8E48B1A4B736C003F7354 /* Target - iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B9C8E4931A4B73F0003F7354 /* CharacterTests_iOS */,
+				B9C8E4B21A4B73F0003F7354 /* CharacterTests_iOSTests */,
 			);
 			name = "Target - iOS";
 			sourceTree = "<group>";
@@ -357,6 +444,47 @@
 				B98823BF19699E3A00903B73 /* GameArt */,
 			);
 			name = "Game Assets";
+			sourceTree = "<group>";
+		};
+		B9C8E4931A4B73F0003F7354 /* CharacterTests_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B9C8E4981A4B73F0003F7354 /* AppDelegate.h */,
+				B9C8E4991A4B73F0003F7354 /* AppDelegate.m */,
+				B9C8E4A01A4B73F0003F7354 /* GameViewController.h */,
+				B9C8E4A11A4B73F0003F7354 /* GameViewController.m */,
+				B9C8E4A31A4B73F0003F7354 /* Main.storyboard */,
+				B9C8E4A61A4B73F0003F7354 /* Images.xcassets */,
+				B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */,
+				B9C8E4941A4B73F0003F7354 /* Supporting Files */,
+			);
+			path = CharacterTests_iOS;
+			sourceTree = "<group>";
+		};
+		B9C8E4941A4B73F0003F7354 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B9C8E4951A4B73F0003F7354 /* Info.plist */,
+				B9C8E4961A4B73F0003F7354 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B9C8E4B21A4B73F0003F7354 /* CharacterTests_iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				B9C8E4B51A4B73F0003F7354 /* CharacterTests_iOSTests.m */,
+				B9C8E4B31A4B73F0003F7354 /* Supporting Files */,
+			);
+			path = CharacterTests_iOSTests;
+			sourceTree = "<group>";
+		};
+		B9C8E4B31A4B73F0003F7354 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B9C8E4B41A4B73F0003F7354 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		B9E959BB19C93C8800ACD50F /* Scene */ = {
@@ -446,6 +574,41 @@
 			productReference = B98823A41969998400903B73 /* CharacterTestsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		B9C8E4911A4B73F0003F7354 /* CharacterTests_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9C8E4B71A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "CharacterTests_iOS" */;
+			buildPhases = (
+				B9C8E48E1A4B73F0003F7354 /* Sources */,
+				B9C8E48F1A4B73F0003F7354 /* Frameworks */,
+				B9C8E4901A4B73F0003F7354 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CharacterTests_iOS;
+			productName = CharacterTests_iOS;
+			productReference = B9C8E4921A4B73F0003F7354 /* CharacterTests_iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B9C8E4AE1A4B73F0003F7354 /* CharacterTests_iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B9C8E4BA1A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "CharacterTests_iOSTests" */;
+			buildPhases = (
+				B9C8E4AB1A4B73F0003F7354 /* Sources */,
+				B9C8E4AC1A4B73F0003F7354 /* Frameworks */,
+				B9C8E4AD1A4B73F0003F7354 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B9C8E4B11A4B73F0003F7354 /* PBXTargetDependency */,
+			);
+			name = CharacterTests_iOSTests;
+			productName = CharacterTests_iOSTests;
+			productReference = B9C8E4AF1A4B73F0003F7354 /* CharacterTests_iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -459,6 +622,13 @@
 					B98823A31969998400903B73 = {
 						TestTargetID = B988237C1969998400903B73;
 					};
+					B9C8E4911A4B73F0003F7354 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					B9C8E4AE1A4B73F0003F7354 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = B9C8E4911A4B73F0003F7354;
+					};
 				};
 			};
 			buildConfigurationList = B98823781969998400903B73 /* Build configuration list for PBXProject "CharacterTests" */;
@@ -467,6 +637,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = B98823741969998400903B73;
 			productRefGroup = B988237E1969998400903B73 /* Products */;
@@ -475,6 +646,8 @@
 			targets = (
 				B988237C1969998400903B73 /* CharacterTests */,
 				B98823A31969998400903B73 /* CharacterTestsTests */,
+				B9C8E4911A4B73F0003F7354 /* CharacterTests_iOS */,
+				B9C8E4AE1A4B73F0003F7354 /* CharacterTests_iOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -515,6 +688,41 @@
 			buildActionMask = 2147483647;
 			files = (
 				B98823AF1969998400903B73 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9C8E4901A4B73F0003F7354 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */,
+				B9C8E4DA1A4B749D003F7354 /* level01_firstdraft.tmx in Resources */,
+				B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */,
+				B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */,
+				B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */,
+				B9C8E4DE1A4B749D003F7354 /* road-tileset-hc.atlasc in Resources */,
+				B9C8E4DF1A4B749D003F7354 /* border.png in Resources */,
+				B9C8E4E01A4B749D003F7354 /* fuel.png in Resources */,
+				B9C8E4E11A4B749D003F7354 /* patient1.png in Resources */,
+				B9C8E4E21A4B749D003F7354 /* patient2.png in Resources */,
+				B9C8E4E31A4B749D003F7354 /* patient3.png in Resources */,
+				B9C8E4E41A4B749D003F7354 /* traffic.png in Resources */,
+				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
+				B9C8E4E61A4B749D003F7354 /* osi_fuel.png in Resources */,
+				B9C8E4E71A4B749D003F7354 /* osi_patient.png in Resources */,
+				B9C8E4E81A4B749D003F7354 /* osi_hospital.png in Resources */,
+				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
+				B9C8E4EA1A4B749D003F7354 /* asset_ambulance_20140609.png in Resources */,
+				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
+				B9C8E4A71A4B73F0003F7354 /* Images.xcassets in Resources */,
+				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9C8E4AD1A4B73F0003F7354 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +767,44 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B9C8E48E1A4B73F0003F7354 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9C8E4EB1A4B7769003F7354 /* JSTileMap.m in Sources */,
+				B9C8E4EC1A4B7769003F7354 /* LFCGzipUtility.m in Sources */,
+				B9C8E4ED1A4B7769003F7354 /* SKAction+SKTExtras.m in Sources */,
+				B9C8E4EE1A4B7769003F7354 /* SKEmitterNode+SKTExtras.m in Sources */,
+				B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */,
+				B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */,
+				B9C8E4BE1A4B747E003F7354 /* AMBScoreKeeper.m in Sources */,
+				B9C8E4C01A4B747E003F7354 /* AMBCamera.m in Sources */,
+				B9C8E4C21A4B747E003F7354 /* AMBCharacter.m in Sources */,
+				B9C8E4C41A4B747E003F7354 /* AMBMovingCharacter.m in Sources */,
+				B9C8E4C61A4B747E003F7354 /* AMBPatient.m in Sources */,
+				B9C8E4C81A4B747E003F7354 /* AMBPlayer.m in Sources */,
+				B9C8E4CA1A4B747E003F7354 /* AMBPowerup.m in Sources */,
+				B9C8E4CC1A4B747E003F7354 /* AMBTrafficVehicle.m in Sources */,
+				B9C8E4CE1A4B747E003F7354 /* AMBTrafficVehicleState.m in Sources */,
+				B9C8E4D01A4B747E003F7354 /* AMBIndicator.m in Sources */,
+				B9C8E4D21A4B747E003F7354 /* AMBHospital.m in Sources */,
+				B9C8E4D41A4B747E003F7354 /* AMBSpawner.m in Sources */,
+				B9C8E4D61A4B747E003F7354 /* AMBGameScene.m in Sources */,
+				B9C8E4D81A4B747E003F7354 /* AMBLevelScene.m in Sources */,
+				B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */,
+				B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */,
+				B9C8E4971A4B73F0003F7354 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B9C8E4AB1A4B73F0003F7354 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9C8E4B61A4B73F0003F7354 /* CharacterTests_iOSTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -566,6 +812,11 @@
 			isa = PBXTargetDependency;
 			target = B988237C1969998400903B73 /* CharacterTests */;
 			targetProxy = B98823A81969998400903B73 /* PBXContainerItemProxy */;
+		};
+		B9C8E4B11A4B73F0003F7354 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B9C8E4911A4B73F0003F7354 /* CharacterTests_iOS */;
+			targetProxy = B9C8E4B01A4B73F0003F7354 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -592,6 +843,22 @@
 				B98823AE1969998400903B73 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B9C8E4A31A4B73F0003F7354 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B9C8E4A41A4B73F0003F7354 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B9C8E4A91A4B73F0003F7354 /* Base */,
+			);
+			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -739,6 +1006,90 @@
 			};
 			name = Release;
 		};
+		B9C8E4B81A4B73F0003F7354 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CharacterTests_iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		B9C8E4B91A4B73F0003F7354 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = CharacterTests_iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B9C8E4BB1A4B73F0003F7354 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CharacterTests_iOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CharacterTests_iOS.app/CharacterTests_iOS";
+			};
+			name = Debug;
+		};
+		B9C8E4BC1A4B73F0003F7354 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CharacterTests_iOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CharacterTests_iOS.app/CharacterTests_iOS";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -768,6 +1119,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		B9C8E4B71A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "CharacterTests_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9C8E4B81A4B73F0003F7354 /* Debug */,
+				B9C8E4B91A4B73F0003F7354 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		B9C8E4BA1A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "CharacterTests_iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9C8E4BB1A4B73F0003F7354 /* Debug */,
+				B9C8E4BC1A4B73F0003F7354 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
