@@ -109,12 +109,12 @@
 		B988238E1969998400903B73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B98823901969998400903B73 /* CharacterTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CharacterTests-Prefix.pch"; sourceTree = "<group>"; };
 		B98823921969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		B98823941969998400903B73 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		B98823941969998400903B73 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainMenu.xib; path = CharacterTests/MainMenu.xib; sourceTree = "<group>"; };
 		B98823961969998400903B73 /* AMBLevelScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMBLevelScene.m; sourceTree = "<group>"; };
 		B98823981969998400903B73 /* AMBLevelScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMBLevelScene.h; sourceTree = "<group>"; };
-		B98823991969998400903B73 /* AMBAppDelegateOSX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMBAppDelegateOSX.m; sourceTree = "<group>"; };
-		B988239B1969998400903B73 /* AMBAppDelegateOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMBAppDelegateOSX.h; sourceTree = "<group>"; };
-		B988239E1969998400903B73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B98823991969998400903B73 /* AMBAppDelegateOSX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AMBAppDelegateOSX.m; path = CharacterTests/AMBAppDelegateOSX.m; sourceTree = "<group>"; };
+		B988239B1969998400903B73 /* AMBAppDelegateOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AMBAppDelegateOSX.h; path = CharacterTests/AMBAppDelegateOSX.h; sourceTree = "<group>"; };
+		B988239E1969998400903B73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CharacterTests/Images.xcassets; sourceTree = "<group>"; };
 		B98823A41969998400903B73 /* CharacterTestsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CharacterTestsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823A51969998400903B73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B98823AC1969998400903B73 /* CharacterTestsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CharacterTestsTests-Info.plist"; sourceTree = "<group>"; };
@@ -214,6 +214,8 @@
 		B98823741969998400903B73 = {
 			isa = PBXGroup;
 			children = (
+				B9C8E48C1A4B7378003F7354 /* Target - OS X */,
+				B9C8E48B1A4B736C003F7354 /* Target - iOS */,
 				B98823881969998400903B73 /* CharacterTests */,
 				B98823AA1969998400903B73 /* CharacterTestsTests */,
 				B98823AB1969998400903B73 /* Supporting Files */,
@@ -258,14 +260,10 @@
 		B98823881969998400903B73 /* CharacterTests */ = {
 			isa = PBXGroup;
 			children = (
+				B9C8E48D1A4B7386003F7354 /* Game Assets */,
 				B9E959BD19C93CA700ACD50F /* Logic */,
 				B9E959BC19C93C8D00ACD50F /* Sprites */,
 				B9E959BB19C93C8800ACD50F /* Scene */,
-				B98823941969998400903B73 /* MainMenu.xib */,
-				B988239B1969998400903B73 /* AMBAppDelegateOSX.h */,
-				B98823991969998400903B73 /* AMBAppDelegateOSX.m */,
-				B988239E1969998400903B73 /* Images.xcassets */,
-				B98823891969998400903B73 /* Supporting Files */,
 			);
 			path = CharacterTests;
 			sourceTree = "<group>";
@@ -273,8 +271,6 @@
 		B98823891969998400903B73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B96A845219BAB723002E058B /* Levels */,
-				B98823BF19699E3A00903B73 /* GameArt */,
 				B988238A1969998400903B73 /* CharacterTests-Info.plist */,
 				B988238B1969998400903B73 /* InfoPlist.strings */,
 				B988238E1969998400903B73 /* main.m */,
@@ -282,6 +278,7 @@
 				B98823911969998400903B73 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			path = CharacterTests;
 			sourceTree = "<group>";
 		};
 		B98823AA1969998400903B73 /* CharacterTestsTests */ = {
@@ -332,6 +329,34 @@
 			);
 			name = "JSTileMap-master";
 			path = "CharacterTests/JSTileMap-master";
+			sourceTree = "<group>";
+		};
+		B9C8E48B1A4B736C003F7354 /* Target - iOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Target - iOS";
+			sourceTree = "<group>";
+		};
+		B9C8E48C1A4B7378003F7354 /* Target - OS X */ = {
+			isa = PBXGroup;
+			children = (
+				B98823941969998400903B73 /* MainMenu.xib */,
+				B988239B1969998400903B73 /* AMBAppDelegateOSX.h */,
+				B98823991969998400903B73 /* AMBAppDelegateOSX.m */,
+				B988239E1969998400903B73 /* Images.xcassets */,
+				B98823891969998400903B73 /* Supporting Files */,
+			);
+			name = "Target - OS X";
+			sourceTree = "<group>";
+		};
+		B9C8E48D1A4B7386003F7354 /* Game Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B96A845219BAB723002E058B /* Levels */,
+				B98823BF19699E3A00903B73 /* GameArt */,
+			);
+			name = "Game Assets";
 			sourceTree = "<group>";
 		};
 		B9E959BB19C93C8800ACD50F /* Scene */ = {
