@@ -235,14 +235,13 @@ static const int TILE_LANE_WIDTH = 32;
         return;
     }
     
-    CGPoint playerPosInTile = [currentTile convertPoint:self.position fromNode:self.levelScene.tilemap];
+    CGPoint targetPoint; // the result of this tile calculation below
     
     BOOL isWithinBounds;
     BOOL currentTileIsMultiLane;
     if([[_currentTileProperties[@"road"] substringToIndex:1] isEqualToString:@"b"]) { currentTileIsMultiLane = YES; } else { currentTileIsMultiLane = NO; }
     
-    CGPoint targetPoint; // the result of this tile calculation below
-    CGVector targetOffset; // how much we need to move over to get into the next lane
+
     
     if (_currentTileProperties[@"intersection"]) {
         CGPoint directionNormalized = CGPointNormalize(self.direction);
@@ -279,72 +278,14 @@ static const int TILE_LANE_WIDTH = 32;
     } // if currentTileProperties = intersection
     
     // fall through to a lane change if the whole turning thing didn't work out
-    
-    CGPoint laneChangeVector = CGPointRotate(self.direction, degrees);
-    NSInteger remainder;
-    CGFloat pos;  // the player's position in the tile, either the x or the y value
-    CGFloat posNormalized ; // the player's position, normalized to the lane width
-    NSInteger targetLaneNormalized;
-    NSInteger direction; // the lane change vector, should either be 1 or -1
-    
-    // the lane change calculation is easiest in one dimension, so we want to extract the relevant details and forget about points until the end
-    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-        pos     = playerPosInTile.x + (self.levelScene.tilemap.tileSize.width/2); // add half the width of the tile to make the coords corner-anchored.
-        direction = laneChangeVector.x;
-        
-    } else {
-        pos     = playerPosInTile.y + (self.levelScene.tilemap.tileSize.width/2);
-        direction = laneChangeVector.y;
-    }
-    
-    
-    // TODO: accept a range around the lane (e.g. if the lane is at 96, 94-98 should be considered the range)
-    posNormalized = (direction) > 0 ? floorl( round(pos)/TILE_LANE_WIDTH) : ceilf( round(pos)/TILE_LANE_WIDTH);
-    
-    
-    if ( (int)posNormalized % 2 == 0) { // the player is right on a lane
-        targetLaneNormalized = posNormalized + direction;
-        
-    } else { // the player is somewhere between lanes
-        remainder = (int)posNormalized % 2;
-        targetLaneNormalized = posNormalized + direction + (remainder * direction);
-    }
-    
-    // convert the result back into a point
-    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
-        targetOffset = CGVectorMake((targetLaneNormalized * TILE_LANE_WIDTH) - pos , 0);
-        
-    } else {
-        targetOffset = CGVectorMake(0, (targetLaneNormalized * TILE_LANE_WIDTH) - pos);        }
-    
-    targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
-#if DEBUG
-    //NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
-#endif
-    
-    targetPoint = [self.levelScene.tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
-    
-    isWithinBounds = [self isTargetPointValid:targetPoint];
-    
-    if (isWithinBounds) {
-        self.controlState = PlayerIsChangingLanes;
-        [self moveBy:targetOffset];
-        _requestedMoveEvent = NO;
-        
-//#if DEBUG_PLAYER_CONTROL
-//        if ([self.name isEqualToString:@"player"]) {
-//            NSLog(@"lane change");
-//        }
-//#endif
-        
-        return;
-    }
+    [self changeLanes:degrees snapToLane:YES];
     
     // as a final fall-through, stash the turn request if it wasn't able to be completed.
     // the update loop will keep requesting the turn for a while after the keypress, in order
     // to reduce the precise timing required to turn on to other roads.
-    _requestedMoveEvent = YES;
-    _requestedMoveEventDegrees = degrees;
+    // disabled this because the player should do it instead
+//    _requestedMoveEvent = YES;
+//    _requestedMoveEventDegrees = degrees;
     
 }
 
@@ -401,12 +342,79 @@ static const int TILE_LANE_WIDTH = 32;
     return pointIsValid;
 }
 
-- (void)changeLanes: (CGFloat)degrees {
-    // "manual" player control, using the left or right controls slides the player over a set amount
+- (void)changeLanes: (CGFloat)degrees snapToLane:(BOOL)snap {
+    CGPoint targetPoint; // the result of this tile calculation below
+    CGVector targetOffset; // how much we need to move over to get into the next lane
+    
+    SKSpriteNode *currentTile = [self.levelScene.mapLayerRoad tileAt:self.position];
+    CGPoint playerPosInTile = [currentTile convertPoint:self.position fromNode:self.levelScene.tilemap];
+
     CGPoint laneChangeVector = CGPointRotate(self.direction, degrees);
-    CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 256*self.sceneDelta); // # of points to move
-    CGVector moveVector = CGVectorMake(moveAmt.x, moveAmt.y);
-    [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
+    NSInteger remainder;
+    CGFloat pos;  // the player's position in the tile, either the x or the y value
+    CGFloat posNormalized ; // the player's position, normalized to the lane width
+    NSInteger targetLaneNormalized;
+    NSInteger direction; // the lane change vector, should either be 1 or -1
+    BOOL isWithinBounds;
+    
+
+    // the lane change calculation is easiest in one dimension, so we want to extract the relevant details and forget about points until the end
+    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
+        pos     = playerPosInTile.x + (self.levelScene.tilemap.tileSize.width/2); // add half the width of the tile to make the coords corner-anchored.
+        direction = laneChangeVector.x;
+        
+    } else {
+        pos     = playerPosInTile.y + (self.levelScene.tilemap.tileSize.width/2);
+        direction = laneChangeVector.y;
+    }
+    
+    
+    // TODO: accept a range around the lane (e.g. if the lane is at 96, 94-98 should be considered the range)
+    posNormalized = (direction) > 0 ? floorl( round(pos)/TILE_LANE_WIDTH) : ceilf( round(pos)/TILE_LANE_WIDTH);
+    
+    
+    if ( (int)posNormalized % 2 == 0) { // the player is right on a lane
+        targetLaneNormalized = posNormalized + direction;
+        
+    } else { // the player is somewhere between lanes
+        remainder = (int)posNormalized % 2;
+        targetLaneNormalized = posNormalized + direction + (remainder * direction);
+    }
+    
+    // convert the result back into a point
+    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
+        targetOffset = CGVectorMake((targetLaneNormalized * TILE_LANE_WIDTH) - pos , 0);
+        
+    } else {
+        targetOffset = CGVectorMake(0, (targetLaneNormalized * TILE_LANE_WIDTH) - pos);        }
+    
+    targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
+#if DEBUG
+    //NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
+#endif
+    
+    targetPoint = [self.levelScene.tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
+    
+    isWithinBounds = [self isTargetPointValid:targetPoint];
+    
+    if (isWithinBounds) {
+        if (snap) {
+            self.controlState = PlayerIsChangingLanes;
+            [self moveBy:targetOffset];
+            _requestedMoveEvent = NO;
+            return;
+            
+        } else {
+            CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 256*self.sceneDelta); // # of points to move
+            CGVector moveVector = CGVectorMake(moveAmt.x, moveAmt.y);
+            [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
+        }
+        
+    }
+        
+
+
+    
 }
 
 @end
