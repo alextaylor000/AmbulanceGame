@@ -93,7 +93,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     
 
     if (self.controlState == PlayerIsChangingLanes) {
-        [self changeLanes:_laneChangeDegrees];
+        [self authorizeMoveEvent:_laneChangeDegrees snapToLane:NO];
     }
 
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
@@ -261,10 +261,6 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 }
 
 
-- (void)authorizeMoveEvent:(CGFloat)degrees {
-    [super authorizeMoveEvent:degrees];
-    
-}
 
 - (void)handleInput:(PlayerControls)input keyDown:(BOOL)keyDown {
 
@@ -388,13 +384,13 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             } else if (!keyDown) {
                 if   (input == PlayerControlsTurnLeft) {
                     // TODO: consider changing this to ONLY change lanes on keyUp, not introduce the possibility of turning.
-                    [self authorizeMoveEvent:90];
+                    [self authorizeMoveEvent:90 snapToLane:YES];
                     self.controlState = PlayerIsDrivingStraight;
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnLeft -> PlayerIsDrivingStraight";
                     [self printMessage:message];
                     
                 } else if   (input == PlayerControlsTurnRight) {
-                    [self authorizeMoveEvent:-90];
+                    [self authorizeMoveEvent:-90 snapToLane:YES];
                     self.controlState = PlayerIsDrivingStraight;
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnRight -> PlayerIsDrivingStraight";
                     [self printMessage:message];

@@ -201,7 +201,7 @@ static const int TILE_LANE_WIDTH = 32;
 }
 
 
-- (void)authorizeMoveEvent: (CGFloat)degrees {
+- (void)authorizeMoveEvent: (CGFloat)degrees snapToLane:(BOOL)snap {
     /* Called by user input. Initiates a turn or a lane change if the move is legal.
      
      The layout of this function is as follows:
@@ -327,15 +327,19 @@ static const int TILE_LANE_WIDTH = 32;
     isWithinBounds = [self isTargetPointValid:targetPoint];
     
     if (isWithinBounds) {
-        self.controlState = PlayerIsChangingLanes;
-        [self moveBy:targetOffset];
-        _requestedMoveEvent = NO;
-        
-//#if DEBUG_PLAYER_CONTROL
-//        if ([self.name isEqualToString:@"player"]) {
-//            NSLog(@"lane change");
-//        }
-//#endif
+        if (snap) {
+            self.controlState = PlayerIsChangingLanes;
+            [self moveBy:targetOffset]; // moveBy will update the state upon completion
+            _requestedMoveEvent = NO;
+            
+        } else {
+            // "manual" player control, using the left or right controls slides the player over a set amount
+            CGPoint laneChangeVector = CGPointRotate(self.direction, degrees);
+            CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 256*self.sceneDelta); // # of points to move
+            CGVector moveVector = CGVectorMake(moveAmt.x, moveAmt.y);
+            [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
+            
+        }
         
         return;
     }
@@ -343,8 +347,8 @@ static const int TILE_LANE_WIDTH = 32;
     // as a final fall-through, stash the turn request if it wasn't able to be completed.
     // the update loop will keep requesting the turn for a while after the keypress, in order
     // to reduce the precise timing required to turn on to other roads.
-    _requestedMoveEvent = YES;
-    _requestedMoveEventDegrees = degrees;
+//    _requestedMoveEvent = YES;
+//    _requestedMoveEventDegrees = degrees;
     
 }
 
@@ -401,12 +405,12 @@ static const int TILE_LANE_WIDTH = 32;
     return pointIsValid;
 }
 
-- (void)changeLanes: (CGFloat)degrees {
-    // "manual" player control, using the left or right controls slides the player over a set amount
-    CGPoint laneChangeVector = CGPointRotate(self.direction, degrees);
-    CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 256*self.sceneDelta); // # of points to move
-    CGVector moveVector = CGVectorMake(moveAmt.x, moveAmt.y);
-    [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
-}
+//- (void)changeLanes: (CGFloat)degrees {
+//    // "manual" player control, using the left or right controls slides the player over a set amount
+//    CGPoint laneChangeVector = CGPointRotate(self.direction, degrees);
+//    CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 256*self.sceneDelta); // # of points to move
+//    CGVector moveVector = CGVectorMake(moveAmt.x, moveAmt.y);
+//    [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
+//}
 
 @end

@@ -102,7 +102,7 @@
 
 - (void)enterState:(AMBTrafficVehicle *)vehicle {
     //NSLog(@"%@ enterState: AMBTrafficVehicleIsTurning", vehicle.name);
-    [vehicle authorizeMoveEvent:-90];
+    [vehicle authorizeMoveEvent:-90 snapToLane:YES];
     i = 0; // this will increment on every tick, and attempt a turn every five ticks
 }
 
@@ -110,7 +110,7 @@
     //NSLog(@"%@ exitState: AMBTrafficVehicleIsTurning", vehicle.name);
     
     // one last lane change to ensure the vehicle is fully in its lane (this assumes the right lane always)
-    [vehicle authorizeMoveEvent:-90];
+    [vehicle authorizeMoveEvent:-90 snapToLane:YES];
 }
 
 - (AMBTrafficVehicleState *)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta context:(AMBTrafficVehicle *)vehicle {
@@ -118,7 +118,7 @@
     if (vehicle.requestedMoveEvent && i == 4) {
         i = 0;
 
-        [vehicle authorizeMoveEvent:vehicle.requestedMoveEventDegrees];
+        [vehicle authorizeMoveEvent:vehicle.requestedMoveEventDegrees snapToLane:YES];
     }
     
     if (!vehicle.currentTileProperties[@"intersection"]) {    
