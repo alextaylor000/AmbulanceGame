@@ -347,8 +347,9 @@ static const int TILE_LANE_WIDTH = 32;
     // as a final fall-through, stash the turn request if it wasn't able to be completed.
     // the update loop will keep requesting the turn for a while after the keypress, in order
     // to reduce the precise timing required to turn on to other roads.
-//    _requestedMoveEvent = YES;
-//    _requestedMoveEventDegrees = degrees;
+    // this is for the traffic AI only at this point; players request turns manually by pressing down on the button
+    _requestedMoveEvent = YES;
+    _requestedMoveEventDegrees = degrees;
     
 }
 
