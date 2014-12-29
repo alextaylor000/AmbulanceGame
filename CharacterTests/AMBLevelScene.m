@@ -40,6 +40,12 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 @property NSMutableArray *trafficVehicles; // for enumerating the traffic objects during update loop
 
 
+#if TARGET_OS_IPHONE
+@property SKSpriteNode *controlsLeft;
+@property SKSpriteNode *controlsCenter;
+@property SKSpriteNode *controlsRight;
+#endif
+
 
 @property TMXLayer *roadLayer;
 @property TMXObjectGroup *spawnPoints;
@@ -70,6 +76,11 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         // indicator, created before createWorld so it can be referenced in initial spawns
         _indicator = [[AMBIndicator alloc]initForScene:self];
 
+        
+        // add controls
+        #if TARGET_OS_IPHONE
+        [self createControls];
+        #endif
 
         // minimap
         [self createMinimap];
@@ -88,20 +99,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 #endif
     
 
-        
-        
-//        // TRAFFIC_AI_TESTING
-//        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y + 20) withRotation:DegreesToRadians(90)];
-//        _trafficGuineaPig.name = @"trafficGuineaPig";
-//        [self addMovingCharacterToTileMap:_trafficGuineaPig];
-//        [_trafficVehicles addObject:_trafficGuineaPig];
-//
-//        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 3536) withRotation:DegreesToRadians(90)];
-//        traffic2.name = @"traffic2";
-//        [self addMovingCharacterToTileMap:traffic2];
-//        [_trafficVehicles addObject:traffic2];
-//
-        
+
         _turnRequested = NO;
         
         // camera
@@ -160,6 +158,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     }
     return self;
 }
+
 
 - (void)createMinimap {
     
@@ -840,6 +839,89 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 
 #pragma mark Controls
 #if TARGET_OS_IPHONE
+- (void)createControls {
+    // left
+    _controlsLeft = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(100, 100)];
+    _controlsLeft.name = @"controlsLeft";
+    _controlsLeft.zPosition = 999;
+    _controlsLeft.position = CGPointMake(-self.size.width/2 + 75, -self.size.height/2 + 75);
+    _controlsLeft.userData = [NSMutableDictionary dictionaryWithObject:@"NO" forKey:@"pressed"];
+    
+    [self addChild:_controlsLeft];
+    
+    // center
+    _controlsCenter = [SKSpriteNode spriteNodeWithColor:[SKColor greenColor] size:CGSizeMake(100, 100)];
+    _controlsCenter.name = @"controlsCenter_Go";
+    _controlsCenter.zPosition = 999;
+    _controlsCenter.position = CGPointMake(0, -self.size.height/2 + 75);
+    _controlsCenter.userData = [NSMutableDictionary dictionaryWithObject:@"NO" forKey:@"pressed"];
+    
+    [self addChild:_controlsCenter];
+
+    // right
+    _controlsRight = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(100, 100)];
+    _controlsRight.name = @"controlsRight";
+    _controlsRight.zPosition = 999;
+    _controlsRight.position = CGPointMake(self.size.width/2 - 75, -self.size.height/2 + 75);
+    _controlsRight.userData = [NSMutableDictionary dictionaryWithObject:@"NO" forKey:@"pressed"];
+    
+    [self addChild:_controlsRight];
+    
+
+}
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocationInScene = [touch locationInNode:self];
+    SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocationInScene];
+#if DEBUG_PLAYER_CONTROL
+    NSLog(@"touchedNode.name=%@",touchedNode.name);
+#endif
+    
+    if ([touchedNode.name isEqualToString:@"controlsCenter_Go"]) {
+        [_player handleInput:PlayerControlsStartMoving keyDown:YES];
+        _controlsCenter.name = @"controlsCenter_Stop";
+        _controlsCenter.color = [SKColor redColor];
+        [_controlsCenter.userData setObject:@"YES" forKey:@"pressed"];
+        
+        
+    } else if ([touchedNode.name isEqualToString:@"controlsCenter_Stop"]) {
+        [_player handleInput:PlayerControlsStopMoving keyDown:YES];
+        _controlsCenter.name = @"controlsCenter_Go";
+        _controlsCenter.color = [SKColor greenColor];
+        [_controlsCenter.userData setObject:@"YES" forKey:@"pressed"];
+        
+    } else if ([touchedNode.name isEqualToString:@"controlsLeft"]) {
+        [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+        _controlsLeft.color = SKColorWithRGB(210, 210, 0);
+        [_controlsLeft.userData setObject:@"YES" forKey:@"pressed"];
+        
+    } else if ([touchedNode.name isEqualToString:@"controlsRight"]) {
+        [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+        _controlsRight.color = SKColorWithRGB(210, 210, 0);
+        [_controlsRight.userData setObject:@"YES" forKey:@"pressed"];
+    }
+    
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocationInScene = [touch locationInNode:self];
+    SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocationInScene];
+    
+    if ([touchedNode.name isEqualToString:@"controlsLeft"]) {
+        [_player handleInput:PlayerControlsTurnLeft keyDown:NO];
+        _controlsLeft.color = [SKColor yellowColor];
+        [_controlsLeft.userData setObject:@"NO" forKey:@"pressed"];
+        
+    } else if ([touchedNode.name isEqualToString:@"controlsRight"]) {
+        [_player handleInput:PlayerControlsTurnRight keyDown:NO];
+        _controlsRight.color = [SKColor yellowColor];
+        [_controlsRight.userData setObject:@"NO" forKey:@"pressed"];
+    }
+
+}
 
 #else
 // OS X controls
