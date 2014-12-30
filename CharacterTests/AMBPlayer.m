@@ -90,7 +90,6 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
     
-    
 
     if (self.controlState == PlayerIsChangingLanes) {
         [self authorizeMoveEvent:_laneChangeDegrees snapToLane:NO];

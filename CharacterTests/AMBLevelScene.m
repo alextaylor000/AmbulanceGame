@@ -224,7 +224,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 
 - (void)addMovingCharacterToTileMap:(AMBMovingCharacter *)character {
     // encapsulated like this because we need to make sure levelScene is set on all the player/traffic nodes
-    [_tilemap addChild:character];
+    [_mapLayerRoad addChild:character]; // changed from _tilemap to _mapLayerRoad to keep things consistent between the sprites
     character.levelScene = self;
 }
 
@@ -232,7 +232,6 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     
     _player = [[AMBPlayer alloc] init];
     _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
-
 
     [self addMovingCharacterToTileMap:_player];
 #if DEBUG
@@ -340,29 +339,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         [_worldNode addChild:_tilemap];
     }
     
-    // set up temp static traffic
-    // and an array to randomize the colour
-//    NSArray *colours = [NSArray arrayWithObjects:[SKColor redColor], [SKColor orangeColor], [SKColor yellowColor], [SKColor whiteColor], nil];
-//    
-//    for (NSDictionary *object in [_mapGroupSpawnTraffic objects]) {
-//        SKTexture *trafficTexture = [SKTexture textureWithImageNamed:@"traffic"];
-//        SKSpriteNode *traffic = [SKSpriteNode spriteNodeWithTexture:trafficTexture];
-//
-//        if ([[object valueForKey:@"orientation"] isEqualToString:@"up"]) {
-//            traffic.zRotation = DegreesToRadians(90);
-//        }
-//        traffic.position = [self centerOfObject:object];
-//
-//        traffic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:traffic.size];
-//        traffic.physicsBody.categoryBitMask = categoryTraffic;
-//        traffic.physicsBody.collisionBitMask = 0x00000000;
-//        
-//        traffic.color = [colours objectAtIndex:(NSUInteger)RandomFloatRange(0, 4)];
-//
-//        traffic.colorBlendFactor = 0.35;
-//        
-//        [_mapLayerRoad addChild:traffic];
-//    }
+
     
     
     // Set up spawn points
@@ -503,7 +480,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     if (_tilemap) {
         // set up the layers/groups
         _mapLayerRoad =     [_tilemap layerNamed:@"road"];
-        _mapLayerScenery =  [_tilemap layerNamed:@"scenery"];
+//        _mapLayerScenery =  [_tilemap layerNamed:@"scenery"]; // removed because it's redundant
         _mapLayerTraffic =  [_tilemap layerNamed:@"spawn_traffic"];
         
         _mapGroupSpawnPlayer =      [_tilemap groupNamed:@"spawn_player"];

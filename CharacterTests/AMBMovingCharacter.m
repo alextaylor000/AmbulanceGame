@@ -67,11 +67,9 @@ static const int TILE_LANE_WIDTH = 32;
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsDrivingStraight;
             #if DEBUG_PLAYER_CONTROL
-
                 NSLog(@"[control] PlayerIsAccelerating -> startMoving -> PlayerIsDrivingStraight");
-            }
             #endif
-    
+            }
     }];
     
 

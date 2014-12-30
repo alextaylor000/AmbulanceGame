@@ -267,14 +267,9 @@
    </properties>
   </tile>
  </tileset>
- <layer name="scenery" width="40" height="40">
-  <data encoding="base64" compression="zlib">
-   eJztw8EJAAAMA6H7Zv+Fu0dRcNVUVVVVVVUfPdKxOEE=
-  </data>
- </layer>
  <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmOsKwyAMhV2hY7B1l667vP+TLjAGkkV65NhOZgLnhwcjX6O21RDKxyA6LjBuqXA+Lpbg60SbSFvVzvFOojOR3xl8u5l2jpeqHzOm87XF1wd73SJean+g+QeAr/b6OR/n1can9wO6ln1/2J7zcV5tfKPoEkm3c7yraCLyR4PvKXpE0u0c3UR3w0fG/PSZq6lVYzRy5hft43z/zYd839jzEXIGs75tFvca7z90PCbX+bjcX/GtcT5C//2YZ/P55XKd7x16re7D99pFvdT+0H2tXOturXS0eH9aMlriewE9LxAi
+   eJztmNEOgjAMRSsJRiKiooL//6X0xWSpXbxlw+jWh/vQZm1OupaxdUTUZdaJNWyQ1/l+Q1vwNaxdoL2wLb4z65IQ3yh8hw+2xRerX0pO56uLryW9bxFfbD7Q+L6A+jlfWXxyHtBe9vlwvhr4RtY1kLQtvhvrnhA/KnxP1hxI2hY9WJPiR3K+1qzZX1SW/UXXOF/ZfMj5lno/Qu5g2tmG1i/39w/N53z18X3jfoT++/1j/ZyvLD7Zq0d6713UF5sPuVaL1d7WcqvG91PnW6cFA8A21w==
   </data>
  </layer>
  <layer name="spawn_traffic" width="40" height="40">
@@ -302,21 +297,21 @@
   </object>
   <object name="patient_03" type="patient.spawn" x="9440" y="4649.33" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="45"/>
+    <property name="firstSpawnAt" value="50"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
   <object name="patient_04" type="patient.spawn" x="4908" y="8932" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="65"/>
+    <property name="firstSpawnAt" value="75"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
   <object name="patient_05" type="patient.spawn" x="8521.33" y="8928" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="85"/>
+    <property name="firstSpawnAt" value="115"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>

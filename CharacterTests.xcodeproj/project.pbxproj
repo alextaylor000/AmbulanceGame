@@ -36,7 +36,6 @@
 		B99E6F2119A16467003A7551 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F1C19A16467003A7551 /* .gitignore */; };
 		B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
 		B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
-		B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */; };
 		B99FD0A11A046FE1007FC685 /* AMBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = B99FD0A01A046FE1007FC685 /* AMBCamera.m */; };
 		B9A4C30119CF501F00DE1ADA /* patient1.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FE19CF501F00DE1ADA /* patient1.png */; };
 		B9A4C30219CF501F00DE1ADA /* patient2.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FF19CF501F00DE1ADA /* patient2.png */; };
@@ -70,7 +69,6 @@
 		B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B97831491A198950002A10BC /* level01.tmx */; };
 		B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
 		B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
-		B9C8E4DE1A4B749D003F7354 /* road-tileset-hc.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */; };
 		B9C8E4DF1A4B749D003F7354 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D61A32E0520073407C /* border.png */; };
 		B9C8E4E01A4B749D003F7354 /* fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C449541A30144700093CC4 /* fuel.png */; };
 		B9C8E4E11A4B749D003F7354 /* patient1.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FE19CF501F00DE1ADA /* patient1.png */; };
@@ -78,7 +76,6 @@
 		B9C8E4E31A4B749D003F7354 /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C30019CF501F00DE1ADA /* patient3.png */; };
 		B9C8E4E41A4B749D003F7354 /* traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D41A32B6B50073407C /* traffic.png */; };
 		B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
-		B9C8E4E61A4B749D003F7354 /* osi_fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D01A31762D0073407C /* osi_fuel.png */; };
 		B9C8E4E71A4B749D003F7354 /* osi_patient.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D11A31762D0073407C /* osi_patient.png */; };
 		B9C8E4E81A4B749D003F7354 /* osi_hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B97831421A190BF4002A10BC /* osi_hospital.png */; };
 		B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
@@ -94,7 +91,6 @@
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
 		B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D840CE1A3172CF0073407C /* AMBPowerup.m */; };
-		B9D840D21A31762D0073407C /* osi_fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D01A31762D0073407C /* osi_fuel.png */; };
 		B9D840D31A31762D0073407C /* osi_patient.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D11A31762D0073407C /* osi_patient.png */; };
 		B9D840D51A32B6B50073407C /* traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D41A32B6B50073407C /* traffic.png */; };
 		B9D840D71A32E0520073407C /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D61A32E0520073407C /* border.png */; };
@@ -158,7 +154,6 @@
 		B99E6F1E19A16467003A7551 /* JSTileMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTileMap.m; sourceTree = "<group>"; };
 		B99E6F1F19A16467003A7551 /* LFCGzipUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFCGzipUtility.h; sourceTree = "<group>"; };
 		B99E6F2019A16467003A7551 /* LFCGzipUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFCGzipUtility.m; sourceTree = "<group>"; };
-		B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "road-tileset-hc.atlasc"; sourceTree = "<group>"; };
 		B99FD09F1A046FE1007FC685 /* AMBCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCamera.h; sourceTree = "<group>"; };
 		B99FD0A01A046FE1007FC685 /* AMBCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBCamera.m; sourceTree = "<group>"; };
 		B9A4C2FE19CF501F00DE1ADA /* patient1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient1.png; sourceTree = "<group>"; };
@@ -189,7 +184,6 @@
 		B9CC738E19B3DA0C00A376BC /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		B9D840CD1A3172CF0073407C /* AMBPowerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBPowerup.h; path = ../AMBPowerup.h; sourceTree = "<group>"; };
 		B9D840CE1A3172CF0073407C /* AMBPowerup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBPowerup.m; path = ../AMBPowerup.m; sourceTree = "<group>"; };
-		B9D840D01A31762D0073407C /* osi_fuel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_fuel.png; sourceTree = "<group>"; };
 		B9D840D11A31762D0073407C /* osi_patient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_patient.png; sourceTree = "<group>"; };
 		B9D840D41A32B6B50073407C /* traffic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = traffic.png; sourceTree = "<group>"; };
 		B9D840D61A32E0520073407C /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
@@ -248,7 +242,6 @@
 				B97831491A198950002A10BC /* level01.tmx */,
 				B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */,
 				B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */,
-				B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -352,7 +345,6 @@
 				B9A4C30019CF501F00DE1ADA /* patient3.png */,
 				B9D840D41A32B6B50073407C /* traffic.png */,
 				B9CC738E19B3DA0C00A376BC /* hospital.png */,
-				B9D840D01A31762D0073407C /* osi_fuel.png */,
 				B9D840D11A31762D0073407C /* osi_patient.png */,
 				B97831421A190BF4002A10BC /* osi_hospital.png */,
 				B9CC738C19B3D26900A376BC /* sirens.atlas */,
@@ -582,13 +574,11 @@
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
-				B9D840D21A31762D0073407C /* osi_fuel.png in Resources */,
 				B9D840D71A32E0520073407C /* border.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
 				B9C449561A30144700093CC4 /* fuel.png in Resources */,
 				B9D840D51A32B6B50073407C /* traffic.png in Resources */,
-				B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */,
 				B978314A1A198950002A10BC /* level01.tmx in Resources */,
 				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,
 				B9A4C30219CF501F00DE1ADA /* patient2.png in Resources */,
@@ -606,7 +596,6 @@
 				B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */,
 				B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */,
 				B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */,
-				B9C8E4DE1A4B749D003F7354 /* road-tileset-hc.atlasc in Resources */,
 				B9C8E4DF1A4B749D003F7354 /* border.png in Resources */,
 				B9C8E4E01A4B749D003F7354 /* fuel.png in Resources */,
 				B9C8E4E11A4B749D003F7354 /* patient1.png in Resources */,
@@ -614,7 +603,6 @@
 				B9C8E4E31A4B749D003F7354 /* patient3.png in Resources */,
 				B9C8E4E41A4B749D003F7354 /* traffic.png in Resources */,
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
-				B9C8E4E61A4B749D003F7354 /* osi_fuel.png in Resources */,
 				B9C8E4E71A4B749D003F7354 /* osi_patient.png in Resources */,
 				B9C8E4E81A4B749D003F7354 /* osi_hospital.png in Resources */,
 				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
@@ -860,6 +848,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -877,6 +866,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -910,6 +900,7 @@
 				B9C8E4B91A4B73F0003F7354 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
