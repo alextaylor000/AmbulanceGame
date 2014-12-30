@@ -349,6 +349,8 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     NSArray *hospitalSpawns = [_mapGroupSpawnHospitals objects];
     for (NSDictionary *object in hospitalSpawns) {
         AMBHospital *hospital = [[AMBHospital alloc] init];
+        hospital.blendMode = SKBlendModeReplace;
+        
         CGPoint hospitalPos = [self centerOfObject:object];
         [hospital addObjectToNode:_mapLayerRoad atPosition:hospitalPos];
 
