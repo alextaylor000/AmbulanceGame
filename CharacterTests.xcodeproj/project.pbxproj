@@ -19,7 +19,6 @@
 		B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */ = {isa = PBXBuildFile; fileRef = B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */; };
 		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
-		B97831431A190BF4002A10BC /* osi_hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B97831421A190BF4002A10BC /* osi_hospital.png */; };
 		B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
 		B978314A1A198950002A10BC /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B97831491A198950002A10BC /* level01.tmx */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
@@ -32,17 +31,12 @@
 		B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823991969998400903B73 /* AMBAppDelegateOSX.m */; };
 		B988239F1969998400903B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B988239E1969998400903B73 /* Images.xcassets */; };
 		B98823BE19699C4400903B73 /* AMBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* AMBPlayer.m */; };
-		B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C219699E6200903B73 /* asset_ambulance_20140609.png */; };
 		B99E6F2119A16467003A7551 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F1C19A16467003A7551 /* .gitignore */; };
 		B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
 		B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
 		B99FD0A11A046FE1007FC685 /* AMBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = B99FD0A01A046FE1007FC685 /* AMBCamera.m */; };
-		B9A4C30119CF501F00DE1ADA /* patient1.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FE19CF501F00DE1ADA /* patient1.png */; };
-		B9A4C30219CF501F00DE1ADA /* patient2.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FF19CF501F00DE1ADA /* patient2.png */; };
-		B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C30019CF501F00DE1ADA /* patient3.png */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
-		B9C449561A30144700093CC4 /* fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C449541A30144700093CC4 /* fuel.png */; };
 		B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
 		B9C8E4971A4B73F0003F7354 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4961A4B73F0003F7354 /* main.m */; };
 		B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4991A4B73F0003F7354 /* AppDelegate.m */; };
@@ -69,17 +63,8 @@
 		B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B97831491A198950002A10BC /* level01.tmx */; };
 		B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
 		B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
-		B9C8E4DF1A4B749D003F7354 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D61A32E0520073407C /* border.png */; };
-		B9C8E4E01A4B749D003F7354 /* fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C449541A30144700093CC4 /* fuel.png */; };
-		B9C8E4E11A4B749D003F7354 /* patient1.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FE19CF501F00DE1ADA /* patient1.png */; };
-		B9C8E4E21A4B749D003F7354 /* patient2.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FF19CF501F00DE1ADA /* patient2.png */; };
-		B9C8E4E31A4B749D003F7354 /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C30019CF501F00DE1ADA /* patient3.png */; };
-		B9C8E4E41A4B749D003F7354 /* traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D41A32B6B50073407C /* traffic.png */; };
 		B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
-		B9C8E4E71A4B749D003F7354 /* osi_patient.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D11A31762D0073407C /* osi_patient.png */; };
-		B9C8E4E81A4B749D003F7354 /* osi_hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B97831421A190BF4002A10BC /* osi_hospital.png */; };
 		B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
-		B9C8E4EA1A4B749D003F7354 /* asset_ambulance_20140609.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C219699E6200903B73 /* asset_ambulance_20140609.png */; };
 		B9C8E4EB1A4B7769003F7354 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
 		B9C8E4EC1A4B7769003F7354 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
 		B9C8E4ED1A4B7769003F7354 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */; };
@@ -87,13 +72,12 @@
 		B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
 		B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B9C8E4F21A4B77AC003F7354 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C8E4F11A4B77AC003F7354 /* libz.dylib */; };
+		B9C8E4FF1A533449003F7354 /* GameObjectSprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */; };
+		B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */; };
 		B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* AMBPatient.m */; };
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
 		B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D840CE1A3172CF0073407C /* AMBPowerup.m */; };
-		B9D840D31A31762D0073407C /* osi_patient.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D11A31762D0073407C /* osi_patient.png */; };
-		B9D840D51A32B6B50073407C /* traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D41A32B6B50073407C /* traffic.png */; };
-		B9D840D71A32E0520073407C /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D61A32E0520073407C /* border.png */; };
 		B9E959B719C9239C00ACD50F /* AMBHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B619C9239C00ACD50F /* AMBHospital.m */; };
 		B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B919C92ADC00ACD50F /* AMBSpawner.m */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
@@ -121,7 +105,6 @@
 		B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01_with_spawn_points.tmx"; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* AMBScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBScoreKeeper.h; sourceTree = "<group>"; };
 		B96F159819BA8379003E9809 /* AMBScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBScoreKeeper.m; sourceTree = "<group>"; };
-		B97831421A190BF4002A10BC /* osi_hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_hospital.png; sourceTree = "<group>"; };
 		B97831441A190C1F002A10BC /* AMBIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBIndicator.h; sourceTree = "<group>"; };
 		B97831451A190C1F002A10BC /* AMBIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBIndicator.m; sourceTree = "<group>"; };
 		B97831491A198950002A10BC /* level01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01.tmx; sourceTree = "<group>"; };
@@ -148,7 +131,6 @@
 		B98823B01969998400903B73 /* CharacterTestsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CharacterTestsTests.m; sourceTree = "<group>"; };
 		B98823BC19699C4400903B73 /* AMBPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPlayer.h; sourceTree = "<group>"; };
 		B98823BD19699C4400903B73 /* AMBPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPlayer.m; sourceTree = "<group>"; };
-		B98823C219699E6200903B73 /* asset_ambulance_20140609.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_ambulance_20140609.png; sourceTree = "<group>"; };
 		B99E6F1C19A16467003A7551 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B99E6F1D19A16467003A7551 /* JSTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTileMap.h; sourceTree = "<group>"; };
 		B99E6F1E19A16467003A7551 /* JSTileMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTileMap.m; sourceTree = "<group>"; };
@@ -156,14 +138,10 @@
 		B99E6F2019A16467003A7551 /* LFCGzipUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFCGzipUtility.m; sourceTree = "<group>"; };
 		B99FD09F1A046FE1007FC685 /* AMBCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCamera.h; sourceTree = "<group>"; };
 		B99FD0A01A046FE1007FC685 /* AMBCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBCamera.m; sourceTree = "<group>"; };
-		B9A4C2FE19CF501F00DE1ADA /* patient1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient1.png; sourceTree = "<group>"; };
-		B9A4C2FF19CF501F00DE1ADA /* patient2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient2.png; sourceTree = "<group>"; };
-		B9A4C30019CF501F00DE1ADA /* patient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient3.png; sourceTree = "<group>"; };
 		B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicle.h; sourceTree = "<group>"; };
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
 		B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBMovingCharacter.m; sourceTree = "<group>"; };
-		B9C449541A30144700093CC4 /* fuel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fuel.png; sourceTree = "<group>"; };
 		B9C449551A30144700093CC4 /* level01_firstdraft.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_firstdraft.tmx; sourceTree = "<group>"; };
 		B9C8E4921A4B73F0003F7354 /* CharacterTests_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C8E4951A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -178,15 +156,13 @@
 		B9C8E4B41A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9C8E4B51A4B73F0003F7354 /* CharacterTests_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CharacterTests_iOSTests.m; sourceTree = "<group>"; };
 		B9C8E4F11A4B77AC003F7354 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
+		B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameObjectSprites.atlas; sourceTree = "<group>"; };
 		B9CC738219B26F9400A376BC /* AMBPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPatient.h; sourceTree = "<group>"; };
 		B9CC738319B26F9400A376BC /* AMBPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPatient.m; sourceTree = "<group>"; };
 		B9CC738C19B3D26900A376BC /* sirens.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sirens.atlas; sourceTree = "<group>"; };
 		B9CC738E19B3DA0C00A376BC /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		B9D840CD1A3172CF0073407C /* AMBPowerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBPowerup.h; path = ../AMBPowerup.h; sourceTree = "<group>"; };
 		B9D840CE1A3172CF0073407C /* AMBPowerup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBPowerup.m; path = ../AMBPowerup.m; sourceTree = "<group>"; };
-		B9D840D11A31762D0073407C /* osi_patient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_patient.png; sourceTree = "<group>"; };
-		B9D840D41A32B6B50073407C /* traffic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = traffic.png; sourceTree = "<group>"; };
-		B9D840D61A32E0520073407C /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		B9E959B519C9239C00ACD50F /* AMBHospital.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBHospital.h; sourceTree = "<group>"; };
 		B9E959B619C9239C00ACD50F /* AMBHospital.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBHospital.m; sourceTree = "<group>"; };
 		B9E959B819C92ADC00ACD50F /* AMBSpawner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBSpawner.h; sourceTree = "<group>"; };
@@ -338,17 +314,9 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
-				B9D840D61A32E0520073407C /* border.png */,
-				B9C449541A30144700093CC4 /* fuel.png */,
-				B9A4C2FE19CF501F00DE1ADA /* patient1.png */,
-				B9A4C2FF19CF501F00DE1ADA /* patient2.png */,
-				B9A4C30019CF501F00DE1ADA /* patient3.png */,
-				B9D840D41A32B6B50073407C /* traffic.png */,
+				B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */,
 				B9CC738E19B3DA0C00A376BC /* hospital.png */,
-				B9D840D11A31762D0073407C /* osi_patient.png */,
-				B97831421A190BF4002A10BC /* osi_hospital.png */,
 				B9CC738C19B3D26900A376BC /* sirens.atlas */,
-				B98823C219699E6200903B73 /* asset_ambulance_20140609.png */,
 			);
 			name = GameArt;
 			sourceTree = "<group>";
@@ -563,25 +531,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9A4C30119CF501F00DE1ADA /* patient1.png in Resources */,
-				B9D840D31A31762D0073407C /* osi_patient.png in Resources */,
-				B97831431A190BF4002A10BC /* osi_hospital.png in Resources */,
+				B9C8E4FF1A533449003F7354 /* GameObjectSprites.atlas in Resources */,
 				B94CEF1E1A4A2EC800037DDA /* test_controls.tmx in Resources */,
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
 				B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
-				B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
-				B9D840D71A32E0520073407C /* border.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
-				B9C449561A30144700093CC4 /* fuel.png in Resources */,
-				B9D840D51A32B6B50073407C /* traffic.png in Resources */,
 				B978314A1A198950002A10BC /* level01.tmx in Resources */,
-				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,
-				B9A4C30219CF501F00DE1ADA /* patient2.png in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
 				B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */,
 			);
@@ -591,22 +551,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */,
 				B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */,
 				B9C8E4DA1A4B749D003F7354 /* level01_firstdraft.tmx in Resources */,
 				B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */,
 				B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */,
 				B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */,
-				B9C8E4DF1A4B749D003F7354 /* border.png in Resources */,
-				B9C8E4E01A4B749D003F7354 /* fuel.png in Resources */,
-				B9C8E4E11A4B749D003F7354 /* patient1.png in Resources */,
-				B9C8E4E21A4B749D003F7354 /* patient2.png in Resources */,
-				B9C8E4E31A4B749D003F7354 /* patient3.png in Resources */,
-				B9C8E4E41A4B749D003F7354 /* traffic.png in Resources */,
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
-				B9C8E4E71A4B749D003F7354 /* osi_patient.png in Resources */,
-				B9C8E4E81A4B749D003F7354 /* osi_hospital.png in Resources */,
 				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
-				B9C8E4EA1A4B749D003F7354 /* asset_ambulance_20140609.png in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
 				B9C8E4A71A4B73F0003F7354 /* Images.xcassets in Resources */,
 				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
