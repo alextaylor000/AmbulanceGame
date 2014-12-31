@@ -83,7 +83,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         #endif
 
         // minimap
-        [self createMinimap];
+//        [self createMinimap];
 
         
         [self createWorld]; // set up tilemap
@@ -99,19 +99,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 #endif
     
         
-#warning TILEMAP CULLING TEST
-        for (int x = 0; x < 50; ++x) {
-            for (int y = 0; y < 50; ++y) {
-                if (x > 25 || y > 25) {
-                    SKSpriteNode *node = [_mapLayerRoad tileAtCoord:CGPointMake(x, y)];
-                    node.hidden = YES;
-                    NSLog(@"Hiding node at %i,%i",x,y);
-                }
-                
-
-            }
-        }
-
+        
         _turnRequested = NO;
         
         // camera

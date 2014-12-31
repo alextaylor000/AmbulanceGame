@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
 
+
+#define TICK    NSDate *startTime = [NSDate date]
+#define TOCK    NSLog(@"%s Time: %f", __func__, -[startTime timeIntervalSinceNow])
+
 #import "AMBMovingCharacter.h"
 #import "SKTUtils.h"
 
@@ -353,15 +357,16 @@ static const int TILE_LANE_WIDTH = 32;
 
 
 - (BOOL)isTargetPointValid: (CGPoint)targetPoint {
-    BOOL pointIsValid = NO;
-    
+
     // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
-    SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn
-    
+
     NSString *targetTileRoadType = [self.levelScene.tilemap propertiesForGid:  [self.levelScene.mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
-    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:self.levelScene.tilemap]; // the position of the target within the target tile
+    CGPoint targetTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:targetPoint]];
+    CGPoint positionInTargetTile = CGPointSubtract(targetPoint, targetTilePos);
     
 #if DEBUG_PLAYER_CONTROL
+    SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn. tileAt ultimately works by finding the node by name, which is computationally expensive. the only use of this line is to figure out the coordinates of the player within the tile.
+
     SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
     targetPointSprite.name = @"DEBUG_targetPointSprite";
     targetPointSprite.position = positionInTargetTile;
@@ -374,11 +379,11 @@ static const int TILE_LANE_WIDTH = 32;
 #endif
     
     if (targetTileRoadType) {
-        // check the coordinates to make sure it's on ROAD SURFACE within the tile
+        // if it's a road tile, check the coordinates to make sure it's on ROAD SURFACE within the tile
         
         CGPathRef path = (__bridge CGPathRef)([self.levelScene.roadTilePaths objectForKey:targetTileRoadType]); // TODO: memory leak because of bridging?
         
-        pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
+        BOOL pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
 #if DEBUG_PLAYER_CONTROL
         if ([self.name isEqualToString:@"player"]) {
@@ -397,13 +402,15 @@ static const int TILE_LANE_WIDTH = 32;
         }
 #endif
         
-        
-        return CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
+        return pointIsValid;
     }
     
-    return pointIsValid;
+    return NO; // no, it's not valid because it's not on a road tile!
 }
 
-
+/** Given a coordinate in the tilemap, calculates the center point of the tile in the tilemap coordinate system.  */
+- (CGPoint)centerOfTileAtCoord:(CGPoint)coord {
+    return CGPointZero;
+}
 
 @end
