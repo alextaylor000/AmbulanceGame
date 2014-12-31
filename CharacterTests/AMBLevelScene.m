@@ -98,7 +98,19 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         [self addChild:_controlStateLabel];
 #endif
     
+        
+#warning TILEMAP CULLING TEST
+        for (int x = 0; x < 50; ++x) {
+            for (int y = 0; y < 50; ++y) {
+                if (x > 25 || y > 25) {
+                    SKSpriteNode *node = [_mapLayerRoad tileAtCoord:CGPointMake(x, y)];
+                    node.hidden = YES;
+                    NSLog(@"Hiding node at %i,%i",x,y);
+                }
+                
 
+            }
+        }
 
         _turnRequested = NO;
         
@@ -337,6 +349,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 
     if (_tilemap) {
         [_worldNode addChild:_tilemap];
+        
     }
     
 
@@ -851,6 +864,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
     UITouch *touch = [touches anyObject];
     CGPoint touchLocationInScene = [touch locationInNode:self];
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocationInScene];
@@ -885,6 +899,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+
     UITouch *touch = [touches anyObject];
     CGPoint touchLocationInScene = [touch locationInNode:self];
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocationInScene];

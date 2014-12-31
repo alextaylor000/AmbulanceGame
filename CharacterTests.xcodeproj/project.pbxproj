@@ -153,8 +153,6 @@
 		B9C8E4A41A4B73F0003F7354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B9C8E4A61A4B73F0003F7354 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B9C8E4A91A4B73F0003F7354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		B9C8E4B41A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B9C8E4B51A4B73F0003F7354 /* CharacterTests_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CharacterTests_iOSTests.m; sourceTree = "<group>"; };
 		B9C8E4F11A4B77AC003F7354 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameObjectSprites.atlas; sourceTree = "<group>"; };
 		B9CC738219B26F9400A376BC /* AMBPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPatient.h; sourceTree = "<group>"; };
@@ -338,7 +336,6 @@
 			isa = PBXGroup;
 			children = (
 				B9C8E4931A4B73F0003F7354 /* CharacterTests_iOS */,
-				B9C8E4B21A4B73F0003F7354 /* CharacterTests_iOSTests */,
 			);
 			name = "Target - iOS";
 			sourceTree = "<group>";
@@ -384,23 +381,6 @@
 			children = (
 				B9C8E4951A4B73F0003F7354 /* Info.plist */,
 				B9C8E4961A4B73F0003F7354 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B9C8E4B21A4B73F0003F7354 /* CharacterTests_iOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				B9C8E4B51A4B73F0003F7354 /* CharacterTests_iOSTests.m */,
-				B9C8E4B31A4B73F0003F7354 /* Supporting Files */,
-			);
-			path = CharacterTests_iOSTests;
-			sourceTree = "<group>";
-		};
-		B9C8E4B31A4B73F0003F7354 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B9C8E4B41A4B73F0003F7354 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -697,9 +677,8 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"DEBUG=0",
 					"DEBUG_PATIENT=0",
-					"DEBUG_PLAYER_CONTROL=1",
+					"DEBUG_PLAYER_CONTROL=0",
 					"DEBUG_INDICATOR=0",
 					"DEBUG_FUEL=0",
 				);
@@ -758,7 +737,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"DEBUG_PATIENT=0",
-					"DEBUG_PLAYER_CONTROL=1",
+					"DEBUG_PLAYER_CONTROL=0",
 					"DEBUG_INDICATOR=0",
 					"DEBUG_FUEL=0",
 				);
@@ -790,10 +769,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = CharacterTests_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
