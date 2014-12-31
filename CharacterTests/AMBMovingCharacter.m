@@ -204,6 +204,7 @@ static const int TILE_LANE_WIDTH = 32;
 
 
 - (void)authorizeMoveEvent: (CGFloat)degrees snapToLane:(BOOL)snap {
+    TICK;
     /* Called by user input. Initiates a turn or a lane change if the move is legal.
      
      The layout of this function is as follows:
@@ -227,17 +228,22 @@ static const int TILE_LANE_WIDTH = 32;
      */
     
     
+//
+
+#warning Make sure the new way of using currentTile still catches illegal coordinates
+//    // catch bug for nil currentTile (can happen when traffic drives off the map)
+//    if (!currentTile) {
+////        NSLog(@"currentTile is nil - returning from method");
+//        return;
+//    }
+
     
-    SKSpriteNode *currentTile = [self.levelScene.mapLayerRoad tileAt:self.position];
-//    _currentTileProperties = [self.levelScene.tilemap propertiesForGid:[self.levelScene.mapLayerRoad tileGidAt:self.position]]; // moved this into update so we can get it every frame, since I'd like to check if traffic is on an intersection or not
+    //CGPoint playerPosInTile = [currentTile convertPoint:self.position fromNode:self.levelScene.tilemap];
     
-    // catch bug for nil currentTile (can happen when traffic drives off the map)
-    if (!currentTile) {
-//        NSLog(@"currentTile is nil - returning from method");
-        return;
-    }
+    // using this to convert coordinate spaces because it's MUCH faster than instantiating a currentTile object and converting points that way
+    CGPoint currentTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:self.position]];
+    CGPoint playerPosInTile = CGPointSubtract(self.position, currentTilePos);
     
-    CGPoint playerPosInTile = [currentTile convertPoint:self.position fromNode:self.levelScene.tilemap];
     
     BOOL isWithinBounds;
     BOOL currentTileIsMultiLane;
@@ -260,6 +266,7 @@ static const int TILE_LANE_WIDTH = 32;
         
         targetPoint = CGPointAdd(rotatedPoint, self.position);
         isWithinBounds = [self isTargetPointValid:targetPoint];
+
         
         if (isWithinBounds) {
             self.controlState = PlayerIsTurning;
@@ -275,6 +282,7 @@ static const int TILE_LANE_WIDTH = 32;
             
             
             _requestedMoveEvent = NO; // put this in MovingCharacter's update loop
+            
             return;
         }
         
@@ -319,15 +327,14 @@ static const int TILE_LANE_WIDTH = 32;
     } else {
         targetOffset = CGVectorMake(0, (targetLaneNormalized * TILE_LANE_WIDTH) - pos);        }
     
-    targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
+    targetPoint = CGPointAdd(self.position, CGPointMake(targetOffset.dx, targetOffset.dy));
 #if DEBUG
     //NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
 #endif
     
-    targetPoint = [self.levelScene.tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
     
     isWithinBounds = [self isTargetPointValid:targetPoint];
-    
+
     if (isWithinBounds) {
         if (snap) {
             self.controlState = PlayerIsChangingLanes;
@@ -342,7 +349,7 @@ static const int TILE_LANE_WIDTH = 32;
             [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
             
         }
-        
+        TOCK;
         return;
     }
     
@@ -352,7 +359,7 @@ static const int TILE_LANE_WIDTH = 32;
     // this is for the traffic AI only at this point; players request turns manually by pressing down on the button
     _requestedMoveEvent = YES;
     _requestedMoveEventDegrees = degrees;
-    
+
 }
 
 
