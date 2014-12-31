@@ -204,7 +204,6 @@ static const int TILE_LANE_WIDTH = 32;
 
 
 - (void)authorizeMoveEvent: (CGFloat)degrees snapToLane:(BOOL)snap {
-    TICK;
     /* Called by user input. Initiates a turn or a lane change if the move is legal.
      
      The layout of this function is as follows:
@@ -349,7 +348,7 @@ static const int TILE_LANE_WIDTH = 32;
             [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
             
         }
-        TOCK;
+        
         return;
     }
     
