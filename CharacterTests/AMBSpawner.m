@@ -105,7 +105,7 @@
         [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
             
         // add to minimap
-        SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withScale:1.75];
+        SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withScale:0.025];
         SKAction *fadeOut = [SKAction fadeOutWithDuration:0.25];
         [miniPatient runAction:[SKAction repeatActionForever:[SKAction sequence:@[fadeOut, [fadeOut reversedAction]]]]];
 

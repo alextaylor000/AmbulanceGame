@@ -21,7 +21,7 @@
 @property (readonly, nonatomic) TMXLayer *mapLayerRoad; // road layer and characters
 @property (readonly, nonatomic) TMXLayer *mapLayerScenery; // for buildings, grass, etc.
 @property (readonly, nonatomic) TMXLayer *mapLayerTraffic; // for placement of traffic - will be hidden during gameplay
-@property JSTileMap *miniMap; // the minimap!
+@property SKSpriteNode *miniMap; // the minimap!
 
 @property AMBCamera *camera;
 

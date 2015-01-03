@@ -35,6 +35,8 @@
 		B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
 		B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
 		B99FD0A11A046FE1007FC685 /* AMBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = B99FD0A01A046FE1007FC685 /* AMBCamera.m */; };
+		B9A0C32D1A57CD5300A9BD28 /* level01_firstdraft_MINI.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */; };
+		B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
 		B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
@@ -138,6 +140,7 @@
 		B99E6F2019A16467003A7551 /* LFCGzipUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFCGzipUtility.m; sourceTree = "<group>"; };
 		B99FD09F1A046FE1007FC685 /* AMBCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCamera.h; sourceTree = "<group>"; };
 		B99FD0A01A046FE1007FC685 /* AMBCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBCamera.m; sourceTree = "<group>"; };
+		B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level01_firstdraft_MINI.png; sourceTree = "<group>"; };
 		B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicle.h; sourceTree = "<group>"; };
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
@@ -312,6 +315,7 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */,
 				B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */,
 				B9CC738E19B3DA0C00A376BC /* hospital.png */,
 				B9CC738C19B3D26900A376BC /* sirens.atlas */,
@@ -514,6 +518,7 @@
 				B9C8E4FF1A533449003F7354 /* GameObjectSprites.atlas in Resources */,
 				B94CEF1E1A4A2EC800037DDA /* test_controls.tmx in Resources */,
 				B988239F1969998400903B73 /* Images.xcassets in Resources */,
+				B9A0C32D1A57CD5300A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
 				B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
@@ -538,6 +543,7 @@
 				B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */,
 				B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */,
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
+				B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
 				B9C8E4A71A4B73F0003F7354 /* Images.xcassets in Resources */,
@@ -740,6 +746,7 @@
 					"DEBUG_PLAYER_CONTROL=0",
 					"DEBUG_INDICATOR=0",
 					"DEBUG_FUEL=0",
+					"DEBUG_MINIMAP=1",
 				);
 				INFOPLIST_FILE = "CharacterTests/CharacterTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";

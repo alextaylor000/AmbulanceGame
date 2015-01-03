@@ -84,7 +84,7 @@ static const BOOL renderTraffic = 1;
         #endif
 
         // minimap
-//        [self createMinimap];
+        [self createMinimap];
 
         
         [self createWorld]; // set up tilemap
@@ -165,37 +165,32 @@ static const BOOL renderTraffic = 1;
     
 
     
-    _miniMap = [JSTileMap mapNamed:LEVEL_NAME];
-    [_miniMap setScale:0.0125]; // 1.25% scale on this map should be 128x128 minimap (because map is 40 tiles squared * 256 pixels per tile)
+    _miniMap = [SKSpriteNode spriteNodeWithImageNamed:@"level01_firstdraft_MINI.png"];
+    _miniMap.anchorPoint = CGPointMake(0, 0);
     _miniMap.zPosition = 1000;
-//    _miniMap.position = CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
+    _miniMap.position = CGPointMake(-_miniMap.size.width/2, -_miniMap.size.height/2);
 
     _miniMapContainer = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(150,150)];
     _miniMapContainer.anchorPoint = CGPointMake(0.5, 0.5);
-    _miniMap.position = CGPointZero;
-//    minimapContainer.position =CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
-    _miniMap.position = CGPointMake(-64,-64);
-//    [self addChild:_miniMap];
+
     [_miniMapContainer addChild:_miniMap];
     _miniMapContainer.position = CGPointMake(-400, 300);
     [self addChild:_miniMapContainer];
-
     
-    //[minimapContainer runAction:[SKAction rotateByAngle:DegreesToRadians(90) duration:5]];
-    
-    _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withScale:1.0];
-
-
-
     
 }
 
 - (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withScale:(CGFloat)scale {
     SKSpriteNode *object = [SKSpriteNode spriteNodeWithColor:colour size:CGSizeMake(256*scale, 256*scale)];
-    object.position = position;
+    CGPoint posScaled = CGPointMultiplyScalar(position, 0.0125);
+    object.position = posScaled;
     object.zPosition = 100;
     [_miniMap addChild:object];
 
+#if DEBUG_MINIMAP
+    NSLog(@"Adding object to minimap at %1.0f,%1.0f", posScaled.x,posScaled.y);
+#endif
+    
     return object;
 }
 
@@ -238,6 +233,9 @@ static const BOOL renderTraffic = 1;
 #if DEBUG
     NSLog(@"adding player at %1.0f,%1.0f",_playerSpawnPoint.x,_playerSpawnPoint.y);
 #endif
+    
+    
+    _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withScale:0.0125];
 
 }
 
@@ -301,7 +299,7 @@ static const BOOL renderTraffic = 1;
     }
     
     // update minimap
-    _miniPlayer.position = _player.position;
+    _miniPlayer.position = CGPointMultiplyScalar(_player.position, 0.0125);
     
     
 #if DEBUG_PLAYER_CONTROL
@@ -361,7 +359,7 @@ static const BOOL renderTraffic = 1;
 
         // add hospital indicator target
         [_indicator addTarget:hospital type:IndicatorHospital];
-        _miniHospital = [self addObjectToMinimapAtPoint:hospitalPos withColour:[SKColor whiteColor] withScale:1.5]; // TODO: this assumes just one hospital. does it matter?
+        _miniHospital = [self addObjectToMinimapAtPoint:hospitalPos withColour:[SKColor whiteColor] withScale:0.02]; // TODO: this assumes just one hospital. does it matter?
     }
     
     [self createSpawners];
@@ -450,7 +448,7 @@ static const BOOL renderTraffic = 1;
                                                    frequencyUpperRange:frequencyUpperRange
                                                            withObjects:fuelArray];
         
-        SKSpriteNode *fuelSpawn = [self addObjectToMinimapAtPoint:spawnPoint withColour:[SKColor orangeColor] withScale:1.0];
+        //SKSpriteNode *fuelSpawn = [self addObjectToMinimapAtPoint:spawnPoint withColour:[SKColor orangeColor] withScale:1.0];
         
         [spawner addObjectToNode:_mapLayerRoad atPosition:spawnPoint];
         [_spawners addObject:spawner];
