@@ -23,13 +23,14 @@
 
 
 @property SKLabelNode *labelScore;
+@property SKLabelNode *labelEvent;
 
 
 + (AMBScoreKeeper *)sharedInstance;
 
 /* Labels */
 -(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
-
+-(SKLabelNode *)createEventlabelAtPos:(CGPoint)position;
 
 /* Scoring Events */
 - (void) scoreEventDeliveredPatient:(AMBPatient *)patient;

@@ -99,7 +99,12 @@
 #endif
 
     if (patientTTL <= 0)   {
+        if (_state == PatientIsEnRoute) {
+            [scoreKeeper eventLabelWithText:@"YOUR PATIENT HAS DIED! -points"];
+        }
+        
         [self changeState:PatientIsDead];
+
     }
     
     
@@ -144,7 +149,6 @@
             break;
             
         case PatientIsDead:
-            [scoreKeeper eventLabelWithText:@"YOUR PATIENT HAS DIED! -points"]; // TODO: this should only be displayed when the patient was previously in the ambulance
             
             [self.miniPatient removeFromParent];
             [self removeFromParent];

@@ -117,6 +117,12 @@ static const BOOL renderTraffic = 1;
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
         [self addChild:labelScore];
      
+        
+        // event label
+        SKLabelNode *labelEvent = [_scoreKeeper createEventlabelAtPos:CGPointZero];
+        [self addChild:labelEvent];
+        
+        
         // clock... for testing at the moment, but who knows...?
         _labelClock = [SKLabelNode labelNodeWithFontNamed:@"Courier"];
         _labelClock.text = @"00:00";

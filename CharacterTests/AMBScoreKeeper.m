@@ -32,6 +32,8 @@
         _score = 0;
         _elapsedTime = 0;
         
+        
+        
     }
     
    return self;
@@ -49,6 +51,20 @@
     _labelScore.zPosition = 999;
     
     return _labelScore;
+}
+
+-(SKLabelNode *)createEventlabelAtPos:(CGPoint)position {
+    if (!_labelEvent) {
+        _labelEvent = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
+        _labelEvent.text = @"EVENT!";
+        _labelEvent.fontColor = [SKColor yellowColor];
+        _labelEvent.fontSize = 60;
+        _labelEvent.alpha = 0;
+        _labelEvent.zPosition = 1000;
+        _labelEvent.position = position;
+    }
+    
+    return _labelEvent;
 
 }
 
@@ -88,17 +104,11 @@
 }
 
 - (void)eventLabelWithText:(NSString *)text {
-    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"Upheaval Pro"];
-    label.text = text;
-    label.fontColor = [SKColor yellowColor];
-    label.fontSize = 60;
-    label.alpha = 0;
-    label.zPosition = 1000;
-    [self.scene addChild:label];
+    _labelEvent.text = text;
     
     SKAction *action;
     action = [SKAction sequence:@[[SKAction fadeInWithDuration:0.075],[SKAction waitForDuration:2.0],[SKAction fadeOutWithDuration:0.075]]];
-    [label runAction:action];
+    [_labelEvent runAction:action];
     
 }
 
