@@ -746,7 +746,7 @@
 					"DEBUG_PLAYER_CONTROL=0",
 					"DEBUG_INDICATOR=0",
 					"DEBUG_FUEL=0",
-					"DEBUG_MINIMAP=1",
+					"DEBUG_MINIMAP=0",
 				);
 				INFOPLIST_FILE = "CharacterTests/CharacterTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";

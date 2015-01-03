@@ -868,44 +868,56 @@ static const BOOL renderTraffic = 1;
         [_player handleInput:PlayerControlsStartMoving keyDown:YES];
         _controlsCenter.name = @"controlsCenter_Stop";
         _controlsCenter.color = [SKColor redColor];
-        [_controlsCenter.userData setObject:@"YES" forKey:@"pressed"];
+        [_controlsCenter.userData setObject:event forKey:@"event"];
         
         
     } else if ([touchedNode.name isEqualToString:@"controlsCenter_Stop"]) {
         [_player handleInput:PlayerControlsStopMoving keyDown:YES];
         _controlsCenter.name = @"controlsCenter_Go";
         _controlsCenter.color = [SKColor greenColor];
-        [_controlsCenter.userData setObject:@"YES" forKey:@"pressed"];
+        [_controlsCenter.userData setObject:event forKey:@"event"];
         
     } else if ([touchedNode.name isEqualToString:@"controlsLeft"]) {
         [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
-        _controlsLeft.color = SKColorWithRGB(210, 210, 0);
-        [_controlsLeft.userData setObject:@"YES" forKey:@"pressed"];
+        _controlsLeft.color = SKColorWithRGB(120, 120, 0);
+        [_controlsLeft.userData setObject:event forKey:@"event"];
         
     } else if ([touchedNode.name isEqualToString:@"controlsRight"]) {
         [_player handleInput:PlayerControlsTurnRight keyDown:YES];
-        _controlsRight.color = SKColorWithRGB(210, 210, 0);
-        [_controlsRight.userData setObject:@"YES" forKey:@"pressed"];
+        _controlsRight.color = SKColorWithRGB(120, 120, 0);
+        [_controlsRight.userData setObject:event forKey:@"event"];
     }
     
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-
-    UITouch *touch = [touches anyObject];
-    CGPoint touchLocationInScene = [touch locationInNode:self];
-    SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocationInScene];
     
-    if ([touchedNode.name isEqualToString:@"controlsLeft"]) {
-        [_player handleInput:PlayerControlsTurnLeft keyDown:NO];
-        _controlsLeft.color = [SKColor yellowColor];
-        [_controlsLeft.userData setObject:@"NO" forKey:@"pressed"];
-        
-    } else if ([touchedNode.name isEqualToString:@"controlsRight"]) {
-        [_player handleInput:PlayerControlsTurnRight keyDown:NO];
-        _controlsRight.color = [SKColor yellowColor];
-        [_controlsRight.userData setObject:@"NO" forKey:@"pressed"];
+    if ([_controlsCenter.userData[@"event"] isEqual:event]) {
+#if DEBUG_PLAYER_CONTROL
+        NSLog(@"unset controlsCenter event");
+#endif
+        [_controlsCenter.userData removeObjectForKey:@"event"];
     }
+
+    if ([_controlsLeft.userData[@"event"] isEqual:event]) {
+#if DEBUG_PLAYER_CONTROL
+        NSLog(@"unset controlsLeft event");
+#endif
+        [_controlsLeft.userData removeObjectForKey:@"event"];
+        _controlsLeft.color = [SKColor yellowColor];
+        [_player handleInput:PlayerControlsTurnLeft keyDown:NO];
+    }
+
+    if ([_controlsRight.userData[@"event"] isEqual:event]) {
+#if DEBUG_PLAYER_CONTROL
+        NSLog(@"unset controlsRight event");
+#endif
+        [_controlsRight.userData removeObjectForKey:@"event"];
+        _controlsRight.color = [SKColor yellowColor];
+        [_player handleInput:PlayerControlsTurnRight keyDown:NO];
+    }
+
+    
 
 }
 
