@@ -21,6 +21,7 @@
 static const float KEY_PRESS_INTERVAL_SECS = 0.2; // ignore key presses more frequent than this interval
 //static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
+static const BOOL renderTraffic = 1;
 
 @interface AMBLevelScene ()
 
@@ -292,9 +293,12 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     [_indicator update];
     
     // update traffic
-//    for (AMBTrafficVehicle *vehicle in _trafficVehicles) {
-//        [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
-//    }
+    if (renderTraffic) {
+        for (AMBTrafficVehicle *vehicle in _trafficVehicles) {
+            [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
+        }
+        
+    }
     
     // update minimap
     _miniPlayer.position = _player.position;
@@ -396,33 +400,35 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     }
 
     // traffic spawners
-//    _trafficVehicles = [[NSMutableArray alloc]init];
-//    
-//    CGSize gridSize = _mapLayerTraffic.layerInfo.layerGridSize;
-//    for (int w = 0 ; w < gridSize.width; ++w) {
-//        for(int h = 0; h < gridSize.height; ++h) {
-//            
-//            CGPoint coord = CGPointMake(w, h);
-//
-//            int tileGid =
-//            [_mapLayerTraffic.layerInfo tileGidAtCoord:coord];
-//
-//            if(!tileGid)
-//                continue;
-//
-//            NSDictionary *tileProperties = [_tilemap propertiesForGid:tileGid];            // properties will be name (traffic), center_x, center_y, orientation
-//            if ([tileProperties[@"name"] isEqualToString:@"traffic"]) {
-//                // spawn the thing!
-//                CGPoint center = CGPointMake([tileProperties[@"center_x"] floatValue], [tileProperties[@"center_y"] floatValue]);
-//                CGPoint point = [_mapLayerTraffic pointForCoord:coord];
-//                center = CGPointAdd(center, point);
-//
-////                NSLog(@"Adding traffic object at %1.0f,%1.0f",center.x,center.y);
-//                [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"] shouldTurnAtIntersections:YES];
-//            }
-//
-//        }
-//    }
+    if (renderTraffic) {
+        _trafficVehicles = [[NSMutableArray alloc]init];
+        
+        CGSize gridSize = _mapLayerTraffic.layerInfo.layerGridSize;
+        for (int w = 0 ; w < gridSize.width; ++w) {
+            for(int h = 0; h < gridSize.height; ++h) {
+                
+                CGPoint coord = CGPointMake(w, h);
+
+                int tileGid =
+                [_mapLayerTraffic.layerInfo tileGidAtCoord:coord];
+
+                if(!tileGid)
+                    continue;
+
+                NSDictionary *tileProperties = [_tilemap propertiesForGid:tileGid];            // properties will be name (traffic), center_x, center_y, orientation
+                if ([tileProperties[@"name"] isEqualToString:@"traffic"]) {
+                    // spawn the thing!
+                    CGPoint center = CGPointMake([tileProperties[@"center_x"] floatValue], [tileProperties[@"center_y"] floatValue]);
+                    CGPoint point = [_mapLayerTraffic pointForCoord:coord];
+                    center = CGPointAdd(center, point);
+
+    //                NSLog(@"Adding traffic object at %1.0f,%1.0f",center.x,center.y);
+                    [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"] shouldTurnAtIntersections:YES];
+                }
+
+            }
+        }
+    }
     
 
     // fuel powerup spawners

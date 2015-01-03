@@ -192,12 +192,13 @@ static const int TILE_LANE_WIDTH = 32;
 }
 
 - (void)moveSprite:(SKSpriteNode *)sprite directionNormalized:(CGPoint)direction {
-    
+    // TODO: replace with an action so we can use .paused on objects
     CGPoint velocity = CGPointMultiplyScalar(direction, self.speedPointsPerSec);
     CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
-    
     CGPoint amountToMoveSpeedMult = CGPointMultiplyScalar(amountToMove, _characterSpeedMultiplier);
-    sprite.position = CGPointAdd(sprite.position, amountToMoveSpeedMult);
+    CGPoint newPosition = CGPointAdd(sprite.position, amountToMoveSpeedMult);
+    
+    sprite.position = newPosition;
     
     
 }
