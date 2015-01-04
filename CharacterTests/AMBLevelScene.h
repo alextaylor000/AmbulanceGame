@@ -52,8 +52,6 @@
 
 - (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withScale:(CGFloat)scale; // for adding patients to the minimap from the spawner class
 
-/** rotates the minimap when the camera rotates. called by the rotation method in the camera class. */
-- (void)rotateMinimapWithAction:(SKAction *)action;
 
 
 

@@ -7,11 +7,20 @@
 //
 //  Provides high-level functions for all game scenes
 
+
 #import <SpriteKit/SpriteKit.h>
+
 
 @class JSTileMap;
 
-@interface AMBGameScene : SKScene
+@interface AMBGameScene : SKScene <UIGestureRecognizerDelegate>
+
+@property UISwipeGestureRecognizer *gestureSwipeLeft;
+@property UISwipeGestureRecognizer *gestureSwipeRight;
+@property UISwipeGestureRecognizer *gestureSwipeUp;
+@property UISwipeGestureRecognizer *gestureSwipeDown;
+@property UITapGestureRecognizer *gestureTap;
+@property UILongPressGestureRecognizer *gestureLongPress;
 
 - (JSTileMap *)tileMapFromFile:(NSString *)filename;
     

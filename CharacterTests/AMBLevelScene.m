@@ -69,6 +69,34 @@ static const BOOL renderTraffic = 1;
 
 @implementation AMBLevelScene
 
+- (void)didMoveToView:(SKView *)view {
+    self.gestureSwipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeLeft:)];
+    [self.gestureSwipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+
+    self.gestureSwipeRight= [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRight:)];
+    [self.gestureSwipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+
+    self.gestureTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+    [self.gestureTap setNumberOfTapsRequired:2]; // 2 taps to stop/start
+    
+    self.gestureLongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)]; // long press to slow
+
+    [view addGestureRecognizer:self.gestureSwipeLeft];
+    [view addGestureRecognizer:self.gestureSwipeRight];
+    [view addGestureRecognizer:self.gestureTap];
+    [view addGestureRecognizer:self.gestureLongPress];
+    
+}
+
+- (void)willMoveFromView:(SKView *)view {
+    [view removeGestureRecognizer:self.gestureSwipeLeft];
+    [view removeGestureRecognizer:self.gestureSwipeRight];
+    [view removeGestureRecognizer:self.gestureTap];
+    [view removeGestureRecognizer:self.gestureLongPress];
+    
+}
+
+
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
 
@@ -874,6 +902,8 @@ static const BOOL renderTraffic = 1;
 }
 
 
+
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
@@ -939,6 +969,41 @@ static const BOOL renderTraffic = 1;
     
 
 }
+
+
+// Gesture Controls
+- (void)handleSwipeLeft:(UIGestureRecognizer *)recognizer {
+#if DEBUG_PLAYER_CONTROL
+    NSLog(@"handleSwipeLeft");
+#endif
+}
+
+- (void)handleSwipeRight:(UIGestureRecognizer *)recognizer {
+#if DEBUG_PLAYER_CONTROL
+    NSLog(@"handleSwipeRight");
+#endif
+    
+}
+
+- (void)handleTap:(UIGestureRecognizer *)recognizer {
+    // two taps 
+#if DEBUG_PLAYER_CONTROL
+    NSLog(@"handleTap");
+#endif
+
+}
+
+- (void)handleLongPress:(UIGestureRecognizer *)recognizer {
+    // will be called multiple times after the gesture is recognized.
+    // you can query the recognizer's state to respond to specific events.
+#if DEBUG_PLAYER_CONTROL
+    NSLog(@"handleLongPress");
+#endif
+ 
+}
+
+
+
 
 #else
 // OS X controls
