@@ -29,7 +29,6 @@
 		B98823951969998400903B73 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98823941969998400903B73 /* MainMenu.xib */; };
 		B98823971969998400903B73 /* AMBLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* AMBLevelScene.m */; };
 		B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823991969998400903B73 /* AMBAppDelegateOSX.m */; };
-		B988239F1969998400903B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B988239E1969998400903B73 /* Images.xcassets */; };
 		B98823BE19699C4400903B73 /* AMBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* AMBPlayer.m */; };
 		B99E6F2119A16467003A7551 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F1C19A16467003A7551 /* .gitignore */; };
 		B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
@@ -44,7 +43,6 @@
 		B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4991A4B73F0003F7354 /* AppDelegate.m */; };
 		B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4A11A4B73F0003F7354 /* GameViewController.m */; };
 		B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4A31A4B73F0003F7354 /* Main.storyboard */; };
-		B9C8E4A71A4B73F0003F7354 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4A61A4B73F0003F7354 /* Images.xcassets */; };
 		B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */; };
 		B9C8E4BE1A4B747E003F7354 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
 		B9C8E4C01A4B747E003F7354 /* AMBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = B99FD0A01A046FE1007FC685 /* AMBCamera.m */; };
@@ -126,7 +124,6 @@
 		B98823981969998400903B73 /* AMBLevelScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMBLevelScene.h; sourceTree = "<group>"; };
 		B98823991969998400903B73 /* AMBAppDelegateOSX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AMBAppDelegateOSX.m; path = CharacterTests/AMBAppDelegateOSX.m; sourceTree = "<group>"; };
 		B988239B1969998400903B73 /* AMBAppDelegateOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AMBAppDelegateOSX.h; path = CharacterTests/AMBAppDelegateOSX.h; sourceTree = "<group>"; };
-		B988239E1969998400903B73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CharacterTests/Images.xcassets; sourceTree = "<group>"; };
 		B98823A51969998400903B73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B98823AC1969998400903B73 /* CharacterTestsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CharacterTestsTests-Info.plist"; sourceTree = "<group>"; };
 		B98823AE1969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -154,7 +151,6 @@
 		B9C8E4A01A4B73F0003F7354 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		B9C8E4A11A4B73F0003F7354 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		B9C8E4A41A4B73F0003F7354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B9C8E4A61A4B73F0003F7354 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B9C8E4A91A4B73F0003F7354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B9C8E4F11A4B77AC003F7354 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameObjectSprites.atlas; sourceTree = "<group>"; };
@@ -350,7 +346,6 @@
 				B98823941969998400903B73 /* MainMenu.xib */,
 				B988239B1969998400903B73 /* AMBAppDelegateOSX.h */,
 				B98823991969998400903B73 /* AMBAppDelegateOSX.m */,
-				B988239E1969998400903B73 /* Images.xcassets */,
 				B98823891969998400903B73 /* Supporting Files */,
 			);
 			name = "Target - OS X";
@@ -373,7 +368,6 @@
 				B9C8E4A01A4B73F0003F7354 /* GameViewController.h */,
 				B9C8E4A11A4B73F0003F7354 /* GameViewController.m */,
 				B9C8E4A31A4B73F0003F7354 /* Main.storyboard */,
-				B9C8E4A61A4B73F0003F7354 /* Images.xcassets */,
 				B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */,
 				B9C8E4941A4B73F0003F7354 /* Supporting Files */,
 			);
@@ -517,7 +511,6 @@
 			files = (
 				B9C8E4FF1A533449003F7354 /* GameObjectSprites.atlas in Resources */,
 				B94CEF1E1A4A2EC800037DDA /* test_controls.tmx in Resources */,
-				B988239F1969998400903B73 /* Images.xcassets in Resources */,
 				B9A0C32D1A57CD5300A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
 				B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */,
@@ -546,7 +539,6 @@
 				B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
-				B9C8E4A71A4B73F0003F7354 /* Images.xcassets in Resources */,
 				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -772,7 +764,7 @@
 		B9C8E4B81A4B73F0003F7354 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -784,14 +776,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		B9C8E4B91A4B73F0003F7354 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -802,7 +794,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

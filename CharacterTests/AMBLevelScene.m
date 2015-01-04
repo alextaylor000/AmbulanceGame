@@ -182,7 +182,7 @@ static const BOOL renderTraffic = 1;
     _miniMapContainer.anchorPoint = CGPointMake(0.5, 0.5);
 
     [_miniMapContainer addChild:_miniMap];
-    _miniMapContainer.position = CGPointMake(-400, 300);
+    _miniMapContainer.position = CGPointMake(-self.size.width/2 + 100, self.size.height/2-100);
     [self addChild:_miniMapContainer];
     
     

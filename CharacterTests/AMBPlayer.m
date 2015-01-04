@@ -328,6 +328,10 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             
         case PlayerIsDrivingStraight:
             
+            if (!keyDown) {
+                return;
+            }
+            
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStopMoving) {
                 self.controlState = PlayerIsDecelerating;
