@@ -677,6 +677,7 @@
 					"$(inherited)",
 					"DEBUG_PATIENT=0",
 					"DEBUG_PLAYER_CONTROL=0",
+					"DEBUG_PLAYER_SWIPE=1",
 					"DEBUG_INDICATOR=0",
 					"DEBUG_FUEL=0",
 				);

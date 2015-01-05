@@ -77,41 +77,46 @@ typedef enum {
 @property SKLabelNode *controlStateLabel; // for the player
 #endif
 
+#if DEBUG_PLAYER_SWIPE
+@property SKLabelNode *swipeLabel;
+#endif
+
 
 @end
 
 @implementation AMBLevelScene
 
 - (void)didMoveToView:(SKView *)view {
-//    self.gestureSwipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeLeft:)];
-//    [self.gestureSwipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-//
-//    self.gestureSwipeRight= [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRight:)];
-//    [self.gestureSwipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
-
+    
     self.panGestureState = GestureIdle;
     
     self.gesturePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
     
+    self.gestureSwipeUp = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeUp:)];
+    [self.gestureSwipeUp setDirection:UISwipeGestureRecognizerDirectionUp];
+    [self.gestureSwipeUp requireGestureRecognizerToFail:self.gesturePan];
+
+    self.gestureSwipeDown = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeDown:)];
+    [self.gestureSwipeDown setDirection:UISwipeGestureRecognizerDirectionDown];
+    [self.gestureSwipeDown requireGestureRecognizerToFail:self.gesturePan];
 
     self.gestureTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
     [self.gestureTap setNumberOfTapsRequired:2]; // 2 taps to stop/start
     
     self.gestureLongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)]; // long press to slow
 
-//    [view addGestureRecognizer:self.gestureSwipeLeft];
-//    [view addGestureRecognizer:self.gestureSwipeRight];
     [view addGestureRecognizer:self.gesturePan];
+    [view addGestureRecognizer:self.gestureSwipeUp];
+    [view addGestureRecognizer:self.gestureSwipeDown];
     [view addGestureRecognizer:self.gestureTap];
     [view addGestureRecognizer:self.gestureLongPress];
     
 }
 
 - (void)willMoveFromView:(SKView *)view {
-//    [view removeGestureRecognizer:self.gestureSwipeLeft];
-//    [view removeGestureRecognizer:self.gestureSwipeRight];
-    
     [view removeGestureRecognizer:self.gesturePan];
+    [view removeGestureRecognizer:self.gestureSwipeUp];
+    [view removeGestureRecognizer:self.gestureSwipeDown];
     [view removeGestureRecognizer:self.gestureTap];
     [view removeGestureRecognizer:self.gestureLongPress];
     
@@ -131,6 +136,15 @@ typedef enum {
         #if TARGET_OS_IPHONE
 //        [self createControls];
         #endif
+        
+#if DEBUG_PLAYER_SWIPE
+        _swipeLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+        _swipeLabel.fontColor = [SKColor whiteColor];
+        _swipeLabel.fontSize = 50;
+        _swipeLabel.text = @"|";
+        _swipeLabel.position = CGPointMake(0, -self.size.height/2 + 60);
+        [self addChild:_swipeLabel];
+#endif
 
         // minimap
         [self createMinimap];
@@ -998,22 +1012,14 @@ typedef enum {
 
 // Gesture Controls
 
-// swipes were removed in favour of pans, for more control
-//- (void)handleSwipeLeft:(UIGestureRecognizer *)recognizer {
-//#if DEBUG_PLAYER_CONTROL
-//    NSLog(@"handleSwipeLeft; state=%li",recognizer.state);
-//#endif
-//    
-//    [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
-//}
-//
-//- (void)handleSwipeRight:(UIGestureRecognizer *)recognizer {
-//#if DEBUG_PLAYER_CONTROL
-//    NSLog(@"handleSwipeRight; state=%li",recognizer.state);
-//#endif
-//
-//    [_player handleInput:PlayerControlsTurnRight keyDown:YES];
-//}
+
+- (void)handleSwipeUp:(UIGestureRecognizer *)recognizer {
+    [_player handleInput:PlayerControlsStartMoving keyDown:YES];
+}
+
+- (void)handleSwipeDown:(UIGestureRecognizer *)recognizer {
+    [_player handleInput:PlayerControlsStopMoving keyDown:YES];
+}
 
 - (void)handlePan:(UIGestureRecognizer *)recognizer {
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
@@ -1035,10 +1041,17 @@ typedef enum {
             if (vel.x < 0) { // LEFT
                 self.panGestureState = GestureLeftDown;
                 [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"<<";
+#endif
                 
             } else { // RIGHT
                 self.panGestureState = GestureRightDown;
                 [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @">>";
+#endif
+                
             }
             break;
             
@@ -1046,15 +1059,27 @@ typedef enum {
         case GestureLeftDown:
             if (recognizer.state == UIGestureRecognizerStateEnded) {
                 [_player handleInput:PlayerControlsTurnLeft keyDown:NO]; // fingers up!
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"|";
+#endif
+                
                 break;
             }
             
             if (vel.x <= 2) { // LEFT, with 2 pts margin of error
                 [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"<<";
+#endif
+                
                 
             } else { // RIGHT
                 self.panGestureState = GestureRightDown;
                 [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @">>";
+#endif
+                
             }
             break;
             
@@ -1065,15 +1090,27 @@ typedef enum {
         case GestureRightDown:
             if (recognizer.state == UIGestureRecognizerStateEnded) {
                 [_player handleInput:PlayerControlsTurnRight keyDown:NO]; // fingers up!
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"|";
+#endif
+                
                 break;
             }
             
             if (vel.x >= -2) { // RIGHT, with 2 pts margin of error
                 [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @">>";
+#endif
+                
                 
             } else { // LEFT
                 self.panGestureState = GestureLeftDown;
                 [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"<<";
+#endif
+                
             }
             break;
 
