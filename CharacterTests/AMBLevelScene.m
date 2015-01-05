@@ -23,6 +23,17 @@ static const float KEY_PRESS_INTERVAL_SECS = 0.2; // ignore key presses more fre
 static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 static const BOOL renderTraffic = 1;
 
+typedef enum {
+    GestureIdle,
+    GestureBegan,
+
+    GestureLeftDown,
+    GestureLeftUp,
+
+    GestureRightDown,
+    GestureRightUp
+} PanGestureState;
+
 @interface AMBLevelScene ()
 
 @property NSTimeInterval lastUpdateTimeInterval;
@@ -60,6 +71,8 @@ static const BOOL renderTraffic = 1;
 
 @property SKLabelNode *labelClock;
 
+@property PanGestureState panGestureState;
+
 #if DEBUG_PLAYER_CONTROL
 @property SKLabelNode *controlStateLabel; // for the player
 #endif
@@ -70,27 +83,35 @@ static const BOOL renderTraffic = 1;
 @implementation AMBLevelScene
 
 - (void)didMoveToView:(SKView *)view {
-    self.gestureSwipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeLeft:)];
-    [self.gestureSwipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+//    self.gestureSwipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeLeft:)];
+//    [self.gestureSwipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+//
+//    self.gestureSwipeRight= [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRight:)];
+//    [self.gestureSwipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
 
-    self.gestureSwipeRight= [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRight:)];
-    [self.gestureSwipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    self.panGestureState = GestureIdle;
+    
+    self.gesturePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+    
 
     self.gestureTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
     [self.gestureTap setNumberOfTapsRequired:2]; // 2 taps to stop/start
     
     self.gestureLongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)]; // long press to slow
 
-    [view addGestureRecognizer:self.gestureSwipeLeft];
-    [view addGestureRecognizer:self.gestureSwipeRight];
+//    [view addGestureRecognizer:self.gestureSwipeLeft];
+//    [view addGestureRecognizer:self.gestureSwipeRight];
+    [view addGestureRecognizer:self.gesturePan];
     [view addGestureRecognizer:self.gestureTap];
     [view addGestureRecognizer:self.gestureLongPress];
     
 }
 
 - (void)willMoveFromView:(SKView *)view {
-    [view removeGestureRecognizer:self.gestureSwipeLeft];
-    [view removeGestureRecognizer:self.gestureSwipeRight];
+//    [view removeGestureRecognizer:self.gestureSwipeLeft];
+//    [view removeGestureRecognizer:self.gestureSwipeRight];
+    
+    [view removeGestureRecognizer:self.gesturePan];
     [view removeGestureRecognizer:self.gestureTap];
     [view removeGestureRecognizer:self.gestureLongPress];
     
@@ -108,7 +129,7 @@ static const BOOL renderTraffic = 1;
         
         // add controls
         #if TARGET_OS_IPHONE
-        [self createControls];
+//        [self createControls];
         #endif
 
         // minimap
@@ -903,93 +924,181 @@ static const BOOL renderTraffic = 1;
 
 
 
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint touchLocationInScene = [touch locationInNode:self];
-    SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocationInScene];
-#if DEBUG_PLAYER_CONTROL
-    NSLog(@"touchedNode.name=%@",touchedNode.name);
-#endif
-    
-    if ([touchedNode.name isEqualToString:@"controlsCenter_Go"]) {
-        [_player handleInput:PlayerControlsStartMoving keyDown:YES];
-        _controlsCenter.name = @"controlsCenter_Stop";
-        _controlsCenter.color = [SKColor redColor];
-        [_controlsCenter.userData setObject:event forKey:@"event"];
-        
-        
-    } else if ([touchedNode.name isEqualToString:@"controlsCenter_Stop"]) {
-        [_player handleInput:PlayerControlsStopMoving keyDown:YES];
-        _controlsCenter.name = @"controlsCenter_Go";
-        _controlsCenter.color = [SKColor greenColor];
-        [_controlsCenter.userData setObject:event forKey:@"event"];
-        
-    } else if ([touchedNode.name isEqualToString:@"controlsLeft"]) {
-        [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
-        _controlsLeft.color = SKColorWithRGB(120, 120, 0);
-        [_controlsLeft.userData setObject:event forKey:@"event"];
-        
-    } else if ([touchedNode.name isEqualToString:@"controlsRight"]) {
-        [_player handleInput:PlayerControlsTurnRight keyDown:YES];
-        _controlsRight.color = SKColorWithRGB(120, 120, 0);
-        [_controlsRight.userData setObject:event forKey:@"event"];
-    }
-    
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    if ([_controlsCenter.userData[@"event"] isEqual:event]) {
-#if DEBUG_PLAYER_CONTROL
-        NSLog(@"unset controlsCenter event");
-#endif
-        [_controlsCenter.userData removeObjectForKey:@"event"];
-    }
-
-    if ([_controlsLeft.userData[@"event"] isEqual:event]) {
-#if DEBUG_PLAYER_CONTROL
-        NSLog(@"unset controlsLeft event");
-#endif
-        [_controlsLeft.userData removeObjectForKey:@"event"];
-        _controlsLeft.color = [SKColor yellowColor];
-        [_player handleInput:PlayerControlsTurnLeft keyDown:NO];
-    }
-
-    if ([_controlsRight.userData[@"event"] isEqual:event]) {
-#if DEBUG_PLAYER_CONTROL
-        NSLog(@"unset controlsRight event");
-#endif
-        [_controlsRight.userData removeObjectForKey:@"event"];
-        _controlsRight.color = [SKColor yellowColor];
-        [_player handleInput:PlayerControlsTurnRight keyDown:NO];
-    }
-
-    
-
-}
+// removed in favour of gestures
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    
+//    UITouch *touch = [touches anyObject];
+//    CGPoint touchLocationInScene = [touch locationInNode:self];
+//    SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocationInScene];
+//#if DEBUG_PLAYER_CONTROL
+//    NSLog(@"touchedNode.name=%@",touchedNode.name);
+//#endif
+//    
+//    if ([touchedNode.name isEqualToString:@"controlsCenter_Go"]) {
+//        [_player handleInput:PlayerControlsStartMoving keyDown:YES];
+//        _controlsCenter.name = @"controlsCenter_Stop";
+//        _controlsCenter.color = [SKColor redColor];
+//        [_controlsCenter.userData setObject:event forKey:@"event"];
+//        
+//        
+//    } else if ([touchedNode.name isEqualToString:@"controlsCenter_Stop"]) {
+//        [_player handleInput:PlayerControlsStopMoving keyDown:YES];
+//        _controlsCenter.name = @"controlsCenter_Go";
+//        _controlsCenter.color = [SKColor greenColor];
+//        [_controlsCenter.userData setObject:event forKey:@"event"];
+//        
+//    } else if ([touchedNode.name isEqualToString:@"controlsLeft"]) {
+//        [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+//        _controlsLeft.color = SKColorWithRGB(120, 120, 0);
+//        [_controlsLeft.userData setObject:event forKey:@"event"];
+//        
+//    } else if ([touchedNode.name isEqualToString:@"controlsRight"]) {
+//        [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+//        _controlsRight.color = SKColorWithRGB(120, 120, 0);
+//        [_controlsRight.userData setObject:event forKey:@"event"];
+//    }
+//    
+//}
+//
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+//
+//#if DEBUG_PLAYER_CONTROL
+//    NSLog(@"touchesEnded");
+//#endif
+//    
+//    if ([_controlsCenter.userData[@"event"] isEqual:event]) {
+//#if DEBUG_PLAYER_CONTROL
+//        NSLog(@"unset controlsCenter event");
+//#endif
+//        [_controlsCenter.userData removeObjectForKey:@"event"];
+//    }
+//
+//    if ([_controlsLeft.userData[@"event"] isEqual:event]) {
+//#if DEBUG_PLAYER_CONTROL
+//        NSLog(@"unset controlsLeft event");
+//#endif
+//        [_controlsLeft.userData removeObjectForKey:@"event"];
+//        _controlsLeft.color = [SKColor yellowColor];
+//        [_player handleInput:PlayerControlsTurnLeft keyDown:NO];
+//    }
+//
+//    if ([_controlsRight.userData[@"event"] isEqual:event]) {
+//#if DEBUG_PLAYER_CONTROL
+//        NSLog(@"unset controlsRight event");
+//#endif
+//        [_controlsRight.userData removeObjectForKey:@"event"];
+//        _controlsRight.color = [SKColor yellowColor];
+//        [_player handleInput:PlayerControlsTurnRight keyDown:NO];
+//    }
+//
+//    
+//
+//}
 
 
 // Gesture Controls
-- (void)handleSwipeLeft:(UIGestureRecognizer *)recognizer {
-#if DEBUG_PLAYER_CONTROL
-    NSLog(@"handleSwipeLeft");
-#endif
-}
 
-- (void)handleSwipeRight:(UIGestureRecognizer *)recognizer {
+// swipes were removed in favour of pans, for more control
+//- (void)handleSwipeLeft:(UIGestureRecognizer *)recognizer {
+//#if DEBUG_PLAYER_CONTROL
+//    NSLog(@"handleSwipeLeft; state=%li",recognizer.state);
+//#endif
+//    
+//    [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+//}
+//
+//- (void)handleSwipeRight:(UIGestureRecognizer *)recognizer {
+//#if DEBUG_PLAYER_CONTROL
+//    NSLog(@"handleSwipeRight; state=%li",recognizer.state);
+//#endif
+//
+//    [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+//}
+
+- (void)handlePan:(UIGestureRecognizer *)recognizer {
+    CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
+    
 #if DEBUG_PLAYER_CONTROL
-    NSLog(@"handleSwipeRight");
+    NSLog(@"handlePanl state=%li, velocity%1.0f,%1.0f",recognizer.state,vel.x,vel.y);
 #endif
+    
+    // if a Pan gesture has begun, fire up OUR state machine; otherwise pass the current state through
+    self.panGestureState = recognizer.state == UIGestureRecognizerStateBegan ? GestureBegan : self.panGestureState;
+    
+    
+    switch (self.panGestureState) {
+        case GestureIdle:
+            // should never happen
+            break;
+        
+        case GestureBegan:
+            if (vel.x < 0) { // LEFT
+                self.panGestureState = GestureLeftDown;
+                [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+                
+            } else { // RIGHT
+                self.panGestureState = GestureRightDown;
+                [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+            }
+            break;
+            
+            
+        case GestureLeftDown:
+            if (recognizer.state == UIGestureRecognizerStateEnded) {
+                [_player handleInput:PlayerControlsTurnLeft keyDown:NO]; // fingers up!
+                break;
+            }
+            
+            if (vel.x <= 2) { // LEFT, with 2 pts margin of error
+                [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+                
+            } else { // RIGHT
+                self.panGestureState = GestureRightDown;
+                [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+            }
+            break;
+            
+        case GestureLeftUp:
+            // should never be called; transition will be handled by LeftDown
+            break;
+            
+        case GestureRightDown:
+            if (recognizer.state == UIGestureRecognizerStateEnded) {
+                [_player handleInput:PlayerControlsTurnRight keyDown:NO]; // fingers up!
+                break;
+            }
+            
+            if (vel.x >= -2) { // RIGHT, with 2 pts margin of error
+                [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+                
+            } else { // LEFT
+                self.panGestureState = GestureLeftDown;
+                [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+            }
+            break;
+
+            break;
+            
+        case GestureRightUp:
+            // should never be called; transition will be handled by RightDown
+            break;
+        
+    }
     
 }
 
 - (void)handleTap:(UIGestureRecognizer *)recognizer {
-    // two taps 
+    // two taps, start/stop moving
 #if DEBUG_PLAYER_CONTROL
     NSLog(@"handleTap");
 #endif
+    
+    if (_player.isMoving) {
+        [_player handleInput:PlayerControlsStopMoving keyDown:YES];
+    } else {
+        [_player handleInput:PlayerControlsStartMoving keyDown:YES];
+    }
+
 
 }
 

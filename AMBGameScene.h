@@ -15,8 +15,9 @@
 
 @interface AMBGameScene : SKScene <UIGestureRecognizerDelegate>
 
-@property UISwipeGestureRecognizer *gestureSwipeLeft;
-@property UISwipeGestureRecognizer *gestureSwipeRight;
+//@property UISwipeGestureRecognizer *gestureSwipeLeft; // using pan instead
+//@property UISwipeGestureRecognizer *gestureSwipeRight;
+@property UIPanGestureRecognizer *gesturePan;
 @property UISwipeGestureRecognizer *gestureSwipeUp;
 @property UISwipeGestureRecognizer *gestureSwipeDown;
 @property UITapGestureRecognizer *gestureTap;
