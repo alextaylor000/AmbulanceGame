@@ -89,7 +89,7 @@ typedef enum {
 - (void)didMoveToView:(SKView *)view {
     
     self.panGestureState = GestureIdle;
-    
+#if TARGET_OS_IPHONE
     self.gesturePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
     
     self.gestureSwipeUp = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeUp:)];
@@ -110,15 +110,18 @@ typedef enum {
     [view addGestureRecognizer:self.gestureSwipeDown];
     [view addGestureRecognizer:self.gestureTap];
     [view addGestureRecognizer:self.gestureLongPress];
+#endif
     
 }
 
 - (void)willMoveFromView:(SKView *)view {
+#if TARGET_OS_IPHONE
     [view removeGestureRecognizer:self.gesturePan];
     [view removeGestureRecognizer:self.gestureSwipeUp];
     [view removeGestureRecognizer:self.gestureSwipeDown];
     [view removeGestureRecognizer:self.gestureTap];
     [view removeGestureRecognizer:self.gestureLongPress];
+#endif
     
 }
 

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B988237C1969998400903B73"
-               BuildableName = "CharacterTests.app"
-               BlueprintName = "CharacterTests"
-               ReferencedContainer = "container:CharacterTests.xcodeproj">
+               BuildableName = "AmbulanceGame.app"
+               BlueprintName = "AmbulanceGame"
+               ReferencedContainer = "container:AmbulanceGame.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "B98823A31969998400903B73"
                BuildableName = "CharacterTestsTests.xctest"
                BlueprintName = "CharacterTestsTests"
-               ReferencedContainer = "container:CharacterTests.xcodeproj">
+               ReferencedContainer = "container:AmbulanceGame.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B988237C1969998400903B73"
-            BuildableName = "CharacterTests.app"
-            BlueprintName = "CharacterTests"
-            ReferencedContainer = "container:CharacterTests.xcodeproj">
+            BuildableName = "AmbulanceGame.app"
+            BlueprintName = "AmbulanceGame"
+            ReferencedContainer = "container:AmbulanceGame.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B988237C1969998400903B73"
-            BuildableName = "CharacterTests.app"
-            BlueprintName = "CharacterTests"
-            ReferencedContainer = "container:CharacterTests.xcodeproj">
+            BuildableName = "AmbulanceGame.app"
+            BlueprintName = "AmbulanceGame"
+            ReferencedContainer = "container:AmbulanceGame.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B988237C1969998400903B73"
-            BuildableName = "CharacterTests.app"
-            BlueprintName = "CharacterTests"
-            ReferencedContainer = "container:CharacterTests.xcodeproj">
+            BuildableName = "AmbulanceGame.app"
+            BlueprintName = "AmbulanceGame"
+            ReferencedContainer = "container:AmbulanceGame.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

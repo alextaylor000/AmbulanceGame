@@ -13,15 +13,18 @@
 
 @class JSTileMap;
 
+#if TARGET_OS_IPHONE
 @interface AMBGameScene : SKScene <UIGestureRecognizerDelegate>
-
-//@property UISwipeGestureRecognizer *gestureSwipeLeft; // using pan instead
-//@property UISwipeGestureRecognizer *gestureSwipeRight;
 @property UIPanGestureRecognizer *gesturePan;
 @property UISwipeGestureRecognizer *gestureSwipeUp;
 @property UISwipeGestureRecognizer *gestureSwipeDown;
 @property UITapGestureRecognizer *gestureTap;
 @property UILongPressGestureRecognizer *gestureLongPress;
+
+#else
+@interface AMBGameScene : SKScene
+
+#endif
 
 - (JSTileMap *)tileMapFromFile:(NSString *)filename;
     

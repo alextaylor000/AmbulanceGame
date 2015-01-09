@@ -15,6 +15,7 @@
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
 		B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
+		B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */; };
 		B94CEF1E1A4A2EC800037DDA /* test_controls.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */; };
 		B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */ = {isa = PBXBuildFile; fileRef = B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */; };
 		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
@@ -99,6 +100,7 @@
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8bit_tileset_design_ver02.png; sourceTree = "<group>"; };
+		B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test_controls.tmx; sourceTree = "<group>"; };
 		B966BA701A2A9A9900145FA9 /* AMBTrafficVehicleState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicleState.h; sourceTree = "<group>"; };
 		B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicleState.m; sourceTree = "<group>"; };
@@ -108,16 +110,16 @@
 		B97831441A190C1F002A10BC /* AMBIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBIndicator.h; sourceTree = "<group>"; };
 		B97831451A190C1F002A10BC /* AMBIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBIndicator.m; sourceTree = "<group>"; };
 		B97831491A198950002A10BC /* level01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01.tmx; sourceTree = "<group>"; };
-		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B988237D1969998400903B73 /* AmbulanceGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbulanceGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823801969998400903B73 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B98823821969998400903B73 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		B98823851969998400903B73 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		B98823861969998400903B73 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B98823871969998400903B73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		B988238A1969998400903B73 /* CharacterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CharacterTests-Info.plist"; sourceTree = "<group>"; };
+		B988238A1969998400903B73 /* AmbulanceGame-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AmbulanceGame-Info.plist"; sourceTree = "<group>"; };
 		B988238C1969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B988238E1969998400903B73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B98823901969998400903B73 /* CharacterTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CharacterTests-Prefix.pch"; sourceTree = "<group>"; };
+		B98823901969998400903B73 /* AmbulanceGame-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AmbulanceGame-Prefix.pch"; sourceTree = "<group>"; };
 		B98823921969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		B98823941969998400903B73 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainMenu.xib; path = CharacterTests/MainMenu.xib; sourceTree = "<group>"; };
 		B98823961969998400903B73 /* AMBLevelScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMBLevelScene.m; sourceTree = "<group>"; };
@@ -143,7 +145,7 @@
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
 		B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBMovingCharacter.m; sourceTree = "<group>"; };
 		B9C449551A30144700093CC4 /* level01_firstdraft.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_firstdraft.tmx; sourceTree = "<group>"; };
-		B9C8E4921A4B73F0003F7354 /* CharacterTests_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbulanceGame_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C8E4951A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9C8E4961A4B73F0003F7354 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B9C8E4981A4B73F0003F7354 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -237,8 +239,8 @@
 		B988237E1969998400903B73 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B988237D1969998400903B73 /* CharacterTests.app */,
-				B9C8E4921A4B73F0003F7354 /* CharacterTests_iOS.app */,
+				B988237D1969998400903B73 /* AmbulanceGame.app */,
+				B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,10 +282,10 @@
 		B98823891969998400903B73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B988238A1969998400903B73 /* CharacterTests-Info.plist */,
+				B988238A1969998400903B73 /* AmbulanceGame-Info.plist */,
 				B988238B1969998400903B73 /* InfoPlist.strings */,
 				B988238E1969998400903B73 /* main.m */,
-				B98823901969998400903B73 /* CharacterTests-Prefix.pch */,
+				B98823901969998400903B73 /* AmbulanceGame-Prefix.pch */,
 				B98823911969998400903B73 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -370,6 +372,7 @@
 				B9C8E4A31A4B73F0003F7354 /* Main.storyboard */,
 				B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */,
 				B9C8E4941A4B73F0003F7354 /* Supporting Files */,
+				B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */,
 			);
 			path = CharacterTests_iOS;
 			sourceTree = "<group>";
@@ -435,9 +438,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B988237C1969998400903B73 /* CharacterTests */ = {
+		B988237C1969998400903B73 /* AmbulanceGame */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B98823B41969998400903B73 /* Build configuration list for PBXNativeTarget "CharacterTests" */;
+			buildConfigurationList = B98823B41969998400903B73 /* Build configuration list for PBXNativeTarget "AmbulanceGame" */;
 			buildPhases = (
 				B98823791969998400903B73 /* Sources */,
 				B988237A1969998400903B73 /* Frameworks */,
@@ -447,14 +450,14 @@
 			);
 			dependencies = (
 			);
-			name = CharacterTests;
+			name = AmbulanceGame;
 			productName = CharacterTests;
-			productReference = B988237D1969998400903B73 /* CharacterTests.app */;
+			productReference = B988237D1969998400903B73 /* AmbulanceGame.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B9C8E4911A4B73F0003F7354 /* CharacterTests_iOS */ = {
+		B9C8E4911A4B73F0003F7354 /* AmbulanceGame_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B9C8E4B71A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "CharacterTests_iOS" */;
+			buildConfigurationList = B9C8E4B71A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "AmbulanceGame_iOS" */;
 			buildPhases = (
 				B9C8E48E1A4B73F0003F7354 /* Sources */,
 				B9C8E48F1A4B73F0003F7354 /* Frameworks */,
@@ -464,9 +467,9 @@
 			);
 			dependencies = (
 			);
-			name = CharacterTests_iOS;
+			name = AmbulanceGame_iOS;
 			productName = CharacterTests_iOS;
-			productReference = B9C8E4921A4B73F0003F7354 /* CharacterTests_iOS.app */;
+			productReference = B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -485,7 +488,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B98823781969998400903B73 /* Build configuration list for PBXProject "CharacterTests" */;
+			buildConfigurationList = B98823781969998400903B73 /* Build configuration list for PBXProject "AmbulanceGame" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -498,8 +501,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B988237C1969998400903B73 /* CharacterTests */,
-				B9C8E4911A4B73F0003F7354 /* CharacterTests_iOS */,
+				B988237C1969998400903B73 /* AmbulanceGame */,
+				B9C8E4911A4B73F0003F7354 /* AmbulanceGame_iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -538,6 +541,7 @@
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
 				B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
+				B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
 				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
 			);
@@ -732,7 +736,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CharacterTests/CharacterTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "CharacterTests/AmbulanceGame-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"DEBUG_PATIENT=0",
@@ -741,8 +745,8 @@
 					"DEBUG_FUEL=0",
 					"DEBUG_MINIMAP=0",
 				);
-				INFOPLIST_FILE = "CharacterTests/CharacterTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "CharacterTests/AmbulanceGame-Info.plist";
+				PRODUCT_NAME = AmbulanceGame;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -754,9 +758,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CharacterTests/CharacterTests-Prefix.pch";
-				INFOPLIST_FILE = "CharacterTests/CharacterTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "CharacterTests/AmbulanceGame-Prefix.pch";
+				INFOPLIST_FILE = "CharacterTests/AmbulanceGame-Info.plist";
+				PRODUCT_NAME = AmbulanceGame;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -765,7 +769,7 @@
 		B9C8E4B81A4B73F0003F7354 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -774,7 +778,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AmbulanceGame_iOS;
 				SDKROOT = iphoneos;
 				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -784,7 +788,7 @@
 		B9C8E4B91A4B73F0003F7354 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -792,7 +796,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AmbulanceGame_iOS;
 				SDKROOT = iphoneos;
 				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -803,7 +807,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B98823781969998400903B73 /* Build configuration list for PBXProject "CharacterTests" */ = {
+		B98823781969998400903B73 /* Build configuration list for PBXProject "AmbulanceGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B98823B21969998400903B73 /* Debug */,
@@ -812,7 +816,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B98823B41969998400903B73 /* Build configuration list for PBXNativeTarget "CharacterTests" */ = {
+		B98823B41969998400903B73 /* Build configuration list for PBXNativeTarget "AmbulanceGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B98823B51969998400903B73 /* Debug */,
@@ -821,7 +825,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B9C8E4B71A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "CharacterTests_iOS" */ = {
+		B9C8E4B71A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "AmbulanceGame_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B9C8E4B81A4B73F0003F7354 /* Debug */,
