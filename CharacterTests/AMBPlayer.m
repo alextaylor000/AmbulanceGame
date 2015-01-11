@@ -143,12 +143,14 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
         }
         
         // T-intersections
-
         if (self.currentTileProperties[@"invalid_directions"]) {
             CGPoint invalidDirection = CGPointFromString(self.currentTileProperties[@"invalid_directions"]);
             NSLog(@"invalid_direction:%1.0f,%1.0f   direction=%1.0f,%1.0f",invalidDirection.x,invalidDirection.y, self.direction.x,self.direction.y);
             
-            
+            if (CGPointEqualToPoint(invalidDirection, self.direction)) {
+                self.controlState = PlayerIsStoppedAtTIntersection;
+                [self stopMoving];
+            }
          
         }
 

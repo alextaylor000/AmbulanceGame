@@ -161,14 +161,16 @@ static const int TILE_LANE_WIDTH = 32;
     
     
     //Fixes the directions so that you dont end up with a situation where you have -0.00000.  I dont even know how that could happen.  BUT IT DOES
-    if (self.direction.x <= 0.0001 && self.direction.x >= -0.0001) {//slightly more than 0 and slightly less than 0
-        self.direction = CGPointMake(0, self.direction.y);
-    }
-    if (self.direction.y <= 0.0001 && self.direction.y >= -0.0001) {//slightly more than 0 and slightly less than 0
-        self.direction = CGPointMake(self.direction.y, 0);
-    }
+    self.direction = CGPointMake(roundf(self.direction.x), roundf(self.direction.y));
     
-    //NSLog(@"vector=%1.0f,%1.0f|z rotation=%1.5f",self.direction.x, self.direction.y,sprite.zRotation);
+//    if (self.direction.x <= 0.0001 && self.direction.x >= -0.0001) {//slightly more than 0 and slightly less than 0
+//        self.direction = CGPointMake(0, self.direction.y);
+//    }
+//    if (self.direction.y <= 0.0001 && self.direction.y >= -0.0001) {//slightly more than 0 and slightly less than 0
+//        self.direction = CGPointMake(self.direction.y, 0);
+//    }
+    
+
 }
 
 - (void)moveBy:(CGVector)targetOffset {

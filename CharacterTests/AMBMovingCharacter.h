@@ -13,6 +13,7 @@ static const float TURN_BUFFER = 1; // attempt a turn every frame for this many 
 // control state enum
 typedef enum {
     PlayerIsStopped,
+    PlayerIsStoppedAtTIntersection,
     PlayerIsAccelerating,
     PlayerIsDecelerating,
     PlayerIsDrivingStraight,
