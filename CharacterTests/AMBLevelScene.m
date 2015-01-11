@@ -91,14 +91,6 @@ typedef enum {
     self.panGestureState = GestureIdle;
 #if TARGET_OS_IPHONE
     self.gesturePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
-    
-    self.gestureSwipeUp = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeUp:)];
-    [self.gestureSwipeUp setDirection:UISwipeGestureRecognizerDirectionUp];
-    [self.gestureSwipeUp requireGestureRecognizerToFail:self.gesturePan];
-
-    self.gestureSwipeDown = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeDown:)];
-    [self.gestureSwipeDown setDirection:UISwipeGestureRecognizerDirectionDown];
-    [self.gestureSwipeDown requireGestureRecognizerToFail:self.gesturePan];
 
     self.gestureTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
     [self.gestureTap setNumberOfTapsRequired:2]; // 2 taps to stop/start
@@ -107,8 +99,6 @@ typedef enum {
     [self.gestureLongPress setMinimumPressDuration:0.15];
 
     [view addGestureRecognizer:self.gesturePan];
-    [view addGestureRecognizer:self.gestureSwipeUp];
-    [view addGestureRecognizer:self.gestureSwipeDown];
     [view addGestureRecognizer:self.gestureTap];
     [view addGestureRecognizer:self.gestureLongPress];
 #endif
@@ -118,8 +108,6 @@ typedef enum {
 - (void)willMoveFromView:(SKView *)view {
 #if TARGET_OS_IPHONE
     [view removeGestureRecognizer:self.gesturePan];
-    [view removeGestureRecognizer:self.gestureSwipeUp];
-    [view removeGestureRecognizer:self.gestureSwipeDown];
     [view removeGestureRecognizer:self.gestureTap];
     [view removeGestureRecognizer:self.gestureLongPress];
 #endif
@@ -573,15 +561,12 @@ typedef enum {
     if (_tilemap) {
         // set up the layers/groups
         _mapLayerRoad =     [_tilemap layerNamed:@"road"];
-//        _mapLayerScenery =  [_tilemap layerNamed:@"scenery"]; // removed because it's redundant
         _mapLayerTraffic =  [_tilemap layerNamed:@"spawn_traffic"];
         
         _mapGroupSpawnPlayer =      [_tilemap groupNamed:@"spawn_player"];
         _mapGroupSpawnPatients =    [_tilemap groupNamed:@"spawn_patients"];
         _mapGroupSpawnHospitals =   [_tilemap groupNamed:@"spawn_hospitals"];
-//        _mapGroupSpawnTraffic =     [_tilemap groupNamed:@"spawn_traffic"];
         _mapGroupSpawnPowerups =    [_tilemap groupNamed:@"spawn_powerups"];
-        
 
         [self createTileBoundingPaths];
 
@@ -911,15 +896,6 @@ typedef enum {
 #if TARGET_OS_IPHONE
 
 // Gesture Controls
-
-
-- (void)handleSwipeUp:(UIGestureRecognizer *)recognizer {
-    [_player handleInput:PlayerControlsStartMoving keyDown:YES];
-}
-
-- (void)handleSwipeDown:(UIGestureRecognizer *)recognizer {
-    [_player handleInput:PlayerControlsStopMoving keyDown:YES];
-}
 
 - (void)handlePan:(UIGestureRecognizer *)recognizer {
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y

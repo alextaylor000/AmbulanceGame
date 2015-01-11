@@ -96,11 +96,6 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     }
 
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
-
-    // removed this in favour of allowing the player to hold down the turn button to accomplish the same thing
-//    if (self.requestedMoveEvent && self.levelScene.sceneLastUpdate - self.levelScene.lastKeyPress < TURN_BUFFER) {
-//        [self authorizeMoveEvent:self.requestedMoveEventDegrees];
-//    }
     
     // update the patient timer
     if (self.patient) {
@@ -108,17 +103,17 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
         owningScene.patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: %1.1f",ttl];
     }
     
-    // update fuel if we're moving
+
     if (self.isMoving) {
         NSTimeInterval now = CACurrentMediaTime();
+        
+        // update fuel if we're moving
         if (now - _fuelTimer > FUEL_TIMER_INCREMENT) {
             _fuelTimer = now;
             _fuel--; // decrement fuel
 #if DEBUG_FUEL
             NSLog(@"fuel is now %f",_fuel);
 #endif
-            
-
             
             owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
             
@@ -146,6 +141,17 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             }
             
         }
+        
+        // T-intersections
+
+        if (self.currentTileProperties[@"invalid_directions"]) {
+            CGPoint invalidDirection = CGPointFromString(self.currentTileProperties[@"invalid_directions"]);
+            NSLog(@"invalid_direction:%1.0f,%1.0f   direction=%1.0f,%1.0f",invalidDirection.x,invalidDirection.y, self.direction.x,self.direction.y);
+            
+            
+         
+        }
+
     }
 }
 

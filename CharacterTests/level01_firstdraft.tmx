@@ -26,12 +26,14 @@
   <tile id="4">
    <properties>
     <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{-1,0}"/>
     <property name="road" value="nes"/>
    </properties>
   </tile>
   <tile id="5">
    <properties>
     <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{0,1}"/>
     <property name="road" value="esw"/>
    </properties>
   </tile>
@@ -58,12 +60,14 @@
   <tile id="10">
    <properties>
     <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{0,-1}"/>
     <property name="road" value="new"/>
    </properties>
   </tile>
   <tile id="11">
    <properties>
     <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{1,0}"/>
     <property name="road" value="nsw"/>
    </properties>
   </tile>
