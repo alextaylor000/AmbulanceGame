@@ -104,6 +104,7 @@ typedef enum {
     [self.gestureTap setNumberOfTapsRequired:2]; // 2 taps to stop/start
     
     self.gestureLongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)]; // long press to slow
+    [self.gestureLongPress setMinimumPressDuration:0.15];
 
     [view addGestureRecognizer:self.gesturePan];
     [view addGestureRecognizer:self.gestureSwipeUp];
@@ -908,110 +909,6 @@ typedef enum {
 
 #pragma mark Controls
 #if TARGET_OS_IPHONE
-- (void)createControls {
-    // left
-    _controlsLeft = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(100, 100)];
-    _controlsLeft.name = @"controlsLeft";
-    _controlsLeft.zPosition = 999;
-    _controlsLeft.position = CGPointMake(-self.size.width/2 + 75, -self.size.height/2 + 75);
-    _controlsLeft.userData = [NSMutableDictionary dictionaryWithObject:@"NO" forKey:@"pressed"];
-    
-    [self addChild:_controlsLeft];
-    
-    // center
-    _controlsCenter = [SKSpriteNode spriteNodeWithColor:[SKColor greenColor] size:CGSizeMake(100, 100)];
-    _controlsCenter.name = @"controlsCenter_Go";
-    _controlsCenter.zPosition = 999;
-    _controlsCenter.position = CGPointMake(0, -self.size.height/2 + 75);
-    _controlsCenter.userData = [NSMutableDictionary dictionaryWithObject:@"NO" forKey:@"pressed"];
-    
-    [self addChild:_controlsCenter];
-
-    // right
-    _controlsRight = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(100, 100)];
-    _controlsRight.name = @"controlsRight";
-    _controlsRight.zPosition = 999;
-    _controlsRight.position = CGPointMake(self.size.width/2 - 75, -self.size.height/2 + 75);
-    _controlsRight.userData = [NSMutableDictionary dictionaryWithObject:@"NO" forKey:@"pressed"];
-    
-    [self addChild:_controlsRight];
-    
-
-}
-
-
-
-// removed in favour of gestures
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//    
-//    UITouch *touch = [touches anyObject];
-//    CGPoint touchLocationInScene = [touch locationInNode:self];
-//    SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocationInScene];
-//#if DEBUG_PLAYER_CONTROL
-//    NSLog(@"touchedNode.name=%@",touchedNode.name);
-//#endif
-//    
-//    if ([touchedNode.name isEqualToString:@"controlsCenter_Go"]) {
-//        [_player handleInput:PlayerControlsStartMoving keyDown:YES];
-//        _controlsCenter.name = @"controlsCenter_Stop";
-//        _controlsCenter.color = [SKColor redColor];
-//        [_controlsCenter.userData setObject:event forKey:@"event"];
-//        
-//        
-//    } else if ([touchedNode.name isEqualToString:@"controlsCenter_Stop"]) {
-//        [_player handleInput:PlayerControlsStopMoving keyDown:YES];
-//        _controlsCenter.name = @"controlsCenter_Go";
-//        _controlsCenter.color = [SKColor greenColor];
-//        [_controlsCenter.userData setObject:event forKey:@"event"];
-//        
-//    } else if ([touchedNode.name isEqualToString:@"controlsLeft"]) {
-//        [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
-//        _controlsLeft.color = SKColorWithRGB(120, 120, 0);
-//        [_controlsLeft.userData setObject:event forKey:@"event"];
-//        
-//    } else if ([touchedNode.name isEqualToString:@"controlsRight"]) {
-//        [_player handleInput:PlayerControlsTurnRight keyDown:YES];
-//        _controlsRight.color = SKColorWithRGB(120, 120, 0);
-//        [_controlsRight.userData setObject:event forKey:@"event"];
-//    }
-//    
-//}
-//
-//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-//
-//#if DEBUG_PLAYER_CONTROL
-//    NSLog(@"touchesEnded");
-//#endif
-//    
-//    if ([_controlsCenter.userData[@"event"] isEqual:event]) {
-//#if DEBUG_PLAYER_CONTROL
-//        NSLog(@"unset controlsCenter event");
-//#endif
-//        [_controlsCenter.userData removeObjectForKey:@"event"];
-//    }
-//
-//    if ([_controlsLeft.userData[@"event"] isEqual:event]) {
-//#if DEBUG_PLAYER_CONTROL
-//        NSLog(@"unset controlsLeft event");
-//#endif
-//        [_controlsLeft.userData removeObjectForKey:@"event"];
-//        _controlsLeft.color = [SKColor yellowColor];
-//        [_player handleInput:PlayerControlsTurnLeft keyDown:NO];
-//    }
-//
-//    if ([_controlsRight.userData[@"event"] isEqual:event]) {
-//#if DEBUG_PLAYER_CONTROL
-//        NSLog(@"unset controlsRight event");
-//#endif
-//        [_controlsRight.userData removeObjectForKey:@"event"];
-//        _controlsRight.color = [SKColor yellowColor];
-//        [_player handleInput:PlayerControlsTurnRight keyDown:NO];
-//    }
-//
-//    
-//
-//}
-
 
 // Gesture Controls
 
@@ -1145,9 +1042,17 @@ typedef enum {
 - (void)handleLongPress:(UIGestureRecognizer *)recognizer {
     // will be called multiple times after the gesture is recognized.
     // you can query the recognizer's state to respond to specific events.
-#if DEBUG_PLAYER_CONTROL
-    NSLog(@"handleLongPress");
-#endif
+
+    // state 1=began    state 3=ended
+    NSLog(@"handleLongPress state=%li",recognizer.state );
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [_player adjustSpeedToTarget: VehicleSpeedSlow * speedMultiplier];
+        
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [_player adjustSpeedToTarget:_player.nativeSpeed];
+    }
+    
+
  
 }
 

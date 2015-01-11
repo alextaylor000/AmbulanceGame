@@ -337,7 +337,7 @@
 		B9C8E48B1A4B736C003F7354 /* Target - iOS */ = {
 			isa = PBXGroup;
 			children = (
-				B9C8E4931A4B73F0003F7354 /* CharacterTests_iOS */,
+				B9C8E4931A4B73F0003F7354 /* iOS */,
 			);
 			name = "Target - iOS";
 			sourceTree = "<group>";
@@ -362,7 +362,7 @@
 			name = "Game Assets";
 			sourceTree = "<group>";
 		};
-		B9C8E4931A4B73F0003F7354 /* CharacterTests_iOS */ = {
+		B9C8E4931A4B73F0003F7354 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				B9C8E4981A4B73F0003F7354 /* AppDelegate.h */,
@@ -374,6 +374,7 @@
 				B9C8E4941A4B73F0003F7354 /* Supporting Files */,
 				B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */,
 			);
+			name = iOS;
 			path = CharacterTests_iOS;
 			sourceTree = "<group>";
 		};
