@@ -129,7 +129,6 @@
 		B98823A51969998400903B73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B98823AC1969998400903B73 /* CharacterTestsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CharacterTestsTests-Info.plist"; sourceTree = "<group>"; };
 		B98823AE1969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B98823B01969998400903B73 /* CharacterTestsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CharacterTestsTests.m; sourceTree = "<group>"; };
 		B98823BC19699C4400903B73 /* AMBPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPlayer.h; sourceTree = "<group>"; };
 		B98823BD19699C4400903B73 /* AMBPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPlayer.m; sourceTree = "<group>"; };
 		B99E6F1C19A16467003A7551 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -226,8 +225,7 @@
 			children = (
 				B9C8E48C1A4B7378003F7354 /* Target - OS X */,
 				B9C8E48B1A4B736C003F7354 /* Target - iOS */,
-				B98823881969998400903B73 /* CharacterTests */,
-				B98823AA1969998400903B73 /* CharacterTestsTests */,
+				B98823881969998400903B73 /* AmbulanceGame */,
 				B98823AB1969998400903B73 /* Supporting Files */,
 				B99E6F1B19A16467003A7551 /* JSTileMap-master */,
 				B91EF2411978E7BF00E66405 /* SKTUtils */,
@@ -268,7 +266,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		B98823881969998400903B73 /* CharacterTests */ = {
+		B98823881969998400903B73 /* AmbulanceGame */ = {
 			isa = PBXGroup;
 			children = (
 				B9C8E48D1A4B7386003F7354 /* Game Assets */,
@@ -276,6 +274,7 @@
 				B9E959BC19C93C8D00ACD50F /* Sprites */,
 				B9E959BB19C93C8800ACD50F /* Scene */,
 			);
+			name = AmbulanceGame;
 			path = CharacterTests;
 			sourceTree = "<group>";
 		};
@@ -290,14 +289,6 @@
 			);
 			name = "Supporting Files";
 			path = CharacterTests;
-			sourceTree = "<group>";
-		};
-		B98823AA1969998400903B73 /* CharacterTestsTests */ = {
-			isa = PBXGroup;
-			children = (
-				B98823B01969998400903B73 /* CharacterTestsTests.m */,
-			);
-			path = CharacterTestsTests;
 			sourceTree = "<group>";
 		};
 		B98823AB1969998400903B73 /* Supporting Files */ = {
