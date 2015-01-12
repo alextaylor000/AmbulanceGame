@@ -15,30 +15,36 @@
   </tile>
   <tile id="2">
    <properties>
+    <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{1,0},{0,-1}}"/>
     <property name="road" value="nw"/>
    </properties>
   </tile>
   <tile id="3">
    <properties>
+    <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{-1,0},{0,1}}"/>
     <property name="road" value="es"/>
    </properties>
   </tile>
   <tile id="4">
    <properties>
     <property name="intersection" value="1"/>
-    <property name="invalid_directions" value="{-1,0}"/>
+    <property name="invalid_directions" value="{{-1,0},{0,0}}"/>
     <property name="road" value="nes"/>
    </properties>
   </tile>
   <tile id="5">
    <properties>
     <property name="intersection" value="1"/>
-    <property name="invalid_directions" value="{0,1}"/>
+    <property name="invalid_directions" value="{{0,1},{0,0}}"/>
     <property name="road" value="esw"/>
    </properties>
   </tile>
   <tile id="6">
    <properties>
+    <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{-1,0},{0,-1}}"/>
     <property name="road" value="ne"/>
    </properties>
   </tile>
@@ -54,20 +60,22 @@
   </tile>
   <tile id="9">
    <properties>
+    <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{1,0},{0,1}}"/>
     <property name="road" value="sw"/>
    </properties>
   </tile>
   <tile id="10">
    <properties>
     <property name="intersection" value="1"/>
-    <property name="invalid_directions" value="{0,-1}"/>
+    <property name="invalid_directions" value="{{0,-1},{0,0}}"/>
     <property name="road" value="new"/>
    </properties>
   </tile>
   <tile id="11">
    <properties>
     <property name="intersection" value="1"/>
-    <property name="invalid_directions" value="{1,0}"/>
+    <property name="invalid_directions" value="{{1,0},{0,0}}"/>
     <property name="road" value="nsw"/>
    </properties>
   </tile>
@@ -273,7 +281,7 @@
  </tileset>
  <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmNEOgjAMRSsJRiKiooL//6X0xWSpXbxlw+jWh/vQZm1OupaxdUTUZdaJNWyQ1/l+Q1vwNaxdoL2wLb4z65IQ3yh8hw+2xRerX0pO56uLryW9bxFfbD7Q+L6A+jlfWXxyHtBe9vlwvhr4RtY1kLQtvhvrnhA/KnxP1hxI2hY9WJPiR3K+1qzZX1SW/UXXOF/ZfMj5lno/Qu5g2tmG1i/39w/N53z18X3jfoT++/1j/ZyvLD7Zq0d6713UF5sPuVaL1d7WcqvG91PnW6cFA8A21w==
+   eJztl0kOwyAMRd256Ty39z9pzY4SR/0OUkLpX7yFLRw9gR1EIyINISMzVyYRyyT25nLqN4bf+kvsye2VQ0Y9kqNf3X4LafftFMwdlVNG/a6C/aNfXX7pPKC9zPmg3z/4hfk4R1yS2JO7KreMems+gt8z4pXEHu7Kw8ij3+w7vyie87Xo23/0+10/5H5D3zfo/WbVlnS/de1nKf9n+o3nN8T7yKotaT5mFZ8v/Xx+K/ns0a20+9aTQ9ZaawJdfUnI0LwBnaw2NA==
   </data>
  </layer>
  <layer name="spawn_traffic" width="40" height="40">

@@ -21,7 +21,7 @@
 static const float KEY_PRESS_INTERVAL_SECS = 0.2; // ignore key presses more frequent than this interval
 //static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
-static const BOOL renderTraffic = 1;
+static const BOOL renderTraffic = 0;
 
 typedef enum {
     GestureIdle,
@@ -654,17 +654,21 @@ typedef enum {
             
         } else if ( [tileType isEqualToString:@"ne"]) {
             
-            CGPathMoveToPoint(path, NULL, 90 - offsetX, 90 - offsetY);
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 256 - offsetX, 90 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 166 - offsetY);
             
         } else if ( [tileType isEqualToString:@"nw"]) {
             
             CGPathMoveToPoint(path, NULL, 0 - offsetX, 90 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 90 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 166 - offsetY);
@@ -677,16 +681,20 @@ typedef enum {
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 256 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 256 - offsetX, 166 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
             
         } else if ( [tileType isEqualToString:@"sw"]) {
             
-            CGPathMoveToPoint(path, NULL, 90 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 166 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 90 - offsetY);
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 90 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 166 - offsetY);
             
         } else if ( [tileType isEqualToString:@"nes"]) {
             
@@ -698,6 +706,7 @@ typedef enum {
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
+            
             
         } else if ( [tileType isEqualToString:@"new"]) {
             

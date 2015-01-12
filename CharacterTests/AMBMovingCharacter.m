@@ -370,19 +370,19 @@ static const int TILE_LANE_WIDTH = 32;
     CGPoint targetTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:targetPoint]];
     CGPoint positionInTargetTile = CGPointSubtract(targetPoint, targetTilePos);
     
-//#if DEBUG_PLAYER_CONTROL
-//    SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn. tileAt ultimately works by finding the node by name, which is computationally expensive. the only use of this line is to figure out the coordinates of the player within the tile.
-//
-//    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
-//    targetPointSprite.name = @"DEBUG_targetPointSprite";
-//    targetPointSprite.position = positionInTargetTile;
-//    targetPointSprite.zPosition = targetTile.zPosition + 1;
-//
-//    if ([self.name isEqualToString:@"player"]) {
-//        [targetTile addChild:targetPointSprite];
-//        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
-//    }
-//#endif
+#if DEBUG_PLAYER_CONTROL
+    SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn. tileAt ultimately works by finding the node by name, which is computationally expensive. the only use of this line is to figure out the coordinates of the player within the tile.
+
+    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
+    targetPointSprite.name = @"DEBUG_targetPointSprite";
+    targetPointSprite.position = positionInTargetTile;
+    targetPointSprite.zPosition = targetTile.zPosition + 1;
+
+    if ([self.name isEqualToString:@"player"]) {
+        [targetTile addChild:targetPointSprite];
+        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
+    }
+#endif
     
     if (targetTileRoadType) {
         // if it's a road tile, check the coordinates to make sure it's on ROAD SURFACE within the tile
@@ -391,22 +391,22 @@ static const int TILE_LANE_WIDTH = 32;
         
         BOOL pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
-//#if DEBUG_PLAYER_CONTROL
-//        if ([self.name isEqualToString:@"player"]) {
-//            if (pointIsValid) {
-//                targetPointSprite.color = [SKColor greenColor];
-//            }
-//            
-//            SKShapeNode *bounds = [SKShapeNode node];
-//            bounds.path = path;
-//            bounds.fillColor = [SKColor whiteColor];
-//            bounds.alpha = 0.5;
-//            bounds.zPosition = targetPointSprite.zPosition - 1;
-//            
-//            [targetTile addChild:bounds];
-//            [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
-//        }
-//#endif
+#if DEBUG_PLAYER_CONTROL
+        if ([self.name isEqualToString:@"player"]) {
+            if (pointIsValid) {
+                targetPointSprite.color = [SKColor greenColor];
+            }
+            
+            SKShapeNode *bounds = [SKShapeNode node];
+            bounds.path = path;
+            bounds.fillColor = [SKColor whiteColor];
+            bounds.alpha = 0.5;
+            bounds.zPosition = targetPointSprite.zPosition + 10;
+            
+            [targetTile addChild:bounds];
+            [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
+        }
+#endif
         
         return pointIsValid;
     }

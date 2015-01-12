@@ -89,7 +89,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
-    
+
 
     if (self.controlState == PlayerIsChangingLanes) {
         [self authorizeMoveEvent:_laneChangeDegrees snapToLane:NO];
@@ -144,14 +144,18 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
         
         // T-intersections
         if (self.currentTileProperties[@"invalid_directions"]) {
-            CGPoint invalidDirection = CGPointFromString(self.currentTileProperties[@"invalid_directions"]);
+            CGRect invalidDirections = CGRectFromString(self.currentTileProperties[@"invalid_directions"]);
+            CGPoint invalidDirection1 = invalidDirections.origin;
+            CGPoint invalidDirection2 = CGPointMake(invalidDirections.size.width, invalidDirections.size.height);
+
 
 #if DEBUG_PLAYER_CONTROL
-            NSLog(@"** invalid: %1.0f,%1.0f,  direction: %1.0f,%1.0f",invalidDirection.x,invalidDirection.y,self.direction.x,self.direction.y);
+ //           NSLog(@"** invalid: %1.0f,%1.0f,  direction: %1.0f,%1.0f",invalidDirection.x,invalidDirection.y,self.direction.x,self.direction.y);
 #endif
             
             if (self.controlState != PlayerIsChangingLanes && self.controlState != PlayerIsTurning) {
-                if (CGPointEqualToPoint(invalidDirection, self.direction)) {
+                if (CGPointEqualToPoint(invalidDirection1, self.direction) ||
+                    CGPointEqualToPoint(invalidDirection2, self.direction)) {
                     [self slamBrakes]; // instead of stopMoving; ends with PlayerIsStoppedAtTIntersection
                 }
             }
