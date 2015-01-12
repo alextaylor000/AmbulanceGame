@@ -14,6 +14,7 @@ static const float TURN_BUFFER = 1; // attempt a turn every frame for this many 
 typedef enum {
     PlayerIsStopped,
     PlayerIsStoppedAtTIntersection,
+    PlayerIsLeavingTIntersection,
     PlayerIsAccelerating,
     PlayerIsDecelerating,
     PlayerIsDrivingStraight,
@@ -52,6 +53,6 @@ typedef enum {
 - (void)moveBy:(CGVector)targetOffset;
 - (void)authorizeMoveEvent: (CGFloat)degrees snapToLane:(BOOL)snap;
 - (void)adjustSpeedToTarget:(CGFloat)targetSpeed;
-
+- (CGPoint)getDirectionFromAngle:(CGFloat)angle;
 
 @end

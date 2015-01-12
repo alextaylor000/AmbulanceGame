@@ -145,6 +145,10 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
         // T-intersections
         if (self.currentTileProperties[@"invalid_directions"]) {
             CGPoint invalidDirection = CGPointFromString(self.currentTileProperties[@"invalid_directions"]);
+
+#if DEBUG_PLAYER_CONTROL
+            NSLog(@"** invalid: %1.0f,%1.0f,  direction: %1.0f,%1.0f",invalidDirection.x,invalidDirection.y,self.direction.x,self.direction.y);
+#endif
             
             if (self.controlState != PlayerIsChangingLanes && self.controlState != PlayerIsTurning) {
                 if (CGPointEqualToPoint(invalidDirection, self.direction)) {
@@ -158,7 +162,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 }
 
 
--(void)slamBrakes {
+- (void)slamBrakes {
     // stopMoving with an end state of PlayerIsStoppedAtTIntersection
     CGFloat decelTime = self.decelTimeSeconds/2;
     SKAction *stopMoving = [SKAction customActionWithDuration:decelTime actionBlock:^(SKNode *node, CGFloat elapsedTime){
@@ -178,6 +182,53 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 #endif
 
         
+    }];
+    
+}
+
+- (void)leaveIntersectionWithInput:(PlayerControls)input {
+
+    self.controlState = PlayerIsLeavingTIntersection;
+
+    // rotate, then start moving
+    CGFloat degrees = (input == PlayerControlsTurnLeft) ? 90 : -90;
+    
+    // apply the rotation to the sprite
+    CGFloat angle = self.zRotation + DegreesToRadians(degrees);
+
+    // wrap angles larger than +/- 360 degrees
+    if (angle >= ( 2 * M_PI )) {
+        angle -= (2 * M_PI);
+    } else if (angle < -(2 * M_PI)) {
+        angle += (2 * M_PI);
+    }
+    
+    self.zRotation = angle;
+
+    // update the direction of the sprite
+    self.direction = [self getDirectionFromAngle:self.zRotation];
+
+    
+    // rotate the camera
+    [self.levelScene.camera rotateByAngle:degrees];
+    
+    // start moving
+    self.isMoving = YES;
+    self.speedPointsPerSec = self.nativeSpeed; // reset speedPointsPerSec
+    
+    SKAction *startMoving = [SKAction customActionWithDuration:self.accelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / self.accelTimeSeconds;
+        t = sinf(t * M_PI_2);
+        self.characterSpeedMultiplier = t;
+        
+    }];
+    [self runAction:startMoving completion:^(void){
+        if ([self.name isEqualToString:@"player"]) {
+            self.controlState = PlayerIsDrivingStraight;
+#if DEBUG_PLAYER_CONTROL
+            NSLog(@"[control] PlayerIsLeavingTIntersection -> leaveIntersection -> PlayerIsDrivingStraight");
+#endif
+        }
     }];
     
 }
@@ -315,24 +366,23 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             // valid inputs: <LEFT>,<RIGHT>
             // this is the only state where the player can change directions from stopped
             if (input == PlayerControlsTurnLeft) {
-                self.controlState = PlayerIsAccelerating;
-                [self rotateByAngle:90];
-                [self startMoving];
-
+                [self leaveIntersectionWithInput:input];
                 message = @"[control] PlayerIsStoppedAtTIntersection -> handleInput:turnLeft -> PlayerIsAccelerating";
                 [self printMessage:message];
                 
                 
             } else if (input == PlayerControlsTurnRight) {
-                self.controlState = PlayerIsAccelerating;
-                [self rotateByAngle:-90];
-                [self startMoving];
-                
+                [self leaveIntersectionWithInput:input];
                 message = @"[control] PlayerIsStoppedAtTIntersection -> handleInput:turnRight -> PlayerIsAccelerating";
                 [self printMessage:message];
                 
             }
             
+            break;
+            
+        case PlayerIsLeavingTIntersection:
+            
+            // valid inputs: NONE
             break;
             
         case PlayerIsAccelerating:

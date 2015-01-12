@@ -137,14 +137,11 @@ static const int TILE_LANE_WIDTH = 32;
         angle += (2 * M_PI);
     }
     
-    //NSLog(@"angle=%f",RadiansToDegrees(angle));
     
     SKAction *rotateSprite = [SKAction rotateToAngle:angle duration:self.pivotSpeed];
     [sprite runAction:rotateSprite completion:^(void) {
         // update the direction of the sprite
-        self.direction = CGPointForAngle(sprite.zRotation);
-        
-        
+        self.direction = [self getDirectionFromAngle:self.zRotation];
     }];
     
     SKAction *wait = [SKAction waitForDuration:0.35]; // wait this duration before being allowed to change lanes
@@ -152,24 +149,25 @@ static const int TILE_LANE_WIDTH = 32;
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsDrivingStraight;
 #if DEBUG_PLAYER_CONTROL
-            NSLog(@"[control] PlayerIsTurning -> rotateByAngle -> PlayerIsDrivingStraight");
+            NSLog(@"[control] PlayerIsTurning -> rotateByAngle (%1.0f,%1.0f) -> PlayerIsDrivingStraight",self.direction.x,self.direction.y);
 #endif
         }
         
     }];
     
-    
-    //Fixes the directions so that you dont end up with a situation where you have -0.00000.  I dont even know how that could happen.  BUT IT DOES
-    self.direction = CGPointMake(roundf(self.direction.x), roundf(self.direction.y));
-    
-//    if (self.direction.x <= 0.0001 && self.direction.x >= -0.0001) {//slightly more than 0 and slightly less than 0
-//        self.direction = CGPointMake(0, self.direction.y);
-//    }
-//    if (self.direction.y <= 0.0001 && self.direction.y >= -0.0001) {//slightly more than 0 and slightly less than 0
-//        self.direction = CGPointMake(self.direction.y, 0);
-//    }
-    
 
+}
+
+- (CGPoint)getDirectionFromAngle:(CGFloat)angle {
+    CGPoint vector = CGPointForAngle(angle); // the vector may be close to 0 or 1
+
+    CGFloat x = roundf(vector.x); // round to get whole numbers
+    CGFloat y = roundf(vector.y);
+    
+    x = (fabsf(x) == 0) ? 0 : x; // remove any negative zeros
+    y = (fabsf(y) == 0) ? 0 : y;
+    
+    return CGPointMake(x, y);
 }
 
 - (void)moveBy:(CGVector)targetOffset {
@@ -372,19 +370,19 @@ static const int TILE_LANE_WIDTH = 32;
     CGPoint targetTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:targetPoint]];
     CGPoint positionInTargetTile = CGPointSubtract(targetPoint, targetTilePos);
     
-#if DEBUG_PLAYER_CONTROL
-    SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn. tileAt ultimately works by finding the node by name, which is computationally expensive. the only use of this line is to figure out the coordinates of the player within the tile.
-
-    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
-    targetPointSprite.name = @"DEBUG_targetPointSprite";
-    targetPointSprite.position = positionInTargetTile;
-    targetPointSprite.zPosition = targetTile.zPosition + 1;
-
-    if ([self.name isEqualToString:@"player"]) {
-        [targetTile addChild:targetPointSprite];
-        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
-    }
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//    SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn. tileAt ultimately works by finding the node by name, which is computationally expensive. the only use of this line is to figure out the coordinates of the player within the tile.
+//
+//    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
+//    targetPointSprite.name = @"DEBUG_targetPointSprite";
+//    targetPointSprite.position = positionInTargetTile;
+//    targetPointSprite.zPosition = targetTile.zPosition + 1;
+//
+//    if ([self.name isEqualToString:@"player"]) {
+//        [targetTile addChild:targetPointSprite];
+//        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
+//    }
+//#endif
     
     if (targetTileRoadType) {
         // if it's a road tile, check the coordinates to make sure it's on ROAD SURFACE within the tile
@@ -393,22 +391,22 @@ static const int TILE_LANE_WIDTH = 32;
         
         BOOL pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
-#if DEBUG_PLAYER_CONTROL
-        if ([self.name isEqualToString:@"player"]) {
-            if (pointIsValid) {
-                targetPointSprite.color = [SKColor greenColor];
-            }
-            
-            SKShapeNode *bounds = [SKShapeNode node];
-            bounds.path = path;
-            bounds.fillColor = [SKColor whiteColor];
-            bounds.alpha = 0.5;
-            bounds.zPosition = targetPointSprite.zPosition - 1;
-            
-            [targetTile addChild:bounds];
-            [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
-        }
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//        if ([self.name isEqualToString:@"player"]) {
+//            if (pointIsValid) {
+//                targetPointSprite.color = [SKColor greenColor];
+//            }
+//            
+//            SKShapeNode *bounds = [SKShapeNode node];
+//            bounds.path = path;
+//            bounds.fillColor = [SKColor whiteColor];
+//            bounds.alpha = 0.5;
+//            bounds.zPosition = targetPointSprite.zPosition - 1;
+//            
+//            [targetTile addChild:bounds];
+//            [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
+//        }
+//#endif
         
         return pointIsValid;
     }
@@ -419,6 +417,10 @@ static const int TILE_LANE_WIDTH = 32;
 /** Given a coordinate in the tilemap, calculates the center point of the tile in the tilemap coordinate system.  */
 - (CGPoint)centerOfTileAtCoord:(CGPoint)coord {
     return CGPointZero;
+}
+
+- (void)startMovingTransitionState {
+    // stub; overridden by Player.
 }
 
 @end

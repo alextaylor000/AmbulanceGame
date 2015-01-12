@@ -381,6 +381,12 @@ typedef enum {
         case PlayerIsStopped:
             _controlStateLabel.text = @"PlayerIsStopped";
             break;
+        case PlayerIsStoppedAtTIntersection:
+            _controlStateLabel.text = @"PlayerIsStoppedAtTIntersection";
+            break;
+        case PlayerIsLeavingTIntersection:
+            _controlStateLabel.text = @"PlayerIsLeavingTIntersection";
+            break;
         case PlayerIsDrivingStraight:
             _controlStateLabel.text = @"PlayerIsDrivingStraight";
             break;
@@ -900,9 +906,9 @@ typedef enum {
 - (void)handlePan:(UIGestureRecognizer *)recognizer {
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
     
-#if DEBUG_PLAYER_CONTROL
-    NSLog(@"handlePanl state=%li, velocity%1.0f,%1.0f",recognizer.state,vel.x,vel.y);
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//    NSLog(@"handlePanl state=%li, velocity%1.0f,%1.0f",recognizer.state,vel.x,vel.y);
+//#endif
     
     // if a Pan gesture has begun, fire up OUR state machine; otherwise pass the current state through
     self.panGestureState = recognizer.state == UIGestureRecognizerStateBegan ? GestureBegan : self.panGestureState;
@@ -1002,9 +1008,9 @@ typedef enum {
 
 - (void)handleTap:(UIGestureRecognizer *)recognizer {
     // two taps, start/stop moving
-#if DEBUG_PLAYER_CONTROL
-    NSLog(@"handleTap");
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//    NSLog(@"handleTap");
+//#endif
     
     if (_player.isMoving) {
         [_player handleInput:PlayerControlsStopMoving keyDown:YES];
