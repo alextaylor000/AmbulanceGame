@@ -118,7 +118,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
             
             if (_fuel < 1) {
-                [self stopMoving];
+                [self stopMovingWithDecelTime:self.decelTimeSeconds];
                 SKLabelNode *outOfFuel = [SKLabelNode labelNodeWithFontNamed:@"Impact"];
                 outOfFuel.text = @"** OUT OF FUEL **";
                 outOfFuel.fontColor =[ SKColor yellowColor];
@@ -145,12 +145,10 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
         // T-intersections
         if (self.currentTileProperties[@"invalid_directions"]) {
             CGPoint invalidDirection = CGPointFromString(self.currentTileProperties[@"invalid_directions"]);
-            NSLog(@"invalid_direction:%1.0f,%1.0f   direction=%1.0f,%1.0f",invalidDirection.x,invalidDirection.y, self.direction.x,self.direction.y);
             
             if (self.controlState != PlayerIsChangingLanes && self.controlState != PlayerIsTurning) {
                 if (CGPointEqualToPoint(invalidDirection, self.direction)) {
-                    self.controlState = PlayerIsStoppedAtTIntersection;
-                    [self stopMoving];
+                    [self slamBrakes]; // instead of stopMoving; ends with PlayerIsStoppedAtTIntersection
                 }
             }
          
@@ -159,6 +157,30 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     }
 }
 
+
+-(void)slamBrakes {
+    // stopMoving with an end state of PlayerIsStoppedAtTIntersection
+    CGFloat decelTime = self.decelTimeSeconds/2;
+    SKAction *stopMoving = [SKAction customActionWithDuration:decelTime actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / decelTime;
+        t = sinf(t * M_PI_2);
+
+        self.characterSpeedMultiplier = 1 - t;
+    }];
+    [self runAction:stopMoving completion:^{
+        self.isMoving = NO;
+        self.speedPointsPerSec = 0;
+        
+
+        self.controlState = PlayerIsStoppedAtTIntersection;
+#if DEBUG_PLAYER_CONTROL
+        NSLog(@"[control] PlayerIsDecelerating -> stopMoving -> PlayerIsStopped");
+#endif
+
+        
+    }];
+    
+}
 
 #pragma mark Game Logic
 -(void)changeState:(AmbulanceState)newState {
@@ -288,6 +310,31 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             
             break;
     
+        case PlayerIsStoppedAtTIntersection:
+            
+            // valid inputs: <LEFT>,<RIGHT>
+            // this is the only state where the player can change directions from stopped
+            if (input == PlayerControlsTurnLeft) {
+                self.controlState = PlayerIsAccelerating;
+                [self rotateByAngle:90];
+                [self startMoving];
+
+                message = @"[control] PlayerIsStoppedAtTIntersection -> handleInput:turnLeft -> PlayerIsAccelerating";
+                [self printMessage:message];
+                
+                
+            } else if (input == PlayerControlsTurnRight) {
+                self.controlState = PlayerIsAccelerating;
+                [self rotateByAngle:-90];
+                [self startMoving];
+                
+                message = @"[control] PlayerIsStoppedAtTIntersection -> handleInput:turnRight -> PlayerIsAccelerating";
+                [self printMessage:message];
+                
+            }
+            
+            break;
+            
         case PlayerIsAccelerating:
             
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
@@ -295,7 +342,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsAccelerating -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
-                [self stopMoving];
+                [self stopMovingWithDecelTime:self.decelTimeSeconds];
                 
             } else if   (input == PlayerControlsTurnLeft) {
                 self.laneChangeDegrees = 90;
@@ -347,7 +394,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
-                [self stopMoving];
+                [self stopMovingWithDecelTime:self.decelTimeSeconds];
                 
             } else if   (input == PlayerControlsTurnLeft) {
                 self.laneChangeDegrees = 90;
@@ -379,7 +426,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsChangingLanes -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
-                [self stopMoving];
+                [self stopMovingWithDecelTime:self.decelTimeSeconds];
             }
             
             if (keyDown) {

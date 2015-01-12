@@ -106,7 +106,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
     switch (_state) {
         case VehicleIsStopped:
-            [self stopMoving];
+            [self stopMovingWithDecelTime:self.decelTimeSeconds];
             break;
             
             

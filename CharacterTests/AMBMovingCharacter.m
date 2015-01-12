@@ -21,7 +21,7 @@ static const int TILE_LANE_WIDTH = 32;
 
 
 @property NSTimeInterval sceneDelta;
-@property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
+
 @property CGFloat originalSpeed; // used as comparison when adjusting speed. there's probably a slicker way to do this.
 
 @end
@@ -81,11 +81,11 @@ static const int TILE_LANE_WIDTH = 32;
     
 }
 
--(void)stopMoving {
+-(void)stopMovingWithDecelTime:(CGFloat)decel {
     //if ([self hasActions]) return; // TODO: commented this out to improve the snappiness of the controls. this results in a jerky motion
     
-    SKAction *stopMoving = [SKAction customActionWithDuration:self.decelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
-        float t = elapsedTime / self.decelTimeSeconds;
+    SKAction *stopMoving = [SKAction customActionWithDuration:decel actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / decel;
         t = sinf(t * M_PI_2);
         _characterSpeedMultiplier = 1 - t;
     }];
@@ -101,7 +101,6 @@ static const int TILE_LANE_WIDTH = 32;
         }
     
     }];
-    
     
 }
 
