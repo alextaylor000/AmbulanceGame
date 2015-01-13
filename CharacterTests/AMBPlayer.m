@@ -77,7 +77,8 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     
     _scoreKeeper = [AMBScoreKeeper sharedInstance]; // hook up the shared instance of the score keeper so we can talk to it
     
-    _fuel = 99;
+    _fuel = 3;
+    _fuelTimer = 0;
     
     self.controlState = PlayerIsStopped;
     
@@ -104,12 +105,18 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     }
     
 
+    
+    
     if (self.isMoving) {
-        NSTimeInterval now = CACurrentMediaTime();
+        _fuelTimer += delta;
+#if DEBUG_FUEL
+        NSLog(@"fueltimer=%1.0f",_fuelTimer);
+#endif
+        
         
         // update fuel if we're moving
-        if (now - _fuelTimer > FUEL_TIMER_INCREMENT) {
-            _fuelTimer = now;
+        if (_fuelTimer > FUEL_TIMER_INCREMENT) {
+            _fuelTimer = 0;
             _fuel--; // decrement fuel
 #if DEBUG_FUEL
             NSLog(@"fuel is now %f",_fuel);
@@ -332,18 +339,6 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             break;
             
     }
-}
-
-
-- (void)startMoving {
-    [super startMoving];
-    
-    
-    // update fuel counter
-    _fuelTimer = CACurrentMediaTime();
-#if DEBUG_FUEL
-    NSLog(@"started fuel timer");
-#endif
 }
 
 

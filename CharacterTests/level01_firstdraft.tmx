@@ -281,7 +281,7 @@
  </tileset>
  <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztl0kOwyAMRd256Ty39z9pzY4SR/0OUkLpX7yFLRw9gR1EIyINISMzVyYRyyT25nLqN4bf+kvsye2VQ0Y9kqNf3X4LafftFMwdlVNG/a6C/aNfXX7pPKC9zPmg3z/4hfk4R1yS2JO7KreMems+gt8z4pXEHu7Kw8ij3+w7vyie87Xo23/0+10/5H5D3zfo/WbVlnS/de1nKf9n+o3nN8T7yKotaT5mFZ8v/Xx+K/ns0a20+9aTQ9ZaawJdfUnI0LwBnaw2NA==
+   eJztl0kOgzAMRd3SATrRub3/SevsUmMkm0gkTf/iLWLF6Cl8E9ERUZeZtgAHkJcVs4jYiLW3ltK/U/xkRrXMWmtH5pTQb6nBr26/NQ1zuzTWeuac0H+o4PzgV5efnAdrljEf8PsHvzAfl4irWHtqN+ae0K/NR/B7RbzF2sODeSp16zOnzq8Vz/vVmJo/+P2un+V+s/7fWO83rbek+23sPEv5PsMvn98c/0daL+YDfiX6bek7o3sa5tZTs+zV9gSaEW8A5uYDnuQ2OA==
   </data>
  </layer>
  <layer name="spawn_traffic" width="40" height="40">
