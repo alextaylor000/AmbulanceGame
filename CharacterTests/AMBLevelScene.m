@@ -44,7 +44,7 @@ typedef enum {
 @property AMBSpawner *spawnerTest;
 
 
-@property SKCropNode *miniMapContainer; // the node that holds the minimap, so we can rotate it easily
+@property SKNode *miniMapContainer; // the node that holds the minimap, so we can rotate it easily
 
 @property SKSpriteNode *miniPlayer; // for the minimap
 @property SKSpriteNode *miniHospital;
@@ -82,6 +82,7 @@ typedef enum {
 @property SKLabelNode *swipeLabel;
 #endif
 
+@property CGFloat minimapScaleFactor; // how much to scale positions by on the minimap; a product of the minimap size relative to the tilemap size
 
 @end
 
@@ -139,11 +140,11 @@ typedef enum {
         [self addChild:_swipeLabel];
 #endif
 
-        // minimap
-        [self createMinimap];
 
         
         [self createWorld]; // set up tilemap
+        [self createMinimap];         // minimap
+        [self createSpawners]; // used to be in createWorld
         [self addPlayer];
 
 #if DEBUG_PLAYER_CONTROL
@@ -164,7 +165,7 @@ typedef enum {
         _camera.zPosition = 999;
         [_tilemap addChild:_camera];
         
-        _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap container so it can rotate it at the same time as the real world
+        _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
         
         // scoring
         _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
@@ -227,35 +228,36 @@ typedef enum {
 
 - (void)createMinimap {
     
-
-
     
-    _miniMap = [SKSpriteNode spriteNodeWithImageNamed:@"level01_firstdraft_MINI.png"];
+    _miniMap = [SKSpriteNode spriteNodeWithImageNamed:@"level01_firstdraft_MINI-256.png"];
     _miniMap.anchorPoint = CGPointMake(0, 0);
     _miniMap.zPosition = 1000;
 
-    
+    _minimapScaleFactor = _miniMap.size.width / (_tilemap.mapSize.width * _tilemap.tileSize.width); // makes objects 1 tile big
 
-    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(150,150)];
-
-    _miniMapContainer = [[SKCropNode alloc]init];
-    _miniMapContainer.maskNode = maskNode;
-
-    [_miniMapContainer addChild:maskNode];
+    _miniMapContainer = [SKNode node];
     [_miniMapContainer addChild:_miniMap];
+    
+    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(150,150)]; // TODO: change this colour as appropriate
 
-    _miniMapContainer.position = CGPointMake(-self.size.width/2 + 100, self.size.height/2-100);
-    [self addChild:_miniMapContainer];
+    SKCropNode *miniMapFrame = [[SKCropNode alloc]init];
+    miniMapFrame.maskNode = maskNode;
+
+    [miniMapFrame addChild:maskNode];
+    [miniMapFrame addChild:_miniMapContainer];
+
+    miniMapFrame.position = CGPointMake(-self.size.width/2 + 100, self.size.height/2-100);
+    [self addChild:miniMapFrame];
     
     
 }
 
 - (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withSize:(CGFloat)size {
-    CGFloat scale = _miniMap.size.width / (_tilemap.mapSize.width * _tilemap.tileSize.width); // makes objects 1 tile big
-    CGFloat mult = scale * size; // in case we want something bigger than 1 tile...
+
+    CGFloat mult = _minimapScaleFactor * size; // in case we want something bigger than 1 tile...
     SKSpriteNode *object = [SKSpriteNode spriteNodeWithColor:colour size:CGSizeMake(256*mult, 256*mult)];
 
-    CGPoint posScaled = CGPointMultiplyScalar(position, scale);
+    CGPoint posScaled = CGPointMultiplyScalar(position, _minimapScaleFactor);
     object.position = posScaled;
     object.zPosition = 100;
     [_miniMap addChild:object];
@@ -367,7 +369,8 @@ typedef enum {
     }
     
     // update minimap
-    _miniPlayer.position = CGPointMultiplyScalar(_player.position, 0.0125);
+    _miniPlayer.position = CGPointMultiplyScalar(_player.position, _minimapScaleFactor);
+    _miniMap.position = CGPointMake(-_miniPlayer.position.x, -_miniPlayer.position.y);
     
     
 #if DEBUG_PLAYER_CONTROL
@@ -416,9 +419,12 @@ typedef enum {
         
     }
     
+    
+    
+}
 
-    
-    
+
+- (void)createSpawners {
     // Set up spawn points
     NSDictionary *playerSpawn = [[_mapGroupSpawnPlayer objects] objectAtIndex:0];
     _playerSpawnPoint = [self centerOfObject:playerSpawn];
@@ -430,16 +436,13 @@ typedef enum {
         
         CGPoint hospitalPos = [self centerOfObject:object];
         [hospital addObjectToNode:_mapLayerRoad atPosition:hospitalPos];
-
+        
         // add hospital indicator target
         [_indicator addTarget:hospital type:IndicatorHospital];
         _miniHospital = [self addObjectToMinimapAtPoint:hospitalPos withColour:[SKColor whiteColor] withSize:1.5]; // TODO: this assumes just one hospital. does it matter?
     }
-    
-    [self createSpawners];
-}
 
-- (void)createSpawners {
+    
     _spawners = [[NSMutableArray alloc]init];
 
     // patient spawners
