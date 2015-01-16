@@ -322,17 +322,9 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             if (_fuel < 3) {
                 _fuel++;
                 owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
+                [_scoreKeeper eventLabelWithText:@"+1 FUEL!"];
+                [other.node removeFromParent];
                 
-                SKLabelNode *moreFuel = [SKLabelNode labelNodeWithFontNamed:@"Upheaval Pro"];
-                moreFuel.text = @"+1 FUEL!";
-                moreFuel.fontColor = [SKColor yellowColor];
-                moreFuel.fontSize = 80;
-                moreFuel.alpha = 0;
-                moreFuel.zPosition = 1000;
-                [owningScene addChild:moreFuel];
-                
-                action = [SKAction sequence:@[[SKAction fadeInWithDuration:0.075],[SKAction waitForDuration:2.0],[SKAction fadeOutWithDuration:0.075]]];
-                [moreFuel runAction:action];
             }
             
 
