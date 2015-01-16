@@ -50,7 +50,7 @@
 /** Loads a tilemap from disk and sets up all the layers.*/
 - (void)levelWithTilemap:(NSString *)tilemapFile;
 
-- (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withScale:(CGFloat)scale; // for adding patients to the minimap from the spawner class
+- (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withSize:(CGFloat)size; // for adding patients to the minimap from the spawner class
 
 
 

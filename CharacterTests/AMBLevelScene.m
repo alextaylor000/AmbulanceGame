@@ -44,7 +44,8 @@ typedef enum {
 @property AMBSpawner *spawnerTest;
 
 
-@property SKSpriteNode *miniMapContainer; // the sprite node that holds the minimap, so we can rotate it easily
+@property SKCropNode *miniMapContainer; // the node that holds the minimap, so we can rotate it easily
+
 @property SKSpriteNode *miniPlayer; // for the minimap
 @property SKSpriteNode *miniHospital;
 
@@ -227,25 +228,34 @@ typedef enum {
 - (void)createMinimap {
     
 
+
     
     _miniMap = [SKSpriteNode spriteNodeWithImageNamed:@"level01_firstdraft_MINI.png"];
     _miniMap.anchorPoint = CGPointMake(0, 0);
     _miniMap.zPosition = 1000;
-    _miniMap.position = CGPointMake(-_miniMap.size.width/2, -_miniMap.size.height/2);
 
-    _miniMapContainer = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(150,150)];
-    _miniMapContainer.anchorPoint = CGPointMake(0.5, 0.5);
+    
 
+    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(150,150)];
+
+    _miniMapContainer = [[SKCropNode alloc]init];
+    _miniMapContainer.maskNode = maskNode;
+
+    [_miniMapContainer addChild:maskNode];
     [_miniMapContainer addChild:_miniMap];
+
     _miniMapContainer.position = CGPointMake(-self.size.width/2 + 100, self.size.height/2-100);
     [self addChild:_miniMapContainer];
     
     
 }
 
-- (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withScale:(CGFloat)scale {
-    SKSpriteNode *object = [SKSpriteNode spriteNodeWithColor:colour size:CGSizeMake(256*scale, 256*scale)];
-    CGPoint posScaled = CGPointMultiplyScalar(position, 0.0125);
+- (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withSize:(CGFloat)size {
+    CGFloat scale = _miniMap.size.width / (_tilemap.mapSize.width * _tilemap.tileSize.width); // makes objects 1 tile big
+    CGFloat mult = scale * size; // in case we want something bigger than 1 tile...
+    SKSpriteNode *object = [SKSpriteNode spriteNodeWithColor:colour size:CGSizeMake(256*mult, 256*mult)];
+
+    CGPoint posScaled = CGPointMultiplyScalar(position, scale);
     object.position = posScaled;
     object.zPosition = 100;
     [_miniMap addChild:object];
@@ -264,22 +274,6 @@ typedef enum {
 }
 
 
-//- (void) addHospitalAtPoint:(CGPoint)point {
-//    // TODO: this is deprecated, right? I think this was just for testing.
-//    SKSpriteNode *hospital = [SKSpriteNode spriteNodeWithImageNamed:@"hospital"];
-//    
-//    hospital.position = point;
-//    hospital.zPosition = 200;
-//    hospital.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(hospital.size.width * 3, hospital.size.height * 3)]; // for the physics body, expand the hospital's size so that it encompasses all the surrounding road blocks.
-//    hospital.physicsBody.categoryBitMask = categoryHospital;
-//    hospital.physicsBody.collisionBitMask = 0x00000000;
-//    
-//    [_tilemap addChild:hospital];
-//    
-//    
-//    
-//    
-//}
 
 - (void)addMovingCharacterToTileMap:(AMBMovingCharacter *)character {
     // encapsulated like this because we need to make sure levelScene is set on all the player/traffic nodes
@@ -298,8 +292,8 @@ typedef enum {
 #endif
     
     
-    _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withScale:0.0125];
-
+    _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withSize:1];
+    _miniMap.position = CGPointMake(-_miniPlayer.position.x, -_miniPlayer.position.y);
 }
 
 - (NSString *)timeFormatted:(int)totalSeconds // from http://stackoverflow.com/a/1739411
@@ -439,7 +433,7 @@ typedef enum {
 
         // add hospital indicator target
         [_indicator addTarget:hospital type:IndicatorHospital];
-        _miniHospital = [self addObjectToMinimapAtPoint:hospitalPos withColour:[SKColor whiteColor] withScale:0.02]; // TODO: this assumes just one hospital. does it matter?
+        _miniHospital = [self addObjectToMinimapAtPoint:hospitalPos withColour:[SKColor whiteColor] withSize:1.5]; // TODO: this assumes just one hospital. does it matter?
     }
     
     [self createSpawners];

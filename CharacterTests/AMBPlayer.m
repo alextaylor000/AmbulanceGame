@@ -126,25 +126,9 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             
             if (_fuel < 1) {
                 [self stopMovingWithDecelTime:self.decelTimeSeconds];
-                SKLabelNode *outOfFuel = [SKLabelNode labelNodeWithFontNamed:@"Impact"];
-                outOfFuel.text = @"** OUT OF FUEL **";
-                outOfFuel.fontColor =[ SKColor yellowColor];
-                outOfFuel.zPosition = 1000;
-                outOfFuel.fontSize = 80;
-                outOfFuel.position = CGPointMake(0, 100);
-                
-                SKLabelNode *gameOver = [SKLabelNode labelNodeWithFontNamed:@"Impact"];
-                gameOver.text = @"GAME OVER!";
-                gameOver.fontColor = [SKColor yellowColor];
-                gameOver.zPosition = 1000;
-                gameOver.fontSize = 80;
-                
-                [owningScene addChild:outOfFuel];                
-                [owningScene addChild:gameOver];
+                [_scoreKeeper eventLabelWithText:@"OUT OF FUEL! GAME OVER"];
+        
 
-                
-                
-                
             }
             
         }
