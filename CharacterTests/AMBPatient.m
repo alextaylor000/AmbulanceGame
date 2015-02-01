@@ -132,7 +132,7 @@
         
         case PatientIsEnRoute:
             self.hidden = YES;
-            [self.miniPatient removeFromParent];
+            [self.minimapAvatar removeFromParent];
             #if DEBUG_PATIENT
                 NSLog(@"[patient] patient is EN-ROUTE!");
             #endif
@@ -150,7 +150,7 @@
             
         case PatientIsDead:
             
-            [self.miniPatient removeFromParent];
+            [self.minimapAvatar removeFromParent];
             [self removeFromParent];
 
             #if DEBUG_PATIENT

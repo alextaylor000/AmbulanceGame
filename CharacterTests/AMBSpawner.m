@@ -9,6 +9,7 @@
 #import "SKTUtils.h"
 #import "AMBSpawner.h"
 #import "AMBPatient.h"
+#import "AMBPowerup.h"
 #import "AMBLevelScene.h"
 
 @interface AMBSpawner ()
@@ -95,6 +96,11 @@
     
     [objectToSpawn addObjectToNode:[owningScene mapLayerRoad] atPosition:self.position];
 
+    if ([objectToSpawn isKindOfClass:[AMBPowerup class]]) {
+        SKSpriteNode *miniFuel = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor yellowColor] withSize:1];
+        objectToSpawn.minimapAvatar = miniFuel;
+    }
+    
     // add indicator here
     if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
 #if DEBUG_PATIENT
@@ -110,7 +116,7 @@
         [miniPatient runAction:[SKAction repeatActionForever:[SKAction sequence:@[fadeOut, [fadeOut reversedAction]]]]];
 
         AMBPatient *patient = (AMBPatient *)objectToSpawn;
-        patient.miniPatient = miniPatient;
+        patient.minimapAvatar = miniPatient;
         
         [patient changeState:PatientIsWaitingForPickup];
 #if DEBUG_INDICATOR

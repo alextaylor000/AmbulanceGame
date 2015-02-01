@@ -22,6 +22,7 @@ static const uint32_t categoryPowerup =                 0x1 << 6; // powerups (f
 
 @property NSTimeInterval spawnTime;
 @property AMBLevelScene *levelScene;
+@property SKSpriteNode *minimapAvatar; // minimap version of sprite
 
 /** Adds the character object to the scene, or other specified node. */
 - (void)addObjectToNode:(SKNode *)node atPosition:(CGPoint)position;

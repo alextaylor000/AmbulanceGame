@@ -325,7 +325,11 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 _fuel++;
                 owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
                 [_scoreKeeper eventLabelWithText:@"+1 FUEL!"];
-                [other.node removeFromParent];
+                
+                AMBCharacter *powerup = (AMBCharacter *)other.node;
+                [powerup removeFromParent];
+                [powerup.minimapAvatar removeFromParent];
+                
                 
             }
             
