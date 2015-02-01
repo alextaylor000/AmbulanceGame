@@ -92,9 +92,6 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     [super updateWithTimeSinceLastUpdate:delta];
 
 
-    if (self.controlState == PlayerIsChangingLanes) {
-        [self authorizeMoveEvent:_laneChangeDegrees snapToLane:NO];
-    }
 
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
@@ -108,6 +105,11 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     
     
     if (self.isMoving) {
+        if (self.controlState == PlayerIsChangingLanes) {
+            [self authorizeMoveEvent:_laneChangeDegrees snapToLane:NO];
+        }
+        
+        
         _fuelTimer += delta;
 #if DEBUG_FUEL
         NSLog(@"fueltimer=%1.0f",_fuelTimer);
@@ -133,21 +135,32 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             
         }
         
+
+        
+        
+        
         // T-intersections
         if (self.currentTileProperties[@"invalid_directions"]) {
-            CGRect invalidDirections = CGRectFromString(self.currentTileProperties[@"invalid_directions"]);
-            CGPoint invalidDirection1 = invalidDirections.origin;
-            CGPoint invalidDirection2 = CGPointMake(invalidDirections.size.width, invalidDirections.size.height);
-
-
-#if DEBUG_PLAYER_CONTROL
- //           NSLog(@"** invalid: %1.0f,%1.0f,  direction: %1.0f,%1.0f",invalidDirection.x,invalidDirection.y,self.direction.x,self.direction.y);
-#endif
+            CGPoint currentTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:self.position]];
+            CGPoint playerPosInTile = CGPointSubtract(self.position, currentTilePos);
+            CGPoint playerPosNormalized = CGPointMultiply(playerPosInTile, self.direction);
+            CGFloat distFromCenter = fabsf(playerPosNormalized.x + playerPosNormalized.y); // should "flatten" the CGPoint since one of these will always be zero
             
-            if (self.controlState != PlayerIsChangingLanes && self.controlState != PlayerIsTurning) {
-                if (CGPointEqualToPoint(invalidDirection1, self.direction) ||
-                    CGPointEqualToPoint(invalidDirection2, self.direction)) {
-                    [self slamBrakes]; // instead of stopMoving; ends with PlayerIsStoppedAtTIntersection
+            if (distFromCenter < 50) {
+                CGRect invalidDirections = CGRectFromString(self.currentTileProperties[@"invalid_directions"]); // CGRect so we can extract the two dimensions
+                CGPoint invalidDirection1 = invalidDirections.origin;
+                CGPoint invalidDirection2 = CGPointMake(invalidDirections.size.width, invalidDirections.size.height);
+                
+                
+                if (self.controlState == PlayerIsAccelerating ||
+                    self.controlState == PlayerIsDecelerating ||
+                    self.controlState == PlayerIsDrivingStraight) {
+                    if (CGPointEqualToPoint(invalidDirection1, self.direction) ||
+                        CGPointEqualToPoint(invalidDirection2, self.direction)) {
+                        self.controlState = PlayerIsDecelerating;
+                        
+                        [self slamBrakes]; // instead of stopMoving
+                    }
                 }
             }
          
@@ -158,26 +171,32 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 
 
 - (void)slamBrakes {
-    // stopMoving with an end state of PlayerIsStoppedAtTIntersection
-    CGFloat decelTime = self.decelTimeSeconds/2;
-    SKAction *stopMoving = [SKAction customActionWithDuration:decelTime actionBlock:^(SKNode *node, CGFloat elapsedTime){
-        float t = elapsedTime / decelTime;
-        t = sinf(t * M_PI_2);
+    if (self.hasActions == NO) {
 
-        self.characterSpeedMultiplier = 1 - t;
-    }];
-    [self runAction:stopMoving completion:^{
-        self.isMoving = NO;
-        self.speedPointsPerSec = 0;
         
-
-        self.controlState = PlayerIsStoppedAtTIntersection;
+        // stopMoving with an end state of PlayerIsStoppedAtTIntersection
+        CGFloat decelTime = self.decelTimeSeconds/2;
+        SKAction *stopMoving = [SKAction customActionWithDuration:decelTime actionBlock:^(SKNode *node, CGFloat elapsedTime){
+            float t = elapsedTime / decelTime;
+            t = sinf(t * M_PI_2);
+            
+            self.characterSpeedMultiplier = 1 - t;
+        }];
+        [self runAction:stopMoving completion:^{
+            self.isMoving = NO;
+            self.speedPointsPerSec = 0;
+            
+            
+            self.controlState = PlayerIsStoppedAtTIntersection;
 #if DEBUG_PLAYER_CONTROL
-        NSLog(@"[control] PlayerIsDecelerating -> stopMoving -> PlayerIsStopped");
+            NSLog(@"[control] PlayerIsDecelerating -> slamBrakes -> PlayerIsStoppedAtTIntersection");
 #endif
+            
+            
+        }];
+    
+    }
 
-        
-    }];
     
 }
 
@@ -397,7 +416,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 self.laneChangeDegrees = 90;
                 self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDecelerating -> handleInput:turnLeft";
-                [self printMessage:message];
+                [self printMessage:message]; // can we cancel all actions here to return to normal speed?
                 
             } else if   (input == PlayerControlsTurnRight) {
                 self.laneChangeDegrees = -90;
