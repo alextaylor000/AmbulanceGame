@@ -146,7 +146,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             CGPoint playerPosNormalized = CGPointMultiply(playerPosInTile, self.direction);
             CGFloat distFromCenter = fabsf(playerPosNormalized.x + playerPosNormalized.y); // should "flatten" the CGPoint since one of these will always be zero
             
-            if (distFromCenter < 50) {
+            if (distFromCenter < 40) {
                 CGRect invalidDirections = CGRectFromString(self.currentTileProperties[@"invalid_directions"]); // CGRect so we can extract the two dimensions
                 CGPoint invalidDirection1 = invalidDirections.origin;
                 CGPoint invalidDirection2 = CGPointMake(invalidDirections.size.width, invalidDirections.size.height);
@@ -157,7 +157,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                     self.controlState == PlayerIsDrivingStraight) {
                     if (CGPointEqualToPoint(invalidDirection1, self.direction) ||
                         CGPointEqualToPoint(invalidDirection2, self.direction)) {
-                        self.controlState = PlayerIsDecelerating;
+                        self.controlState = PlayerIsLeavingTIntersection; // no valid inputs in this control state (intentional)
                         
                         [self slamBrakes]; // instead of stopMoving
                     }
@@ -172,7 +172,6 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 
 - (void)slamBrakes {
     if (self.hasActions == NO) {
-
         
         // stopMoving with an end state of PlayerIsStoppedAtTIntersection
         CGFloat decelTime = self.decelTimeSeconds/2;
