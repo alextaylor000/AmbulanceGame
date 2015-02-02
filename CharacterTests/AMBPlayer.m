@@ -158,7 +158,7 @@
                     self.controlState == PlayerIsDrivingStraight) {
                     if (CGPointEqualToPoint(invalidDirection1, self.direction) ||
                         CGPointEqualToPoint(invalidDirection2, self.direction)) {
-                        self.controlState = PlayerIsLeavingTIntersection; // no valid inputs in this control state (intentional)
+                        self.controlState = PlayerIsWithinTIntersection; // no valid inputs in this control state (intentional)
                         
                         [self slamBrakes]; // instead of stopMoving
                     }
@@ -202,7 +202,7 @@
 
 - (void)leaveIntersectionWithInput:(PlayerControls)input {
 
-    self.controlState = PlayerIsLeavingTIntersection;
+    self.controlState = PlayerIsWithinTIntersection;
 
     // rotate, then start moving
     CGFloat degrees = (input == PlayerControlsTurnLeft) ? 90 : -90;
@@ -240,7 +240,7 @@
         if ([self.name isEqualToString:@"player"]) {
             self.controlState = PlayerIsDrivingStraight;
 #if DEBUG_PLAYER_CONTROL
-            NSLog(@"[control] PlayerIsLeavingTIntersection -> leaveIntersection -> PlayerIsDrivingStraight");
+            NSLog(@"[control] PlayerIsWithinTIntersection -> leaveIntersection -> PlayerIsDrivingStraight");
 #endif
         }
     }];
@@ -378,7 +378,7 @@
             
             break;
             
-        case PlayerIsLeavingTIntersection:
+        case PlayerIsWithinTIntersection:
             
             // valid inputs: NONE
             break;

@@ -396,8 +396,8 @@ typedef enum {
         case PlayerIsStoppedAtTIntersection:
             _controlStateLabel.text = @"PlayerIsStoppedAtTIntersection";
             break;
-        case PlayerIsLeavingTIntersection:
-            _controlStateLabel.text = @"PlayerIsLeavingTIntersection";
+        case PlayerIsWithinTIntersection:
+            _controlStateLabel.text = @"PlayerIsWithinTIntersection";
             break;
         case PlayerIsDrivingStraight:
             _controlStateLabel.text = @"PlayerIsDrivingStraight";
