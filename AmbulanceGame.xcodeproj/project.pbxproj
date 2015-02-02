@@ -24,6 +24,10 @@
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
 		B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
 		B978314A1A198950002A10BC /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B97831491A198950002A10BC /* level01.tmx */; };
+		B985AFA91A802538000B3423 /* AMBMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */; };
+		B985AFAC1A80270E000B3423 /* AMBCreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */; };
+		B985AFAE1A802A1A000B3423 /* AMBCreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */; };
+		B985AFB31A803132000B3423 /* AMBMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
 		B988238D1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B988238B1969998400903B73 /* InfoPlist.strings */; };
@@ -41,6 +45,8 @@
 		B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
+		B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
+		B9BCC05D1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
 		B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
 		B9C8E4971A4B73F0003F7354 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4961A4B73F0003F7354 /* main.m */; };
 		B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4991A4B73F0003F7354 /* AppDelegate.m */; };
@@ -113,6 +119,10 @@
 		B97831441A190C1F002A10BC /* AMBIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBIndicator.h; sourceTree = "<group>"; };
 		B97831451A190C1F002A10BC /* AMBIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBIndicator.m; sourceTree = "<group>"; };
 		B97831491A198950002A10BC /* level01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01.tmx; sourceTree = "<group>"; };
+		B985AFA71A802538000B3423 /* AMBMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMainMenuViewController.h; sourceTree = "<group>"; };
+		B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBMainMenuViewController.m; sourceTree = "<group>"; };
+		B985AFAA1A80270E000B3423 /* AMBCreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCreditsViewController.h; sourceTree = "<group>"; };
+		B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBCreditsViewController.m; sourceTree = "<group>"; };
 		B988237D1969998400903B73 /* AmbulanceGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbulanceGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823801969998400903B73 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B98823821969998400903B73 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -146,6 +156,8 @@
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
 		B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBMovingCharacter.m; sourceTree = "<group>"; };
+		B9BCC05A1A8031DA00FF2BAE /* AMBGameSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameSetupViewController.h; path = ../AMBGameSetupViewController.h; sourceTree = "<group>"; };
+		B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameSetupViewController.m; path = ../AMBGameSetupViewController.m; sourceTree = "<group>"; };
 		B9C449551A30144700093CC4 /* level01_firstdraft.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_firstdraft.tmx; sourceTree = "<group>"; };
 		B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbulanceGame_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C8E4951A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -221,6 +233,21 @@
 				B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */,
 			);
 			name = Levels;
+			sourceTree = "<group>";
+		};
+		B985AFA61A802519000B3423 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B985AFA71A802538000B3423 /* AMBMainMenuViewController.h */,
+				B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */,
+				B9BCC05A1A8031DA00FF2BAE /* AMBGameSetupViewController.h */,
+				B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */,
+				B985AFAA1A80270E000B3423 /* AMBCreditsViewController.h */,
+				B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */,
+				B9C8E4A01A4B73F0003F7354 /* GameViewController.h */,
+				B9C8E4A11A4B73F0003F7354 /* GameViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		B98823741969998400903B73 = {
@@ -360,10 +387,9 @@
 		B9C8E4931A4B73F0003F7354 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				B985AFA61A802519000B3423 /* ViewControllers */,
 				B9C8E4981A4B73F0003F7354 /* AppDelegate.h */,
 				B9C8E4991A4B73F0003F7354 /* AppDelegate.m */,
-				B9C8E4A01A4B73F0003F7354 /* GameViewController.h */,
-				B9C8E4A11A4B73F0003F7354 /* GameViewController.m */,
 				B9C8E4A31A4B73F0003F7354 /* Main.storyboard */,
 				B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */,
 				B9C8E4941A4B73F0003F7354 /* Supporting Files */,
@@ -557,8 +583,10 @@
 				B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */,
 				B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */,
 				B98823971969998400903B73 /* AMBLevelScene.m in Sources */,
+				B985AFAC1A80270E000B3423 /* AMBCreditsViewController.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
 				B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */,
+				B985AFA91A802538000B3423 /* AMBMainMenuViewController.m in Sources */,
 				B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */,
 				B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */,
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
@@ -573,6 +601,7 @@
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
 				B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */,
 				B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */,
+				B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */,
 				B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */,
 				B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */,
 			);
@@ -587,6 +616,7 @@
 				B9C8E4ED1A4B7769003F7354 /* SKAction+SKTExtras.m in Sources */,
 				B9C8E4EE1A4B7769003F7354 /* SKEmitterNode+SKTExtras.m in Sources */,
 				B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */,
+				B985AFAE1A802A1A000B3423 /* AMBCreditsViewController.m in Sources */,
 				B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */,
 				B9C8E4BE1A4B747E003F7354 /* AMBScoreKeeper.m in Sources */,
 				B9C8E4C01A4B747E003F7354 /* AMBCamera.m in Sources */,
@@ -600,9 +630,11 @@
 				B9C8E4D01A4B747E003F7354 /* AMBIndicator.m in Sources */,
 				B9C8E4D21A4B747E003F7354 /* AMBHospital.m in Sources */,
 				B9C8E4D41A4B747E003F7354 /* AMBSpawner.m in Sources */,
+				B985AFB31A803132000B3423 /* AMBMainMenuViewController.m in Sources */,
 				B9C8E4D61A4B747E003F7354 /* AMBGameScene.m in Sources */,
 				B9C8E4D81A4B747E003F7354 /* AMBLevelScene.m in Sources */,
 				B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */,
+				B9BCC05D1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */,
 				B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */,
 				B9C8E4971A4B73F0003F7354 /* main.m in Sources */,
 			);
@@ -771,6 +803,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = CharacterTests_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -790,6 +823,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = CharacterTests_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

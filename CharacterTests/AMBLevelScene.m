@@ -5,6 +5,17 @@
 //  Created by Alex Taylor on 2014-07-06.
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
+/*
+ 
+ required for multiple levels/modes:
+    - init level with map
+    - init level with different ambulance sprite
+    - init level with timer (set amount, or 0 for endless mode)
+    - custom scoring (e.g. patient delivery adds to timer)
+    
+    - ability to restart level
+ 
+ */
 
 #import "AMBLevelScene.h"
 #import "AMBPlayer.h"
@@ -18,7 +29,6 @@
 
 #define kNumberCars   15
 
-static const float KEY_PRESS_INTERVAL_SECS = 0.2; // ignore key presses more frequent than this interval
 //static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 static const BOOL renderTraffic = 1;

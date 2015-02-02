@@ -10,6 +10,19 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+typedef NS_ENUM(int, AMBVehicleType) {
+    AMBVehicleWhite,
+    AMBVehicleRed,
+    AMBVehicleSpecial1,
+    AMBVehicleSpecial2
+};
+
+typedef NS_ENUM (int, AMBLevelType) {
+    AMBCity1,
+    AMBCity2,
+    AMBCity3
+};
+
 
 @class JSTileMap;
 
