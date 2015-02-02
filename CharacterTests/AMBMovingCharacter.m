@@ -110,8 +110,10 @@ static const int TILE_LANE_WIDTH = 32;
         CGFloat delta = self.speedPointsPerSec - targetSpeed;
         _originalSpeed = self.speedPointsPerSec;
         
-        SKAction *adjustSpeed = [SKAction customActionWithDuration:self.decelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
-            float t = elapsedTime / self.decelTimeSeconds;
+        CGFloat adjDecelTime = self.decelTimeSeconds / 1.5;
+        
+        SKAction *adjustSpeed = [SKAction customActionWithDuration:adjDecelTime actionBlock:^(SKNode *node, CGFloat elapsedTime){
+            float t = elapsedTime / adjDecelTime;
             t = sinf(t * M_PI_2);
             self.speedPointsPerSec = _originalSpeed - delta * t;
             //NSLog(@"[adjustSpeedToTarget] %1.5f-> %1.5f",_originalSpeed, self.speedPointsPerSec);
@@ -174,7 +176,7 @@ static const int TILE_LANE_WIDTH = 32;
     //NSLog(@"<moveBy>");
     //if ([self actionForKey:@"moveBy"]) { return; }
     
-    SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
+    SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.125];
     //changeLanes.timingMode = SKActionTimingEaseInEaseOut;
     [self runAction:changeLanes completion:^(void){
 

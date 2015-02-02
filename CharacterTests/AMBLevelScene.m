@@ -21,7 +21,7 @@
 static const float KEY_PRESS_INTERVAL_SECS = 0.2; // ignore key presses more frequent than this interval
 //static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
-static const BOOL renderTraffic = 0;
+static const BOOL renderTraffic = 1;
 
 typedef enum {
     GestureIdle,
@@ -453,7 +453,7 @@ typedef enum {
         // grab properties of the spawner from the TMX object directly
         NSTimeInterval firstSpawnAt = [[object valueForKey:@"firstSpawnAt"] intValue];
         NSTimeInterval frequency = [[object valueForKey:@"frequency"] intValue];
-        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperValue"] intValue]; // defaults to 0
+        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperRange"] intValue]; // defaults to 0
 
         // build an array of patients based on the severity property (can be comma-separated)
         NSArray *severityArray = [[object valueForKey:@"severity"] componentsSeparatedByString:@","];
@@ -514,7 +514,7 @@ typedef enum {
         // grab properties of the spawner from the TMX object directly
         NSTimeInterval firstSpawnAt = [[object valueForKey:@"firstSpawnAt"] intValue];
         NSTimeInterval frequency = [[object valueForKey:@"frequency"] intValue];
-        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperValue"] intValue]; // defaults to 0
+        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperRange"] intValue]; // defaults to 0
         
         // build an array of patients based on the severity property (can be comma-separated)
         NSArray *fuelArray = [NSArray arrayWithObject:[[AMBPowerup alloc]init]];

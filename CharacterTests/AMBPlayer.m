@@ -10,10 +10,11 @@
 
 #import "AMBPlayer.h"
 #import "AMBLevelScene.h"
+#import "AMBPowerup.h"
 #import "AMBScoreKeeper.h"
 #import "SKTUtils.h"
 
-static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decremented
+
 
 
 

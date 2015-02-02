@@ -8,6 +8,9 @@
 
 #import "AMBCharacter.h"
 
+static const CGFloat FUEL_EXPIRY_DURATION = 20;
+static const CGFloat FUEL_TIMER_INCREMENT = 40; // every x seconds, the fuel gets decremented
+
 @interface AMBPowerup : AMBCharacter
 
 @end

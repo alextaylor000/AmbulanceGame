@@ -96,12 +96,17 @@
     
     [objectToSpawn addObjectToNode:[owningScene mapLayerRoad] atPosition:self.position];
 
+    // FUEL SPAWN
     if ([objectToSpawn isKindOfClass:[AMBPowerup class]]) {
         SKSpriteNode *miniFuel = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor yellowColor] withSize:1];
         objectToSpawn.minimapAvatar = miniFuel;
+        
+        SKAction *fuelExpiry = [SKAction sequence:@[[SKAction waitForDuration:FUEL_EXPIRY_DURATION],[SKAction removeFromParent]]];
+        [objectToSpawn runAction:fuelExpiry]; // fuel expires! BAM
+        [objectToSpawn.minimapAvatar runAction:fuelExpiry];
     }
     
-    // add indicator here
+    // PATIENT SPAWN
     if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
 #if DEBUG_PATIENT
         
