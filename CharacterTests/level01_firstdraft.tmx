@@ -156,6 +156,7 @@
     <property name="center_y" value="-32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="e"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="1">
@@ -164,6 +165,7 @@
     <property name="center_y" value="32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="w"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="2">
@@ -172,6 +174,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="s"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="3">
@@ -180,6 +183,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="n"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="4">
@@ -188,6 +192,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="s"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="5">
@@ -196,6 +201,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="n"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="6">
@@ -204,6 +210,7 @@
     <property name="center_y" value="96"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="e"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="7">
@@ -212,6 +219,7 @@
     <property name="center_y" value="32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="w"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="8">
@@ -220,6 +228,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="s"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="9">
@@ -228,6 +237,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="n"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="10">
@@ -236,6 +246,7 @@
     <property name="center_y" value="-96"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="w"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="11">
@@ -244,6 +255,7 @@
     <property name="center_y" value="-32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="w"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="12">
@@ -252,6 +264,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="s"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="13">
@@ -260,6 +273,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="n"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="14">
@@ -268,6 +282,7 @@
     <property name="center_y" value="-32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="e"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="15">
@@ -276,6 +291,7 @@
     <property name="center_y" value="32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="e"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
  </tileset>
@@ -286,7 +302,7 @@
  </layer>
  <layer name="spawn_traffic" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmFEOhCAMRL2Gq5us/nj/GxpiNjFmKoOVCtj3JVOEllgKdp3jOHcwAm0C2pDbkUyg+JDGgNYFaVfH186jndeantBibUlLsb+BGvJ3ftqBh/gk6IwWa+91z40NtL8GattTJb4Gc7BrZeFL4Ke0syzC85nG2GpAypsWaTlWbWzs+/tatAAN9fvz1vNBKlY1q4XayN61wvmZuStLa6LJL+n8xtpLoYXvJYVjvDnqR0n/ACz3Z7ZmXOnjOCWzAuqqB9k=
+   eJztmEsOgCAMRL2Gv0TdeP8bGmNMiJnqYOVr30qmCC2xFGwawzC+YADaDLQ+tCOBQPEhjQGtC9Lejq+dRztvbFpCe2pLmo/9D5SQv0tqBxLReeiM9tR2dcuNA7S/7pS2p0qMqR1wiOXLpLSzrMLzncbYSkDKmxqpOVZtbOz7bi1agYb6nfz1fOBLrJpVQ21k71r7+Zm5K0troskv6fzG2nOhhu/Fh2u8IepHTv8AYu7PbM1408cwcmYDczsHvQ==
   </data>
  </layer>
  <objectgroup name="spawn_player">

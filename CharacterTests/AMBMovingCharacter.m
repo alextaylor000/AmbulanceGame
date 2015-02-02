@@ -116,8 +116,8 @@ static const int TILE_LANE_WIDTH = 32;
             float t = elapsedTime / adjDecelTime;
             t = sinf(t * M_PI_2);
             self.speedPointsPerSec = _originalSpeed - delta * t;
-            //NSLog(@"[adjustSpeedToTarget] %1.5f-> %1.5f",_originalSpeed, self.speedPointsPerSec);
         }];
+        
         
         [self runAction:adjustSpeed withKey:@"adjustSpeed"];
     }
@@ -146,7 +146,7 @@ static const int TILE_LANE_WIDTH = 32;
         self.direction = [self getDirectionFromAngle:self.zRotation];
     }];
     
-    SKAction *wait = [SKAction waitForDuration:0.35]; // wait this duration before being allowed to change lanes
+    SKAction *wait = [SKAction waitForDuration:0.2]; // wait this duration before being allowed to change lanes
     [sprite runAction:wait completion:^(void){
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsDrivingStraight;
