@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMBGameScene.h" // for the NS_ENUMs that define game options
 
 @interface AMBGameSetupViewController : UIViewController
+
+@property (nonatomic, assign) AMBGameType gameType;
+@property (nonatomic, assign) AMBVehicleType vehicleType;
+@property (nonatomic, assign) AMBLevelType levelType;
+
 
 @end

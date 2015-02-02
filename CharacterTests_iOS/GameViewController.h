@@ -8,7 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import "AMBGameScene.h" // for the NS_ENUMs that define game options
 
 @interface GameViewController : UIViewController
+
+@property (nonatomic, assign) AMBGameType gameType;
+@property (nonatomic, assign) AMBVehicleType vehicleType;
+@property (nonatomic, assign) AMBLevelType levelType;
+
+
 
 @end

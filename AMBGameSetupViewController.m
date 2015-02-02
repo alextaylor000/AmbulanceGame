@@ -6,17 +6,10 @@
 //  Copyright (c) 2015 Alex Taylor. All rights reserved.
 //
 
-#import "AMBLevelScene.h" // for the NS_ENUMs that define game options
+
 #import "AMBGameSetupViewController.h"
 #import "GameViewController.h"
 
-@interface AMBGameSetupViewController ()
-
-@property (nonatomic, assign) AMBVehicleType vehicleType;
-@property (nonatomic, assign) AMBLevelType levelType;
-
-
-@end
 
 @implementation AMBGameSetupViewController
 
@@ -49,6 +42,11 @@
 
 - (IBAction)goButtonPressed:(id)sender {
     GameViewController *gameView = [self.storyboard instantiateViewControllerWithIdentifier:@"AMBGameViewController"];
+    
+    gameView.gameType = self.gameType;
+    gameView.vehicleType = self.vehicleType;
+    gameView.levelType = self.levelType;
+
     
     [self.navigationController pushViewController:gameView animated:YES];
 }

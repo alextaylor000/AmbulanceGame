@@ -27,11 +27,15 @@
 }
 
 
-- (IBAction)gameModeDayShiftButtonPressed:(id)sender {
+- (IBAction)gameModeButtonPressed:(UIButton *)sender {
     AMBGameSetupViewController *gameSetup = [self.storyboard instantiateViewControllerWithIdentifier:@"AMBGameSetupViewController"];
+    
+    gameSetup.gameType = sender.tag;
     
     [self.navigationController pushViewController:gameSetup animated:YES];
 }
+
+
 
 - (IBAction)creditsButtonPressed:(id)sender {
 #warning Figure out how to best reuse these view controllers

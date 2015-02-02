@@ -23,6 +23,12 @@ typedef NS_ENUM (int, AMBLevelType) {
     AMBCity3
 };
 
+typedef NS_ENUM(int, AMBGameType) {
+    AMBGameTypeDayShift,
+    AMBGameTypeSuddenDeath,
+    AMBGameTypeEndless
+};
+
 
 @class JSTileMap;
 
