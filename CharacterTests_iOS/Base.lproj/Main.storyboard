@@ -15,6 +15,17 @@
                     <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fs-T9-9Eu">
+                                <rect key="frame" x="270" y="20" width="60" height="57"/>
+                                <state key="normal" image="pause.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pauseButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="QT7-Ln-Vmi"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -107,6 +118,16 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYQ-qw-Gil">
+                                <rect key="frame" x="251" y="460" width="99" height="30"/>
+                                <state key="normal" title="QUICK START">
+                                    <color key="titleColor" red="1" green="0.91357858290000005" blue="0.28640266580000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="quickStartButtonPressed:" destination="L3B-QC-3hZ" eventType="touchUpInside" id="8aE-2B-4Mm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.820046067237854" green="0.21544447541236877" blue="0.048272229731082916" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -319,4 +340,7 @@
             <point key="canvasLocation" x="1055" y="287"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pause.png" width="298" height="282"/>
+    </resources>
 </document>

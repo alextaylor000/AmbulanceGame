@@ -43,6 +43,17 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self.view sendSubviewToBack:_skView];
+}
+
+- (IBAction)pauseButtonPressed:(id)sender {
+    // for now, pause just resets to main menu.
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    
+}
+
 //- (void)viewDidLoad
 //{
 //    [super viewDidLoad];

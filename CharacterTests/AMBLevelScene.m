@@ -183,12 +183,16 @@ typedef enum {
         _scoreKeeper.scene = self;
         
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
-        [self addChild:labelScore];
+        if (!labelScore.parent) {
+            [self addChild:labelScore];
+        }
      
         
         // event label
         SKLabelNode *labelEvent = [_scoreKeeper createEventlabelAtPos:CGPointZero];
-        [self addChild:labelEvent];
+        if (!labelEvent.parent) {
+            [self addChild:labelEvent];
+        }
         
         
         // clock... for testing at the moment, but who knows...?
