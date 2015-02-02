@@ -126,9 +126,10 @@ typedef enum {
     
 }
 
+- (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType {
 
--(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
+
 
         self.physicsWorld.contactDelegate = self;
 

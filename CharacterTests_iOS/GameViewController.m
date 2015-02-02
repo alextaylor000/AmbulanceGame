@@ -9,39 +9,70 @@
 #import "GameViewController.h"
 #import "AMBLevelScene.h"
 
+@interface GameViewController ()
+
+@property SKView *skView;
+@property AMBLevelScene *gameScene;
+
+@end
+
 
 @implementation GameViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    if (!_skView) {
+        _skView = [[SKView alloc] initWithFrame:self.view.bounds];
+        _gameScene = [[AMBLevelScene alloc]initWithSize:_skView.bounds.size gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType];
+        
+        _gameScene.scaleMode = SKSceneScaleModeAspectFill;
+        [_skView presentScene:_gameScene];
+        
+        [self.view addSubview:_skView];
+
+        // add HUD stuff here, if using UIKit
+        
+//        __weak GameViewController *weakSelf = self;
+//        _scene.gameOverBlock = ^(BOOL didWin) {
+//            [weakSelf gameOverWithWin:didWin];
+//        };
+    }
     
     
-    
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
-    skView.showsDrawCount = YES;
-    skView.showsQuadCount = YES;
-    
-    /* Sprite Kit applies additional optimizations to improve rendering performance */
-    skView.ignoresSiblingOrder = YES;
-    
-    // Create and configure the scene.
-    CGSize view = self.view.bounds.size;
-    
-    SKScene *scene = [AMBLevelScene sceneWithSize:view];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
 }
+
+//- (void)viewDidLoad
+//{
+//    [super viewDidLoad];
+//    
+//    
+//    
+//    // Configure the view.
+//    SKView * skView = (SKView *)self.view;
+//    skView.showsFPS = YES;
+//    skView.showsNodeCount = YES;
+//    skView.showsDrawCount = YES;
+//    skView.showsQuadCount = YES;
+//    
+//    /* Sprite Kit applies additional optimizations to improve rendering performance */
+//    skView.ignoresSiblingOrder = YES;
+//    
+//    // Create and configure the scene.
+//    CGSize view = self.view.bounds.size;
+//    
+//    SKScene *scene = [AMBLevelScene sceneWithSize:view];
+//    scene.scaleMode = SKSceneScaleModeAspectFill;
+//    
+//    // Present the scene.
+//    [skView presentScene:scene];
+//}
 
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return NO;
 }
 
 - (NSUInteger)supportedInterfaceOrientations
