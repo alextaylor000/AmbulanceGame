@@ -32,9 +32,10 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
 
 @implementation AMBTrafficVehicle
 
-- (instancetype)init {
+
+- (instancetype)initWithTexture:(SKTexture *)texture {
     
-    if (self = [super initWithImageNamed:@"traffic"]) {
+    if (self = [super initWithTexture:texture]) {
         // set constants
         self.speedPointsPerSec = 600;
         self.pivotSpeed = 0;
@@ -50,7 +51,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
 
 + (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation shouldTurnAtIntersections:(BOOL)shouldTurn {
     
-    AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]init];
+    AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]initWithTexture:sVehicleType1Texture];
     
     vehicle.shouldTurnAtIntersections = shouldTurn;
     vehicle.speedPointsPerSec = speed * speedMultiplier;
@@ -259,6 +260,18 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
 }
 
+#pragma mark Assets
++ (void)loadSharedAssets {
+    // should we preload this atlas, since we need it a bunch of times? where should we do it?
+    SKTextureAtlas *gameObjectSprites = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
+    
+    sVehicleType1Texture = [gameObjectSprites textureNamed:@"traffic"];
+}
+
+static SKTexture *sVehicleType1Texture = nil;
+- (SKTexture *)vehicleType1Texture {
+    return sVehicleType1Texture;
+}
 
 @end
 

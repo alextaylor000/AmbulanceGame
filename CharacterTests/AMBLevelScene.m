@@ -562,10 +562,15 @@ typedef enum {
 }
 
 
+#pragma mark Assets
 + (void)loadSceneAssets {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
     
+    [AMBTrafficVehicle loadSharedAssets];
+    
 }
+
+
 
 
 

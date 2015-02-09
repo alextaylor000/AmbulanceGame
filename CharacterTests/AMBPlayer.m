@@ -36,7 +36,7 @@
 
 
 - (instancetype) init {
-    self = [super initWithImageNamed:@"asset_ambulance_20140609"];
+    self = [super initWithImageNamed:@"asset_ambulance_20140609"]; // loads from texture atlas
     
     // set constants
     self.nativeSpeed = 600;
