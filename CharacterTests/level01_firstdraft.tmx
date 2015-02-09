@@ -81,11 +81,13 @@
   </tile>
   <tile id="12">
    <properties>
+    <property name="invalid_directions" value="{{-1,0},{0,0}}"/>
     <property name="road" value="b_ns_l"/>
    </properties>
   </tile>
   <tile id="13">
    <properties>
+    <property name="invalid_directions" value="{{-1,0},{0,0}}"/>
     <property name="road" value="b_ns_r"/>
    </properties>
   </tile>
@@ -103,6 +105,7 @@
   </tile>
   <tile id="16">
    <properties>
+    <property name="invalid_directions" value="{{0,1},{0,0}}"/>
     <property name="road" value="b_ew_t"/>
    </properties>
   </tile>
@@ -138,6 +141,7 @@
   </tile>
   <tile id="22">
    <properties>
+    <property name="invalid_directions" value="{{0,-1},{0,0}}"/>
     <property name="road" value="b_ew_b"/>
    </properties>
   </tile>
