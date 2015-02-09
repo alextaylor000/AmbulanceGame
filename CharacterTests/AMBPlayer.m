@@ -172,7 +172,7 @@
 
 
 - (void)slamBrakes {
-    if (self.hasActions == NO) {
+    //if (self.hasActions == NO) { // this was conflicting with the invincibility powerup. did we need it for something specific?
         
         // stopMoving with an end state of PlayerIsStoppedAtTIntersection
         CGFloat decelTime = self.decelTimeSeconds/2;
@@ -195,7 +195,7 @@
             
         }];
     
-    }
+    //}
 
     
 }
