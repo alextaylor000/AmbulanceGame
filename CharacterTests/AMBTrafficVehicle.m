@@ -241,31 +241,22 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
         [_currentState enterState:self];
     }
     
-//    if (!_isAtIntersection && self.currentTileProperties[@"intersection"]) {
-//        _isAtIntersection = YES;
-//        NSLog(@"[%@] entered intersection",self.name);
-//        
-//        // here's where we would randomly decide on a direction for it to turn. this is where it could be driven by a seed so we can have repeatable results for testing
-//        [self authorizeMoveEvent:-90];
-//        
-//    } else if (!self.currentTileProperties[@"intersection"]) {
-//        // TODO: concerned about performance since this is running every frame..
-//        _isAtIntersection = NO;
-//    }
-//    
-//    if (self.requestedMoveEvent) {
-//        NSLog(@"[%@] requested turn...", self.name);
-//        [self authorizeMoveEvent:self.requestedMoveEventDegrees];
-//    }
     
 }
 
 #pragma mark Assets
 + (void)loadSharedAssets {
-    // should we preload this atlas, since we need it a bunch of times? where should we do it?
-    SKTextureAtlas *gameObjectSprites = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
     
-    sVehicleType1Texture = [gameObjectSprites textureNamed:@"traffic"];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // should we preload this atlas, since we need it a bunch of times? where should we do it?
+        SKTextureAtlas *gameObjectSprites = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
+        
+        sVehicleType1Texture = [gameObjectSprites textureNamed:@"traffic"];
+
+    });
+    
+    
 }
 
 static SKTexture *sVehicleType1Texture = nil;

@@ -46,6 +46,7 @@
 
 @property NSTimeInterval gameStartTime; // when the game started (init)
 
+
 #pragma mark Methods
 
 - (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType;
