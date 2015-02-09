@@ -10,12 +10,24 @@
 #import "AMBGameSetupViewController.h"
 #import "GameViewController.h"
 #import "AMBCreditsViewController.h"
+#import "AMBGameScene.h" // for preloading
 
 @interface AMBMainMenuViewController ()
 
 @end
 
 @implementation AMBMainMenuViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [AMBGameScene loadSceneAssetsWithCompletionHandler:^ {
+        // will this keep the launch screen visible until the assets are loaded?
+        // continue with loading the view
+        NSLog(@"Finished loading shared assets.");
+        [super viewWillAppear:animated];
+    }];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

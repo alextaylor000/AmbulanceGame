@@ -19,7 +19,6 @@
 
 @implementation GameViewController
 
-
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
@@ -43,6 +42,7 @@
     
 }
 
+
 - (void)viewDidAppear:(BOOL)animated {
     [self.view sendSubviewToBack:_skView];
 }
@@ -54,31 +54,6 @@
     
 }
 
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//    
-//    
-//    
-//    // Configure the view.
-//    SKView * skView = (SKView *)self.view;
-//    skView.showsFPS = YES;
-//    skView.showsNodeCount = YES;
-//    skView.showsDrawCount = YES;
-//    skView.showsQuadCount = YES;
-//    
-//    /* Sprite Kit applies additional optimizations to improve rendering performance */
-//    skView.ignoresSiblingOrder = YES;
-//    
-//    // Create and configure the scene.
-//    CGSize view = self.view.bounds.size;
-//    
-//    SKScene *scene = [AMBLevelScene sceneWithSize:view];
-//    scene.scaleMode = SKSceneScaleModeAspectFill;
-//    
-//    // Present the scene.
-//    [skView presentScene:scene];
-//}
 
 
 - (BOOL)shouldAutorotate

@@ -26,4 +26,28 @@
     return self;
 }
 
++ (void)loadSceneAssetsWithCompletionHandler:(void (^)(void))callback {
+
+    NSLog(@"Loading shared assets ...");
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        // Load the shared assets in the background.
+        [self loadSceneAssets];
+        
+        if (!callback) {
+            return;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Call the completion handler back on the main queue.
+            callback();
+        });
+    });
+}
+
++ (void)loadSceneAssets {
+  // overridden by subclasses.
+}
+
+
 @end

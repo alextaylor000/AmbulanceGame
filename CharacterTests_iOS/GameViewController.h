@@ -17,5 +17,4 @@
 @property (nonatomic, assign) AMBLevelType levelType;
 
 
-
 @end

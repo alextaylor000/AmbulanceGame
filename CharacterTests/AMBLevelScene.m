@@ -137,11 +137,6 @@ typedef enum {
         _indicator = [[AMBIndicator alloc]initForScene:self];
 
         
-        // add controls
-        #if TARGET_OS_IPHONE
-//        [self createControls];
-        #endif
-        
 #if DEBUG_PLAYER_SWIPE
         _swipeLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
         _swipeLabel.fontColor = [SKColor whiteColor];
@@ -566,6 +561,16 @@ typedef enum {
     
 }
 
+
++ (void)loadSceneAssets {
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
+    
+}
+
+
+
+
+
 - (void)spawnTrafficObjectAt:(CGPoint)pos rotation:(NSString *)rot shouldTurnAtIntersections:(BOOL)intersections {
 
     CGFloat rotation;
@@ -942,6 +947,7 @@ typedef enum {
 
 - (void)handlePan:(UIGestureRecognizer *)recognizer {
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
+    
     
 //#if DEBUG_PLAYER_CONTROL
 //    NSLog(@"handlePanl state=%li, velocity%1.0f,%1.0f",recognizer.state,vel.x,vel.y);
