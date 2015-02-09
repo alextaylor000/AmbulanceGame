@@ -310,13 +310,16 @@
             break;
             
         case categoryTraffic:
-            action = [SKAction sequence:@[[SKAction fadeAlphaTo:0.1 duration:0],[SKAction waitForDuration:0.1],[SKAction fadeAlphaTo:1.0 duration:0.1],[SKAction waitForDuration:0.1]]];
-            [self runAction:[SKAction repeatActionForever:action] withKey:@"blink"];
-            
-            // slow down the player temporarily
-            [self adjustSpeedToTarget:self.nativeSpeed * 0.75];
-            NSLog(@"Speed penalty begin");
-            [self runAction: speedPenalty];
+            if (![self actionForKey:@"invincibility"]) {
+                action = [SKAction sequence:@[[SKAction fadeAlphaTo:0.1 duration:0],[SKAction waitForDuration:0.1],[SKAction fadeAlphaTo:1.0 duration:0.1],[SKAction waitForDuration:0.1]]];
+                [self runAction:[SKAction repeatActionForever:action] withKey:@"blink"];
+                
+                // slow down the player temporarily
+                [self adjustSpeedToTarget:self.nativeSpeed * 0.75];
+                NSLog(@"Speed penalty begin");
+                [self removeActionForKey:@"speedPenalty"]; // remove action if it's running already
+                [self runAction: speedPenalty withKey:@"speedPenalty"];
+            }
             
             break;
             
@@ -328,19 +331,22 @@
             break;
             
         case categoryPowerup:
-            // fuel! add 1
-            if (_fuel < 3) {
-                _fuel++;
-                owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
-                [_scoreKeeper eventLabelWithText:@"+1 FUEL!"];
-                
-                AMBCharacter *powerup = (AMBCharacter *)other.node;
-                [powerup removeFromParent];
-                [powerup.minimapAvatar removeFromParent];
-                
-                
+            if ([other.node.name isEqualToString:@"fuel"]) {
+                if (_fuel < 3) {
+                    _fuel++;
+                    owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
+                    [_scoreKeeper eventLabelWithText:@"+1 FUEL!"];
+                    
+                    AMBCharacter *powerup = (AMBCharacter *)other.node;
+                    [powerup removeFromParent];
+                    [powerup.minimapAvatar removeFromParent];
+                    
+                    
+                }
+            } else if ([other.node.name isEqualToString:@"invincibility"]) {
+                action = [SKAction sequence:@[[SKAction colorizeWithColor:[SKColor greenColor] colorBlendFactor:0.6 duration:0.25],[SKAction waitForDuration:PLAYER_INVINCIBLE_TIME],[SKAction colorizeWithColorBlendFactor:0.0 duration:0.25]]];
+                [self runAction:action withKey:@"invincibility"]; // as long as this action exists on the player, the player will be immune to traffic
             }
-            
 
             break;
             

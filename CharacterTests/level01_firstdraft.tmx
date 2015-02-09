@@ -416,5 +416,7 @@
     <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
+  <object name="invincibility.spawn" x="4152" y="3656" width="144" height="128"/>
+  <object x="5692" y="2176" height="4"/>
  </objectgroup>
 </map>

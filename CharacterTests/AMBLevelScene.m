@@ -523,9 +523,9 @@ typedef enum {
     }
     
 
-    // fuel powerup spawners
-    NSArray *fuelSpawns = [_mapGroupSpawnPowerups objects];
-    for (NSDictionary *object in fuelSpawns) {
+    // powerup spawners
+    NSArray *powerupSpawns = [_mapGroupSpawnPowerups objects];
+    for (NSDictionary *object in powerupSpawns) {
         CGPoint spawnPoint = [self centerOfObject:object];
         
         // grab properties of the spawner from the TMX object directly
@@ -533,14 +533,24 @@ typedef enum {
         NSTimeInterval frequency = [[object valueForKey:@"frequency"] intValue];
         NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperRange"] intValue]; // defaults to 0
         
-        // build an array of patients based on the severity property (can be comma-separated)
-        NSArray *fuelArray = [NSArray arrayWithObject:[[AMBPowerup alloc]init]];
+        // get powerup type
+        NSString *objectName = object[@"name"];
+        AMBPowerupType powerupType;
+        
+        if ([objectName isEqualToString:@"fuel.spawn"]) {
+            powerupType = AMBPowerupFuel;
+        } else if ([objectName isEqualToString:@"invincibility.spawn"]) {
+            powerupType = AMBPowerupInvincibility;
+        }
+        
+        
+        NSArray *powerupArray = [NSArray arrayWithObject:[[AMBPowerup alloc]initAsType:powerupType]];
         
         
         AMBSpawner *spawner = [[AMBSpawner alloc] initWithFirstSpawnAt:firstSpawnAt
                                                          withFrequency:frequency
                                                    frequencyUpperRange:frequencyUpperRange
-                                                           withObjects:fuelArray];
+                                                           withObjects:powerupArray];
         
         //SKSpriteNode *fuelSpawn = [self addObjectToMinimapAtPoint:spawnPoint withColour:[SKColor orangeColor] withScale:1.0];
         

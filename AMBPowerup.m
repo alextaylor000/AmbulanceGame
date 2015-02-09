@@ -10,15 +10,23 @@
 
 @implementation AMBPowerup
 
-- (instancetype)init {
-    SKTexture *fuelTexture = [SKTexture textureWithImageNamed:@"fuel"];
+
+- (instancetype)initAsType:(AMBPowerupType)type {
     
-    if (self = [super initWithTexture:fuelTexture]) {
-//        self.size = CGSizeMake(75, 75);
+    SKTexture *texture;
+    
+    if (type == AMBPowerupFuel) {
+        texture = [SKTexture textureWithImageNamed:@"fuel"];
+        self.name = @"fuel";
+    } else if (type == AMBPowerupInvincibility) {
+        texture = [SKTexture textureWithImageNamed:@"invincibility"];
+        self.name = @"invincibility";
+    }
+    
+    if (self = [super initWithTexture:texture]) {
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
         self.physicsBody.categoryBitMask = categoryPowerup;
         self.physicsBody.collisionBitMask = 0x00000000;
-        
         
     }
     
