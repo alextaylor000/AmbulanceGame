@@ -8,7 +8,9 @@
 
 #import "AMBCharacter.h"
 
+
 @implementation AMBCharacter
+
 
 - (id)init {
     if (self = [super init]) {
@@ -28,6 +30,8 @@
     // overridden by subclasses
 }
 
+
+
 - (AMBLevelScene *)characterScene {
     AMBLevelScene *scene = (id)[self scene];
     
@@ -41,5 +45,8 @@
 - (void)collidedWith:(SKPhysicsBody *)other {
     // overridden by subclasses.
 }
+
+
+
 
 @end

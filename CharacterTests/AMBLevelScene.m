@@ -5,6 +5,17 @@
 //  Created by Alex Taylor on 2014-07-06.
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
+/*
+ 
+ required for multiple levels/modes:
+    - init level with map
+    - init level with different ambulance sprite
+    - init level with timer (set amount, or 0 for endless mode)
+    - custom scoring (e.g. patient delivery adds to timer)
+    
+    - ability to restart level
+ 
+ */
 
 #import "AMBLevelScene.h"
 #import "AMBPlayer.h"
@@ -18,9 +29,20 @@
 
 #define kNumberCars   15
 
-static const float KEY_PRESS_INTERVAL_SECS = 0.2; // ignore key presses more frequent than this interval
 //static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
+static const BOOL renderTraffic = 1;
+
+typedef enum {
+    GestureIdle,
+    GestureBegan,
+
+    GestureLeftDown,
+    GestureLeftUp,
+
+    GestureRightDown,
+    GestureRightUp
+} PanGestureState;
 
 @interface AMBLevelScene ()
 
@@ -32,13 +54,20 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 @property AMBSpawner *spawnerTest;
 
 
-@property SKSpriteNode *miniMapContainer; // the sprite node that holds the minimap, so we can rotate it easily
+@property SKNode *miniMapContainer; // the node that holds the minimap, so we can rotate it easily
+
 @property SKSpriteNode *miniPlayer; // for the minimap
 @property SKSpriteNode *miniHospital;
 
 
 @property NSMutableArray *trafficVehicles; // for enumerating the traffic objects during update loop
 
+
+#if TARGET_OS_IPHONE
+@property SKSpriteNode *controlsLeft;
+@property SKSpriteNode *controlsCenter;
+@property SKSpriteNode *controlsRight;
+#endif
 
 
 @property TMXLayer *roadLayer;
@@ -53,29 +82,75 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 
 @property SKLabelNode *labelClock;
 
+@property PanGestureState panGestureState;
+
 #if DEBUG_PLAYER_CONTROL
 @property SKLabelNode *controlStateLabel; // for the player
 #endif
 
+#if DEBUG_PLAYER_SWIPE
+@property SKLabelNode *swipeLabel;
+#endif
+
+@property CGFloat minimapScaleFactor; // how much to scale positions by on the minimap; a product of the minimap size relative to the tilemap size
 
 @end
 
 @implementation AMBLevelScene
 
--(id)initWithSize:(CGSize)size {    
+- (void)didMoveToView:(SKView *)view {
+    
+    self.panGestureState = GestureIdle;
+#if TARGET_OS_IPHONE
+    self.gesturePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+
+    self.gestureTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+    [self.gestureTap setNumberOfTapsRequired:2]; // 2 taps to stop/start
+    
+    self.gestureLongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)]; // long press to slow
+    [self.gestureLongPress setMinimumPressDuration:0.15];
+
+    [view addGestureRecognizer:self.gesturePan];
+    [view addGestureRecognizer:self.gestureTap];
+    [view addGestureRecognizer:self.gestureLongPress];
+#endif
+    
+}
+
+- (void)willMoveFromView:(SKView *)view {
+#if TARGET_OS_IPHONE
+    [view removeGestureRecognizer:self.gesturePan];
+    [view removeGestureRecognizer:self.gestureTap];
+    [view removeGestureRecognizer:self.gestureLongPress];
+#endif
+    
+}
+
+- (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType {
+
     if (self = [super initWithSize:size]) {
+
 
         self.physicsWorld.contactDelegate = self;
 
         // indicator, created before createWorld so it can be referenced in initial spawns
         _indicator = [[AMBIndicator alloc]initForScene:self];
 
+        
+#if DEBUG_PLAYER_SWIPE
+        _swipeLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+        _swipeLabel.fontColor = [SKColor whiteColor];
+        _swipeLabel.fontSize = 50;
+        _swipeLabel.text = @"|";
+        _swipeLabel.position = CGPointMake(0, -self.size.height/2 + 60);
+        [self addChild:_swipeLabel];
+#endif
 
-        // minimap
-        [self createMinimap];
 
         
         [self createWorld]; // set up tilemap
+        [self createMinimap];         // minimap
+        [self createSpawners]; // used to be in createWorld
         [self addPlayer];
 
 #if DEBUG_PLAYER_CONTROL
@@ -87,20 +162,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         [self addChild:_controlStateLabel];
 #endif
     
-
         
-        
-//        // TRAFFIC_AI_TESTING
-//        _trafficGuineaPig = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedFast atPoint:CGPointMake(_playerSpawnPoint.x + 32, _playerSpawnPoint.y + 20) withRotation:DegreesToRadians(90)];
-//        _trafficGuineaPig.name = @"trafficGuineaPig";
-//        [self addMovingCharacterToTileMap:_trafficGuineaPig];
-//        [_trafficVehicles addObject:_trafficGuineaPig];
-//
-//        AMBTrafficVehicle *traffic2 = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:CGPointMake(_trafficGuineaPig.position.x, _trafficGuineaPig.position.y + 3536) withRotation:DegreesToRadians(90)];
-//        traffic2.name = @"traffic2";
-//        [self addMovingCharacterToTileMap:traffic2];
-//        [_trafficVehicles addObject:traffic2];
-//
         
         _turnRequested = NO;
         
@@ -109,19 +171,31 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         _camera.zPosition = 999;
         [_tilemap addChild:_camera];
         
-        _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap container so it can rotate it at the same time as the real world
+        _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
         
         // scoring
         _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
         _scoreKeeper.scene = self;
         
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
-        [self addChild:labelScore];
+        if (!labelScore.parent) {
+            [self addChild:labelScore];
+        }
      
+        
+        // event label
+        SKLabelNode *labelEvent = [_scoreKeeper createEventlabelAtPos:CGPointZero];
+        if (!labelEvent.parent) {
+            [self addChild:labelEvent];
+        }
+        
+        
         // clock... for testing at the moment, but who knows...?
-        _labelClock = [SKLabelNode labelNodeWithFontNamed:@"Courier"];
+        _labelClock = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
+        _labelClock.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+        _labelClock.fontColor = [SKColor yellowColor];
         _labelClock.text = @"00:00";
-        _labelClock.position = CGPointMake(-self.size.width/2 + 100, -self.size.height/2 + 90);
+        _labelClock.position = CGPointMake(self.size.width/2 - 250, self.size.height/2 -150);
         [self addChild:_labelClock];
         
         
@@ -161,41 +235,47 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     return self;
 }
 
+
 - (void)createMinimap {
     
-
     
-    _miniMap = [JSTileMap mapNamed:LEVEL_NAME];
-    [_miniMap setScale:0.0125]; // 1.25% scale on this map should be 128x128 minimap (because map is 40 tiles squared * 256 pixels per tile)
+    _miniMap = [SKSpriteNode spriteNodeWithImageNamed:@"level01_firstdraft_MINI-256.png"];
+    _miniMap.anchorPoint = CGPointMake(0, 0);
     _miniMap.zPosition = 1000;
-//    _miniMap.position = CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
 
-    _miniMapContainer = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(150,150)];
-    _miniMapContainer.anchorPoint = CGPointMake(0.5, 0.5);
-    _miniMap.position = CGPointZero;
-//    minimapContainer.position =CGPointMake(-self.size.width/2 + 50, self.size.height/2 - 150);
-    _miniMap.position = CGPointMake(-64,-64);
-//    [self addChild:_miniMap];
+    _minimapScaleFactor = _miniMap.size.width / (_tilemap.mapSize.width * _tilemap.tileSize.width); // makes objects 1 tile big
+
+    _miniMapContainer = [SKNode node];
     [_miniMapContainer addChild:_miniMap];
-    _miniMapContainer.position = CGPointMake(-400, 300);
-    [self addChild:_miniMapContainer];
-
     
-    //[minimapContainer runAction:[SKAction rotateByAngle:DegreesToRadians(90) duration:5]];
+    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(150,150)]; // TODO: change this colour as appropriate
+
+    SKCropNode *miniMapFrame = [[SKCropNode alloc]init];
+    miniMapFrame.maskNode = maskNode;
+
+    [miniMapFrame addChild:maskNode];
+    [miniMapFrame addChild:_miniMapContainer];
+
+    miniMapFrame.position = CGPointMake(-self.size.width/2 + 100, self.size.height/2-100);
+    [self addChild:miniMapFrame];
     
-    _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withScale:1.0];
-
-
-
     
 }
 
-- (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withScale:(CGFloat)scale {
-    SKSpriteNode *object = [SKSpriteNode spriteNodeWithColor:colour size:CGSizeMake(256*scale, 256*scale)];
-    object.position = position;
+- (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withSize:(CGFloat)size {
+
+    CGFloat mult = _minimapScaleFactor * size; // in case we want something bigger than 1 tile...
+    SKSpriteNode *object = [SKSpriteNode spriteNodeWithColor:colour size:CGSizeMake(256*mult, 256*mult)];
+
+    CGPoint posScaled = CGPointMultiplyScalar(position, _minimapScaleFactor);
+    object.position = posScaled;
     object.zPosition = 100;
     [_miniMap addChild:object];
 
+#if DEBUG_MINIMAP
+    NSLog(@"Adding object to minimap at %1.0f,%1.0f", posScaled.x,posScaled.y);
+#endif
+    
     return object;
 }
 
@@ -206,26 +286,10 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 }
 
 
-//- (void) addHospitalAtPoint:(CGPoint)point {
-//    // TODO: this is deprecated, right? I think this was just for testing.
-//    SKSpriteNode *hospital = [SKSpriteNode spriteNodeWithImageNamed:@"hospital"];
-//    
-//    hospital.position = point;
-//    hospital.zPosition = 200;
-//    hospital.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(hospital.size.width * 3, hospital.size.height * 3)]; // for the physics body, expand the hospital's size so that it encompasses all the surrounding road blocks.
-//    hospital.physicsBody.categoryBitMask = categoryHospital;
-//    hospital.physicsBody.collisionBitMask = 0x00000000;
-//    
-//    [_tilemap addChild:hospital];
-//    
-//    
-//    
-//    
-//}
 
 - (void)addMovingCharacterToTileMap:(AMBMovingCharacter *)character {
     // encapsulated like this because we need to make sure levelScene is set on all the player/traffic nodes
-    [_tilemap addChild:character];
+    [_mapLayerRoad addChild:character]; // changed from _tilemap to _mapLayerRoad to keep things consistent between the sprites
     character.levelScene = self;
 }
 
@@ -234,14 +298,25 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     _player = [[AMBPlayer alloc] init];
     _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
 
-
     [self addMovingCharacterToTileMap:_player];
 #if DEBUG
     NSLog(@"adding player at %1.0f,%1.0f",_playerSpawnPoint.x,_playerSpawnPoint.y);
 #endif
-
+    
+    
+    _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withSize:1];
+    _miniMap.position = CGPointMake(-_miniPlayer.position.x, -_miniPlayer.position.y);
 }
 
+- (NSString *)timeFormatted:(int)totalSeconds // from http://stackoverflow.com/a/1739411
+{
+    
+    int seconds = totalSeconds % 60;
+    int minutes = (totalSeconds / 60) % 60;
+//    int hours = totalSeconds / 3600;
+    
+    return [NSString stringWithFormat:@"%02d:%02d",minutes, seconds];
+}
 
 - (float)randomValueBetween:(float)low andValue:(float)high {//Used to return a random value between two points
     return (((float) arc4random() / 0xFFFFFFFFu) * (high - low)) + low;
@@ -263,9 +338,11 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     
     // update the clock
     
-    CGFloat seconds = currentTime - _gameStartTime; // Modulo (%) operator below needs int or long
+    CGFloat seconds = 180 - (currentTime - _gameStartTime); // Modulo (%) operator below needs int or long
     
-    _labelClock.text = [NSString stringWithFormat:@"%1.2f",seconds];
+    
+    
+    _labelClock.text = [self timeFormatted:seconds];
 
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
@@ -294,18 +371,28 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     [_indicator update];
     
     // update traffic
-    for (AMBTrafficVehicle *vehicle in _trafficVehicles) {
-        [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
+    if (renderTraffic) {
+        for (AMBTrafficVehicle *vehicle in _trafficVehicles) {
+            [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
+        }
+        
     }
     
     // update minimap
-    _miniPlayer.position = _player.position;
+    _miniPlayer.position = CGPointMultiplyScalar(_player.position, _minimapScaleFactor);
+    _miniMap.position = CGPointMake(-_miniPlayer.position.x, -_miniPlayer.position.y);
     
     
 #if DEBUG_PLAYER_CONTROL
     switch (_player.controlState) {
         case PlayerIsStopped:
             _controlStateLabel.text = @"PlayerIsStopped";
+            break;
+        case PlayerIsStoppedAtTIntersection:
+            _controlStateLabel.text = @"PlayerIsStoppedAtTIntersection";
+            break;
+        case PlayerIsWithinTIntersection:
+            _controlStateLabel.text = @"PlayerIsWithinTIntersection";
             break;
         case PlayerIsDrivingStraight:
             _controlStateLabel.text = @"PlayerIsDrivingStraight";
@@ -339,33 +426,15 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 
     if (_tilemap) {
         [_worldNode addChild:_tilemap];
+        
     }
     
-    // set up temp static traffic
-    // and an array to randomize the colour
-//    NSArray *colours = [NSArray arrayWithObjects:[SKColor redColor], [SKColor orangeColor], [SKColor yellowColor], [SKColor whiteColor], nil];
-//    
-//    for (NSDictionary *object in [_mapGroupSpawnTraffic objects]) {
-//        SKTexture *trafficTexture = [SKTexture textureWithImageNamed:@"traffic"];
-//        SKSpriteNode *traffic = [SKSpriteNode spriteNodeWithTexture:trafficTexture];
-//
-//        if ([[object valueForKey:@"orientation"] isEqualToString:@"up"]) {
-//            traffic.zRotation = DegreesToRadians(90);
-//        }
-//        traffic.position = [self centerOfObject:object];
-//
-//        traffic.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:traffic.size];
-//        traffic.physicsBody.categoryBitMask = categoryTraffic;
-//        traffic.physicsBody.collisionBitMask = 0x00000000;
-//        
-//        traffic.color = [colours objectAtIndex:(NSUInteger)RandomFloatRange(0, 4)];
-//
-//        traffic.colorBlendFactor = 0.35;
-//        
-//        [_mapLayerRoad addChild:traffic];
-//    }
     
     
+}
+
+
+- (void)createSpawners {
     // Set up spawn points
     NSDictionary *playerSpawn = [[_mapGroupSpawnPlayer objects] objectAtIndex:0];
     _playerSpawnPoint = [self centerOfObject:playerSpawn];
@@ -373,18 +442,17 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     NSArray *hospitalSpawns = [_mapGroupSpawnHospitals objects];
     for (NSDictionary *object in hospitalSpawns) {
         AMBHospital *hospital = [[AMBHospital alloc] init];
+        hospital.blendMode = SKBlendModeReplace;
+        
         CGPoint hospitalPos = [self centerOfObject:object];
         [hospital addObjectToNode:_mapLayerRoad atPosition:hospitalPos];
-
+        
         // add hospital indicator target
         [_indicator addTarget:hospital type:IndicatorHospital];
-        _miniHospital = [self addObjectToMinimapAtPoint:hospitalPos withColour:[SKColor whiteColor] withScale:1.5]; // TODO: this assumes just one hospital. does it matter?
+        _miniHospital = [self addObjectToMinimapAtPoint:hospitalPos withColour:[SKColor whiteColor] withSize:1.5]; // TODO: this assumes just one hospital. does it matter?
     }
-    
-    [self createSpawners];
-}
 
-- (void)createSpawners {
+    
     _spawners = [[NSMutableArray alloc]init];
 
     // patient spawners
@@ -395,7 +463,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
         // grab properties of the spawner from the TMX object directly
         NSTimeInterval firstSpawnAt = [[object valueForKey:@"firstSpawnAt"] intValue];
         NSTimeInterval frequency = [[object valueForKey:@"frequency"] intValue];
-        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperValue"] intValue]; // defaults to 0
+        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperRange"] intValue]; // defaults to 0
 
         // build an array of patients based on the severity property (can be comma-separated)
         NSArray *severityArray = [[object valueForKey:@"severity"] componentsSeparatedByString:@","];
@@ -417,55 +485,73 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     }
 
     // traffic spawners
-    _trafficVehicles = [[NSMutableArray alloc]init];
-    
-    CGSize gridSize = _mapLayerTraffic.layerInfo.layerGridSize;
-    for (int w = 0 ; w < gridSize.width; ++w) {
-        for(int h = 0; h < gridSize.height; ++h) {
-            
-            CGPoint coord = CGPointMake(w, h);
+    if (renderTraffic) {
+        _trafficVehicles = [[NSMutableArray alloc]init];
+        
+        CGSize gridSize = _mapLayerTraffic.layerInfo.layerGridSize;
+        for (int w = 0 ; w < gridSize.width; ++w) {
+            for(int h = 0; h < gridSize.height; ++h) {
+                
+                CGPoint coord = CGPointMake(w, h);
 
-            int tileGid =
-            [_mapLayerTraffic.layerInfo tileGidAtCoord:coord];
+                int tileGid =
+                [_mapLayerTraffic.layerInfo tileGidAtCoord:coord];
 
-            if(!tileGid)
-                continue;
+                if(!tileGid)
+                    continue;
 
-            NSDictionary *tileProperties = [_tilemap propertiesForGid:tileGid];            // properties will be name (traffic), center_x, center_y, orientation
-            if ([tileProperties[@"name"] isEqualToString:@"traffic"]) {
-                // spawn the thing!
-                CGPoint center = CGPointMake([tileProperties[@"center_x"] floatValue], [tileProperties[@"center_y"] floatValue]);
-                CGPoint point = [_mapLayerTraffic pointForCoord:coord];
-                center = CGPointAdd(center, point);
+                NSDictionary *tileProperties = [_tilemap propertiesForGid:tileGid];            // properties will be name (traffic), center_x, center_y, orientation, shouldTurnAtIntersections
+                if ([tileProperties[@"name"] isEqualToString:@"traffic"]) {
+                    // spawn the thing!
+                    CGPoint center = CGPointMake([tileProperties[@"center_x"] floatValue], [tileProperties[@"center_y"] floatValue]);
+                    CGPoint point = [_mapLayerTraffic pointForCoord:coord];
+                    center = CGPointAdd(center, point);
+                    
+                    BOOL intersections = [tileProperties[@"shouldTurnAtIntersections"] boolValue];
 
-//                NSLog(@"Adding traffic object at %1.0f,%1.0f",center.x,center.y);
-                [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"] shouldTurnAtIntersections:YES];
+    //                NSLog(@"Adding traffic object at %1.0f,%1.0f",center.x,center.y);
+                    [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"] shouldTurnAtIntersections:intersections];
+                }
+
             }
-
         }
     }
     
 
-    // fuel powerup spawners
-    NSArray *fuelSpawns = [_mapGroupSpawnPowerups objects];
-    for (NSDictionary *object in fuelSpawns) {
+    // powerup spawners
+    NSArray *powerupSpawns = [_mapGroupSpawnPowerups objects];
+    for (NSDictionary *object in powerupSpawns) {
         CGPoint spawnPoint = [self centerOfObject:object];
         
         // grab properties of the spawner from the TMX object directly
         NSTimeInterval firstSpawnAt = [[object valueForKey:@"firstSpawnAt"] intValue];
         NSTimeInterval frequency = [[object valueForKey:@"frequency"] intValue];
-        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperValue"] intValue]; // defaults to 0
+        NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperRange"] intValue]; // defaults to 0
         
-        // build an array of patients based on the severity property (can be comma-separated)
-        NSArray *fuelArray = [NSArray arrayWithObject:[[AMBPowerup alloc]init]];
+        // get powerup type
+        NSString *objectName = object[@"name"];
+        AMBPowerupType powerupType;
+        
+        if ([objectName isEqualToString:@"fuel.spawn"]) {
+            powerupType = AMBPowerupFuel;
+        } else if ([objectName isEqualToString:@"invincibility.spawn"]) {
+            powerupType = AMBPowerupInvincibility;
+        } else {
+            // skip; it's invalid
+            NSLog(@"Skipping invalid spawn object in powerups");
+            continue;
+        }
+        
+        
+        NSArray *powerupArray = [NSArray arrayWithObject:[[AMBPowerup alloc]initAsType:powerupType]];
         
         
         AMBSpawner *spawner = [[AMBSpawner alloc] initWithFirstSpawnAt:firstSpawnAt
                                                          withFrequency:frequency
                                                    frequencyUpperRange:frequencyUpperRange
-                                                           withObjects:fuelArray];
+                                                           withObjects:powerupArray];
         
-        SKSpriteNode *fuelSpawn = [self addObjectToMinimapAtPoint:spawnPoint withColour:[SKColor orangeColor] withScale:1.0];
+        //SKSpriteNode *fuelSpawn = [self addObjectToMinimapAtPoint:spawnPoint withColour:[SKColor orangeColor] withScale:1.0];
         
         [spawner addObjectToNode:_mapLayerRoad atPosition:spawnPoint];
         [_spawners addObject:spawner];
@@ -474,6 +560,16 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     
     
 }
+
+
++ (void)loadSceneAssets {
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
+    
+}
+
+
+
+
 
 - (void)spawnTrafficObjectAt:(CGPoint)pos rotation:(NSString *)rot shouldTurnAtIntersections:(BOOL)intersections {
 
@@ -504,15 +600,12 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
     if (_tilemap) {
         // set up the layers/groups
         _mapLayerRoad =     [_tilemap layerNamed:@"road"];
-        _mapLayerScenery =  [_tilemap layerNamed:@"scenery"];
         _mapLayerTraffic =  [_tilemap layerNamed:@"spawn_traffic"];
         
         _mapGroupSpawnPlayer =      [_tilemap groupNamed:@"spawn_player"];
         _mapGroupSpawnPatients =    [_tilemap groupNamed:@"spawn_patients"];
         _mapGroupSpawnHospitals =   [_tilemap groupNamed:@"spawn_hospitals"];
-//        _mapGroupSpawnTraffic =     [_tilemap groupNamed:@"spawn_traffic"];
         _mapGroupSpawnPowerups =    [_tilemap groupNamed:@"spawn_powerups"];
-        
 
         [self createTileBoundingPaths];
 
@@ -594,17 +687,21 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
             
         } else if ( [tileType isEqualToString:@"ne"]) {
             
-            CGPathMoveToPoint(path, NULL, 90 - offsetX, 90 - offsetY);
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 256 - offsetX, 90 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 166 - offsetY);
             
         } else if ( [tileType isEqualToString:@"nw"]) {
             
             CGPathMoveToPoint(path, NULL, 0 - offsetX, 90 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 256 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 90 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 166 - offsetY);
@@ -617,16 +714,20 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 256 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 256 - offsetX, 166 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
             
         } else if ( [tileType isEqualToString:@"sw"]) {
             
-            CGPathMoveToPoint(path, NULL, 90 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 0 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 166 - offsetY);
-            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 90 - offsetY);
+            CGPathMoveToPoint(path, NULL, 0 - offsetX, 90 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 90 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 0 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 90 - offsetX, 166 - offsetY);
+            CGPathAddLineToPoint(path, NULL, 0 - offsetX, 166 - offsetY);
             
         } else if ( [tileType isEqualToString:@"nes"]) {
             
@@ -638,6 +739,7 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 166 - offsetY);
             CGPathAddLineToPoint(path, NULL, 166 - offsetX, 256 - offsetY);
             CGPathAddLineToPoint(path, NULL, 90 - offsetX, 256 - offsetY);
+            
             
         } else if ( [tileType isEqualToString:@"new"]) {
             
@@ -839,6 +941,151 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 }
 
 #pragma mark Controls
+#if TARGET_OS_IPHONE
+
+// Gesture Controls
+
+- (void)handlePan:(UIGestureRecognizer *)recognizer {
+    CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
+    
+    
+//#if DEBUG_PLAYER_CONTROL
+//    NSLog(@"handlePanl state=%li, velocity%1.0f,%1.0f",recognizer.state,vel.x,vel.y);
+//#endif
+    
+    // if a Pan gesture has begun, fire up OUR state machine; otherwise pass the current state through
+    self.panGestureState = recognizer.state == UIGestureRecognizerStateBegan ? GestureBegan : self.panGestureState;
+    
+    
+    switch (self.panGestureState) {
+        case GestureIdle:
+            // should never happen
+            break;
+        
+        case GestureBegan:
+            if (vel.x < 0) { // LEFT
+                self.panGestureState = GestureLeftDown;
+                [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"<<";
+#endif
+                
+            } else { // RIGHT
+                self.panGestureState = GestureRightDown;
+                [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @">>";
+#endif
+                
+            }
+            break;
+            
+            
+        case GestureLeftDown:
+            if (recognizer.state == UIGestureRecognizerStateEnded) {
+                [_player handleInput:PlayerControlsTurnLeft keyDown:NO]; // fingers up!
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"|";
+#endif
+                
+                break;
+            }
+            
+            if (vel.x <= 2) { // LEFT, with 2 pts margin of error
+                [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"<<";
+#endif
+                
+                
+            } else { // RIGHT
+                self.panGestureState = GestureRightDown;
+                [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @">>";
+#endif
+                
+            }
+            break;
+            
+        case GestureLeftUp:
+            // should never be called; transition will be handled by LeftDown
+            break;
+            
+        case GestureRightDown:
+            if (recognizer.state == UIGestureRecognizerStateEnded) {
+                [_player handleInput:PlayerControlsTurnRight keyDown:NO]; // fingers up!
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"|";
+#endif
+                
+                break;
+            }
+            
+            if (vel.x >= -2) { // RIGHT, with 2 pts margin of error
+                [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @">>";
+#endif
+                
+                
+            } else { // LEFT
+                self.panGestureState = GestureLeftDown;
+                [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+#if DEBUG_PLAYER_SWIPE
+                _swipeLabel.text = @"<<";
+#endif
+                
+            }
+            break;
+
+            break;
+            
+        case GestureRightUp:
+            // should never be called; transition will be handled by RightDown
+            break;
+        
+    }
+    
+}
+
+- (void)handleTap:(UIGestureRecognizer *)recognizer {
+    // two taps, start/stop moving
+//#if DEBUG_PLAYER_CONTROL
+//    NSLog(@"handleTap");
+//#endif
+    
+    if (_player.isMoving) {
+        [_player handleInput:PlayerControlsStopMoving keyDown:YES];
+    } else {
+        [_player handleInput:PlayerControlsStartMoving keyDown:YES];
+    }
+
+
+}
+
+- (void)handleLongPress:(UIGestureRecognizer *)recognizer {
+    // will be called multiple times after the gesture is recognized.
+    // you can query the recognizer's state to respond to specific events.
+
+    // state 1=began    state 3=ended
+    NSLog(@"handleLongPress state=%li",recognizer.state );
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [_player adjustSpeedToTarget: VehicleSpeedSlow * speedMultiplier];
+        
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [_player adjustSpeedToTarget:_player.nativeSpeed];
+    }
+    
+
+ 
+}
+
+
+
+
+#else
+// OS X controls
 - (void)handleKeyboardEvent: (NSEvent *)theEvent keyDown:(BOOL)downOrUp {
     
 //    if (self.sceneLastUpdate - _lastKeyPress < KEY_PRESS_INTERVAL_SECS ) return;
@@ -893,5 +1140,6 @@ static NSString * const LEVEL_NAME = @"level01_firstdraft.tmx";
 - (void)keyUp:(NSEvent *)theEvent {
     [self handleKeyboardEvent:theEvent keyDown:NO];
 }
+#endif
 
 @end

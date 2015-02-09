@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B903B1791A68D60F00414D8E /* level01_firstdraft_MINI-256.png in Resources */ = {isa = PBXBuildFile; fileRef = B903B1781A68D60F00414D8E /* level01_firstdraft_MINI-256.png */; };
+		B903B17A1A68D66800414D8E /* level01_firstdraft_MINI-256.png in Resources */ = {isa = PBXBuildFile; fileRef = B903B1781A68D60F00414D8E /* level01_firstdraft_MINI-256.png */; };
 		B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */; };
 		B911C9E919C656CC00EA85D9 /* AMBCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E819C656CC00EA85D9 /* AMBCharacter.m */; };
 		B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */; };
@@ -15,13 +17,17 @@
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
 		B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
+		B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */; };
 		B94CEF1E1A4A2EC800037DDA /* test_controls.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */; };
 		B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */ = {isa = PBXBuildFile; fileRef = B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */; };
 		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
-		B97831431A190BF4002A10BC /* osi_hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B97831421A190BF4002A10BC /* osi_hospital.png */; };
 		B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
 		B978314A1A198950002A10BC /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B97831491A198950002A10BC /* level01.tmx */; };
+		B985AFA91A802538000B3423 /* AMBMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */; };
+		B985AFAC1A80270E000B3423 /* AMBCreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */; };
+		B985AFAE1A802A1A000B3423 /* AMBCreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */; };
+		B985AFB31A803132000B3423 /* AMBMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */; };
 		B98823811969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
 		B98823831969998400903B73 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823821969998400903B73 /* SpriteKit.framework */; };
 		B988238D1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B988238B1969998400903B73 /* InfoPlist.strings */; };
@@ -30,49 +36,66 @@
 		B98823951969998400903B73 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98823941969998400903B73 /* MainMenu.xib */; };
 		B98823971969998400903B73 /* AMBLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* AMBLevelScene.m */; };
 		B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823991969998400903B73 /* AMBAppDelegateOSX.m */; };
-		B988239F1969998400903B73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B988239E1969998400903B73 /* Images.xcassets */; };
-		B98823A61969998400903B73 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823A51969998400903B73 /* XCTest.framework */; };
-		B98823A71969998400903B73 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B98823801969998400903B73 /* Cocoa.framework */; };
-		B98823AF1969998400903B73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B98823AD1969998400903B73 /* InfoPlist.strings */; };
-		B98823B11969998400903B73 /* CharacterTestsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823B01969998400903B73 /* CharacterTestsTests.m */; };
 		B98823BE19699C4400903B73 /* AMBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* AMBPlayer.m */; };
-		B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */ = {isa = PBXBuildFile; fileRef = B98823C219699E6200903B73 /* asset_ambulance_20140609.png */; };
 		B99E6F2119A16467003A7551 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F1C19A16467003A7551 /* .gitignore */; };
 		B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
 		B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
-		B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */; };
 		B99FD0A11A046FE1007FC685 /* AMBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = B99FD0A01A046FE1007FC685 /* AMBCamera.m */; };
-		B9A4C30119CF501F00DE1ADA /* patient1.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FE19CF501F00DE1ADA /* patient1.png */; };
-		B9A4C30219CF501F00DE1ADA /* patient2.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C2FF19CF501F00DE1ADA /* patient2.png */; };
-		B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4C30019CF501F00DE1ADA /* patient3.png */; };
+		B9A0C32D1A57CD5300A9BD28 /* level01_firstdraft_MINI.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */; };
+		B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
-		B9C449561A30144700093CC4 /* fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C449541A30144700093CC4 /* fuel.png */; };
+		B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
+		B9BCC05D1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
+		B9BCC0621A803EE800FF2BAE /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = B9BCC0611A803EE800FF2BAE /* pause.png */; };
+		B9BCC0631A803EE800FF2BAE /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = B9BCC0611A803EE800FF2BAE /* pause.png */; };
 		B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
+		B9C8E4971A4B73F0003F7354 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4961A4B73F0003F7354 /* main.m */; };
+		B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4991A4B73F0003F7354 /* AppDelegate.m */; };
+		B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4A11A4B73F0003F7354 /* GameViewController.m */; };
+		B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4A31A4B73F0003F7354 /* Main.storyboard */; };
+		B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */; };
+		B9C8E4BE1A4B747E003F7354 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
+		B9C8E4C01A4B747E003F7354 /* AMBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = B99FD0A01A046FE1007FC685 /* AMBCamera.m */; };
+		B9C8E4C21A4B747E003F7354 /* AMBCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E819C656CC00EA85D9 /* AMBCharacter.m */; };
+		B9C8E4C41A4B747E003F7354 /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
+		B9C8E4C61A4B747E003F7354 /* AMBPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* AMBPatient.m */; };
+		B9C8E4C81A4B747E003F7354 /* AMBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* AMBPlayer.m */; };
+		B9C8E4CA1A4B747E003F7354 /* AMBPowerup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D840CE1A3172CF0073407C /* AMBPowerup.m */; };
+		B9C8E4CC1A4B747E003F7354 /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
+		B9C8E4CE1A4B747E003F7354 /* AMBTrafficVehicleState.m in Sources */ = {isa = PBXBuildFile; fileRef = B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */; };
+		B9C8E4D01A4B747E003F7354 /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
+		B9C8E4D21A4B747E003F7354 /* AMBHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B619C9239C00ACD50F /* AMBHospital.m */; };
+		B9C8E4D41A4B747E003F7354 /* AMBSpawner.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B919C92ADC00ACD50F /* AMBSpawner.m */; };
+		B9C8E4D61A4B747E003F7354 /* AMBGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */; };
+		B9C8E4D81A4B747E003F7354 /* AMBLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* AMBLevelScene.m */; };
+		B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */; };
+		B9C8E4DA1A4B749D003F7354 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
+		B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B97831491A198950002A10BC /* level01.tmx */; };
+		B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
+		B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
+		B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
+		B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
+		B9C8E4EB1A4B7769003F7354 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
+		B9C8E4EC1A4B7769003F7354 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
+		B9C8E4ED1A4B7769003F7354 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */; };
+		B9C8E4EE1A4B7769003F7354 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2451978E7BF00E66405 /* SKEmitterNode+SKTExtras.m */; };
+		B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
+		B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
+		B9C8E4F21A4B77AC003F7354 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C8E4F11A4B77AC003F7354 /* libz.dylib */; };
+		B9C8E4FF1A533449003F7354 /* GameObjectSprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */; };
+		B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */; };
 		B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CC738319B26F9400A376BC /* AMBPatient.m */; };
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
 		B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D840CE1A3172CF0073407C /* AMBPowerup.m */; };
-		B9D840D21A31762D0073407C /* osi_fuel.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D01A31762D0073407C /* osi_fuel.png */; };
-		B9D840D31A31762D0073407C /* osi_patient.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D11A31762D0073407C /* osi_patient.png */; };
-		B9D840D51A32B6B50073407C /* traffic.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D41A32B6B50073407C /* traffic.png */; };
-		B9D840D71A32E0520073407C /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D840D61A32E0520073407C /* border.png */; };
 		B9E959B719C9239C00ACD50F /* AMBHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B619C9239C00ACD50F /* AMBHospital.m */; };
 		B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B919C92ADC00ACD50F /* AMBSpawner.m */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		B98823A81969998400903B73 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B98823751969998400903B73 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B988237C1969998400903B73;
-			remoteInfo = CharacterTests;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		B903B1781A68D60F00414D8E /* level01_firstdraft_MINI-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "level01_firstdraft_MINI-256.png"; sourceTree = "<group>"; };
 		B911C9E419C4DE6200EA85D9 /* AMBGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameScene.h; path = ../AMBGameScene.h; sourceTree = "<group>"; };
 		B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameScene.m; path = ../AMBGameScene.m; sourceTree = "<group>"; };
 		B911C9E719C656CC00EA85D9 /* AMBCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCharacter.h; sourceTree = "<group>"; };
@@ -88,68 +111,74 @@
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8bit_tileset_design_ver02.png; sourceTree = "<group>"; };
+		B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test_controls.tmx; sourceTree = "<group>"; };
 		B966BA701A2A9A9900145FA9 /* AMBTrafficVehicleState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicleState.h; sourceTree = "<group>"; };
 		B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicleState.m; sourceTree = "<group>"; };
 		B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "road-map-01_with_spawn_points.tmx"; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* AMBScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBScoreKeeper.h; sourceTree = "<group>"; };
 		B96F159819BA8379003E9809 /* AMBScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBScoreKeeper.m; sourceTree = "<group>"; };
-		B97831421A190BF4002A10BC /* osi_hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_hospital.png; sourceTree = "<group>"; };
 		B97831441A190C1F002A10BC /* AMBIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBIndicator.h; sourceTree = "<group>"; };
 		B97831451A190C1F002A10BC /* AMBIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBIndicator.m; sourceTree = "<group>"; };
 		B97831491A198950002A10BC /* level01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01.tmx; sourceTree = "<group>"; };
-		B988237D1969998400903B73 /* CharacterTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B985AFA71A802538000B3423 /* AMBMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMainMenuViewController.h; sourceTree = "<group>"; };
+		B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBMainMenuViewController.m; sourceTree = "<group>"; };
+		B985AFAA1A80270E000B3423 /* AMBCreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCreditsViewController.h; sourceTree = "<group>"; };
+		B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBCreditsViewController.m; sourceTree = "<group>"; };
+		B988237D1969998400903B73 /* AmbulanceGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbulanceGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98823801969998400903B73 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B98823821969998400903B73 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		B98823851969998400903B73 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		B98823861969998400903B73 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B98823871969998400903B73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		B988238A1969998400903B73 /* CharacterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CharacterTests-Info.plist"; sourceTree = "<group>"; };
+		B988238A1969998400903B73 /* AmbulanceGame-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AmbulanceGame-Info.plist"; sourceTree = "<group>"; };
 		B988238C1969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B988238E1969998400903B73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B98823901969998400903B73 /* CharacterTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CharacterTests-Prefix.pch"; sourceTree = "<group>"; };
+		B98823901969998400903B73 /* AmbulanceGame-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AmbulanceGame-Prefix.pch"; sourceTree = "<group>"; };
 		B98823921969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		B98823941969998400903B73 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		B98823941969998400903B73 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainMenu.xib; path = CharacterTests/MainMenu.xib; sourceTree = "<group>"; };
 		B98823961969998400903B73 /* AMBLevelScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMBLevelScene.m; sourceTree = "<group>"; };
 		B98823981969998400903B73 /* AMBLevelScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMBLevelScene.h; sourceTree = "<group>"; };
-		B98823991969998400903B73 /* AMBAppDelegateOSX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMBAppDelegateOSX.m; sourceTree = "<group>"; };
-		B988239B1969998400903B73 /* AMBAppDelegateOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMBAppDelegateOSX.h; sourceTree = "<group>"; };
-		B988239E1969998400903B73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		B98823A41969998400903B73 /* CharacterTestsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CharacterTestsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B98823991969998400903B73 /* AMBAppDelegateOSX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AMBAppDelegateOSX.m; path = CharacterTests/AMBAppDelegateOSX.m; sourceTree = "<group>"; };
+		B988239B1969998400903B73 /* AMBAppDelegateOSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AMBAppDelegateOSX.h; path = CharacterTests/AMBAppDelegateOSX.h; sourceTree = "<group>"; };
 		B98823A51969998400903B73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B98823AC1969998400903B73 /* CharacterTestsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CharacterTestsTests-Info.plist"; sourceTree = "<group>"; };
 		B98823AE1969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B98823B01969998400903B73 /* CharacterTestsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CharacterTestsTests.m; sourceTree = "<group>"; };
 		B98823BC19699C4400903B73 /* AMBPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPlayer.h; sourceTree = "<group>"; };
 		B98823BD19699C4400903B73 /* AMBPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPlayer.m; sourceTree = "<group>"; };
-		B98823C219699E6200903B73 /* asset_ambulance_20140609.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asset_ambulance_20140609.png; sourceTree = "<group>"; };
 		B99E6F1C19A16467003A7551 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B99E6F1D19A16467003A7551 /* JSTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTileMap.h; sourceTree = "<group>"; };
 		B99E6F1E19A16467003A7551 /* JSTileMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTileMap.m; sourceTree = "<group>"; };
 		B99E6F1F19A16467003A7551 /* LFCGzipUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFCGzipUtility.h; sourceTree = "<group>"; };
 		B99E6F2019A16467003A7551 /* LFCGzipUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFCGzipUtility.m; sourceTree = "<group>"; };
-		B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "road-tileset-hc.atlasc"; sourceTree = "<group>"; };
 		B99FD09F1A046FE1007FC685 /* AMBCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCamera.h; sourceTree = "<group>"; };
 		B99FD0A01A046FE1007FC685 /* AMBCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBCamera.m; sourceTree = "<group>"; };
-		B9A4C2FE19CF501F00DE1ADA /* patient1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient1.png; sourceTree = "<group>"; };
-		B9A4C2FF19CF501F00DE1ADA /* patient2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient2.png; sourceTree = "<group>"; };
-		B9A4C30019CF501F00DE1ADA /* patient3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient3.png; sourceTree = "<group>"; };
+		B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level01_firstdraft_MINI.png; sourceTree = "<group>"; };
 		B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicle.h; sourceTree = "<group>"; };
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
 		B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBMovingCharacter.m; sourceTree = "<group>"; };
-		B9C449541A30144700093CC4 /* fuel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fuel.png; sourceTree = "<group>"; };
+		B9BCC05A1A8031DA00FF2BAE /* AMBGameSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameSetupViewController.h; path = ../AMBGameSetupViewController.h; sourceTree = "<group>"; };
+		B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameSetupViewController.m; path = ../AMBGameSetupViewController.m; sourceTree = "<group>"; };
+		B9BCC0611A803EE800FF2BAE /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		B9C449551A30144700093CC4 /* level01_firstdraft.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_firstdraft.tmx; sourceTree = "<group>"; };
+		B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbulanceGame_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9C8E4951A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9C8E4961A4B73F0003F7354 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B9C8E4981A4B73F0003F7354 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B9C8E4991A4B73F0003F7354 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B9C8E4A01A4B73F0003F7354 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		B9C8E4A11A4B73F0003F7354 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		B9C8E4A41A4B73F0003F7354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B9C8E4A91A4B73F0003F7354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		B9C8E4F11A4B77AC003F7354 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
+		B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GameObjectSprites.atlas; sourceTree = "<group>"; };
 		B9CC738219B26F9400A376BC /* AMBPatient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPatient.h; sourceTree = "<group>"; };
 		B9CC738319B26F9400A376BC /* AMBPatient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPatient.m; sourceTree = "<group>"; };
 		B9CC738C19B3D26900A376BC /* sirens.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sirens.atlas; sourceTree = "<group>"; };
 		B9CC738E19B3DA0C00A376BC /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		B9D840CD1A3172CF0073407C /* AMBPowerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBPowerup.h; path = ../AMBPowerup.h; sourceTree = "<group>"; };
 		B9D840CE1A3172CF0073407C /* AMBPowerup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBPowerup.m; path = ../AMBPowerup.m; sourceTree = "<group>"; };
-		B9D840D01A31762D0073407C /* osi_fuel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_fuel.png; sourceTree = "<group>"; };
-		B9D840D11A31762D0073407C /* osi_patient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = osi_patient.png; sourceTree = "<group>"; };
-		B9D840D41A32B6B50073407C /* traffic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = traffic.png; sourceTree = "<group>"; };
-		B9D840D61A32E0520073407C /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
 		B9E959B519C9239C00ACD50F /* AMBHospital.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBHospital.h; sourceTree = "<group>"; };
 		B9E959B619C9239C00ACD50F /* AMBHospital.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBHospital.m; sourceTree = "<group>"; };
 		B9E959B819C92ADC00ACD50F /* AMBSpawner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBSpawner.h; sourceTree = "<group>"; };
@@ -168,12 +197,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B98823A11969998400903B73 /* Frameworks */ = {
+		B9C8E48F1A4B73F0003F7354 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B98823A71969998400903B73 /* Cocoa.framework in Frameworks */,
-				B98823A61969998400903B73 /* XCTest.framework in Frameworks */,
+				B9C8E4F21A4B77AC003F7354 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,16 +234,31 @@
 				B97831491A198950002A10BC /* level01.tmx */,
 				B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */,
 				B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */,
-				B99E6F2519A167ED003A7551 /* road-tileset-hc.atlasc */,
 			);
 			name = Levels;
+			sourceTree = "<group>";
+		};
+		B985AFA61A802519000B3423 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B985AFA71A802538000B3423 /* AMBMainMenuViewController.h */,
+				B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */,
+				B9BCC05A1A8031DA00FF2BAE /* AMBGameSetupViewController.h */,
+				B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */,
+				B985AFAA1A80270E000B3423 /* AMBCreditsViewController.h */,
+				B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */,
+				B9C8E4A01A4B73F0003F7354 /* GameViewController.h */,
+				B9C8E4A11A4B73F0003F7354 /* GameViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		B98823741969998400903B73 = {
 			isa = PBXGroup;
 			children = (
-				B98823881969998400903B73 /* CharacterTests */,
-				B98823AA1969998400903B73 /* CharacterTestsTests */,
+				B9C8E48C1A4B7378003F7354 /* Target - OS X */,
+				B9C8E48B1A4B736C003F7354 /* Target - iOS */,
+				B98823881969998400903B73 /* AmbulanceGame */,
 				B98823AB1969998400903B73 /* Supporting Files */,
 				B99E6F1B19A16467003A7551 /* JSTileMap-master */,
 				B91EF2411978E7BF00E66405 /* SKTUtils */,
@@ -227,8 +270,8 @@
 		B988237E1969998400903B73 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B988237D1969998400903B73 /* CharacterTests.app */,
-				B98823A41969998400903B73 /* CharacterTestsTests.xctest */,
+				B988237D1969998400903B73 /* AmbulanceGame.app */,
+				B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -236,6 +279,7 @@
 		B988237F1969998400903B73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B9C8E4F11A4B77AC003F7354 /* libz.dylib */,
 				B9F4F0A61985626600578DA4 /* libz.dylib */,
 				B98823801969998400903B73 /* Cocoa.framework */,
 				B98823821969998400903B73 /* SpriteKit.framework */,
@@ -255,41 +299,29 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		B98823881969998400903B73 /* CharacterTests */ = {
+		B98823881969998400903B73 /* AmbulanceGame */ = {
 			isa = PBXGroup;
 			children = (
+				B9C8E48D1A4B7386003F7354 /* Game Assets */,
 				B9E959BD19C93CA700ACD50F /* Logic */,
 				B9E959BC19C93C8D00ACD50F /* Sprites */,
 				B9E959BB19C93C8800ACD50F /* Scene */,
-				B98823941969998400903B73 /* MainMenu.xib */,
-				B988239B1969998400903B73 /* AMBAppDelegateOSX.h */,
-				B98823991969998400903B73 /* AMBAppDelegateOSX.m */,
-				B988239E1969998400903B73 /* Images.xcassets */,
-				B98823891969998400903B73 /* Supporting Files */,
 			);
+			name = AmbulanceGame;
 			path = CharacterTests;
 			sourceTree = "<group>";
 		};
 		B98823891969998400903B73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B96A845219BAB723002E058B /* Levels */,
-				B98823BF19699E3A00903B73 /* GameArt */,
-				B988238A1969998400903B73 /* CharacterTests-Info.plist */,
+				B988238A1969998400903B73 /* AmbulanceGame-Info.plist */,
 				B988238B1969998400903B73 /* InfoPlist.strings */,
 				B988238E1969998400903B73 /* main.m */,
-				B98823901969998400903B73 /* CharacterTests-Prefix.pch */,
+				B98823901969998400903B73 /* AmbulanceGame-Prefix.pch */,
 				B98823911969998400903B73 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B98823AA1969998400903B73 /* CharacterTestsTests */ = {
-			isa = PBXGroup;
-			children = (
-				B98823B01969998400903B73 /* CharacterTestsTests.m */,
-			);
-			path = CharacterTestsTests;
+			path = CharacterTests;
 			sourceTree = "<group>";
 		};
 		B98823AB1969998400903B73 /* Supporting Files */ = {
@@ -305,18 +337,12 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
-				B9D840D61A32E0520073407C /* border.png */,
-				B9C449541A30144700093CC4 /* fuel.png */,
-				B9A4C2FE19CF501F00DE1ADA /* patient1.png */,
-				B9A4C2FF19CF501F00DE1ADA /* patient2.png */,
-				B9A4C30019CF501F00DE1ADA /* patient3.png */,
-				B9D840D41A32B6B50073407C /* traffic.png */,
+				B9BCC0611A803EE800FF2BAE /* pause.png */,
+				B903B1781A68D60F00414D8E /* level01_firstdraft_MINI-256.png */,
+				B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */,
+				B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */,
 				B9CC738E19B3DA0C00A376BC /* hospital.png */,
-				B9D840D01A31762D0073407C /* osi_fuel.png */,
-				B9D840D11A31762D0073407C /* osi_patient.png */,
-				B97831421A190BF4002A10BC /* osi_hospital.png */,
 				B9CC738C19B3D26900A376BC /* sirens.atlas */,
-				B98823C219699E6200903B73 /* asset_ambulance_20140609.png */,
 			);
 			name = GameArt;
 			sourceTree = "<group>";
@@ -332,6 +358,58 @@
 			);
 			name = "JSTileMap-master";
 			path = "CharacterTests/JSTileMap-master";
+			sourceTree = "<group>";
+		};
+		B9C8E48B1A4B736C003F7354 /* Target - iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B9C8E4931A4B73F0003F7354 /* iOS */,
+			);
+			name = "Target - iOS";
+			sourceTree = "<group>";
+		};
+		B9C8E48C1A4B7378003F7354 /* Target - OS X */ = {
+			isa = PBXGroup;
+			children = (
+				B98823941969998400903B73 /* MainMenu.xib */,
+				B988239B1969998400903B73 /* AMBAppDelegateOSX.h */,
+				B98823991969998400903B73 /* AMBAppDelegateOSX.m */,
+				B98823891969998400903B73 /* Supporting Files */,
+			);
+			name = "Target - OS X";
+			sourceTree = "<group>";
+		};
+		B9C8E48D1A4B7386003F7354 /* Game Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B96A845219BAB723002E058B /* Levels */,
+				B98823BF19699E3A00903B73 /* GameArt */,
+			);
+			name = "Game Assets";
+			sourceTree = "<group>";
+		};
+		B9C8E4931A4B73F0003F7354 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B985AFA61A802519000B3423 /* ViewControllers */,
+				B9C8E4981A4B73F0003F7354 /* AppDelegate.h */,
+				B9C8E4991A4B73F0003F7354 /* AppDelegate.m */,
+				B9C8E4A31A4B73F0003F7354 /* Main.storyboard */,
+				B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */,
+				B9C8E4941A4B73F0003F7354 /* Supporting Files */,
+				B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */,
+			);
+			name = iOS;
+			path = CharacterTests_iOS;
+			sourceTree = "<group>";
+		};
+		B9C8E4941A4B73F0003F7354 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B9C8E4951A4B73F0003F7354 /* Info.plist */,
+				B9C8E4961A4B73F0003F7354 /* main.m */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		B9E959BB19C93C8800ACD50F /* Scene */ = {
@@ -386,9 +464,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B988237C1969998400903B73 /* CharacterTests */ = {
+		B988237C1969998400903B73 /* AmbulanceGame */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B98823B41969998400903B73 /* Build configuration list for PBXNativeTarget "CharacterTests" */;
+			buildConfigurationList = B98823B41969998400903B73 /* Build configuration list for PBXNativeTarget "AmbulanceGame" */;
 			buildPhases = (
 				B98823791969998400903B73 /* Sources */,
 				B988237A1969998400903B73 /* Frameworks */,
@@ -398,28 +476,27 @@
 			);
 			dependencies = (
 			);
-			name = CharacterTests;
+			name = AmbulanceGame;
 			productName = CharacterTests;
-			productReference = B988237D1969998400903B73 /* CharacterTests.app */;
+			productReference = B988237D1969998400903B73 /* AmbulanceGame.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B98823A31969998400903B73 /* CharacterTestsTests */ = {
+		B9C8E4911A4B73F0003F7354 /* AmbulanceGame_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B98823B71969998400903B73 /* Build configuration list for PBXNativeTarget "CharacterTestsTests" */;
+			buildConfigurationList = B9C8E4B71A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "AmbulanceGame_iOS" */;
 			buildPhases = (
-				B98823A01969998400903B73 /* Sources */,
-				B98823A11969998400903B73 /* Frameworks */,
-				B98823A21969998400903B73 /* Resources */,
+				B9C8E48E1A4B73F0003F7354 /* Sources */,
+				B9C8E48F1A4B73F0003F7354 /* Frameworks */,
+				B9C8E4901A4B73F0003F7354 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B98823A91969998400903B73 /* PBXTargetDependency */,
 			);
-			name = CharacterTestsTests;
-			productName = CharacterTestsTests;
-			productReference = B98823A41969998400903B73 /* CharacterTestsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			name = AmbulanceGame_iOS;
+			productName = CharacterTests_iOS;
+			productReference = B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -431,25 +508,27 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Alex Taylor";
 				TargetAttributes = {
-					B98823A31969998400903B73 = {
-						TestTargetID = B988237C1969998400903B73;
+					B9C8E4911A4B73F0003F7354 = {
+						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = JZYG338C8Z;
 					};
 				};
 			};
-			buildConfigurationList = B98823781969998400903B73 /* Build configuration list for PBXProject "CharacterTests" */;
+			buildConfigurationList = B98823781969998400903B73 /* Build configuration list for PBXProject "AmbulanceGame" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = B98823741969998400903B73;
 			productRefGroup = B988237E1969998400903B73 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B988237C1969998400903B73 /* CharacterTests */,
-				B98823A31969998400903B73 /* CharacterTestsTests */,
+				B988237C1969998400903B73 /* AmbulanceGame */,
+				B9C8E4911A4B73F0003F7354 /* AmbulanceGame_iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -459,37 +538,42 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9A4C30119CF501F00DE1ADA /* patient1.png in Resources */,
-				B9D840D31A31762D0073407C /* osi_patient.png in Resources */,
-				B97831431A190BF4002A10BC /* osi_hospital.png in Resources */,
+				B9C8E4FF1A533449003F7354 /* GameObjectSprites.atlas in Resources */,
 				B94CEF1E1A4A2EC800037DDA /* test_controls.tmx in Resources */,
-				B988239F1969998400903B73 /* Images.xcassets in Resources */,
+				B9BCC0621A803EE800FF2BAE /* pause.png in Resources */,
+				B9A0C32D1A57CD5300A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
 				B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
-				B9A4C30319CF501F00DE1ADA /* patient3.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
-				B9D840D21A31762D0073407C /* osi_fuel.png in Resources */,
-				B9D840D71A32E0520073407C /* border.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
-				B9C449561A30144700093CC4 /* fuel.png in Resources */,
-				B9D840D51A32B6B50073407C /* traffic.png in Resources */,
-				B99E6F2619A167ED003A7551 /* road-tileset-hc.atlasc in Resources */,
 				B978314A1A198950002A10BC /* level01.tmx in Resources */,
-				B98823C319699E6200903B73 /* asset_ambulance_20140609.png in Resources */,
-				B9A4C30219CF501F00DE1ADA /* patient2.png in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
 				B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */,
+				B903B1791A68D60F00414D8E /* level01_firstdraft_MINI-256.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B98823A21969998400903B73 /* Resources */ = {
+		B9C8E4901A4B73F0003F7354 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B98823AF1969998400903B73 /* InfoPlist.strings in Resources */,
+				B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */,
+				B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */,
+				B9C8E4DA1A4B749D003F7354 /* level01_firstdraft.tmx in Resources */,
+				B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */,
+				B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */,
+				B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */,
+				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
+				B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */,
+				B903B17A1A68D66800414D8E /* level01_firstdraft_MINI-256.png in Resources */,
+				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
+				B9BCC0631A803EE800FF2BAE /* pause.png in Resources */,
+				B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */,
+				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
+				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,8 +589,10 @@
 				B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */,
 				B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */,
 				B98823971969998400903B73 /* AMBLevelScene.m in Sources */,
+				B985AFAC1A80270E000B3423 /* AMBCreditsViewController.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
 				B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */,
+				B985AFA91A802538000B3423 /* AMBMainMenuViewController.m in Sources */,
 				B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */,
 				B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */,
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
@@ -521,28 +607,46 @@
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
 				B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */,
 				B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */,
+				B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */,
 				B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */,
 				B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B98823A01969998400903B73 /* Sources */ = {
+		B9C8E48E1A4B73F0003F7354 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B98823B11969998400903B73 /* CharacterTestsTests.m in Sources */,
+				B9C8E4EB1A4B7769003F7354 /* JSTileMap.m in Sources */,
+				B9C8E4EC1A4B7769003F7354 /* LFCGzipUtility.m in Sources */,
+				B9C8E4ED1A4B7769003F7354 /* SKAction+SKTExtras.m in Sources */,
+				B9C8E4EE1A4B7769003F7354 /* SKEmitterNode+SKTExtras.m in Sources */,
+				B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */,
+				B985AFAE1A802A1A000B3423 /* AMBCreditsViewController.m in Sources */,
+				B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */,
+				B9C8E4BE1A4B747E003F7354 /* AMBScoreKeeper.m in Sources */,
+				B9C8E4C01A4B747E003F7354 /* AMBCamera.m in Sources */,
+				B9C8E4C21A4B747E003F7354 /* AMBCharacter.m in Sources */,
+				B9C8E4C41A4B747E003F7354 /* AMBMovingCharacter.m in Sources */,
+				B9C8E4C61A4B747E003F7354 /* AMBPatient.m in Sources */,
+				B9C8E4C81A4B747E003F7354 /* AMBPlayer.m in Sources */,
+				B9C8E4CA1A4B747E003F7354 /* AMBPowerup.m in Sources */,
+				B9C8E4CC1A4B747E003F7354 /* AMBTrafficVehicle.m in Sources */,
+				B9C8E4CE1A4B747E003F7354 /* AMBTrafficVehicleState.m in Sources */,
+				B9C8E4D01A4B747E003F7354 /* AMBIndicator.m in Sources */,
+				B9C8E4D21A4B747E003F7354 /* AMBHospital.m in Sources */,
+				B9C8E4D41A4B747E003F7354 /* AMBSpawner.m in Sources */,
+				B985AFB31A803132000B3423 /* AMBMainMenuViewController.m in Sources */,
+				B9C8E4D61A4B747E003F7354 /* AMBGameScene.m in Sources */,
+				B9C8E4D81A4B747E003F7354 /* AMBLevelScene.m in Sources */,
+				B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */,
+				B9BCC05D1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */,
+				B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */,
+				B9C8E4971A4B73F0003F7354 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B98823A91969998400903B73 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B988237C1969998400903B73 /* CharacterTests */;
-			targetProxy = B98823A81969998400903B73 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B988238B1969998400903B73 /* InfoPlist.strings */ = {
@@ -567,6 +671,22 @@
 				B98823AE1969998400903B73 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		B9C8E4A31A4B73F0003F7354 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B9C8E4A41A4B73F0003F7354 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B9C8E4A81A4B73F0003F7354 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B9C8E4A91A4B73F0003F7354 /* Base */,
+			);
+			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -595,9 +715,9 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"DEBUG=0",
 					"DEBUG_PATIENT=0",
-					"DEBUG_PLAYER_CONTROL=1",
+					"DEBUG_PLAYER_CONTROL=0",
+					"DEBUG_PLAYER_SWIPE=1",
 					"DEBUG_INDICATOR=0",
 					"DEBUG_FUEL=0",
 				);
@@ -652,9 +772,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CharacterTests/CharacterTests-Prefix.pch";
-				INFOPLIST_FILE = "CharacterTests/CharacterTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "CharacterTests/AmbulanceGame-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG_PATIENT=0",
+					"DEBUG_PLAYER_CONTROL=0",
+					"DEBUG_INDICATOR=0",
+					"DEBUG_FUEL=0",
+					"DEBUG_MINIMAP=0",
+				);
+				INFOPLIST_FILE = "CharacterTests/AmbulanceGame-Info.plist";
+				PRODUCT_NAME = AmbulanceGame;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -666,58 +794,58 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CharacterTests/CharacterTests-Prefix.pch";
-				INFOPLIST_FILE = "CharacterTests/CharacterTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "CharacterTests/AmbulanceGame-Prefix.pch";
+				INFOPLIST_FILE = "CharacterTests/AmbulanceGame-Info.plist";
+				PRODUCT_NAME = AmbulanceGame;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
-		B98823B81969998400903B73 /* Debug */ = {
+		B9C8E4B81A4B73F0003F7354 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CharacterTests.app/Contents/MacOS/CharacterTests";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CharacterTests/CharacterTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "CharacterTestsTests/CharacterTestsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = CharacterTests_iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = AmbulanceGame_iOS;
+				SDKROOT = iphoneos;
+				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		B98823B91969998400903B73 /* Release */ = {
+		B9C8E4B91A4B73F0003F7354 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CharacterTests.app/Contents/MacOS/CharacterTests";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CharacterTests/CharacterTests-Prefix.pch";
-				INFOPLIST_FILE = "CharacterTestsTests/CharacterTestsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = CharacterTests_iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = AmbulanceGame_iOS;
+				SDKROOT = iphoneos;
+				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B98823781969998400903B73 /* Build configuration list for PBXProject "CharacterTests" */ = {
+		B98823781969998400903B73 /* Build configuration list for PBXProject "AmbulanceGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B98823B21969998400903B73 /* Debug */,
@@ -726,7 +854,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B98823B41969998400903B73 /* Build configuration list for PBXNativeTarget "CharacterTests" */ = {
+		B98823B41969998400903B73 /* Build configuration list for PBXNativeTarget "AmbulanceGame" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B98823B51969998400903B73 /* Debug */,
@@ -735,11 +863,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B98823B71969998400903B73 /* Build configuration list for PBXNativeTarget "CharacterTestsTests" */ = {
+		B9C8E4B71A4B73F0003F7354 /* Build configuration list for PBXNativeTarget "AmbulanceGame_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B98823B81969998400903B73 /* Debug */,
-				B98823B91969998400903B73 /* Release */,
+				B9C8E4B81A4B73F0003F7354 /* Debug */,
+				B9C8E4B91A4B73F0003F7354 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

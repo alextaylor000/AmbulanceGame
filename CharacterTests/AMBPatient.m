@@ -99,7 +99,12 @@
 #endif
 
     if (patientTTL <= 0)   {
+        if (_state == PatientIsEnRoute) {
+            [scoreKeeper eventLabelWithText:@"YOUR PATIENT HAS DIED! -points"];
+        }
+        
         [self changeState:PatientIsDead];
+
     }
     
     
@@ -127,7 +132,7 @@
         
         case PatientIsEnRoute:
             self.hidden = YES;
-            [self.miniPatient removeFromParent];
+            [self.minimapAvatar removeFromParent];
             #if DEBUG_PATIENT
                 NSLog(@"[patient] patient is EN-ROUTE!");
             #endif
@@ -144,9 +149,8 @@
             break;
             
         case PatientIsDead:
-            [scoreKeeper eventLabelWithText:@"YOUR PATIENT HAS DIED! -points"]; // TODO: this should only be displayed when the patient was previously in the ambulance
             
-            [self.miniPatient removeFromParent];
+            [self.minimapAvatar removeFromParent];
             [self removeFromParent];
 
             #if DEBUG_PATIENT

@@ -30,7 +30,7 @@ typedef enum {
 @property CGPoint position;
 @property PatientSeverity severity;
 @property PatientState state;
-@property SKSpriteNode *miniPatient; // minimap patient
+
 
 
 + (instancetype) patientWithSeverity:(PatientSeverity)severity;

@@ -9,6 +9,7 @@
 #import "SKTUtils.h"
 #import "AMBSpawner.h"
 #import "AMBPatient.h"
+#import "AMBPowerup.h"
 #import "AMBLevelScene.h"
 
 @interface AMBSpawner ()
@@ -41,6 +42,10 @@
         
         _spawnObjects = objects;
         _spawnObjectsCount = [_spawnObjects count];
+        
+        if (_frequency <= 0) {
+            _frequency = INFINITY; // protect against missing properties in TMX file; otherwise an object will spawn every frame!
+        }
         
         [self setNextSpawn];
     }
@@ -95,7 +100,17 @@
     
     [objectToSpawn addObjectToNode:[owningScene mapLayerRoad] atPosition:self.position];
 
-    // add indicator here
+    // FUEL SPAWN
+    if ([objectToSpawn isKindOfClass:[AMBPowerup class]]) {
+        SKSpriteNode *miniFuel = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor yellowColor] withSize:1];
+        objectToSpawn.minimapAvatar = miniFuel;
+        
+        SKAction *fuelExpiry = [SKAction sequence:@[[SKAction waitForDuration:FUEL_EXPIRY_DURATION],[SKAction removeFromParent]]];
+        [objectToSpawn runAction:fuelExpiry]; // fuel expires! BAM
+        [objectToSpawn.minimapAvatar runAction:fuelExpiry];
+    }
+    
+    // PATIENT SPAWN
     if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
 #if DEBUG_PATIENT
         
@@ -105,12 +120,12 @@
         [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
             
         // add to minimap
-        SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withScale:1.75];
+        SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withSize:1.25];
         SKAction *fadeOut = [SKAction fadeOutWithDuration:0.25];
         [miniPatient runAction:[SKAction repeatActionForever:[SKAction sequence:@[fadeOut, [fadeOut reversedAction]]]]];
 
         AMBPatient *patient = (AMBPatient *)objectToSpawn;
-        patient.miniPatient = miniPatient;
+        patient.minimapAvatar = miniPatient;
         
         [patient changeState:PatientIsWaitingForPickup];
 #if DEBUG_INDICATOR

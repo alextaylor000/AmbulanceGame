@@ -10,10 +10,11 @@
 
 #import "AMBPlayer.h"
 #import "AMBLevelScene.h"
+#import "AMBPowerup.h"
 #import "AMBScoreKeeper.h"
 #import "SKTUtils.h"
 
-static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decremented
+
 
 
 
@@ -77,7 +78,8 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     
     _scoreKeeper = [AMBScoreKeeper sharedInstance]; // hook up the shared instance of the score keeper so we can talk to it
     
-    _fuel = 99;
+    _fuel = 3;
+    _fuelTimer = 0;
     
     self.controlState = PlayerIsStopped;
     
@@ -89,19 +91,10 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
-    
-    
 
-    if (self.controlState == PlayerIsChangingLanes) {
-        [self authorizeMoveEvent:_laneChangeDegrees snapToLane:NO];
-    }
+
 
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
-
-    // removed this in favour of allowing the player to hold down the turn button to accomplish the same thing
-//    if (self.requestedMoveEvent && self.levelScene.sceneLastUpdate - self.levelScene.lastKeyPress < TURN_BUFFER) {
-//        [self authorizeMoveEvent:self.requestedMoveEventDegrees];
-//    }
     
     // update the patient timer
     if (self.patient) {
@@ -109,47 +102,150 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
         owningScene.patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: %1.1f",ttl];
     }
     
-    // update fuel if we're moving
+
+    
+    
     if (self.isMoving) {
-        NSTimeInterval now = CACurrentMediaTime();
-        if (now - _fuelTimer > FUEL_TIMER_INCREMENT) {
-            _fuelTimer = now;
+        if (self.controlState == PlayerIsChangingLanes) {
+            [self authorizeMoveEvent:_laneChangeDegrees snapToLane:NO];
+        }
+        
+        
+        _fuelTimer += delta;
+#if DEBUG_FUEL
+        NSLog(@"fueltimer=%1.0f",_fuelTimer);
+#endif
+        
+        
+        // update fuel if we're moving
+        if (_fuelTimer > FUEL_TIMER_INCREMENT) {
+            _fuelTimer = 0;
             _fuel--; // decrement fuel
 #if DEBUG_FUEL
             NSLog(@"fuel is now %f",_fuel);
 #endif
             
-
-            
             owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
             
             if (_fuel < 1) {
-                [self stopMoving];
-                SKLabelNode *outOfFuel = [SKLabelNode labelNodeWithFontNamed:@"Impact"];
-                outOfFuel.text = @"** OUT OF FUEL **";
-                outOfFuel.fontColor =[ SKColor yellowColor];
-                outOfFuel.zPosition = 1000;
-                outOfFuel.fontSize = 80;
-                outOfFuel.position = CGPointMake(0, 100);
-                
-                SKLabelNode *gameOver = [SKLabelNode labelNodeWithFontNamed:@"Impact"];
-                gameOver.text = @"GAME OVER!";
-                gameOver.fontColor = [SKColor yellowColor];
-                gameOver.zPosition = 1000;
-                gameOver.fontSize = 80;
-                
-                [owningScene addChild:outOfFuel];                
-                [owningScene addChild:gameOver];
+                [self stopMovingWithDecelTime:self.decelTimeSeconds];
+                [_scoreKeeper eventLabelWithText:@"OUT OF FUEL! GAME OVER"];
+        
 
-                
-                
-                
             }
             
         }
+        
+
+        
+        
+        
+        // T-intersections
+        if (self.currentTileProperties[@"invalid_directions"]) {
+            CGPoint currentTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:self.position]];
+            CGPoint playerPosInTile = CGPointSubtract(self.position, currentTilePos);
+            CGPoint playerPosNormalized = CGPointMultiply(playerPosInTile, self.direction);
+            CGFloat distFromCenter = fabsf(playerPosNormalized.x + playerPosNormalized.y); // should "flatten" the CGPoint since one of these will always be zero
+            
+            if (distFromCenter < 40) {
+                CGRect invalidDirections = CGRectFromString(self.currentTileProperties[@"invalid_directions"]); // CGRect so we can extract the two dimensions
+                CGPoint invalidDirection1 = invalidDirections.origin;
+                CGPoint invalidDirection2 = CGPointMake(invalidDirections.size.width, invalidDirections.size.height);
+                
+                
+                if (self.controlState == PlayerIsAccelerating ||
+                    self.controlState == PlayerIsDecelerating ||
+                    self.controlState == PlayerIsDrivingStraight) {
+                    if (CGPointEqualToPoint(invalidDirection1, self.direction) ||
+                        CGPointEqualToPoint(invalidDirection2, self.direction)) {
+                        self.controlState = PlayerIsWithinTIntersection; // no valid inputs in this control state (intentional)
+                        
+                        [self slamBrakes]; // instead of stopMoving
+                    }
+                }
+            }
+         
+        }
+
     }
 }
 
+
+- (void)slamBrakes {
+    //if (self.hasActions == NO) { // this was conflicting with the invincibility powerup. did we need it for something specific?
+        
+        // stopMoving with an end state of PlayerIsStoppedAtTIntersection
+        CGFloat decelTime = self.decelTimeSeconds/2;
+        SKAction *stopMoving = [SKAction customActionWithDuration:decelTime actionBlock:^(SKNode *node, CGFloat elapsedTime){
+            float t = elapsedTime / decelTime;
+            t = sinf(t * M_PI_2);
+            
+            self.characterSpeedMultiplier = 1 - t;
+        }];
+        [self runAction:stopMoving completion:^{
+            self.isMoving = NO;
+            self.speedPointsPerSec = 0;
+            
+            
+            self.controlState = PlayerIsStoppedAtTIntersection;
+#if DEBUG_PLAYER_CONTROL
+            NSLog(@"[control] PlayerIsDecelerating -> slamBrakes -> PlayerIsStoppedAtTIntersection");
+#endif
+            
+            
+        }];
+    
+    //}
+
+    
+}
+
+- (void)leaveIntersectionWithInput:(PlayerControls)input {
+
+    self.controlState = PlayerIsWithinTIntersection;
+
+    // rotate, then start moving
+    CGFloat degrees = (input == PlayerControlsTurnLeft) ? 90 : -90;
+    
+    // apply the rotation to the sprite
+    CGFloat angle = self.zRotation + DegreesToRadians(degrees);
+
+    // wrap angles larger than +/- 360 degrees
+    if (angle >= ( 2 * M_PI )) {
+        angle -= (2 * M_PI);
+    } else if (angle < -(2 * M_PI)) {
+        angle += (2 * M_PI);
+    }
+    
+    self.zRotation = angle;
+
+    // update the direction of the sprite
+    self.direction = [self getDirectionFromAngle:self.zRotation];
+
+    
+    // rotate the camera
+    [self.levelScene.camera rotateByAngle:degrees];
+    
+    // start moving
+    self.isMoving = YES;
+    self.speedPointsPerSec = self.nativeSpeed; // reset speedPointsPerSec
+    
+    SKAction *startMoving = [SKAction customActionWithDuration:self.accelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / self.accelTimeSeconds;
+        t = sinf(t * M_PI_2);
+        self.characterSpeedMultiplier = t;
+        
+    }];
+    [self runAction:startMoving completion:^(void){
+        if ([self.name isEqualToString:@"player"]) {
+            self.controlState = PlayerIsDrivingStraight;
+#if DEBUG_PLAYER_CONTROL
+            NSLog(@"[control] PlayerIsWithinTIntersection -> leaveIntersection -> PlayerIsDrivingStraight");
+#endif
+        }
+    }];
+    
+}
 
 #pragma mark Game Logic
 -(void)changeState:(AmbulanceState)newState {
@@ -206,6 +302,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
     SKAction *action;
+    SKAction *speedPenalty = [SKAction sequence:@[[SKAction waitForDuration:5.0],[SKAction runBlock:^(void) { [self adjustSpeedToTarget:self.nativeSpeed]; NSLog(@"Speed penalty end"); [self removeActionForKey:@"blink"]; }]]];
     
     switch (other.categoryBitMask) {
         case categoryPatient:
@@ -213,8 +310,17 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             break;
             
         case categoryTraffic:
-            action = [SKAction sequence:@[[SKAction fadeAlphaTo:0.1 duration:0],[SKAction waitForDuration:0.1],[SKAction fadeAlphaTo:1.0 duration:0.1],[SKAction waitForDuration:0.1]]];
-            [self runAction:[SKAction repeatAction:action count:5]];
+            if (![self actionForKey:@"invincibility"]) {
+                action = [SKAction sequence:@[[SKAction fadeAlphaTo:0.1 duration:0],[SKAction waitForDuration:0.1],[SKAction fadeAlphaTo:1.0 duration:0.1],[SKAction waitForDuration:0.1]]];
+                [self runAction:[SKAction repeatActionForever:action] withKey:@"blink"];
+                
+                // slow down the player temporarily
+                [self adjustSpeedToTarget:self.nativeSpeed * 0.75];
+                NSLog(@"Speed penalty begin");
+                [self removeActionForKey:@"speedPenalty"]; // remove action if it's running already
+                [self runAction: speedPenalty withKey:@"speedPenalty"];
+            }
+            
             break;
             
         case categoryHospital:
@@ -225,39 +331,33 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             break;
             
         case categoryPowerup:
-            // fuel! add 1
-            if (_fuel < 3) {
-                _fuel++;
-                owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
+
+            if ([other.node.name isEqualToString:@"fuel"]) {
+                if (_fuel < 3) {
+                    _fuel++;
+                    owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
+                    [_scoreKeeper eventLabelWithText:@"+1 FUEL!"];
+                    
+                    AMBCharacter *powerup = (AMBCharacter *)other.node;
+                    [powerup removeFromParent];
+                    [powerup.minimapAvatar removeFromParent];
+                    
+                    
+                }
+            } else if ([other.node.name isEqualToString:@"invincibility"]) {
+                action = [SKAction sequence:@[[SKAction colorizeWithColor:[SKColor greenColor] colorBlendFactor:0.6 duration:0.25],[SKAction waitForDuration:PLAYER_INVINCIBLE_TIME],[SKAction colorizeWithColorBlendFactor:0.0 duration:0.25]]];
+                [self runAction:action withKey:@"invincibility"]; // as long as this action exists on the player, the player will be immune to traffic
                 
-                SKLabelNode *moreFuel = [SKLabelNode labelNodeWithFontNamed:@"Upheaval Pro"];
-                moreFuel.text = @"+1 FUEL!";
-                moreFuel.fontColor = [SKColor yellowColor];
-                moreFuel.fontSize = 80;
-                moreFuel.alpha = 0;
-                moreFuel.zPosition = 1000;
-                [owningScene addChild:moreFuel];
+
+                AMBCharacter *powerup = (AMBCharacter *)other.node;
+                [powerup removeFromParent];
+                [powerup.minimapAvatar removeFromParent];
                 
-                action = [SKAction sequence:@[[SKAction fadeInWithDuration:0.075],[SKAction waitForDuration:2.0],[SKAction fadeOutWithDuration:0.075]]];
-                [moreFuel runAction:action];
             }
-            
 
             break;
             
     }
-}
-
-
-- (void)startMoving {
-    [super startMoving];
-    
-    
-    // update fuel counter
-    _fuelTimer = CACurrentMediaTime();
-#if DEBUG_FUEL
-    NSLog(@"started fuel timer");
-#endif
 }
 
 
@@ -279,6 +379,30 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             
             break;
     
+        case PlayerIsStoppedAtTIntersection:
+            
+            // valid inputs: <LEFT>,<RIGHT>
+            // this is the only state where the player can change directions from stopped
+            if (input == PlayerControlsTurnLeft) {
+                [self leaveIntersectionWithInput:input];
+                message = @"[control] PlayerIsStoppedAtTIntersection -> handleInput:turnLeft -> PlayerIsAccelerating";
+                [self printMessage:message];
+                
+                
+            } else if (input == PlayerControlsTurnRight) {
+                [self leaveIntersectionWithInput:input];
+                message = @"[control] PlayerIsStoppedAtTIntersection -> handleInput:turnRight -> PlayerIsAccelerating";
+                [self printMessage:message];
+                
+            }
+            
+            break;
+            
+        case PlayerIsWithinTIntersection:
+            
+            // valid inputs: NONE
+            break;
+            
         case PlayerIsAccelerating:
             
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
@@ -286,7 +410,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsAccelerating -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
-                [self stopMoving];
+                [self stopMovingWithDecelTime:self.decelTimeSeconds];
                 
             } else if   (input == PlayerControlsTurnLeft) {
                 self.laneChangeDegrees = 90;
@@ -316,7 +440,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 self.laneChangeDegrees = 90;
                 self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDecelerating -> handleInput:turnLeft";
-                [self printMessage:message];
+                [self printMessage:message]; // can we cancel all actions here to return to normal speed?
                 
             } else if   (input == PlayerControlsTurnRight) {
                 self.laneChangeDegrees = -90;
@@ -329,12 +453,16 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
             
         case PlayerIsDrivingStraight:
             
+            if (!keyDown) {
+                return;
+            }
+            
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStopMoving) {
                 self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
-                [self stopMoving];
+                [self stopMovingWithDecelTime:self.decelTimeSeconds];
                 
             } else if   (input == PlayerControlsTurnLeft) {
                 self.laneChangeDegrees = 90;
@@ -366,7 +494,7 @@ static CGFloat FUEL_TIMER_INCREMENT = 10; // every x seconds, the fuel gets decr
                 self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsChangingLanes -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
-                [self stopMoving];
+                [self stopMovingWithDecelTime:self.decelTimeSeconds];
             }
             
             if (keyDown) {

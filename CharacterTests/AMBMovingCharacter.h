@@ -13,6 +13,8 @@ static const float TURN_BUFFER = 1; // attempt a turn every frame for this many 
 // control state enum
 typedef enum {
     PlayerIsStopped,
+    PlayerIsStoppedAtTIntersection,
+    PlayerIsWithinTIntersection,
     PlayerIsAccelerating,
     PlayerIsDecelerating,
     PlayerIsDrivingStraight,
@@ -35,7 +37,7 @@ typedef enum {
 
 @property (nonatomic) CGFloat accelTimeSeconds; // how long it takes for the character to get up to speed; controls easing
 @property (nonatomic) CGFloat decelTimeSeconds;
-
+@property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
 @property (readonly, nonatomic) BOOL requestedMoveEvent; // YES if a move event has been requested but not yet completed
 @property (readonly, nonatomic) CGFloat requestedMoveEventDegrees;
 
@@ -46,12 +48,11 @@ typedef enum {
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;
-- (void)stopMoving;
+- (void)stopMovingWithDecelTime:(CGFloat)decel;
 - (void)rotateByAngle:(CGFloat)degrees;
 - (void)moveBy:(CGVector)targetOffset;
 - (void)authorizeMoveEvent: (CGFloat)degrees snapToLane:(BOOL)snap;
-- (void)changeLanes: (CGFloat)degrees;
 - (void)adjustSpeedToTarget:(CGFloat)targetSpeed;
-
+- (CGPoint)getDirectionFromAngle:(CGFloat)angle;
 
 @end

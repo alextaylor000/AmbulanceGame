@@ -106,7 +106,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
     switch (_state) {
         case VehicleIsStopped:
-            [self stopMoving];
+            [self stopMovingWithDecelTime:self.decelTimeSeconds];
             break;
             
             
@@ -194,7 +194,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
         if ([name isEqualToString:@"trafficVehicleCollisionZone"]) {
             if ([node isKindOfClass:[AMBTrafficVehicle class]]) {
                 NSLog(@"[%@] %@ collisionZone | AdjustSpeed to match; targetSpeed: %1.5f", self.name, NSStringFromSelector(_cmd), node.speedPointsPerSec);
-                _targetSpeed = node.speedPointsPerSec;
+                _targetSpeed = self.nativeSpeed;
 
             } else {
                 NSLog(@"[%@] %@ collisionZone | AdjustSpeed to native; targetSpeed: %1.5f", self.name, NSStringFromSelector(_cmd), self.nativeSpeed);
@@ -213,7 +213,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
 
             if ([node isKindOfClass:[AMBTrafficVehicle class]]) {
                 NSLog(@"[%@] %@ collisionZone | setting speed to target node speed: %1.f", self.name, NSStringFromSelector(_cmd), node.speedPointsPerSec);
-                self.speedPointsPerSec = node.speedPointsPerSec;
+                self.speedPointsPerSec = self.nativeSpeed;
             } else {
                 NSLog(@"[%@] %@ collisionZone | setting speed to native speed: %1.5f", self.name, NSStringFromSelector(_cmd), self.nativeSpeed);
                 self.speedPointsPerSec = self.nativeSpeed;

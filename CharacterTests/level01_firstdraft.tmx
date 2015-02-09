@@ -15,28 +15,36 @@
   </tile>
   <tile id="2">
    <properties>
+    <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{1,0},{0,-1}}"/>
     <property name="road" value="nw"/>
    </properties>
   </tile>
   <tile id="3">
    <properties>
+    <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{-1,0},{0,1}}"/>
     <property name="road" value="es"/>
    </properties>
   </tile>
   <tile id="4">
    <properties>
     <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{-1,0},{0,0}}"/>
     <property name="road" value="nes"/>
    </properties>
   </tile>
   <tile id="5">
    <properties>
     <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{0,1},{0,0}}"/>
     <property name="road" value="esw"/>
    </properties>
   </tile>
   <tile id="6">
    <properties>
+    <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{-1,0},{0,-1}}"/>
     <property name="road" value="ne"/>
    </properties>
   </tile>
@@ -52,28 +60,34 @@
   </tile>
   <tile id="9">
    <properties>
+    <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{1,0},{0,1}}"/>
     <property name="road" value="sw"/>
    </properties>
   </tile>
   <tile id="10">
    <properties>
     <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{0,-1},{0,0}}"/>
     <property name="road" value="new"/>
    </properties>
   </tile>
   <tile id="11">
    <properties>
     <property name="intersection" value="1"/>
+    <property name="invalid_directions" value="{{1,0},{0,0}}"/>
     <property name="road" value="nsw"/>
    </properties>
   </tile>
   <tile id="12">
    <properties>
+    <property name="invalid_directions" value="{{-1,0},{0,0}}"/>
     <property name="road" value="b_ns_l"/>
    </properties>
   </tile>
   <tile id="13">
    <properties>
+    <property name="invalid_directions" value="{{-1,0},{0,0}}"/>
     <property name="road" value="b_ns_r"/>
    </properties>
   </tile>
@@ -91,6 +105,7 @@
   </tile>
   <tile id="16">
    <properties>
+    <property name="invalid_directions" value="{{0,1},{0,0}}"/>
     <property name="road" value="b_ew_t"/>
    </properties>
   </tile>
@@ -126,6 +141,7 @@
   </tile>
   <tile id="22">
    <properties>
+    <property name="invalid_directions" value="{{0,-1},{0,0}}"/>
     <property name="road" value="b_ew_b"/>
    </properties>
   </tile>
@@ -144,6 +160,7 @@
     <property name="center_y" value="-32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="e"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="1">
@@ -152,6 +169,7 @@
     <property name="center_y" value="32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="w"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="2">
@@ -160,6 +178,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="s"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="3">
@@ -168,6 +187,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="n"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="4">
@@ -176,6 +196,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="s"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="5">
@@ -184,6 +205,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="n"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="6">
@@ -192,6 +214,7 @@
     <property name="center_y" value="96"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="e"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="7">
@@ -200,6 +223,7 @@
     <property name="center_y" value="32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="w"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="8">
@@ -208,6 +232,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="s"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="9">
@@ -216,6 +241,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="n"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="10">
@@ -224,6 +250,7 @@
     <property name="center_y" value="-96"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="w"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="11">
@@ -232,6 +259,7 @@
     <property name="center_y" value="-32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="w"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="12">
@@ -240,6 +268,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="s"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="13">
@@ -248,6 +277,7 @@
     <property name="center_y" value="0"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="n"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
   <tile id="14">
@@ -256,6 +286,7 @@
     <property name="center_y" value="-32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="e"/>
+    <property name="shouldTurnAtIntersections" value="1"/>
    </properties>
   </tile>
   <tile id="15">
@@ -264,22 +295,18 @@
     <property name="center_y" value="32"/>
     <property name="name" value="traffic"/>
     <property name="orientation" value="e"/>
+    <property name="shouldTurnAtIntersections" value="0"/>
    </properties>
   </tile>
  </tileset>
- <layer name="scenery" width="40" height="40">
-  <data encoding="base64" compression="zlib">
-   eJztw8EJAAAMA6H7Zv+Fu0dRcNVUVVVVVVUfPdKxOEE=
-  </data>
- </layer>
  <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmOsKwyAMhV2hY7B1l667vP+TLjAGkkV65NhOZgLnhwcjX6O21RDKxyA6LjBuqXA+Lpbg60SbSFvVzvFOojOR3xl8u5l2jpeqHzOm87XF1wd73SJean+g+QeAr/b6OR/n1can9wO6ln1/2J7zcV5tfKPoEkm3c7yraCLyR4PvKXpE0u0c3UR3w0fG/PSZq6lVYzRy5hft43z/zYd839jzEXIGs75tFvca7z90PCbX+bjcX/GtcT5C//2YZ/P55XKd7x16re7D99pFvdT+0H2tXOturXS0eH9aMlriewE9LxAi
+   eJztl10PgjAMRauI4id+6///pXZvs5SkZQmb8z6chzUrORm3LLREtM1MV4ADyMuKWUSsxdpbS+nfKX4yo1pmrbUjc0rot9TgV7dfS8PcLo21njkn9B8qOD/41eUn58GaZcwH/P7BL8zHJeIq1p7ajbkn9GvzEfxeEW+x9vBgnkrd+syp82vF8341puYPfr/rZ7nfrP831vtN6y3pfhs7z1K+z/DL5zfH/5HWi/mAX4l+G/rO6J6GufXULHu1PYFmxBuAufkAOuQ2NA==
   </data>
  </layer>
  <layer name="spawn_traffic" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztlw0KwyAMhb2Gsp/CGLv/DYewQhdeNLYJ2poPSmuMQTSv0RAcZ2xipc3ZMonpT9RxAu69J7Dh0XsCFyDnNM1jLq8jeZfGRGCv6UVzP9+KsVqw0EePPOfWT3MuKNZomk7kTYngu6YPrp4gLZ6JvXuHxvXSbws3YLPWx0gspP0q+HF9klgLsCGev4faMp+KbW3T8SgWHVPzsQLl3xFGzzdN8v9Fe/3OxLYGobMbV4ckvi1nyplx/e7HQr/c+uXclZzVkF8o2FruRs5xtPUxcv2wPD9zd31qk/it8SS6cY38M2v+aaG1fl+TdQu+
+   eJztmEsOgCAMRL2Gv0TdeP8bGmNMiJnqYOVr30qmCC2xFGwawzC+YADaDLQ+tCOBQPEhjQGtC9Lejq+dRztvbFpCe2pLmo/9D5SQv0tqBxLReeiM9tR2dcuNA7S/7pS2p0qMqR1wiOXLpLSzrMLzncbYSkDKmxqpOVZtbOz7bi1agYb6nfz1fOBLrJpVQ21k71r7+Zm5K0troskv6fzG2nOhhu/Fh2u8IepHTv8AYu7PbM1408cwcmYDczsHvQ==
   </data>
  </layer>
  <objectgroup name="spawn_player">
@@ -302,21 +329,21 @@
   </object>
   <object name="patient_03" type="patient.spawn" x="9440" y="4649.33" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="45"/>
+    <property name="firstSpawnAt" value="50"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
   <object name="patient_04" type="patient.spawn" x="4908" y="8932" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="65"/>
+    <property name="firstSpawnAt" value="75"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
   <object name="patient_05" type="patient.spawn" x="8521.33" y="8928" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="85"/>
+    <property name="firstSpawnAt" value="115"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
@@ -328,31 +355,82 @@
  <objectgroup name="spawn_powerups">
   <object name="fuel.spawn" type="fuel.spawn" x="1792" y="2304" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="90"/>
+    <property name="firstSpawnAt" value="30"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
   <object name="fuel.spawn" type="fuel.spawn" x="7936" y="2304" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="90"/>
+    <property name="firstSpawnAt" value="50"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
   <object name="fuel.spawn" type="fuel.spawn" x="1792" y="7680" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="90"/>
+    <property name="firstSpawnAt" value="65"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
   <object name="fuel.spawn" type="fuel.spawn" x="5376" y="4864" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="90"/>
+    <property name="firstSpawnAt" value="35"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
   <object name="fuel.spawn" type="fuel.spawn" x="7680" y="7680" width="256" height="256">
    <properties>
+    <property name="firstSpawnAt" value="40"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
+   </properties>
+  </object>
+  <object name="fuel.spawn" type="fuel.spawn" x="5601.33" y="2049.33" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="45"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
+   </properties>
+  </object>
+  <object name="fuel.spawn" type="fuel.spawn" x="5407" y="7166" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="50"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
+   </properties>
+  </object>
+  <object name="fuel.spawn" type="fuel.spawn" x="1996" y="5023.33" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="60"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
+   </properties>
+  </object>
+  <object name="fuel.spawn" type="fuel.spawn" x="8160" y="4660" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="55"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
+   </properties>
+  </object>
+  <object name="invincibility.spawn" type="invincibility.spawn" x="9525.67" y="3094.67" width="204" height="192">
+   <properties>
+    <property name="firstSpawnAt" value="15"/>
+    <property name="frequency" value="90"/>
+   </properties>
+  </object>
+  <object name="invincibility.spawn" type="invincibility.spawn" x="2362" y="3564" width="204" height="192">
+   <properties>
     <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="90"/>
+   </properties>
+  </object>
+  <object name="invincibility.spawn" type="invincibility.spawn" x="5492.67" y="5687.33" width="204" height="192">
+   <properties>
+    <property name="firstSpawnAt" value="40"/>
     <property name="frequency" value="90"/>
    </properties>
   </object>

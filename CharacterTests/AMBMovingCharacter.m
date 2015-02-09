@@ -6,6 +6,10 @@
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
 
+
+#define TICK    NSDate *startTime = [NSDate date]
+#define TOCK    NSLog(@"%s Time: %f", __func__, -[startTime timeIntervalSinceNow])
+
 #import "AMBMovingCharacter.h"
 #import "SKTUtils.h"
 
@@ -17,7 +21,7 @@ static const int TILE_LANE_WIDTH = 32;
 
 
 @property NSTimeInterval sceneDelta;
-@property CGFloat characterSpeedMultiplier; // 0-1; velocity gets multiplied by this before the sprite is moved
+
 @property CGFloat originalSpeed; // used as comparison when adjusting speed. there's probably a slicker way to do this.
 
 @end
@@ -67,11 +71,9 @@ static const int TILE_LANE_WIDTH = 32;
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsDrivingStraight;
             #if DEBUG_PLAYER_CONTROL
-
                 NSLog(@"[control] PlayerIsAccelerating -> startMoving -> PlayerIsDrivingStraight");
-            }
             #endif
-    
+            }
     }];
     
 
@@ -79,11 +81,11 @@ static const int TILE_LANE_WIDTH = 32;
     
 }
 
--(void)stopMoving {
+-(void)stopMovingWithDecelTime:(CGFloat)decel {
     //if ([self hasActions]) return; // TODO: commented this out to improve the snappiness of the controls. this results in a jerky motion
     
-    SKAction *stopMoving = [SKAction customActionWithDuration:self.decelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
-        float t = elapsedTime / self.decelTimeSeconds;
+    SKAction *stopMoving = [SKAction customActionWithDuration:decel actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float t = elapsedTime / decel;
         t = sinf(t * M_PI_2);
         _characterSpeedMultiplier = 1 - t;
     }];
@@ -100,7 +102,6 @@ static const int TILE_LANE_WIDTH = 32;
     
     }];
     
-    
 }
 
 - (void)adjustSpeedToTarget:(CGFloat)targetSpeed {
@@ -109,12 +110,14 @@ static const int TILE_LANE_WIDTH = 32;
         CGFloat delta = self.speedPointsPerSec - targetSpeed;
         _originalSpeed = self.speedPointsPerSec;
         
-        SKAction *adjustSpeed = [SKAction customActionWithDuration:self.decelTimeSeconds actionBlock:^(SKNode *node, CGFloat elapsedTime){
-            float t = elapsedTime / self.decelTimeSeconds;
+        CGFloat adjDecelTime = self.decelTimeSeconds / 1.5;
+        
+        SKAction *adjustSpeed = [SKAction customActionWithDuration:adjDecelTime actionBlock:^(SKNode *node, CGFloat elapsedTime){
+            float t = elapsedTime / adjDecelTime;
             t = sinf(t * M_PI_2);
             self.speedPointsPerSec = _originalSpeed - delta * t;
-            //NSLog(@"[adjustSpeedToTarget] %1.5f-> %1.5f",_originalSpeed, self.speedPointsPerSec);
         }];
+        
         
         [self runAction:adjustSpeed withKey:@"adjustSpeed"];
     }
@@ -136,44 +139,44 @@ static const int TILE_LANE_WIDTH = 32;
         angle += (2 * M_PI);
     }
     
-    //NSLog(@"angle=%f",RadiansToDegrees(angle));
     
     SKAction *rotateSprite = [SKAction rotateToAngle:angle duration:self.pivotSpeed];
     [sprite runAction:rotateSprite completion:^(void) {
         // update the direction of the sprite
-        self.direction = CGPointForAngle(sprite.zRotation);
-        
-        
+        self.direction = [self getDirectionFromAngle:self.zRotation];
     }];
     
-    SKAction *wait = [SKAction waitForDuration:0.35]; // wait this duration before being allowed to change lanes
+    SKAction *wait = [SKAction waitForDuration:0.2]; // wait this duration before being allowed to change lanes
     [sprite runAction:wait completion:^(void){
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsDrivingStraight;
 #if DEBUG_PLAYER_CONTROL
-            NSLog(@"[control] PlayerIsTurning -> rotateByAngle -> PlayerIsDrivingStraight");
+            NSLog(@"[control] PlayerIsTurning -> rotateByAngle (%1.0f,%1.0f) -> PlayerIsDrivingStraight",self.direction.x,self.direction.y);
 #endif
         }
         
     }];
     
+
+}
+
+- (CGPoint)getDirectionFromAngle:(CGFloat)angle {
+    CGPoint vector = CGPointForAngle(angle); // the vector may be close to 0 or 1
+
+    CGFloat x = roundf(vector.x); // round to get whole numbers
+    CGFloat y = roundf(vector.y);
     
-    //Fixes the directions so that you dont end up with a situation where you have -0.00000.  I dont even know how that could happen.  BUT IT DOES
-    if (self.direction.x <= 0.0001 && self.direction.x >= -0.0001) {//slightly more than 0 and slightly less than 0
-        self.direction = CGPointMake(0, self.direction.y);
-    }
-    if (self.direction.y <= 0.0001 && self.direction.y >= -0.0001) {//slightly more than 0 and slightly less than 0
-        self.direction = CGPointMake(self.direction.y, 0);
-    }
+    x = (fabsf(x) == 0) ? 0 : x; // remove any negative zeros
+    y = (fabsf(y) == 0) ? 0 : y;
     
-    //NSLog(@"vector=%1.0f,%1.0f|z rotation=%1.5f",self.direction.x, self.direction.y,sprite.zRotation);
+    return CGPointMake(x, y);
 }
 
 - (void)moveBy:(CGVector)targetOffset {
     //NSLog(@"<moveBy>");
     //if ([self actionForKey:@"moveBy"]) { return; }
     
-    SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.2];
+    SKAction *changeLanes = [SKAction moveBy:targetOffset duration:0.125];
     //changeLanes.timingMode = SKActionTimingEaseInEaseOut;
     [self runAction:changeLanes completion:^(void){
 
@@ -190,12 +193,13 @@ static const int TILE_LANE_WIDTH = 32;
 }
 
 - (void)moveSprite:(SKSpriteNode *)sprite directionNormalized:(CGPoint)direction {
-    
+    // TODO: replace with an action so we can use .paused on objects
     CGPoint velocity = CGPointMultiplyScalar(direction, self.speedPointsPerSec);
     CGPoint amountToMove = CGPointMultiplyScalar(velocity, self.sceneDelta);
-    
     CGPoint amountToMoveSpeedMult = CGPointMultiplyScalar(amountToMove, _characterSpeedMultiplier);
-    sprite.position = CGPointAdd(sprite.position, amountToMoveSpeedMult);
+    CGPoint newPosition = CGPointAdd(sprite.position, amountToMoveSpeedMult);
+    
+    sprite.position = newPosition;
     
     
 }
@@ -225,17 +229,22 @@ static const int TILE_LANE_WIDTH = 32;
      */
     
     
+//
+
+#warning Make sure the new way of using currentTile still catches illegal coordinates
+//    // catch bug for nil currentTile (can happen when traffic drives off the map)
+//    if (!currentTile) {
+////        NSLog(@"currentTile is nil - returning from method");
+//        return;
+//    }
+
     
-    SKSpriteNode *currentTile = [self.levelScene.mapLayerRoad tileAt:self.position];
-//    _currentTileProperties = [self.levelScene.tilemap propertiesForGid:[self.levelScene.mapLayerRoad tileGidAt:self.position]]; // moved this into update so we can get it every frame, since I'd like to check if traffic is on an intersection or not
+    //CGPoint playerPosInTile = [currentTile convertPoint:self.position fromNode:self.levelScene.tilemap];
     
-    // catch bug for nil currentTile (can happen when traffic drives off the map)
-    if (!currentTile) {
-//        NSLog(@"currentTile is nil - returning from method");
-        return;
-    }
+    // using this to convert coordinate spaces because it's MUCH faster than instantiating a currentTile object and converting points that way
+    CGPoint currentTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:self.position]];
+    CGPoint playerPosInTile = CGPointSubtract(self.position, currentTilePos);
     
-    CGPoint playerPosInTile = [currentTile convertPoint:self.position fromNode:self.levelScene.tilemap];
     
     BOOL isWithinBounds;
     BOOL currentTileIsMultiLane;
@@ -258,6 +267,7 @@ static const int TILE_LANE_WIDTH = 32;
         
         targetPoint = CGPointAdd(rotatedPoint, self.position);
         isWithinBounds = [self isTargetPointValid:targetPoint];
+
         
         if (isWithinBounds) {
             self.controlState = PlayerIsTurning;
@@ -273,6 +283,7 @@ static const int TILE_LANE_WIDTH = 32;
             
             
             _requestedMoveEvent = NO; // put this in MovingCharacter's update loop
+            
             return;
         }
         
@@ -317,15 +328,14 @@ static const int TILE_LANE_WIDTH = 32;
     } else {
         targetOffset = CGVectorMake(0, (targetLaneNormalized * TILE_LANE_WIDTH) - pos);        }
     
-    targetPoint = CGPointAdd(playerPosInTile, CGPointMake(targetOffset.dx, targetOffset.dy));
+    targetPoint = CGPointAdd(self.position, CGPointMake(targetOffset.dx, targetOffset.dy));
 #if DEBUG
     //NSLog(@"LANE CHANGE: (%1.8f,%1.8f)[%ld] -> (%1.8f,%1.8f)[%ld]",playerPosInTile.x, playerPosInTile.y, (long)posNormalized, targetPoint.x, targetPoint.y, (long)targetLaneNormalized); // current position (lane) -> new position (lane)
 #endif
     
-    targetPoint = [self.levelScene.tilemap convertPoint:targetPoint fromNode:currentTile]; // convert target point back to real world coords
     
     isWithinBounds = [self isTargetPointValid:targetPoint];
-    
+
     if (isWithinBounds) {
         if (snap) {
             self.controlState = PlayerIsChangingLanes;
@@ -350,20 +360,21 @@ static const int TILE_LANE_WIDTH = 32;
     // this is for the traffic AI only at this point; players request turns manually by pressing down on the button
     _requestedMoveEvent = YES;
     _requestedMoveEventDegrees = degrees;
-    
+
 }
 
 
 - (BOOL)isTargetPointValid: (CGPoint)targetPoint {
-    BOOL pointIsValid = NO;
-    
+
     // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
-    SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn
-    
+
     NSString *targetTileRoadType = [self.levelScene.tilemap propertiesForGid:  [self.levelScene.mapLayerRoad tileGidAt:targetPoint]  ][@"road"];
-    CGPoint positionInTargetTile = [targetTile convertPoint:targetPoint fromNode:self.levelScene.tilemap]; // the position of the target within the target tile
+    CGPoint targetTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:targetPoint]];
+    CGPoint positionInTargetTile = CGPointSubtract(targetPoint, targetTilePos);
     
 #if DEBUG_PLAYER_CONTROL
+    SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn. tileAt ultimately works by finding the node by name, which is computationally expensive. the only use of this line is to figure out the coordinates of the player within the tile.
+
     SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
     targetPointSprite.name = @"DEBUG_targetPointSprite";
     targetPointSprite.position = positionInTargetTile;
@@ -376,11 +387,11 @@ static const int TILE_LANE_WIDTH = 32;
 #endif
     
     if (targetTileRoadType) {
-        // check the coordinates to make sure it's on ROAD SURFACE within the tile
+        // if it's a road tile, check the coordinates to make sure it's on ROAD SURFACE within the tile
         
         CGPathRef path = (__bridge CGPathRef)([self.levelScene.roadTilePaths objectForKey:targetTileRoadType]); // TODO: memory leak because of bridging?
         
-        pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
+        BOOL pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
 #if DEBUG_PLAYER_CONTROL
         if ([self.name isEqualToString:@"player"]) {
@@ -392,26 +403,26 @@ static const int TILE_LANE_WIDTH = 32;
             bounds.path = path;
             bounds.fillColor = [SKColor whiteColor];
             bounds.alpha = 0.5;
-            bounds.zPosition = targetPointSprite.zPosition - 1;
+            bounds.zPosition = targetPointSprite.zPosition + 10;
             
             [targetTile addChild:bounds];
             [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
         }
 #endif
         
-        
-        return CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
+        return pointIsValid;
     }
     
-    return pointIsValid;
+    return NO; // no, it's not valid because it's not on a road tile!
 }
 
-//- (void)changeLanes: (CGFloat)degrees {
-//    // "manual" player control, using the left or right controls slides the player over a set amount
-//    CGPoint laneChangeVector = CGPointRotate(self.direction, degrees);
-//    CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 256*self.sceneDelta); // # of points to move
-//    CGVector moveVector = CGVectorMake(moveAmt.x, moveAmt.y);
-//    [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
-//}
+/** Given a coordinate in the tilemap, calculates the center point of the tile in the tilemap coordinate system.  */
+- (CGPoint)centerOfTileAtCoord:(CGPoint)coord {
+    return CGPointZero;
+}
+
+- (void)startMovingTransitionState {
+    // stub; overridden by Player.
+}
 
 @end
