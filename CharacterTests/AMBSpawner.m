@@ -43,6 +43,10 @@
         _spawnObjects = objects;
         _spawnObjectsCount = [_spawnObjects count];
         
+        if (_frequency <= 0) {
+            _frequency = INFINITY; // protect against missing properties in TMX file; otherwise an object will spawn every frame!
+        }
+        
         [self setNextSpawn];
     }
     

@@ -541,6 +541,10 @@ typedef enum {
             powerupType = AMBPowerupFuel;
         } else if ([objectName isEqualToString:@"invincibility.spawn"]) {
             powerupType = AMBPowerupInvincibility;
+        } else {
+            // skip; it's invalid
+            NSLog(@"Skipping invalid spawn object in powerups");
+            continue;
         }
         
         
