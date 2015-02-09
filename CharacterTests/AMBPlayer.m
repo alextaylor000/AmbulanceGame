@@ -331,6 +331,7 @@
             break;
             
         case categoryPowerup:
+
             if ([other.node.name isEqualToString:@"fuel"]) {
                 if (_fuel < 3) {
                     _fuel++;
@@ -346,6 +347,12 @@
             } else if ([other.node.name isEqualToString:@"invincibility"]) {
                 action = [SKAction sequence:@[[SKAction colorizeWithColor:[SKColor greenColor] colorBlendFactor:0.6 duration:0.25],[SKAction waitForDuration:PLAYER_INVINCIBLE_TIME],[SKAction colorizeWithColorBlendFactor:0.0 duration:0.25]]];
                 [self runAction:action withKey:@"invincibility"]; // as long as this action exists on the player, the player will be immune to traffic
+                
+
+                AMBCharacter *powerup = (AMBCharacter *)other.node;
+                [powerup removeFromParent];
+                [powerup.minimapAvatar removeFromParent];
+                
             }
 
             break;

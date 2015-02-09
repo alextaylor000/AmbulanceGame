@@ -388,7 +388,7 @@
     <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5601.33" y="2049.33" width="256" height="256">
+  <object name="fuel.spawn" type="fuel.spawn" x="2797.33" y="1065.33" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="45"/>
     <property name="frequency" value="30"/>
@@ -416,6 +416,6 @@
     <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
-  <object name="invincibility.spawn" x="4152" y="1100" width="144" height="128"/>
+  <object name="invincibility.spawn" x="4148" y="1284" width="144" height="128"/>
  </objectgroup>
 </map>
