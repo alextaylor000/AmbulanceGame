@@ -302,6 +302,7 @@
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
     SKAction *action;
+    SKAction *speedPenalty = [SKAction sequence:@[[SKAction waitForDuration:5.0],[SKAction runBlock:^(void) { [self adjustSpeedToTarget:self.nativeSpeed]; NSLog(@"Speed penalty end"); [self removeActionForKey:@"blink"]; }]]];
     
     switch (other.categoryBitMask) {
         case categoryPatient:
@@ -310,7 +311,13 @@
             
         case categoryTraffic:
             action = [SKAction sequence:@[[SKAction fadeAlphaTo:0.1 duration:0],[SKAction waitForDuration:0.1],[SKAction fadeAlphaTo:1.0 duration:0.1],[SKAction waitForDuration:0.1]]];
-            [self runAction:[SKAction repeatAction:action count:5]];
+            [self runAction:[SKAction repeatActionForever:action] withKey:@"blink"];
+            
+            // slow down the player temporarily
+            [self adjustSpeedToTarget:self.nativeSpeed * 0.75];
+            NSLog(@"Speed penalty begin");
+            [self runAction: speedPenalty];
+            
             break;
             
         case categoryHospital:
