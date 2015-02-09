@@ -25,7 +25,7 @@
 
 
 @property SKSpriteNode *sirens;
-@property SKAction *sirensOn;
+
 @property AMBScoreKeeper *scoreKeeper;
 @property NSTimeInterval fuelTimer; // times when the fuel started being depleted by startMoving
 
@@ -33,6 +33,8 @@
 @end
 
 @implementation AMBPlayer
+
+
 
 
 - (instancetype) init {
@@ -64,12 +66,13 @@
     _state = AmbulanceIsEmpty; // set initial ambulance state
     
     // sirens! wee-ooh, wee-oh, wee-ooh...
-    SKTextureAtlas *sirenAtlas = [SKTextureAtlas atlasNamed:@"sirens"];
-    SKTexture *sirenLeft = [sirenAtlas textureNamed:@"amulance_sirens_left.png"];
-    SKTexture *sirenRight = [sirenAtlas textureNamed:@"amulance_sirens_right.png"];
-    _sirensOn = [SKAction animateWithTextures:@[sirenLeft, sirenRight] timePerFrame:0.8];
+    // moved into shared asset loading
+//    SKTextureAtlas *sirenAtlas = [SKTextureAtlas atlasNamed:@"sirens"];
+//    SKTexture *sirenLeft = [sirenAtlas textureNamed:@"amulance_sirens_left.png"];
+//    SKTexture *sirenRight = [sirenAtlas textureNamed:@"amulance_sirens_right.png"];
+    //_sirensOn = [SKAction animateWithTextures:@[sirenLeft, sirenRight] timePerFrame:0.8];
 
-    _sirens = [SKSpriteNode spriteNodeWithTexture:sirenLeft];
+    _sirens = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"amulance_sirens_left"]];
     _sirens.hidden = YES;
     _sirens.position = CGPointMake(25, 0);
     _sirens.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
@@ -264,7 +267,8 @@
             break;
             
         case AmbulanceIsOccupied:
-            [_sirens runAction:[SKAction repeatActionForever:_sirensOn] withKey:@"sirensOn"];
+            //[_sirens runAction:[SKAction repeatActionForever:_sirensOn] withKey:@"sirensOn"];
+            [_sirens runAction:sSirensOn withKey:@"sirensOn"];
             _sirens.hidden = NO;
             [owningScene.indicator removeTarget:self.patient];
             break;
@@ -539,6 +543,28 @@
         NSLog(@"%@", message);
     #endif
     
+}
+
+
+#pragma mark Assets
++ (void)loadSharedAssets {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        SKTextureAtlas *sirenAtlas = [SKTextureAtlas atlasNamed:@"sirens"];
+        SKTexture *sirenLeft = [sirenAtlas textureNamed:@"amulance_sirens_left"];
+        SKTexture *sirenRight = [sirenAtlas textureNamed:@"amulance_sirens_right"];
+        
+        sSirensOn = [SKAction repeatActionForever:[SKAction animateWithTextures:@[sirenLeft, sirenRight] timePerFrame:0.8]];
+        
+    });
+    
+}
+
+static SKAction* sSirensOn = nil;
+- (SKAction *)sirensOn {
+    return sSirensOn;
 }
 
 @end

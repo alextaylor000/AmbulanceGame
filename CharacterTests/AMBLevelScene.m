@@ -566,6 +566,7 @@ typedef enum {
 + (void)loadSceneAssets {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
     
+    [AMBPlayer loadSharedAssets];
     [AMBTrafficVehicle loadSharedAssets];
     
 }

@@ -249,6 +249,7 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+    
         // should we preload this atlas, since we need it a bunch of times? where should we do it?
         SKTextureAtlas *gameObjectSprites = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
         
