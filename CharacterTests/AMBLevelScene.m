@@ -567,6 +567,7 @@ typedef enum {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
     
     [AMBPlayer loadSharedAssets];
+    [AMBPowerup loadSharedAssets];
     [AMBTrafficVehicle loadSharedAssets];
     
 }
