@@ -504,10 +504,12 @@
             if (keyDown) {
                 // TODO: these are actually redundant at the moment, since once this state is enabled it can only be disabled by a keyUp event.
                 if   (input == PlayerControlsTurnLeft) {
+                    self.laneChangeDegrees = 90; // fixes issue #36
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyDOWN/turnLeft";
                     [self printMessage:message];
                     
                 } else if   (input == PlayerControlsTurnRight) {
+                    self.laneChangeDegrees = -90; // fixes issue #36
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyDOWN/turnRight";
                     [self printMessage:message];
                 }
@@ -539,7 +541,7 @@
 }
 
 - (void)printMessage:(NSString *)message {
-    #if DEBUG_PLAYER_CONTROL
+    #if DEBUG_PLAYER_SWIPE
         NSLog(@"%@", message);
     #endif
     
