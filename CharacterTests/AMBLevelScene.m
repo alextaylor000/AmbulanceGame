@@ -104,11 +104,16 @@ typedef enum {
 #if TARGET_OS_IPHONE
     self.gesturePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
 
+    
     self.gestureTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
     [self.gestureTap setNumberOfTapsRequired:2]; // 2 taps to stop/start
     
     self.gestureLongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)]; // long press to slow
     [self.gestureLongPress setMinimumPressDuration:0.15];
+    [self.gestureLongPress setAllowableMovement:1];
+    
+    self.gesturePanInLongPress = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+    [self.gesturePanInLongPress requireGestureRecognizerToFail:self.gestureLongPress];
 
     [view addGestureRecognizer:self.gesturePan];
     [view addGestureRecognizer:self.gestureTap];
