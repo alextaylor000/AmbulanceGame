@@ -110,17 +110,17 @@ typedef enum {
     
     self.gestureLongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)]; // long press to slow
     [self.gestureLongPress setMinimumPressDuration:0.15];
-    [self.gestureLongPress setAllowableMovement:1];
-    
-    self.gesturePanInLongPress = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
-    [self.gesturePanInLongPress requireGestureRecognizerToFail:self.gestureLongPress];
 
+    self.gesturePan.delegate = self;
+    self.gestureLongPress.delegate = self;
+    
     [view addGestureRecognizer:self.gesturePan];
     [view addGestureRecognizer:self.gestureTap];
     [view addGestureRecognizer:self.gestureLongPress];
 #endif
     
 }
+
 
 - (void)willMoveFromView:(SKView *)view {
 #if TARGET_OS_IPHONE
@@ -1095,7 +1095,6 @@ typedef enum {
 
  
 }
-
 
 
 
