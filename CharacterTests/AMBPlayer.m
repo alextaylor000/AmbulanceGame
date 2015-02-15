@@ -38,7 +38,7 @@
 
 
 - (instancetype) init {
-    self = [super initWithImageNamed:@"asset_ambulance_20140609"]; // loads from texture atlas
+    self = [super initWithTexture:sPlayerSprite]; // loads from texture atlas
     
     // set constants
     self.nativeSpeed = 600;
@@ -67,12 +67,8 @@
     
     // sirens! wee-ooh, wee-oh, wee-ooh...
     // moved into shared asset loading
-//    SKTextureAtlas *sirenAtlas = [SKTextureAtlas atlasNamed:@"sirens"];
-//    SKTexture *sirenLeft = [sirenAtlas textureNamed:@"amulance_sirens_left.png"];
-//    SKTexture *sirenRight = [sirenAtlas textureNamed:@"amulance_sirens_right.png"];
-    //_sirensOn = [SKAction animateWithTextures:@[sirenLeft, sirenRight] timePerFrame:0.8];
 
-    _sirens = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:@"amulance_sirens_left"]];
+    _sirens = [SKSpriteNode spriteNodeWithTexture:sSirenDefaultTexture];
     _sirens.hidden = YES;
     _sirens.position = CGPointMake(25, 0);
     _sirens.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
@@ -306,7 +302,9 @@
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
     SKAction *action;
-    SKAction *speedPenalty = [SKAction sequence:@[[SKAction waitForDuration:5.0],[SKAction runBlock:^(void) { [self adjustSpeedToTarget:self.nativeSpeed]; NSLog(@"Speed penalty end"); [self removeActionForKey:@"blink"]; }]]];
+#warning preload this action
+    SKAction *speedPenalty = [SKAction sequence:@[[SKAction waitForDuration:5.0],[SKAction runBlock:^(void) { [self adjustSpeedToTarget:self.nativeSpeed]; NSLog(@"Speed penalty end"); [self removeActionForKey:@"blink"]; self.alpha = 1.0; // reset alpha
+    }]]];
     
     switch (other.categoryBitMask) {
         case categoryPatient:
@@ -315,6 +313,8 @@
             
         case categoryTraffic:
             if (![self actionForKey:@"invincibility"]) {
+#warning preload this action
+                
                 action = [SKAction sequence:@[[SKAction fadeAlphaTo:0.1 duration:0],[SKAction waitForDuration:0.1],[SKAction fadeAlphaTo:1.0 duration:0.1],[SKAction waitForDuration:0.1]]];
                 [self runAction:[SKAction repeatActionForever:action] withKey:@"blink"];
                 
@@ -349,6 +349,7 @@
                     
                 }
             } else if ([other.node.name isEqualToString:@"invincibility"]) {
+#warning preload this action
                 action = [SKAction sequence:@[[SKAction colorizeWithColor:[SKColor greenColor] colorBlendFactor:0.6 duration:0.25],[SKAction waitForDuration:PLAYER_INVINCIBLE_TIME],[SKAction colorizeWithColorBlendFactor:0.0 duration:0.25]]];
                 [self runAction:action withKey:@"invincibility"]; // as long as this action exists on the player, the player will be immune to traffic
                 
@@ -554,19 +555,25 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
+        SKTextureAtlas *gameObjectSprites = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
+        sPlayerSprite = [gameObjectSprites textureNamed:@"ambulance"];
+        
         SKTextureAtlas *sirenAtlas = [SKTextureAtlas atlasNamed:@"sirens"];
         SKTexture *sirenLeft = [sirenAtlas textureNamed:@"amulance_sirens_left"];
-        SKTexture *sirenRight = [sirenAtlas textureNamed:@"amulance_sirens_right"];
-        
+        SKTexture *sirenRight = [sirenAtlas textureNamed:@"amulance_sirens_right"];        
         sSirensOn = [SKAction repeatActionForever:[SKAction animateWithTextures:@[sirenLeft, sirenRight] timePerFrame:0.8]];
+        
+        
+        
         
     });
     
 }
 
+static SKTexture *sPlayerSprite = nil;
+
+static SKTexture *sSirenDefaultTexture = nil;
+
 static SKAction* sSirensOn = nil;
-- (SKAction *)sirensOn {
-    return sSirensOn;
-}
 
 @end
