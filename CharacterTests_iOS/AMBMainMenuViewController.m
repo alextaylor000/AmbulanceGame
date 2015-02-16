@@ -19,7 +19,7 @@
 @implementation AMBMainMenuViewController
 
 - (void)viewWillAppear:(BOOL)animated {
-    
+
     [AMBLevelScene loadSceneAssetsWithCompletionHandler:^ {
         // will this keep the launch screen visible until the assets are loaded?
         // continue with loading the view

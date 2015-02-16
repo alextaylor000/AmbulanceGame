@@ -41,6 +41,7 @@
 }
 
 #pragma mark Assets
+
 + (void)loadSharedAssets {
     [super loadSharedAssets];
     
@@ -223,6 +224,9 @@
     [self.userData setObject:[NSNumber numberWithDouble:timeToLive] forKey:@"timeToLive"];
     [self.userData setObject:[NSNumber numberWithInteger:points] forKey:@"points"];
 }
+
+
+
 
 
 @end
