@@ -100,6 +100,8 @@ typedef enum {
 
 - (void)didMoveToView:(SKView *)view {
     
+    NSLog(@"View is %1.0fx%1.0f",view.bounds.size.width,view.bounds.size.height);
+    
     self.panGestureState = GestureIdle;
 #if TARGET_OS_IPHONE
     self.gesturePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
@@ -234,7 +236,8 @@ typedef enum {
         // start the clock
         _gameStartTime = CACurrentMediaTime();
 
-
+        SKSpriteNode *tester = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(768, 1024)];
+        [self addChild:tester];
         
     }
     return self;

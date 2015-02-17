@@ -25,8 +25,20 @@
     if (!_skView) {
         _skView = [[SKView alloc] initWithFrame:self.view.bounds];
         _gameScene = [[AMBLevelScene alloc]initWithSize:_skView.bounds.size gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType];
+
         
-        _gameScene.scaleMode = SKSceneScaleModeAspectFit;
+        _gameScene.scaleMode = SKSceneScaleModeAspectFill;
+        
+        NSLog(@"Presenting game view with a size of %1.0f,%1.0f, ScaleMode %ld", _skView.bounds.size.width, _skView.bounds.size.height, _gameScene.scaleMode);
+        /*
+         For reference:
+         0 SKSceneScaleModeFill ,
+         1 SKSceneScaleModeAspectFill ,
+         2 SKSceneScaleModeAspectFit ,
+         3 SKSceneScaleModeResizeFill
+         */
+        
+        
         [_skView presentScene:_gameScene];
         
         [self.view addSubview:_skView];
