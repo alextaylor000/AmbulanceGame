@@ -35,6 +35,7 @@ typedef NS_ENUM(int, AMBGameType) {
 #if TARGET_OS_IPHONE
 @interface AMBGameScene : SKScene <UIGestureRecognizerDelegate>
 @property UIPanGestureRecognizer *gesturePan;
+//@property UIPanGestureRecognizer *gesturePanInLongPress; // explicitly recognizes pans after/during a long press
 @property UISwipeGestureRecognizer *gestureSwipeUp;
 @property UISwipeGestureRecognizer *gestureSwipeDown;
 @property UITapGestureRecognizer *gestureTap;
@@ -52,7 +53,7 @@ typedef NS_ENUM(int, AMBGameType) {
 + (void)loadSceneAssets;
 
 - (JSTileMap *)tileMapFromFile:(NSString *)filename;
-    
+
 
 
 @end

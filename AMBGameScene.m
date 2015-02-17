@@ -21,6 +21,8 @@
         
         self.anchorPoint = CGPointMake(0.5, 0.5);
         self.physicsWorld.gravity = CGVectorMake(0, 0);
+        
+        
     }
     
     return self;
@@ -49,5 +51,13 @@
   // overridden by subclasses.
 }
 
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+#if DEBUG_PLAYER_SWIPE
+    NSLog(@"[control] simultaneous gesture detected");
+#endif
+    return YES;    // for pan and long press
+    
+}
 
 @end

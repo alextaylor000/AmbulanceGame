@@ -133,9 +133,7 @@
 #endif
     }
     
-//#if DEBUG
-//    NSLog(@"<<<< firing spawn event >>>>");
-//#endif
+
 }
 
 @end

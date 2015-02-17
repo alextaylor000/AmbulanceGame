@@ -104,18 +104,23 @@ typedef enum {
 #if TARGET_OS_IPHONE
     self.gesturePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
 
+    
     self.gestureTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
     [self.gestureTap setNumberOfTapsRequired:2]; // 2 taps to stop/start
     
     self.gestureLongPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)]; // long press to slow
     [self.gestureLongPress setMinimumPressDuration:0.15];
 
+    self.gesturePan.delegate = self;
+    self.gestureLongPress.delegate = self;
+    
     [view addGestureRecognizer:self.gesturePan];
     [view addGestureRecognizer:self.gestureTap];
     [view addGestureRecognizer:self.gestureLongPress];
 #endif
     
 }
+
 
 - (void)willMoveFromView:(SKView *)view {
 #if TARGET_OS_IPHONE
@@ -562,10 +567,17 @@ typedef enum {
 }
 
 
+#pragma mark Assets
 + (void)loadSceneAssets {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
     
+    [AMBPlayer loadSharedAssets];
+    [AMBPowerup loadSharedAssets];
+    [AMBTrafficVehicle loadSharedAssets];
+    
 }
+
+
 
 
 
@@ -948,6 +960,7 @@ typedef enum {
 - (void)handlePan:(UIGestureRecognizer *)recognizer {
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
     
+    static CGFloat PAN_REVERSE_VEL = 200; // issue #36
     
 //#if DEBUG_PLAYER_CONTROL
 //    NSLog(@"handlePanl state=%li, velocity%1.0f,%1.0f",recognizer.state,vel.x,vel.y);
@@ -991,7 +1004,7 @@ typedef enum {
                 break;
             }
             
-            if (vel.x <= 2) { // LEFT, with 2 pts margin of error
+            if (vel.x <= PAN_REVERSE_VEL) { // LEFT, with margin of error
                 [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
 #if DEBUG_PLAYER_SWIPE
                 _swipeLabel.text = @"<<";
@@ -1000,9 +1013,10 @@ typedef enum {
                 
             } else { // RIGHT
                 self.panGestureState = GestureRightDown;
-                [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+                [_player handleInput:PlayerControlsTurnRight keyDown:YES]; 
 #if DEBUG_PLAYER_SWIPE
                 _swipeLabel.text = @">>";
+                NSLog(@"[control] left->right with velocity %1.0f", vel.x);
 #endif
                 
             }
@@ -1022,7 +1036,7 @@ typedef enum {
                 break;
             }
             
-            if (vel.x >= -2) { // RIGHT, with 2 pts margin of error
+            if (vel.x >= -PAN_REVERSE_VEL) { // RIGHT, with margin of error
                 [_player handleInput:PlayerControlsTurnRight keyDown:YES];
 #if DEBUG_PLAYER_SWIPE
                 _swipeLabel.text = @">>";
@@ -1034,6 +1048,7 @@ typedef enum {
                 [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
 #if DEBUG_PLAYER_SWIPE
                 _swipeLabel.text = @"<<";
+                NSLog(@"[control] right->left with velocity %1.0f", vel.x);
 #endif
                 
             }
@@ -1080,7 +1095,6 @@ typedef enum {
 
  
 }
-
 
 
 

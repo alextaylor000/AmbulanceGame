@@ -26,7 +26,7 @@
         _skView = [[SKView alloc] initWithFrame:self.view.bounds];
         _gameScene = [[AMBLevelScene alloc]initWithSize:_skView.bounds.size gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType];
         
-        _gameScene.scaleMode = SKSceneScaleModeAspectFill;
+        _gameScene.scaleMode = SKSceneScaleModeAspectFit;
         [_skView presentScene:_gameScene];
         
         [self.view addSubview:_skView];
