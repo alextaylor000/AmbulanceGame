@@ -24,10 +24,20 @@
     
     if (!_skView) {
         _skView = [[SKView alloc] initWithFrame:self.view.bounds];
-        _gameScene = [[AMBLevelScene alloc]initWithSize:_skView.bounds.size gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType];
+
+        CGSize sceneSize = CGSizeMake(576, 1024);
+        
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+           sceneSize = CGSizeMake(768, 1024);
+        }
+        
+        /* In this configuration (576x1024, AspectFit), the full height is preserved. Pillarboxed on iPad.  */
+        _gameScene = [[AMBLevelScene alloc]initWithSize:sceneSize gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType];
+        _gameScene.scaleMode = SKSceneScaleModeAspectFit;
 
         
-        _gameScene.scaleMode = SKSceneScaleModeAspectFill;
+
+        
         
         NSLog(@"Presenting game view with a size of %1.0f,%1.0f, ScaleMode %ld", _skView.bounds.size.width, _skView.bounds.size.height, _gameScene.scaleMode);
         /*

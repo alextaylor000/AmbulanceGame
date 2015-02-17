@@ -236,7 +236,8 @@ typedef enum {
         // start the clock
         _gameStartTime = CACurrentMediaTime();
 
-        SKSpriteNode *tester = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(768, 1024)];
+        SKSpriteNode *tester = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(10, 1004)];
+        
         [self addChild:tester];
         
     }
