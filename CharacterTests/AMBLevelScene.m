@@ -185,15 +185,20 @@ typedef enum {
         
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
         if (!labelScore.parent) {
-            //[self addChild:labelScore];
+            [self addChild:labelScore];
         }
      
         
         // event label
-        SKLabelNode *labelEvent = [_scoreKeeper createEventlabelAtPos:CGPointZero];
-        if (!labelEvent.parent) {
-            [self addChild:labelEvent];
-        }
+//        SKLabelNode *labelEvent = [_scoreKeeper createEventlabelAtPos:CGPointZero];
+//        if (!labelEvent.parent) {
+//            [self addChild:labelEvent];
+//        }
+        
+        // notification node
+        SKSpriteNode *notifications = [_scoreKeeper createNotificationAtPos:CGPointZero];
+
+        [self addChild:notifications];
         
         
         // clock... for testing at the moment, but who knows...?
@@ -202,7 +207,7 @@ typedef enum {
         _labelClock.fontColor = [SKColor yellowColor];
         _labelClock.text = @"00:00";
         _labelClock.position = CGPointMake(self.size.width/2 - 250, self.size.height/2 -150);
-        //[self addChild:_labelClock];
+        [self addChild:_labelClock];
         
         
         
@@ -213,7 +218,7 @@ typedef enum {
         _fuelStatus.fontColor = [SKColor yellowColor];
         _fuelStatus.position = CGPointMake(self.size.width/2 - 250, self.size.height/2-75);
         _fuelStatus.zPosition = 999;
-        //[self addChild:_fuelStatus];
+        [self addChild:_fuelStatus];
         
 
         
@@ -224,7 +229,7 @@ typedef enum {
         _patientTimeToLive.fontColor = [SKColor yellowColor];
         _patientTimeToLive.position = CGPointMake(self.size.width/2 - 250, self.size.height/2-100);
         _patientTimeToLive.zPosition = 999;
-        //[self addChild:_patientTimeToLive];
+        [self addChild:_patientTimeToLive];
 
     
         
@@ -571,6 +576,7 @@ typedef enum {
 + (void)loadSceneAssets {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
     
+    [AMBScoreKeeper loadSharedAssets];
     [AMBPlayer loadSharedAssets];
     [AMBPowerup loadSharedAssets];
     [AMBTrafficVehicle loadSharedAssets];

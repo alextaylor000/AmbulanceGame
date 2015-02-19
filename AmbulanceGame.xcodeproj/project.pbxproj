@@ -46,6 +46,8 @@
 		B9A4BD331A958BBF00C70201 /* level01_v001.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD311A958BBF00C70201 /* level01_v001.tmx */; };
 		B9A4BD351A958BFB00C70201 /* road_tilemap_red_v001.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */; };
 		B9A4BD361A958BFB00C70201 /* road_tilemap_red_v001.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */; };
+		B9A4BD381A959F8F00C70201 /* notifications.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD371A959F8F00C70201 /* notifications.atlas */; };
+		B9A4BD391A959F8F00C70201 /* notifications.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD371A959F8F00C70201 /* notifications.atlas */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
 		B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
@@ -157,6 +159,7 @@
 		B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level01_firstdraft_MINI.png; sourceTree = "<group>"; };
 		B9A4BD311A958BBF00C70201 /* level01_v001.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_v001.tmx; sourceTree = "<group>"; };
 		B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road_tilemap_red_v001.png; sourceTree = "<group>"; };
+		B9A4BD371A959F8F00C70201 /* notifications.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = notifications.atlas; sourceTree = "<group>"; };
 		B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicle.h; sourceTree = "<group>"; };
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
@@ -341,6 +344,7 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B9A4BD371A959F8F00C70201 /* notifications.atlas */,
 				B9BCC0611A803EE800FF2BAE /* pause.png */,
 				B903B1781A68D60F00414D8E /* level01_firstdraft_MINI-256.png */,
 				B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */,
@@ -550,6 +554,7 @@
 				B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
+				B9A4BD381A959F8F00C70201 /* notifications.atlas in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B9A4BD321A958BBF00C70201 /* level01_v001.tmx in Resources */,
@@ -565,6 +570,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9A4BD391A959F8F00C70201 /* notifications.atlas in Resources */,
 				B9A4BD331A958BBF00C70201 /* level01_v001.tmx in Resources */,
 				B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */,
 				B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */,
@@ -723,7 +729,7 @@
 					"$(inherited)",
 					"DEBUG_PATIENT=0",
 					"DEBUG_PLAYER_CONTROL=0",
-					"DEBUG_PLAYER_SWIPE=1",
+					"DEBUG_PLAYER_SWIPE=0",
 					"DEBUG_INDICATOR=0",
 					"DEBUG_FUEL=0",
 				);

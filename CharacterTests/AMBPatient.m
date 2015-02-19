@@ -101,7 +101,8 @@
 
     if (patientTTL <= 0)   {
         if (_state == PatientIsEnRoute) {
-            [scoreKeeper eventLabelWithText:@"YOUR PATIENT HAS DIED! -points"];
+            //[scoreKeeper eventLabelWithText:@"YOUR PATIENT HAS DIED! -points"];
+            [scoreKeeper showNotification:ScoreKeeperNotificationPatientDied];
         }
         
         [self changeState:PatientIsDead];
@@ -140,7 +141,8 @@
             break;
             
         case PatientIsDelivered:
-            [scoreKeeper eventLabelWithText:@"PATIENT DELIVERED! +points"];            
+            //[scoreKeeper eventLabelWithText:@"PATIENT DELIVERED! +points"];
+            [scoreKeeper showNotification:ScoreKeeperNotificationPatientDelivered];
             [self removeFromParent];
             
 #if DEBUG_PATIENT

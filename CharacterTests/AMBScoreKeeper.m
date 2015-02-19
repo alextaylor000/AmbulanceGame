@@ -65,7 +65,19 @@
     }
     
     return _labelEvent;
+}
 
+-(SKSpriteNode *)createNotificationAtPos:(CGPoint)pos {
+    if (!_notificationNode) {
+        CGFloat sizeMult = (self.scene.size.width * 0.85) / sNotificationFuelEmpty.size.width; // this assumes that all notifications are the same size
+
+        _notificationNode = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(50, 50)];
+        _notificationNode.size = CGSizeMake(sNotificationFuelEmpty.size.width * sizeMult, sNotificationFuelEmpty.size.height * sizeMult);
+        _notificationNode.zPosition = 1000;
+        _notificationNode.alpha = 0;
+    }
+    
+    return _notificationNode;
 }
 
 - (void)updateScoreLabelWithPoints:(NSInteger)points {
@@ -112,8 +124,75 @@
     
 }
 
+- (void)showNotification:(ScoreKeeperNotifications)notification {
+    switch (notification) {
+        case ScoreKeeperNotificationFuelEmpty:
+            _notificationNode.texture = sNotificationFuelEmpty;
+            break;
 
-#pragma mark Misc. Game Logic
+        case ScoreKeeperNotificationFuelUp:
+            _notificationNode.texture = sNotificationFuelUp;
+            break;
+            
+        case ScoreKeeperNotificationInvincibility:
+            _notificationNode.texture = sNotificationInvincibility;
+            break;
+            
+        case ScoreKeeperNotificationPatientDelivered:
+            _notificationNode.texture = sNotificationPatientDelivered;
+            break;
+            
+        case ScoreKeeperNotificationPatientDied:
+            _notificationNode.texture = sNotificationPatientDied;
+            break;
+            
+        case ScoreKeeperNotificationTimeOut:
+            _notificationNode.texture = sNotificationTimeOut;
+            break;
+            
+    }
+    
+    [_notificationNode runAction:sNotificationSequence];
+}
+
+
+#pragma mark Assets
++ (void)loadSharedAssets {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+
+        SKTextureAtlas *notifications = [SKTextureAtlas atlasNamed:@"notifications"];
+        
+        sNotificationFuelEmpty = [notifications textureNamed:@"notification_fuel-empty"];
+        sNotificationFuelUp = [notifications textureNamed:@"notification_fuel-up"];
+        sNotificationInvincibility = [notifications textureNamed:@"notification_invincibility"];
+        sNotificationPatientDelivered = [notifications textureNamed:@"notification_patient-delivered"];
+        sNotificationPatientDied = [notifications textureNamed:@"notification_patient-died"];
+        sNotificationTimeOut = [notifications textureNamed:@"notification_time-out"];
+        
+        sNotificationAppear = [SKAction group:@[
+                                                [SKAction fadeInWithDuration:0.15]]]; // these are groups so that we can add more complex animation later
+        
+        sNotificationHide = [SKAction group:@[
+                                              [SKAction fadeOutWithDuration:0.15]]];
+        
+        sNotificationSequence = [SKAction sequence:@[sNotificationAppear, [SKAction waitForDuration:2.5], sNotificationHide]];
+        
+        
+    });
+    
+}
+
+static SKTexture *sNotificationFuelEmpty = nil;
+static SKTexture *sNotificationFuelUp = nil;
+static SKTexture *sNotificationInvincibility = nil;
+static SKTexture *sNotificationPatientDelivered = nil;
+static SKTexture *sNotificationPatientDied = nil;
+static SKTexture *sNotificationTimeOut = nil;
+static SKAction *sNotificationAppear = nil;
+static SKAction *sNotificationHide = nil;
+static SKAction *sNotificationSequence = nil;
 
 
 @end

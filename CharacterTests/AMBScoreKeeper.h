@@ -13,6 +13,16 @@
 
 /* Game rules used by other classes */
 
+typedef enum {
+    ScoreKeeperNotificationFuelEmpty,
+    ScoreKeeperNotificationFuelUp,
+    ScoreKeeperNotificationInvincibility,
+    ScoreKeeperNotificationPatientDelivered,
+    ScoreKeeperNotificationPatientDied,
+    ScoreKeeperNotificationTimeOut
+} ScoreKeeperNotifications;
+
+
 
 @interface AMBScoreKeeper : NSObject
 
@@ -24,16 +34,20 @@
 
 @property SKLabelNode *labelScore;
 @property SKLabelNode *labelEvent;
+@property SKSpriteNode *notificationNode;
 
 
 + (AMBScoreKeeper *)sharedInstance;
++ (void)loadSharedAssets;
 
 /* Labels */
 -(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
 -(SKLabelNode *)createEventlabelAtPos:(CGPoint)position;
+-(SKSpriteNode *)createNotificationAtPos:(CGPoint)pos;
 
 /* Scoring Events */
 - (void) scoreEventDeliveredPatient:(AMBPatient *)patient;
 - (void) eventLabelWithText:(NSString *)text;
+- (void)showNotification:(ScoreKeeperNotifications)notification;
 
 @end

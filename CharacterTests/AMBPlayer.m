@@ -99,6 +99,11 @@
     if (self.patient) {
         NSTimeInterval ttl = [self.patient getPatientTTL];
         owningScene.patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: %1.1f",ttl];
+
+        if (self.patient.state == PatientIsDead) {
+            [self unloadPatient];
+        }
+    
     }
     
 
@@ -128,7 +133,9 @@
             
             if (_fuel < 1) {
                 [self stopMovingWithDecelTime:self.decelTimeSeconds];
-                [_scoreKeeper eventLabelWithText:@"OUT OF FUEL! GAME OVER"];
+                //[_scoreKeeper eventLabelWithText:@"OUT OF FUEL! GAME OVER"];
+                [_scoreKeeper showNotification:ScoreKeeperNotificationFuelEmpty];
+                
         
 
             }
@@ -289,9 +296,12 @@
     // unloads a patient from the ambulance (if there is one)
     if (_patient) {
         [self changeState:AmbulanceIsEmpty];
-        [_patient changeState:PatientIsDelivered];
-        _patient = nil;
-        return YES;
+        
+        if (_patient.state == PatientIsEnRoute) {
+            [_patient changeState:PatientIsDelivered];
+            _patient = nil;
+            return YES;
+        }
     }
     
     return NO;
@@ -340,7 +350,8 @@
                 if (_fuel < 3) {
                     _fuel++;
                     owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
-                    [_scoreKeeper eventLabelWithText:@"+1 FUEL!"];
+                    //[_scoreKeeper eventLabelWithText:@"+1 FUEL!"];
+                    [_scoreKeeper showNotification:ScoreKeeperNotificationFuelUp];
                     
                     AMBCharacter *powerup = (AMBCharacter *)other.node;
                     [powerup removeFromParent];
@@ -352,6 +363,8 @@
 #warning preload this action
                 action = [SKAction sequence:@[[SKAction colorizeWithColor:[SKColor greenColor] colorBlendFactor:0.6 duration:0.25],[SKAction waitForDuration:PLAYER_INVINCIBLE_TIME],[SKAction colorizeWithColorBlendFactor:0.0 duration:0.25]]];
                 [self runAction:action withKey:@"invincibility"]; // as long as this action exists on the player, the player will be immune to traffic
+                
+                [_scoreKeeper showNotification:ScoreKeeperNotificationInvincibility];
                 
 
                 AMBCharacter *powerup = (AMBCharacter *)other.node;
