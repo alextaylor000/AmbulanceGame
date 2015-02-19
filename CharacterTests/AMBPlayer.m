@@ -542,7 +542,7 @@
 }
 
 - (void)printMessage:(NSString *)message {
-    #if DEBUG_PLAYER_SWIPE
+    #if DEBUG_PLAYER_CONTROL
         NSLog(@"%@", message);
     #endif
     

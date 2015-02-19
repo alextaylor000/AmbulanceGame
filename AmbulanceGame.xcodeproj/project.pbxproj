@@ -23,7 +23,6 @@
 		B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
 		B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
-		B978314A1A198950002A10BC /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B97831491A198950002A10BC /* level01.tmx */; };
 		B985AFA91A802538000B3423 /* AMBMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */; };
 		B985AFAC1A80270E000B3423 /* AMBCreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */; };
 		B985AFAE1A802A1A000B3423 /* AMBCreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */; };
@@ -43,6 +42,10 @@
 		B99FD0A11A046FE1007FC685 /* AMBCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = B99FD0A01A046FE1007FC685 /* AMBCamera.m */; };
 		B9A0C32D1A57CD5300A9BD28 /* level01_firstdraft_MINI.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */; };
 		B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */; };
+		B9A4BD321A958BBF00C70201 /* level01_v001.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD311A958BBF00C70201 /* level01_v001.tmx */; };
+		B9A4BD331A958BBF00C70201 /* level01_v001.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD311A958BBF00C70201 /* level01_v001.tmx */; };
+		B9A4BD351A958BFB00C70201 /* road_tilemap_red_v001.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */; };
+		B9A4BD361A958BFB00C70201 /* road_tilemap_red_v001.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
 		B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
@@ -71,7 +74,6 @@
 		B9C8E4D81A4B747E003F7354 /* AMBLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* AMBLevelScene.m */; };
 		B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */; };
 		B9C8E4DA1A4B749D003F7354 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
-		B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B97831491A198950002A10BC /* level01.tmx */; };
 		B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
 		B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
@@ -120,7 +122,6 @@
 		B96F159819BA8379003E9809 /* AMBScoreKeeper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBScoreKeeper.m; sourceTree = "<group>"; };
 		B97831441A190C1F002A10BC /* AMBIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBIndicator.h; sourceTree = "<group>"; };
 		B97831451A190C1F002A10BC /* AMBIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBIndicator.m; sourceTree = "<group>"; };
-		B97831491A198950002A10BC /* level01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01.tmx; sourceTree = "<group>"; };
 		B985AFA71A802538000B3423 /* AMBMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMainMenuViewController.h; sourceTree = "<group>"; };
 		B985AFA81A802538000B3423 /* AMBMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBMainMenuViewController.m; sourceTree = "<group>"; };
 		B985AFAA1A80270E000B3423 /* AMBCreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCreditsViewController.h; sourceTree = "<group>"; };
@@ -154,6 +155,8 @@
 		B99FD09F1A046FE1007FC685 /* AMBCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCamera.h; sourceTree = "<group>"; };
 		B99FD0A01A046FE1007FC685 /* AMBCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBCamera.m; sourceTree = "<group>"; };
 		B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level01_firstdraft_MINI.png; sourceTree = "<group>"; };
+		B9A4BD311A958BBF00C70201 /* level01_v001.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_v001.tmx; sourceTree = "<group>"; };
+		B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road_tilemap_red_v001.png; sourceTree = "<group>"; };
 		B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicle.h; sourceTree = "<group>"; };
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
@@ -229,9 +232,10 @@
 		B96A845219BAB723002E058B /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */,
+				B9A4BD311A958BBF00C70201 /* level01_v001.tmx */,
 				B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */,
 				B9C449551A30144700093CC4 /* level01_firstdraft.tmx */,
-				B97831491A198950002A10BC /* level01.tmx */,
 				B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */,
 				B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */,
 			);
@@ -548,9 +552,10 @@
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
+				B9A4BD321A958BBF00C70201 /* level01_v001.tmx in Resources */,
 				B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
-				B978314A1A198950002A10BC /* level01.tmx in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
+				B9A4BD351A958BFB00C70201 /* road_tilemap_red_v001.png in Resources */,
 				B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */,
 				B903B1791A68D60F00414D8E /* level01_firstdraft_MINI-256.png in Resources */,
 			);
@@ -560,10 +565,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9A4BD331A958BBF00C70201 /* level01_v001.tmx in Resources */,
 				B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */,
 				B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */,
 				B9C8E4DA1A4B749D003F7354 /* level01_firstdraft.tmx in Resources */,
-				B9C8E4DB1A4B749D003F7354 /* level01.tmx in Resources */,
 				B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */,
 				B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */,
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
@@ -574,6 +579,7 @@
 				B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
 				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
+				B9A4BD361A958BFB00C70201 /* road_tilemap_red_v001.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -190,7 +190,7 @@
    <properties>
     <property name="intersection" value="1"/>
     <property name="invalid_directions" value="{{0,1},{0,0}}"/>
-    <property name="road" value="bbb_esw_l"/>
+    <property name="road" value="bbb_esw_r"/>
    </properties>
   </tile>
   <tile id="30">
@@ -357,7 +357,7 @@
  </tileset>
  <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztl10PgjAMRauI4id+6///pXZvs5SkZQmb8z6chzUrORm3LLREtM1MV4ADyMuKWUSsxdpbS+nfKX4yo1pmrbUjc0rot9TgV7dfS8PcLo21njkn9B8qOD/41eUn58GaZcwH/P7BL8zHJeIq1p7ajbkn9GvzEfxeEW+x9vBgnkrd+syp82vF8341puYPfr/rZ7nfrP831vtN6y3pfhs7z1K+z/DL5zfH/5HWi/mAX4l+G/rO6J6GufXULHu1PYFmxBuAufkAOuQ2NA==
+   eJztl8cOwyAQRDfF6b335P+/MpsbwWtpMJIhzhzegRVrPcFgRCEi48SMMnAgaekrHYeBNw6p3ZVHRP/E8PMzamUWrc2VRUQ/UqNfu/0KKee2C9aWyiqif9aC9aNfu/z884BmmeeDfv/gd1HWDhtvHFLbKruI/qvhd1aODidvHMJeORh19Ju3mvuLErK/FnXzR7/f9UPuN/R9g95vVm9O91vVeubyf6ZfOr8m3kdWL88H/XL0G8p3RqdSzi1aeyovYK7V+6FX4U1I07wBRrQ21A==
   </data>
  </layer>
  <layer name="spawn_traffic" width="40" height="40">
