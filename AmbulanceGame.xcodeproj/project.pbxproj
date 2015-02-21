@@ -48,6 +48,8 @@
 		B9A4BD361A958BFB00C70201 /* road_tilemap_red_v001.png in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */; };
 		B9A4BD381A959F8F00C70201 /* notifications.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD371A959F8F00C70201 /* notifications.atlas */; };
 		B9A4BD391A959F8F00C70201 /* notifications.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD371A959F8F00C70201 /* notifications.atlas */; };
+		B9A4BD401A985CD900C70201 /* AMBTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4BD3F1A985CD900C70201 /* AMBTutorial.m */; };
+		B9A4BD411A985CD900C70201 /* AMBTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4BD3F1A985CD900C70201 /* AMBTutorial.m */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
 		B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
@@ -160,6 +162,8 @@
 		B9A4BD311A958BBF00C70201 /* level01_v001.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_v001.tmx; sourceTree = "<group>"; };
 		B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road_tilemap_red_v001.png; sourceTree = "<group>"; };
 		B9A4BD371A959F8F00C70201 /* notifications.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = notifications.atlas; sourceTree = "<group>"; };
+		B9A4BD3E1A985CD900C70201 /* AMBTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBTutorial.h; path = ../AMBTutorial.h; sourceTree = "<group>"; };
+		B9A4BD3F1A985CD900C70201 /* AMBTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBTutorial.m; path = ../AMBTutorial.m; sourceTree = "<group>"; };
 		B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicle.h; sourceTree = "<group>"; };
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
@@ -463,6 +467,8 @@
 		B9E959BD19C93CA700ACD50F /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				B9A4BD3E1A985CD900C70201 /* AMBTutorial.h */,
+				B9A4BD3F1A985CD900C70201 /* AMBTutorial.m */,
 				B96F159719BA8379003E9809 /* AMBScoreKeeper.h */,
 				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
 			);
@@ -609,6 +615,7 @@
 				B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */,
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
 				B99FD0A11A046FE1007FC685 /* AMBCamera.m in Sources */,
+				B9A4BD401A985CD900C70201 /* AMBTutorial.m in Sources */,
 				B9E959B719C9239C00ACD50F /* AMBHospital.m in Sources */,
 				B911C9E919C656CC00EA85D9 /* AMBCharacter.m in Sources */,
 				B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */,
@@ -642,6 +649,7 @@
 				B9C8E4C41A4B747E003F7354 /* AMBMovingCharacter.m in Sources */,
 				B9C8E4C61A4B747E003F7354 /* AMBPatient.m in Sources */,
 				B9C8E4C81A4B747E003F7354 /* AMBPlayer.m in Sources */,
+				B9A4BD411A985CD900C70201 /* AMBTutorial.m in Sources */,
 				B9C8E4CA1A4B747E003F7354 /* AMBPowerup.m in Sources */,
 				B9C8E4CC1A4B747E003F7354 /* AMBTrafficVehicle.m in Sources */,
 				B9C8E4CE1A4B747E003F7354 /* AMBTrafficVehicleState.m in Sources */,
