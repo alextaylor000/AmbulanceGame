@@ -425,11 +425,12 @@ typedef enum {
 
 #pragma mark World Building
 - (void)createWorld {
+    CGFloat sceneHeight = self.size.height/2 * -0.6;
     
 //    _worldNode = [SKSpriteNode spriteNodeWithImageNamed:@"border"];
     _worldNode = [SKNode node];
     _worldNode.name = @"worldNode";
-    _worldNode.position = CGPointMake(0, -150);
+    _worldNode.position = CGPointMake(0, sceneHeight); // camera offset
     [self addChild:_worldNode];
     
     [self levelWithTilemap:LEVEL_NAME];
