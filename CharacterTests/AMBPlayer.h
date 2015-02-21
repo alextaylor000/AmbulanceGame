@@ -24,6 +24,12 @@ typedef enum {
     PlayerControlsTurnRight
 } PlayerControls;
 
+typedef enum {
+  PlayerTurnSignalStateOff,
+    PlayerTurnSignalStateLeft,
+    PlayerTurnSignalStateRight
+} PlayerTurnSignalState;
+
 
 @interface AMBPlayer : AMBMovingCharacter
 
@@ -31,6 +37,7 @@ typedef enum {
 @property AMBPatient *patient;
 @property CGFloat fuel;
 @property CGFloat laneChangeDegrees; // target degrees for lane change
+@property (nonatomic) PlayerTurnSignalState turnSignalState;
 
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;

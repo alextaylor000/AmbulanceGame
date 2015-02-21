@@ -8,8 +8,8 @@
 
 #import "AMBCharacter.h"
 
-static const CGFloat FUEL_EXPIRY_DURATION = 20;
-static const CGFloat FUEL_TIMER_INCREMENT = 40; // every x seconds, the fuel gets decremented
+static const CGFloat FUEL_EXPIRY_DURATION = 30; // the fuel powerups expire after they spawn on the map
+static const CGFloat FUEL_TIMER_INCREMENT = 25; // every x seconds, the fuel gets decremented
 
 typedef NS_ENUM(int, AMBPowerupType) {
     AMBPowerupFuel,

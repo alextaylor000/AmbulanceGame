@@ -25,6 +25,8 @@
 
 
 @property SKSpriteNode *sirens;
+@property SKSpriteNode *turnSignalLeft;
+@property SKSpriteNode *turnSignalRight;
 
 @property AMBScoreKeeper *scoreKeeper;
 @property NSTimeInterval fuelTimer; // times when the fuel started being depleted by startMoving
@@ -33,8 +35,6 @@
 @end
 
 @implementation AMBPlayer
-
-
 
 
 - (instancetype) init {
@@ -75,6 +75,21 @@
 
     [self addChild:_sirens];
     
+
+    _turnSignalLeft = [SKSpriteNode spriteNodeWithTexture:sTurnSignalLeft];
+    _turnSignalLeft.position = CGPointMake(20, 28);
+    _turnSignalLeft.zPosition = -1;
+    _turnSignalLeft.alpha = 0;
+    [self addChild:_turnSignalLeft];
+    
+    _turnSignalRight = [SKSpriteNode spriteNodeWithTexture:sTurnSignalRight];
+    _turnSignalRight.position = CGPointMake(20, -28);
+    _turnSignalRight.zPosition = -1;
+    _turnSignalRight.alpha = 0;
+    [self addChild:_turnSignalRight];
+    
+    _turnSignalState = PlayerTurnSignalStateOff;
+    
     _scoreKeeper = [AMBScoreKeeper sharedInstance]; // hook up the shared instance of the score keeper so we can talk to it
     
     _fuel = 3;
@@ -85,6 +100,36 @@
     
     
     return self;
+}
+
+- (void)setTurnSignalState:(PlayerTurnSignalState)turnSignalState {
+    switch (turnSignalState) {
+        case PlayerTurnSignalStateOff:
+            [_turnSignalLeft removeAllActions];
+            [_turnSignalRight removeAllActions];
+            
+            [_turnSignalLeft runAction:sTurnSignalFadeOut];
+            [_turnSignalRight runAction:sTurnSignalFadeOut];
+            break;
+            
+        case PlayerTurnSignalStateLeft:
+            if (![_turnSignalLeft hasActions]) {
+                [_turnSignalRight removeAllActions];
+                [_turnSignalRight runAction:sTurnSignalFadeOut];
+
+                [_turnSignalLeft runAction:sTurnSignalOn];
+            }
+            break;
+            
+        case PlayerTurnSignalStateRight:
+            if (![_turnSignalRight hasActions]) {
+                [_turnSignalLeft removeAllActions];
+                [_turnSignalLeft runAction:sTurnSignalFadeOut];
+            
+                [_turnSignalRight runAction:sTurnSignalOn];
+            }
+
+    }
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
@@ -131,13 +176,11 @@
             
             owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
             
-            if (_fuel < 1) {
+            if (_fuel == 0) {
                 [self stopMovingWithDecelTime:self.decelTimeSeconds];
-                //[_scoreKeeper eventLabelWithText:@"OUT OF FUEL! GAME OVER"];
-                [_scoreKeeper showNotification:ScoreKeeperNotificationFuelEmpty];
+                [_scoreKeeper showNotification:ScoreKeeperNotificationFuelEmpty]; // OUT OF FUEL!
                 
-        
-
+                
             }
             
         }
@@ -570,13 +613,16 @@
         
         SKTextureAtlas *gameObjectSprites = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
         sPlayerSprite = [gameObjectSprites textureNamed:@"ambulance"];
+        sTurnSignalLeft = [gameObjectSprites textureNamed:@"hud_swipe_turn-left_v001"];
+        sTurnSignalRight = [gameObjectSprites textureNamed:@"hud_swipe_turn-right_v001"];;
         
         SKTextureAtlas *sirenAtlas = [SKTextureAtlas atlasNamed:@"sirens"];
         SKTexture *sirenLeft = [sirenAtlas textureNamed:@"amulance_sirens_left"];
         SKTexture *sirenRight = [sirenAtlas textureNamed:@"amulance_sirens_right"];        
         sSirensOn = [SKAction repeatActionForever:[SKAction animateWithTextures:@[sirenLeft, sirenRight] timePerFrame:0.8]];
         
-        
+        sTurnSignalOn = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction fadeInWithDuration:0.15],[SKAction fadeOutWithDuration:0.15]]]];
+        sTurnSignalFadeOut = [SKAction fadeOutWithDuration:0.15];
         
         
     });
@@ -584,9 +630,15 @@
 }
 
 static SKTexture *sPlayerSprite = nil;
-
 static SKTexture *sSirenDefaultTexture = nil;
+static SKTexture *sTurnSignalLeft = nil;
+static SKTexture *sTurnSignalRight = nil;
 
-static SKAction* sSirensOn = nil;
+static SKAction *sSirensOn = nil;
+static SKAction *sTurnSignalOn = nil;
+static SKAction *sTurnSignalFadeOut = nil;
+
+
+
 
 @end
