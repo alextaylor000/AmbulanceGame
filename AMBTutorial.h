@@ -16,7 +16,8 @@ typedef enum {
     TutorialStateStep05,
     TutorialStateStep06,
     TutorialStateStep07,
-    TutorialStateStep08
+    TutorialStateStep08,
+    TutorialStateEnd
 
 } TutorialState;
 
@@ -38,7 +39,11 @@ typedef enum {
 
 @property TutorialState tutorialState;
 
++ (void)loadSharedAssets;
++ (instancetype)tutorialOverlay; // loads the tutorial overlay with the first specified step.
+- (void) beginTutorialAfterDelayOf:(CGFloat)seconds;
 - (void) playerDidPerformEvent:(PlayerEvent)event;
+
 
 
 @end

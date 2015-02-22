@@ -50,6 +50,8 @@
 		B9A4BD391A959F8F00C70201 /* notifications.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD371A959F8F00C70201 /* notifications.atlas */; };
 		B9A4BD401A985CD900C70201 /* AMBTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4BD3F1A985CD900C70201 /* AMBTutorial.m */; };
 		B9A4BD411A985CD900C70201 /* AMBTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = B9A4BD3F1A985CD900C70201 /* AMBTutorial.m */; };
+		B9A4BD431A99990A00C70201 /* tutorial.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD421A99990A00C70201 /* tutorial.atlas */; };
+		B9A4BD441A99990A00C70201 /* tutorial.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9A4BD421A99990A00C70201 /* tutorial.atlas */; };
 		B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */; };
 		B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B9B3EDB21A1EFB950068C52B /* AMBMovingCharacter.m */; };
 		B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
@@ -164,6 +166,7 @@
 		B9A4BD371A959F8F00C70201 /* notifications.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = notifications.atlas; sourceTree = "<group>"; };
 		B9A4BD3E1A985CD900C70201 /* AMBTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBTutorial.h; path = ../AMBTutorial.h; sourceTree = "<group>"; };
 		B9A4BD3F1A985CD900C70201 /* AMBTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBTutorial.m; path = ../AMBTutorial.m; sourceTree = "<group>"; };
+		B9A4BD421A99990A00C70201 /* tutorial.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = tutorial.atlas; sourceTree = "<group>"; };
 		B9B3EDAE1A1EC2C20068C52B /* AMBTrafficVehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicle.h; sourceTree = "<group>"; };
 		B9B3EDAF1A1EC2C20068C52B /* AMBTrafficVehicle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicle.m; sourceTree = "<group>"; };
 		B9B3EDB11A1EFB950068C52B /* AMBMovingCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBMovingCharacter.h; sourceTree = "<group>"; };
@@ -348,13 +351,14 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
-				B9A4BD371A959F8F00C70201 /* notifications.atlas */,
 				B9BCC0611A803EE800FF2BAE /* pause.png */,
 				B903B1781A68D60F00414D8E /* level01_firstdraft_MINI-256.png */,
 				B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */,
-				B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */,
 				B9CC738E19B3DA0C00A376BC /* hospital.png */,
+				B9A4BD371A959F8F00C70201 /* notifications.atlas */,
+				B9C8E4FE1A533449003F7354 /* GameObjectSprites.atlas */,
 				B9CC738C19B3D26900A376BC /* sirens.atlas */,
+				B9A4BD421A99990A00C70201 /* tutorial.atlas */,
 			);
 			name = GameArt;
 			sourceTree = "<group>";
@@ -569,6 +573,7 @@
 				B9A4BD351A958BFB00C70201 /* road_tilemap_red_v001.png in Resources */,
 				B92E752019DF9B4300D61394 /* 8bit_tileset_design_ver02.png in Resources */,
 				B903B1791A68D60F00414D8E /* level01_firstdraft_MINI-256.png in Resources */,
+				B9A4BD431A99990A00C70201 /* tutorial.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +592,7 @@
 				B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B903B17A1A68D66800414D8E /* level01_firstdraft_MINI-256.png in Resources */,
 				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
+				B9A4BD441A99990A00C70201 /* tutorial.atlas in Resources */,
 				B9BCC0631A803EE800FF2BAE /* pause.png in Resources */,
 				B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,

@@ -436,6 +436,8 @@
                 message = @"[control] PlayerIsStopped -> handleInput:startMoving -> PlayerIsAccelerating";
                 [self printMessage:message];
                 [self startMoving];
+                [self.characterScene.tutorialOverlay playerDidPerformEvent:PlayerEventStartMoving]; // tutorial event
+                
             }
             
             break;

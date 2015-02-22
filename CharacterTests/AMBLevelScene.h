@@ -12,6 +12,7 @@
 #import "AMBIndicator.h"
 #import "AMBCamera.h"
 #import "AMBScoreKeeper.h"
+#import "AMBTutorial.h"
 
 @interface AMBLevelScene : AMBGameScene <SKPhysicsContactDelegate>
 
@@ -45,6 +46,8 @@
 @property AMBIndicator *indicator;
 
 @property NSTimeInterval gameStartTime; // when the game started (init)
+
+@property AMBTutorial *tutorialOverlay;
 
 
 #pragma mark Methods

@@ -189,12 +189,6 @@ typedef enum {
         }
      
         
-        // event label
-//        SKLabelNode *labelEvent = [_scoreKeeper createEventlabelAtPos:CGPointZero];
-//        if (!labelEvent.parent) {
-//            [self addChild:labelEvent];
-//        }
-        
         // notification node
         SKSpriteNode *notifications = [_scoreKeeper createNotificationAtPos:CGPointZero];
 
@@ -232,6 +226,14 @@ typedef enum {
         [self addChild:_patientTimeToLive];
 
     
+        
+        // tutorial
+        _tutorialOverlay = [AMBTutorial tutorialOverlay];
+        [self addChild:_tutorialOverlay];
+        [_tutorialOverlay beginTutorialAfterDelayOf:3];
+
+
+        
         
 #if DEBUG
         NSLog(@"[[   SCORE:  %ld   ]]", _scoreKeeper.score);
@@ -576,6 +578,7 @@ typedef enum {
 + (void)loadSceneAssets {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
     
+    [AMBTutorial loadSharedAssets];
     [AMBScoreKeeper loadSharedAssets];
     [AMBPlayer loadSharedAssets];
     [AMBPowerup loadSharedAssets];
