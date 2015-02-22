@@ -1198,6 +1198,7 @@ typedef enum {
     NSLog(@"handleLongPress state=%li",recognizer.state );
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         [_player adjustSpeedToTarget: VehicleSpeedSlow * speedMultiplier];
+        [self.tutorialOverlay playerDidPerformEvent:PlayerEventSlowDown]; // tutorial event
         
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
         [_player adjustSpeedToTarget:_player.nativeSpeed];

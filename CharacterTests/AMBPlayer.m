@@ -329,6 +329,7 @@
         [patient changeState:PatientIsEnRoute];
         _patient = patient; // load the patient into the ambulance
         [self changeState:AmbulanceIsOccupied];
+        [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventPickupPatient]; // tutorial event
         return YES;
     }
     
@@ -342,6 +343,7 @@
         
         if (_patient.state == PatientIsEnRoute) {
             [_patient changeState:PatientIsDelivered];
+            [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventDeliverPatient]; // tutorial event
             _patient = nil;
             return YES;
         }
@@ -396,6 +398,8 @@
                     //[_scoreKeeper eventLabelWithText:@"+1 FUEL!"];
                     [_scoreKeeper showNotification:ScoreKeeperNotificationFuelUp];
                     
+                    [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventPickupFuel]; // tutorial event
+                    
                     AMBCharacter *powerup = (AMBCharacter *)other.node;
                     [powerup removeFromParent];
                     [powerup.minimapAvatar removeFromParent];
@@ -408,7 +412,7 @@
                 [self runAction:action withKey:@"invincibility"]; // as long as this action exists on the player, the player will be immune to traffic
                 
                 [_scoreKeeper showNotification:ScoreKeeperNotificationInvincibility];
-                
+                [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventPickupInvincibility]; // tutorial event
 
                 AMBCharacter *powerup = (AMBCharacter *)other.node;
                 [powerup removeFromParent];
