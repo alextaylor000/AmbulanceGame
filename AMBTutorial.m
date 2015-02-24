@@ -83,7 +83,7 @@
                 break;
 
             case TutorialStateStep07:
-                if (event == PlayerEventPickupFuel) {
+                if (event == PlayerEventPickupFuel) { // TODO: this should automatically switch states after a few seconds
                     [self swapTextureTo:sTutorialInvincibility];
                     _tutorialState = TutorialStateStep08;
                 }
@@ -91,7 +91,7 @@
                 break;
 
             case TutorialStateStep08:
-                if (event == PlayerEventPickupInvincibility) {
+                if (event == PlayerEventPickupInvincibility) { // TODO: this should automatically switch states after a few seconds
                     [self swapTextureTo:sTutorialEnd];
                     _tutorialState = TutorialStateEnd;
                     [self endTutorialAfterDelayOf:3];

@@ -342,7 +342,10 @@ static const int TILE_LANE_WIDTH = 32;
             self.controlState = PlayerIsChangingLanes;
             [self moveBy:targetOffset]; // moveBy will update the state upon completion
             _requestedMoveEvent = NO;
-            [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventChangeLanes]; // tutorial event
+            
+            if ([self.name isEqualToString:@"player"]) {
+                [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventChangeLanes]; // tutorial event
+            }
             
         } else {
             // "manual" player control, using the left or right controls slides the player over a set amount
@@ -350,7 +353,9 @@ static const int TILE_LANE_WIDTH = 32;
             CGPoint moveAmt = CGPointMultiplyScalar(laneChangeVector, 256*self.sceneDelta); // # of points to move
             CGVector moveVector = CGVectorMake(moveAmt.x, moveAmt.y);
             [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
-            [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventConstantMovement]; // tutorial event
+            if ([self.name isEqualToString:@"player"]) {
+                [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventConstantMovement]; // tutorial event
+            }
             
         }
         

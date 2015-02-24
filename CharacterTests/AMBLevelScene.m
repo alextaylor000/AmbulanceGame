@@ -229,8 +229,9 @@ typedef enum {
         
         // tutorial
         _tutorialOverlay = [AMBTutorial tutorialOverlay];
+        _tutorialOverlay.position = CGPointMake(0, 200);
         [self addChild:_tutorialOverlay];
-        [_tutorialOverlay beginTutorialAfterDelayOf:3];
+        [_tutorialOverlay beginTutorialAfterDelayOf:1.5];
 
 
         

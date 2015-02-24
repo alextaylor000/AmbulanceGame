@@ -25,13 +25,13 @@
     if (!_skView) {
         _skView = [[SKView alloc] initWithFrame:self.view.bounds];
 
+        /*  The scene is designed for iPhone aspect ratio, and simply increases the width if an iPad is detected. */
         CGSize sceneSize = CGSizeMake(576, 1024);
         
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
            sceneSize = CGSizeMake(768, 1024);
         }
-        
-        /* In this configuration (576x1024, AspectFit), the full height is preserved. Pillarboxed on iPad.  */
+
         _gameScene = [[AMBLevelScene alloc]initWithSize:sceneSize gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType];
         _gameScene.scaleMode = SKSceneScaleModeAspectFit;
 
