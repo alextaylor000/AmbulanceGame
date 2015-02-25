@@ -44,7 +44,9 @@ static const int TILE_LANE_WIDTH = 32;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     self.sceneDelta = delta;
     
+    
     _currentTileProperties = [self.levelScene.tilemap propertiesForGid:[self.levelScene.mapLayerRoad tileGidAt:self.position]]; // store the current tile properties every frame. this allows us to ask each traffic vehicle if it's on an intersection.
+    
     
     if (self.isMoving) {
         [self moveSprite:self directionNormalized:self.direction];
@@ -245,6 +247,8 @@ static const int TILE_LANE_WIDTH = 32;
     CGPoint currentTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:self.position]];
     CGPoint playerPosInTile = CGPointSubtract(self.position, currentTilePos);
     
+
+    
     
     BOOL isWithinBounds;
     BOOL currentTileIsMultiLane;
@@ -260,12 +264,13 @@ static const int TILE_LANE_WIDTH = 32;
         
         // is it single-lane?
         if (currentTileIsMultiLane) {
-            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width*2); // target tile is 2 over
+            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width - 128);
         } else {
             rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width); // target tile is 1 over
         }
         
         targetPoint = CGPointAdd(rotatedPoint, self.position);
+        
         isWithinBounds = [self isTargetPointValid:targetPoint];
 
         
@@ -380,17 +385,19 @@ static const int TILE_LANE_WIDTH = 32;
     CGPoint targetTilePos = [self.levelScene.mapLayerRoad pointForCoord:  [self.levelScene.mapLayerRoad coordForPoint:targetPoint]];
     CGPoint positionInTargetTile = CGPointSubtract(targetPoint, targetTilePos);
     
-#if DEBUG_PLAYER_CONTROL
-    SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn. tileAt ultimately works by finding the node by name, which is computationally expensive. the only use of this line is to figure out the coordinates of the player within the tile.
-
-    SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
-    targetPointSprite.name = @"DEBUG_targetPointSprite";
-    targetPointSprite.position = positionInTargetTile;
-    targetPointSprite.zPosition = targetTile.zPosition + 1;
-
+    
+#if DEBUG_TURNING
     if ([self.name isEqualToString:@"player"]) {
+        SKSpriteNode *targetTile = [self.levelScene.mapLayerRoad tileAt:targetPoint]; // gets the the tile object being considered for the turn. tileAt ultimately works by finding the node by name, which is computationally expensive. the only use of this line is to figure out the coordinates of the player within the tile.
+
+        SKSpriteNode *targetPointSprite = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(10, 10)];
+        targetPointSprite.name = @"DEBUG_targetPointSprite";
+        targetPointSprite.position = positionInTargetTile;
+        targetPointSprite.zPosition = targetTile.zPosition + 1;
+
+
         [targetTile addChild:targetPointSprite];
-        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction removeFromParent]]]];
+        [targetPointSprite runAction:[SKAction sequence:@[[SKAction waitForDuration:3],[SKAction fadeOutWithDuration:3]]]];
     }
 #endif
     
