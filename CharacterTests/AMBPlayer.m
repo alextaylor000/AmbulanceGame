@@ -136,7 +136,7 @@
     // the superclass handles moving the sprite
     [super updateWithTimeSinceLastUpdate:delta];
 
-    int gid = [self.levelScene.mapLayerRoad tileGidAt:self.position];
+
     
 
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.

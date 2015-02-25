@@ -42,7 +42,9 @@ typedef enum {
 @property (readonly, nonatomic) CGFloat requestedMoveEventDegrees;
 
 /** the current tile properties that the character is on. this allows us to ask each traffic vehicle if it's on an intersection. */
+@property int currentTileGID;
 @property (readonly, nonatomic) NSDictionary *currentTileProperties;
+
 
 @property PlayerControlState controlState;
 

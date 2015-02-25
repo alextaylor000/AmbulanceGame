@@ -44,8 +44,8 @@ static const int TILE_LANE_WIDTH = 32;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
     self.sceneDelta = delta;
     
-    
-    _currentTileProperties = [self.levelScene.tilemap propertiesForGid:[self.levelScene.mapLayerRoad tileGidAt:self.position]]; // store the current tile properties every frame. this allows us to ask each traffic vehicle if it's on an intersection.
+    _currentTileGID = [self.levelScene.mapLayerRoad tileGidAt:self.position];
+    _currentTileProperties = [self.levelScene.tilemap propertiesForGid:_currentTileGID]; // store the current tile properties every frame. this allows us to ask each traffic vehicle if it's on an intersection.
     
     
     if (self.isMoving) {
@@ -264,7 +264,7 @@ static const int TILE_LANE_WIDTH = 32;
         
         // is it single-lane?
         if (currentTileIsMultiLane) {
-            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width - 128);
+            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width*2);
         } else {
             rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width); // target tile is 1 over
         }
@@ -273,8 +273,9 @@ static const int TILE_LANE_WIDTH = 32;
         
         isWithinBounds = [self isTargetPointValid:targetPoint];
 
+        int rotatedPointTileGID = [self.levelScene.mapLayerRoad tileGidAt:targetPoint];
         
-        if (isWithinBounds) {
+        if (isWithinBounds) { // the tile must be DIFFERENT than the current one to prevent turns when it could be a lane change
             self.controlState = PlayerIsTurning;
             [self rotateByAngle:degrees];
             if ([self.name isEqualToString:@"player"]) {
