@@ -21,6 +21,7 @@ static const int TILE_LANE_WIDTH = 32;
 
 
 @property NSTimeInterval sceneDelta;
+@property NSTimeInterval lastTurnEvent; // to prevent wild and crazy u-turns
 
 @property CGFloat originalSpeed; // used as comparison when adjusting speed. there's probably a slicker way to do this.
 
@@ -276,15 +277,21 @@ static const int TILE_LANE_WIDTH = 32;
         int rotatedPointTileGID = [self.levelScene.mapLayerRoad tileGidAt:targetPoint];
         
         if (isWithinBounds) { // the tile must be DIFFERENT than the current one to prevent turns when it could be a lane change
-            self.controlState = PlayerIsTurning;
-            [self rotateByAngle:degrees];
-            if ([self.name isEqualToString:@"player"]) {
-                [self.levelScene.camera rotateByAngle:degrees];
-                [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventTurnCorner]; // tutorial event
-#if DEBUG_PLAYER_CONTROL
-                
-                NSLog(@"[control]    Valid turn; executing rotateByAngle");
-#endif
+            if (CACurrentMediaTime() - _lastTurnEvent > 1) {
+                self.controlState = PlayerIsTurning;
+                _lastTurnEvent = CACurrentMediaTime();
+                [self rotateByAngle:degrees];
+                if ([self.name isEqualToString:@"player"]) {
+
+                        
+                        [self.levelScene.camera rotateByAngle:degrees];
+                        [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventTurnCorner]; // tutorial event
+    #if DEBUG_PLAYER_CONTROL
+                        
+                        NSLog(@"[control]    Valid turn; executing rotateByAngle");
+    #endif
+                    
+                }
                 
             }
             
