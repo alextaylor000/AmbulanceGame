@@ -8,6 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+
 typedef enum {
     TutorialStateStep01 = 1,
     TutorialStateStep02,
@@ -37,7 +38,9 @@ typedef enum {
 
 @interface AMBTutorial : SKSpriteNode
 
+
 @property TutorialState tutorialState;
+
 
 + (void)loadSharedAssets;
 + (instancetype)tutorialOverlay; // loads the tutorial overlay with the first specified step.

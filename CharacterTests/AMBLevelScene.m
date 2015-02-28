@@ -30,7 +30,7 @@
 #define kNumberCars   15
 
 static NSString * const LEVEL_NAME = @"level01_v001.tmx";
-static const BOOL renderTraffic = 1;
+
 
 typedef enum {
     GestureIdle,
@@ -52,7 +52,7 @@ typedef enum {
 @property AMBPlayer *player;
 @property AMBSpawner *spawnerTest;
 
-
+@property BOOL renderTraffic;
 @property SKNode *miniMapContainer; // the node that holds the minimap, so we can rotate it easily
 
 @property SKSpriteNode *miniPlayer; // for the minimap
@@ -135,7 +135,7 @@ typedef enum {
 - (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType {
 
     if (self = [super initWithSize:size]) {
-
+        _renderTraffic = 0;
 
         self.physicsWorld.contactDelegate = self;
 
@@ -228,10 +228,11 @@ typedef enum {
     
         
         // tutorial
+        
         _tutorialOverlay = [AMBTutorial tutorialOverlay];
         _tutorialOverlay.position = CGPointMake(0, 200);
         [self addChild:_tutorialOverlay];
-        [_tutorialOverlay beginTutorialAfterDelayOf:1.5];
+        [_tutorialOverlay beginTutorialAfterDelayOf:0.75];
 
 
         
@@ -248,6 +249,11 @@ typedef enum {
     return self;
 }
 
+
+- (void)didCompleteTutorial {
+    // do things like turn traffic on, start timer, etc.
+    
+}
 
 - (void)createMinimap {
     
@@ -303,6 +309,7 @@ typedef enum {
 - (void)addMovingCharacterToTileMap:(AMBMovingCharacter *)character {
     // encapsulated like this because we need to make sure levelScene is set on all the player/traffic nodes
     [_mapLayerRoad addChild:character]; // changed from _tilemap to _mapLayerRoad to keep things consistent between the sprites
+
     character.levelScene = self;
 }
 
@@ -384,7 +391,7 @@ typedef enum {
     [_indicator update];
     
     // update traffic
-    if (renderTraffic) {
+    if (_renderTraffic) {
         for (AMBTrafficVehicle *vehicle in _trafficVehicles) {
             [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
         }
@@ -498,7 +505,7 @@ typedef enum {
     }
 
     // traffic spawners
-    if (renderTraffic) {
+    if (_renderTraffic) {
         _trafficVehicles = [[NSMutableArray alloc]init];
         
         CGSize gridSize = _mapLayerTraffic.layerInfo.layerGridSize;

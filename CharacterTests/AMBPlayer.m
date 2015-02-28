@@ -531,6 +531,7 @@
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
                 [self stopMovingWithDecelTime:self.decelTimeSeconds];
+                [self.characterScene.tutorialOverlay playerDidPerformEvent:PlayerEventStopMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
                 self.laneChangeDegrees = 90;

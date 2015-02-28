@@ -275,6 +275,8 @@ static const int TILE_LANE_WIDTH = 32;
         isWithinBounds = [self isTargetPointValid:targetPoint];
 
         int rotatedPointTileGID = [self.levelScene.mapLayerRoad tileGidAt:targetPoint];
+        CGPoint test = [self.levelScene.mapLayerRoad coordForPoint:targetPoint];
+        // TODO: get CENTER POINT of target tile. calculate the length between this and the player position. if it's greater than (1.5 tiles + one lane) then you can't turn
         
         if (isWithinBounds) { // the tile must be DIFFERENT than the current one to prevent turns when it could be a lane change
             if (CACurrentMediaTime() - _lastTurnEvent > 1) {

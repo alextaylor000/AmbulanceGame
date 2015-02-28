@@ -7,6 +7,8 @@
 //
 
 #import "AMBTutorial.h"
+#import "AMBLevelScene.h"
+
 
 @interface AMBTutorial ()
 
@@ -26,18 +28,28 @@
     return self;
 }
 
+- (AMBLevelScene *)characterScene {
+    AMBLevelScene *scene = (id)[self scene];
+    
+    if ([scene isKindOfClass:[AMBLevelScene class]]) {
+        return scene;
+    } else {
+        return nil;
+    }
+}
+
+
 + (instancetype)tutorialOverlay {
     return [[super alloc]initWithTexture:sTutorialStartAndStop]; // this is where we specify the first texture to load
 }
 
 - (void)playerDidPerformEvent:(PlayerEvent)event {
-    
-
+  
     if (_tutorialIsActive) {
         switch (_tutorialState) {
             case TutorialStateStep01:
                 if (event == PlayerEventStartMoving || event == PlayerEventStopMoving) {
-                    [self swapTextureTo:sTutorialSwipe];
+                    [self swapTextureTo:sTutorialSwipe afterDelay:0.5];
                     _tutorialState = TutorialStateStep02;
                 }
         
@@ -45,14 +57,14 @@
 
             case TutorialStateStep02:
                 if (event == PlayerEventChangeLanes || event == PlayerEventTurnCorner) {
-                    [self swapTextureTo:sTutorialSwipeAndHold];
+                    [self swapTextureTo:sTutorialSwipeAndHold afterDelay:0.5];
                     _tutorialState = TutorialStateStep03;
                 }
                 break;
 
             case TutorialStateStep03:
                 if (event == PlayerEventConstantMovement) {
-                    [self swapTextureTo:sTutorialTapAndHold];
+                    [self swapTextureTo:sTutorialTapAndHold afterDelay:0.5];
                     _tutorialState = TutorialStateStep04;
                 }
 
@@ -60,7 +72,7 @@
 
             case TutorialStateStep04:
                 if (event == PlayerEventSlowDown) {
-                    [self swapTextureTo:sTutorialYellowArrow];
+                    [self swapTextureTo:sTutorialYellowArrow afterDelay:0.5];
                     _tutorialState = TutorialStateStep05;
                 }
 
@@ -68,7 +80,7 @@
 
             case TutorialStateStep05:
                 if (event == PlayerEventPickupPatient) {
-                    [self swapTextureTo:sTutorialWhiteArrow];
+                    [self swapTextureTo:sTutorialWhiteArrow afterDelay:0.5];
                     _tutorialState = TutorialStateStep06;
                 }
 
@@ -76,26 +88,30 @@
 
             case TutorialStateStep06:
                 if (event == PlayerEventDeliverPatient) {
-                    [self swapTextureTo:sTutorialFuel];
+                    // begin the auto-guided part of the tutorial
                     _tutorialState = TutorialStateStep07;
+                    [self finishTutorial];
                 }
 
                 break;
 
             case TutorialStateStep07:
-                if (event == PlayerEventPickupFuel) { // TODO: this should automatically switch states after a few seconds
-                    [self swapTextureTo:sTutorialInvincibility];
-                    _tutorialState = TutorialStateStep08;
-                }
+//                if (event == PlayerEventPickupFuel) { // TODO: this should automatically switch states after a few seconds
+//                    [self swapTextureTo:sTutorialInvincibility afterDelay:0.5];
+//                    _tutorialState = TutorialStateStep08;
+//                }
 
                 break;
 
             case TutorialStateStep08:
-                if (event == PlayerEventPickupInvincibility) { // TODO: this should automatically switch states after a few seconds
-                    [self swapTextureTo:sTutorialEnd];
-                    _tutorialState = TutorialStateEnd;
-                    [self endTutorialAfterDelayOf:3];
-                }
+//                if (event == PlayerEventPickupInvincibility) { // TODO: this should automatically switch states after a few seconds
+//                    [self swapTextureTo:sTutorialEnd afterDelay:0.5];
+//                    _tutorialState = TutorialStateEnd;
+//                    [self endTutorialAfterDelayOf:3];
+//                }
+                
+            case TutorialStateEnd:
+                //
 
                 break;
                 
@@ -106,6 +122,8 @@
 
 - (void)beginTutorialAfterDelayOf:(CGFloat)seconds {
 
+    
+    
     SKAction *begin = [SKAction sequence:@[ [SKAction waitForDuration:seconds],
                                             sTextureFadeIn,
                                             [SKAction runBlock:^{ _tutorialIsActive = YES; }]]];
@@ -113,16 +131,49 @@
 
 }
 
-- (void)endTutorialAfterDelayOf:(CGFloat)seconds {
-    SKAction *end = [SKAction sequence:@[ [SKAction waitForDuration:seconds],
-                                          sTextureFadeOut,
-                                          [SKAction removeFromParent]]];
-    [self runAction:end];
+- (void)finishTutorial {
+    
+    [self runAction:[SKAction sequence:@[
+                                         [SKAction waitForDuration:0.5],
+                                         sTextureFadeOut,
+                                         [SKAction setTexture:sTutorialFuel],
+                                         sTextureFadeIn,
+                                         
+                                         [SKAction waitForDuration:4],
+                                         
+                                         sTextureFadeOut,
+                                         [SKAction setTexture:sTutorialInvincibility],
+                                         sTextureFadeIn,
+                                         
+                                         [SKAction waitForDuration:4],
+                                         
+                                         sTextureFadeOut,
+                                         [SKAction setTexture:sTutorialEnd],
+                                         sTextureFadeIn,
+                                         
+                                         [SKAction waitForDuration:2.5],
+                                         
+                                         sTextureFadeOut,
+                                         
+                                         [SKAction runBlock:^{[self endTutorialAfterDelayOf:0];}],
+                                         
+                                         [SKAction removeFromParent]
+                                         
+
+                                          ]]];
 }
 
-- (void)swapTextureTo:(SKTexture *)newTexture {
-    [self runAction:[SKAction sequence:@[sTextureFadeOut, [SKAction setTexture:newTexture], sTextureFadeIn]]];
+- (void)endTutorialAfterDelayOf:(CGFloat)seconds {
+    AMBLevelScene *__weak scene = [self characterScene];
+    [scene didCompleteTutorial];
 }
+
+- (void)swapTextureTo:(SKTexture *)newTexture afterDelay:(CGFloat)seconds {
+    [self runAction:[SKAction sequence:@[[SKAction waitForDuration:seconds], sTextureFadeOut, [SKAction setTexture:newTexture], sTextureFadeIn]]];
+}
+
+
+
 
 + (void)loadSharedAssets {
     
