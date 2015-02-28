@@ -143,32 +143,25 @@ typedef enum {
         _indicator = [[AMBIndicator alloc]initForScene:self];
 
         
-#if DEBUG_PLAYER_SWIPE
-        _swipeLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
-        _swipeLabel.fontColor = [SKColor whiteColor];
-        _swipeLabel.fontSize = 50;
-        _swipeLabel.text = @"|";
-        _swipeLabel.position = CGPointMake(0, -self.size.height/2 + 60);
-        [self addChild:_swipeLabel];
-#endif
-
-
+        // choose level
+        NSString *levelName;
+        switch (levelType) {
+            case AMBCity1:
+                levelName = @"level01_v001.tmx";
+                break;
+                
+            case AMBCity2:
+                levelName = @"level01_v001.tmx";
+                
+            case AMBCity3:
+                levelName = @"level01_v001.tmx";
+        }
         
-        [self createWorld]; // set up tilemap
-        [self createMinimap];         // minimap
-        [self createSpawners]; // used to be in createWorld
-        [self addPlayer];
+        [self createWorldWithLevel:levelName];  // set up tilemap
+        [self createMinimap];                   // minimap
+        [self createSpawners];                  // used to be in createWorld
+        [self addPlayerUsingSprite:vehicleType];
 
-#if DEBUG_PLAYER_CONTROL
-        _controlStateLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
-        _controlStateLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
-        _controlStateLabel.fontColor = [SKColor yellowColor];
-        _controlStateLabel.position = CGPointMake(-400,0);
-        _controlStateLabel.text = @"PlayerIsStopped";
-        [self addChild:_controlStateLabel];
-#endif
-    
-        
         
         _turnRequested = NO;
         
@@ -234,12 +227,6 @@ typedef enum {
         [self addChild:_tutorialOverlay];
         [_tutorialOverlay beginTutorialAfterDelayOf:0.75];
 
-
-        
-        
-#if DEBUG
-        NSLog(@"[[   SCORE:  %ld   ]]", _scoreKeeper.score);
-#endif
         
         // start the clock
         _gameStartTime = CACurrentMediaTime();
@@ -313,9 +300,9 @@ typedef enum {
     character.levelScene = self;
 }
 
-- (void) addPlayer {
+- (void) addPlayerUsingSprite:(AMBVehicleType)vehicleType {
     
-    _player = [[AMBPlayer alloc] init];
+    _player = [[AMBPlayer alloc] initWithSprite:vehicleType];
     _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
 
     [self addMovingCharacterToTileMap:_player];
@@ -434,7 +421,7 @@ typedef enum {
 }
 
 #pragma mark World Building
-- (void)createWorld {
+- (void)createWorldWithLevel:(NSString *)level_name {
     CGFloat sceneHeight = self.size.height/2 * -0.6;
     
     _worldNode = [SKNode node];
@@ -442,7 +429,7 @@ typedef enum {
     _worldNode.position = CGPointMake(0, sceneHeight); // camera offset
     [self addChild:_worldNode];
     
-    [self levelWithTilemap:LEVEL_NAME];
+    [self levelWithTilemap:level_name];
 
     if (_tilemap) {
         [_worldNode addChild:_tilemap];

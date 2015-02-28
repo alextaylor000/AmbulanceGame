@@ -37,8 +37,29 @@
 @implementation AMBPlayer
 
 
-- (instancetype) init {
-    self = [super initWithTexture:sPlayerSprite]; // loads from texture atlas
+- (instancetype) initWithSprite:(AMBVehicleType)vehicleType {
+    // choose sprite
+    SKTexture *playerTexture;
+    
+    switch (vehicleType) {
+        case AMBVehicleWhite:
+            playerTexture = sPlayerSprite;
+            break;
+            
+        case AMBVehicleRed:
+            playerTexture = sPlayerSprite;
+            break;
+            
+        case AMBVehicleSpecial1:
+            playerTexture = sPlayerSprite;
+            break;
+            
+        case AMBVehicleSpecial2:
+            playerTexture = sPlayerSprite;
+            break;
+    }
+    
+    self = [super initWithTexture:playerTexture]; // loads from texture atlas
     
     // set constants
     self.nativeSpeed = 600;

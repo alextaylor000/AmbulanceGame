@@ -64,8 +64,8 @@
     GameViewController *gameView = [self.storyboard instantiateViewControllerWithIdentifier:@"AMBGameViewController"];
     
     gameView.gameType = 0;
-    gameView.vehicleType = 0;
-    gameView.levelType = 0;
+    gameView.vehicleType = AMBVehicleWhite;
+    gameView.levelType = AMBCity1;
     
     [self.navigationController pushViewController:gameView animated:YES];
 

@@ -39,6 +39,7 @@ typedef enum {
 @property CGFloat laneChangeDegrees; // target degrees for lane change
 @property (nonatomic) PlayerTurnSignalState turnSignalState;
 
+- (instancetype) initWithSprite:(AMBVehicleType)vehicleType;
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;
 - (BOOL)unloadPatient;
