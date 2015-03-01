@@ -99,6 +99,8 @@
 		B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D840CE1A3172CF0073407C /* AMBPowerup.m */; };
 		B9E959B719C9239C00ACD50F /* AMBHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B619C9239C00ACD50F /* AMBHospital.m */; };
 		B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B919C92ADC00ACD50F /* AMBSpawner.m */; };
+		B9EE2EF91AA2DFD900909137 /* AMBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2EF81AA2DFD900909137 /* AMBTimer.m */; };
+		B9EE2EFA1AA2DFE200909137 /* AMBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2EF81AA2DFD900909137 /* AMBTimer.m */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +198,8 @@
 		B9E959B619C9239C00ACD50F /* AMBHospital.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBHospital.m; sourceTree = "<group>"; };
 		B9E959B819C92ADC00ACD50F /* AMBSpawner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBSpawner.h; sourceTree = "<group>"; };
 		B9E959B919C92ADC00ACD50F /* AMBSpawner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBSpawner.m; sourceTree = "<group>"; };
+		B9EE2EF71AA2DFD900909137 /* AMBTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTimer.h; sourceTree = "<group>"; };
+		B9EE2EF81AA2DFD900909137 /* AMBTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTimer.m; sourceTree = "<group>"; };
 		B9F4F0A61985626600578DA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -475,6 +479,8 @@
 				B9A4BD3F1A985CD900C70201 /* AMBTutorial.m */,
 				B96F159719BA8379003E9809 /* AMBScoreKeeper.h */,
 				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
+				B9EE2EF71AA2DFD900909137 /* AMBTimer.h */,
+				B9EE2EF81AA2DFD900909137 /* AMBTimer.m */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -634,6 +640,7 @@
 				B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */,
 				B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */,
 				B9B3EDB31A1EFB950068C52B /* AMBMovingCharacter.m in Sources */,
+				B9EE2EF91AA2DFD900909137 /* AMBTimer.m in Sources */,
 				B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -668,6 +675,7 @@
 				B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */,
 				B9BCC05D1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */,
 				B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */,
+				B9EE2EFA1AA2DFE200909137 /* AMBTimer.m in Sources */,
 				B9C8E4971A4B73F0003F7354 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

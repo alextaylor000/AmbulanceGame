@@ -13,6 +13,7 @@
 #import "AMBCamera.h"
 #import "AMBScoreKeeper.h"
 #import "AMBTutorial.h"
+#import "AMBTimer.h"
 
 @interface AMBLevelScene : AMBGameScene <SKPhysicsContactDelegate>
 
@@ -25,6 +26,9 @@
 @property SKSpriteNode *miniMap; // the minimap!
 
 @property AMBCamera *camera;
+
+@property BOOL tutorialMode; // enables the tutorial
+
 
 // spawn point(s) will be kept on separate layers so we can choose them at random
 // in the spawn methods
@@ -52,7 +56,7 @@
 
 #pragma mark Methods
 
-- (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType;
+- (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType tutorial:(BOOL)tut;
 
 /** Loads a tilemap from disk and sets up all the layers.*/
 - (void)levelWithTilemap:(NSString *)tilemapFile;

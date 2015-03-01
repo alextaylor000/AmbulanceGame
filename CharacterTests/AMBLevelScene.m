@@ -132,9 +132,20 @@ typedef enum {
     
 }
 
-- (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType {
+- (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType tutorial:(BOOL)tut {
 
     if (self = [super initWithSize:size]) {
+        /**
+        
+         Differences in tutorial mode:
+            - No traffic at first
+            - No timer
+            - Patient spawns controlled by tutorial
+         
+         */
+        
+        _tutorialMode = tut;
+        
         _renderTraffic = 0;
 
         self.physicsWorld.contactDelegate = self;

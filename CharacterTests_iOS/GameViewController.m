@@ -32,7 +32,7 @@
            sceneSize = CGSizeMake(768, 1024);
         }
 
-        _gameScene = [[AMBLevelScene alloc]initWithSize:sceneSize gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType];
+        _gameScene = [[AMBLevelScene alloc]initWithSize:sceneSize gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType tutorial:YES];
         _gameScene.scaleMode = SKSceneScaleModeAspectFit;
 
         
