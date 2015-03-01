@@ -388,10 +388,10 @@ typedef enum {
     }];
 
     // update all visible patients
-    [_mapLayerRoad enumerateChildNodesWithName:@"patient" usingBlock:^(SKNode *node, BOOL *stop) {
+#warning enumerateChildNodes is an expensive process
+    [_mapLayerInteractives enumerateChildNodesWithName:@"patient" usingBlock:^(SKNode *node, BOOL *stop) {
         AMBPatient *patientNode = (AMBPatient *)node;
         [patientNode updatePatient];
-        //NSLog(@"update patient");
     }];
     
     // update the indicators

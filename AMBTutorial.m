@@ -82,6 +82,9 @@
                 if (event == PlayerEventPickupPatient) {
                     [self swapTextureTo:sTutorialWhiteArrow afterDelay:0.5];
                     _tutorialState = TutorialStateStep06;
+                } else if (event == PlayerEventDeliverPatient) {
+                    _tutorialState = TutorialStateStep07;
+                    [self finishTutorial];
                 }
 
                 break;
