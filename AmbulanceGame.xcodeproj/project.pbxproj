@@ -58,7 +58,6 @@
 		B9BCC05D1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
 		B9BCC0621A803EE800FF2BAE /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = B9BCC0611A803EE800FF2BAE /* pause.png */; };
 		B9BCC0631A803EE800FF2BAE /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = B9BCC0611A803EE800FF2BAE /* pause.png */; };
-		B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
 		B9C8E4971A4B73F0003F7354 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4961A4B73F0003F7354 /* main.m */; };
 		B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4991A4B73F0003F7354 /* AppDelegate.m */; };
 		B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4A11A4B73F0003F7354 /* GameViewController.m */; };
@@ -79,7 +78,6 @@
 		B9C8E4D61A4B747E003F7354 /* AMBGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */; };
 		B9C8E4D81A4B747E003F7354 /* AMBLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* AMBLevelScene.m */; };
 		B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */; };
-		B9C8E4DA1A4B749D003F7354 /* level01_firstdraft.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C449551A30144700093CC4 /* level01_firstdraft.tmx */; };
 		B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */; };
 		B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */; };
 		B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
@@ -176,7 +174,6 @@
 		B9BCC05A1A8031DA00FF2BAE /* AMBGameSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameSetupViewController.h; path = ../AMBGameSetupViewController.h; sourceTree = "<group>"; };
 		B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameSetupViewController.m; path = ../AMBGameSetupViewController.m; sourceTree = "<group>"; };
 		B9BCC0611A803EE800FF2BAE /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
-		B9C449551A30144700093CC4 /* level01_firstdraft.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_firstdraft.tmx; sourceTree = "<group>"; };
 		B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbulanceGame_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C8E4951A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9C8E4961A4B73F0003F7354 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -249,7 +246,6 @@
 				B9A4BD341A958BFB00C70201 /* road_tilemap_red_v001.png */,
 				B9A4BD311A958BBF00C70201 /* level01_v001.tmx */,
 				B94CEF1D1A4A2EC800037DDA /* test_controls.tmx */,
-				B9C449551A30144700093CC4 /* level01_firstdraft.tmx */,
 				B92E751E19DF9B4300D61394 /* 8bit_tileset_design_ver02.png */,
 				B96A845B19BAC64E002E058B /* road-map-01_with_spawn_points.tmx */,
 			);
@@ -567,7 +563,6 @@
 				B9BCC0621A803EE800FF2BAE /* pause.png in Resources */,
 				B9A0C32D1A57CD5300A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
-				B9C449571A30144700093CC4 /* level01_firstdraft.tmx in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B9A4BD381A959F8F00C70201 /* notifications.atlas in Resources */,
@@ -591,7 +586,6 @@
 				B9A4BD331A958BBF00C70201 /* level01_v001.tmx in Resources */,
 				B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */,
 				B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */,
-				B9C8E4DA1A4B749D003F7354 /* level01_firstdraft.tmx in Resources */,
 				B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */,
 				B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */,
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,

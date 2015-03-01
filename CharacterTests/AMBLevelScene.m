@@ -95,6 +95,7 @@ typedef enum {
 
 @property AMBTimer *gameClock;
 
+
 @end
 
 @implementation AMBLevelScene
@@ -577,7 +578,6 @@ typedef enum {
                                                    frequencyUpperRange:frequencyUpperRange
                                                            withObjects:powerupArray];
         
-        //SKSpriteNode *fuelSpawn = [self addObjectToMinimapAtPoint:spawnPoint withColour:[SKColor orangeColor] withScale:1.0];
         
         [spawner addObjectToNode:_mapLayerRoad atPosition:spawnPoint];
         [_spawners addObject:spawner];
@@ -639,6 +639,8 @@ typedef enum {
     
     // "interactives" layer. fuel, invincibility, and patients - anything that needs to rotate against the camera's rotation
     _mapLayerInteractives = [SKNode node];
+    _mapLayerInteractives.userData = [NSMutableDictionary dictionaryWithObject:@0 forKey:@"childRotation"];
+    
     [_tilemap addChild:_mapLayerInteractives];
     
     
@@ -1035,8 +1037,22 @@ typedef enum {
 }
 
 - (void)rotateInteractives:(CGFloat)degrees {
+    // apply the rotation to the sprite
+    CGFloat curRotation = [_mapLayerInteractives.userData[@"childRotation"] floatValue];
+    
+    CGFloat angle = curRotation + DegreesToRadians(degrees);
+    
+    // wrap angles larger than +/- 360 degrees
+    if (angle >= ( 2 * M_PI )) {
+        angle -= (2 * M_PI);
+    } else if (angle < -(2 * M_PI)) {
+        angle += (2 * M_PI);
+    }
+    
+    _mapLayerInteractives.userData[@"childRotation"] = [NSNumber numberWithFloat:angle];
+
     for (SKNode *child in [_mapLayerInteractives children]) {
-        child.zRotation = DegreesToRadians(degrees);
+        child.zRotation = angle;
     }
 }
 
