@@ -93,6 +93,8 @@ typedef enum {
 
 @property CGFloat minimapScaleFactor; // how much to scale positions by on the minimap; a product of the minimap size relative to the tilemap size
 
+@property AMBTimer *gameClock;
+
 @end
 
 @implementation AMBLevelScene
@@ -199,7 +201,9 @@ typedef enum {
         [self addChild:notifications];
         
         
-        // clock... for testing at the moment, but who knows...?
+        // clock
+        _gameClock = [[AMBTimer alloc] initWithSecondsRemaining:180]; // create the timer object. doesn't start until startTimer is called.
+        
         _labelClock = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
         _labelClock.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
         _labelClock.fontColor = [SKColor yellowColor];
@@ -238,10 +242,9 @@ typedef enum {
         [self addChild:_tutorialOverlay];
         [_tutorialOverlay beginTutorialAfterDelayOf:0.75];
 
+        // start clock
+        [_gameClock startTimer];
         
-        // start the clock
-        _gameStartTime = CACurrentMediaTime();
-
         
     }
     return self;
@@ -355,12 +358,8 @@ typedef enum {
     [self calcDelta:currentTime];
     
     // update the clock
-    
-    CGFloat seconds = 180 - (currentTime - _gameStartTime); // Modulo (%) operator below needs int or long
-    
-    
-    
-    _labelClock.text = [self timeFormatted:seconds];
+    [_gameClock update:currentTime];
+    _labelClock.text = [self timeFormatted:[_gameClock secondsRemaining]];
 
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];

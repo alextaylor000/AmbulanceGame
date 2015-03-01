@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <SpriteKit/SpriteKit.h>
 /*
  
  timer class

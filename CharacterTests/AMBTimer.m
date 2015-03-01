@@ -54,6 +54,10 @@
 - (void)update:(NSTimeInterval)currentTime {
 
     if (_timerState == AMBTimerStateActive) {
+        if (!_lastUpdate) {
+            _lastUpdate = currentTime;
+        }
+        
         NSTimeInterval diff = currentTime - _lastUpdate;
         [self subtractTime: diff];
         
