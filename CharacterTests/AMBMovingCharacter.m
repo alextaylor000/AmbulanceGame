@@ -287,6 +287,7 @@ static const int TILE_LANE_WIDTH = 32;
 
                         
                         [self.levelScene.camera rotateByAngle:degrees];
+                        [self.levelScene rotateInteractives:degrees];
                         [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventTurnCorner]; // tutorial event
     #if DEBUG_PLAYER_CONTROL
                         

@@ -491,4 +491,14 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="turn_zones">
+  <object name="turn_zone" x="5766.2" y="2304" width="120" height="256"/>
+  <object name="fuel.spawn" type="fuel.spawn" x="4104" y="4024" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="1"/>
+    <property name="frequency" value="30"/>
+    <property name="frequencyUpperRange" value="50"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

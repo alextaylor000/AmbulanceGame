@@ -21,6 +21,7 @@
  */
 
 typedef enum {
+    AMBTimerStateIdle, // the default
     AMBTimerStateActive,
     AMBTimerStatePaused,
     AMBTimerStateEmpty

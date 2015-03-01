@@ -98,7 +98,7 @@
     
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
     
-    [objectToSpawn addObjectToNode:[owningScene mapLayerRoad] atPosition:self.position];
+    [objectToSpawn addObjectToNode:[owningScene mapLayerInteractives] atPosition:self.position];
 
     // FUEL SPAWN
     if ([objectToSpawn isKindOfClass:[AMBPowerup class]]) {

@@ -148,7 +148,7 @@ typedef enum {
         
         _tutorialMode = tut;
         
-        _renderTraffic = 0;
+        _renderTraffic = 1;
 
         self.physicsWorld.contactDelegate = self;
 
@@ -236,14 +236,20 @@ typedef enum {
     
         
         // tutorial
-        
-        _tutorialOverlay = [AMBTutorial tutorialOverlay];
-        _tutorialOverlay.position = CGPointMake(0, 200);
-        [self addChild:_tutorialOverlay];
-        [_tutorialOverlay beginTutorialAfterDelayOf:0.75];
+        if (_tutorialMode) {
+            _tutorialOverlay = [AMBTutorial tutorialOverlay];
+            _tutorialOverlay.position = CGPointMake(0, 200);
+            [self addChild:_tutorialOverlay];
+            [_tutorialOverlay beginTutorialAfterDelayOf:0.75];
+            
+            // _mapLayerTrafficAI.alpha = 0; // hide the traffic
+            
+        }
 
         // start clock
-        [_gameClock startTimer];
+        if (!_tutorialMode) {
+            [_gameClock startTimer];
+        }
         
         
     }
@@ -253,6 +259,10 @@ typedef enum {
 
 - (void)didCompleteTutorial {
     // do things like turn traffic on, start timer, etc.
+    [_gameClock startTimer];
+    
+//    SKAction *fadeIn = [SKAction fadeInWithDuration:2.0];
+//    [_mapLayerTrafficAI runAction:fadeIn];
     
 }
 
@@ -307,10 +317,9 @@ typedef enum {
 
 
 
-- (void)addMovingCharacterToTileMap:(AMBMovingCharacter *)character {
+- (void)addMovingCharacter:(AMBMovingCharacter *)character toLayer:(SKNode *)layer {
     // encapsulated like this because we need to make sure levelScene is set on all the player/traffic nodes
-    [_mapLayerRoad addChild:character]; // changed from _tilemap to _mapLayerRoad to keep things consistent between the sprites
-
+    [layer addChild:character];
     character.levelScene = self;
 }
 
@@ -319,7 +328,7 @@ typedef enum {
     _player = [[AMBPlayer alloc] initWithSprite:vehicleType];
     _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
 
-    [self addMovingCharacterToTileMap:_player];
+    [self addMovingCharacter:_player toLayer:_mapLayerRoad];
 #if DEBUG
     NSLog(@"adding player at %1.0f,%1.0f",_playerSpawnPoint.x,_playerSpawnPoint.y);
 #endif
@@ -614,7 +623,7 @@ typedef enum {
     AMBTrafficVehicle *traffic = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:pos withRotation:rotation shouldTurnAtIntersections:intersections];
 
     traffic.name = @"real_traffic";
-    [self addMovingCharacterToTileMap:traffic];
+    [self addMovingCharacter:traffic toLayer:_mapLayerTrafficAI];
     [_trafficVehicles addObject:traffic];
     
 
@@ -622,6 +631,16 @@ typedef enum {
 
 - (void)levelWithTilemap:(NSString *)tilemapFile {
     _tilemap = [self tileMapFromFile:tilemapFile];
+    
+    // traffic layer
+    _mapLayerTrafficAI = [SKNode node];
+    [_tilemap addChild:_mapLayerTrafficAI];
+    
+    
+    // "interactives" layer. fuel, invincibility, and patients - anything that needs to rotate against the camera's rotation
+    _mapLayerInteractives = [SKNode node];
+    [_tilemap addChild:_mapLayerInteractives];
+    
     
     if (_tilemap) {
         // set up the layers/groups
@@ -1013,6 +1032,12 @@ typedef enum {
     CGPoint cameraPositionInWorldNode = [_worldNode convertPoint:node.position fromNode:node.parent];
     node.parent.position = CGPointMake(node.parent.position.x - cameraPositionInWorldNode.x,
                                        node.parent.position.y - cameraPositionInWorldNode.y);
+}
+
+- (void)rotateInteractives:(CGFloat)degrees {
+    for (SKNode *child in [_mapLayerInteractives children]) {
+        child.zRotation = DegreesToRadians(degrees);
+    }
 }
 
 

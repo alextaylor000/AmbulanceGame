@@ -21,6 +21,8 @@
 #pragma Properties - Map
 @property (readonly, nonatomic) JSTileMap *tilemap; // the tilemap for this level
 @property (readonly, nonatomic) TMXLayer *mapLayerRoad; // road layer and characters
+@property (readonly, nonatomic) SKNode *mapLayerTrafficAI;
+@property (readonly, nonatomic) SKNode *mapLayerInteractives; // anything that needs to remain "upright", rotated against the camera's rotation
 @property (readonly, nonatomic) TMXLayer *mapLayerScenery; // for buildings, grass, etc.
 @property (readonly, nonatomic) TMXLayer *mapLayerTraffic; // for placement of traffic - will be hidden during gameplay
 @property SKSpriteNode *miniMap; // the minimap!
@@ -66,6 +68,7 @@
 /** Called when the tutorial ends. Performs operations to the scene which make it "playable." */
 - (void)didCompleteTutorial;
 
+- (void)rotateInteractives:(CGFloat)degrees;
 
 
 
