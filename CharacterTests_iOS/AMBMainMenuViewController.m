@@ -23,7 +23,7 @@
     [AMBLevelScene loadSceneAssetsWithCompletionHandler:^ {
         // will this keep the launch screen visible until the assets are loaded?
         // continue with loading the view
-        NSLog(@"Finished loading shared assets.");
+        //NSLog(@"Finished loading shared assets.");
         [super viewWillAppear:animated];
     }];
     

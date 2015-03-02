@@ -1241,7 +1241,7 @@ typedef enum {
     // you can query the recognizer's state to respond to specific events.
 
     // state 1=began    state 3=ended
-    NSLog(@"handleLongPress state=%li",recognizer.state );
+    //NSLog(@"handleLongPress state=%li",recognizer.state );
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         [_player adjustSpeedToTarget: VehicleSpeedSlow * speedMultiplier];
         [self.tutorialOverlay playerDidPerformEvent:PlayerEventSlowDown]; // tutorial event

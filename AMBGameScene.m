@@ -30,7 +30,7 @@
 
 + (void)loadSceneAssetsWithCompletionHandler:(void (^)(void))callback {
 
-    NSLog(@"Loading shared assets ...");
+    //NSLog(@"Loading shared assets ...");
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         // Load the shared assets in the background.

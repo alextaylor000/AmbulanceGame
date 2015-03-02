@@ -397,7 +397,7 @@
                 
                 // slow down the player temporarily
                 [self adjustSpeedToTarget:self.nativeSpeed * 0.75];
-                NSLog(@"Speed penalty begin");
+                //NSLog(@"Speed penalty begin");
                 [self removeActionForKey:@"speedPenalty"]; // remove action if it's running already
                 [self runAction: speedPenalty withKey:@"speedPenalty"];
             }

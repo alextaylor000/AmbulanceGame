@@ -178,7 +178,7 @@
 		B9BCC05A1A8031DA00FF2BAE /* AMBGameSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameSetupViewController.h; path = ../AMBGameSetupViewController.h; sourceTree = "<group>"; };
 		B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameSetupViewController.m; path = ../AMBGameSetupViewController.m; sourceTree = "<group>"; };
 		B9BCC0611A803EE800FF2BAE /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
-		B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmbulanceGame_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9C8E4921A4B73F0003F7354 /* Dash!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dash!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C8E4951A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9C8E4961A4B73F0003F7354 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B9C8E4981A4B73F0003F7354 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -291,7 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				B988237D1969998400903B73 /* AmbulanceGame.app */,
-				B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */,
+				B9C8E4921A4B73F0003F7354 /* Dash!.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -523,7 +523,7 @@
 			);
 			name = AmbulanceGame_iOS;
 			productName = CharacterTests_iOS;
-			productReference = B9C8E4921A4B73F0003F7354 /* AmbulanceGame_iOS.app */;
+			productReference = B9C8E4921A4B73F0003F7354 /* Dash!.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -771,6 +771,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "Ambulance Dash";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -803,6 +804,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "Ambulance Dash";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -856,7 +858,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = AmbulanceGame_iOS;
+				PRODUCT_NAME = "Dash!";
 				SDKROOT = iphoneos;
 				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -875,7 +877,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = AmbulanceGame_iOS;
+				PRODUCT_NAME = "Dash!";
 				SDKROOT = iphoneos;
 				SPRITEKIT_TEXTURE_ATLAS_FORMAT = RGBA4444_COMPRESSED;
 				TARGETED_DEVICE_FAMILY = "1,2";
