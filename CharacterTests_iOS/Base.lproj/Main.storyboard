@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ble-Ic-dqM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sKY-yi-T0c">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -26,7 +26,7 @@
         <!--Main Menu-->
         <scene sceneID="d5h-ty-aGn">
             <objects>
-                <viewController storyboardIdentifier="AMBMainMenuViewController" title="Main Menu" id="L3B-QC-3hZ" customClass="AMBMainMenuViewController" sceneMemberID="viewController">
+                <viewController title="Main Menu" id="L3B-QC-3hZ" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ifh-g6-a5x"/>
                         <viewControllerLayoutGuide type="bottom" id="y5G-6n-pek"/>
@@ -174,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjf-io-wzU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1903" y="269"/>
+            <point key="canvasLocation" x="1858" y="271"/>
         </scene>
         <!--Game Setup-->
         <scene sceneID="M1B-0J-agB">
@@ -354,7 +354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nkm-lk-HZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1887" y="993"/>
+            <point key="canvasLocation" x="2699" y="993"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="apH-E4-zi7">
@@ -376,5 +376,95 @@
             </objects>
             <point key="canvasLocation" x="1055" y="287"/>
         </scene>
+        <!--BETA MENU-->
+        <scene sceneID="HXi-ct-f7m">
+            <objects>
+                <viewController storyboardIdentifier="AMBMainMenuViewController" title="BETA MENU" id="tp4-xs-Tvh" customClass="AMBMainMenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dbl-Bs-1jT"/>
+                        <viewControllerLayoutGuide type="bottom" id="2AW-yR-SFa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" id="bi4-NV-T1D">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U8q-d0-hHq">
+                                <rect key="frame" x="185" y="437" width="230" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="PLAY GAME">
+                                    <color key="titleColor" red="1" green="0.91357858290000005" blue="0.28640266580000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="quickStartButtonPressed:" destination="tp4-xs-Tvh" eventType="touchUpInside" id="Lu8-ct-cqK"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="** alpha build 001 **" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1fx-wl-fxn">
+                                <rect key="frame" x="205" y="324" width="190" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="190" id="B68-ex-boq"/>
+                                    <constraint firstAttribute="height" constant="30" id="irV-rD-Kkm"/>
+                                </constraints>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" misplaced="YES" image="ambulancedash_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="nvj-Dx-sHU">
+                                <rect key="frame" x="137" y="118" width="327" height="135"/>
+                            </imageView>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaN-sT-spE">
+                                <rect key="frame" x="158" y="363" width="284" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <state key="normal" title="PLAY TUTORIAL">
+                                    <color key="titleColor" red="1" green="0.91357858290000005" blue="0.28640266580000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="quickStartButtonPressed:" destination="tp4-xs-Tvh" eventType="touchUpInside" id="pSU-Se-3PL"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="nvj-Dx-sHU" secondAttribute="centerX" id="1hI-g4-TMR"/>
+                            <constraint firstAttribute="centerX" secondItem="vaN-sT-spE" secondAttribute="centerX" id="Dtb-fE-FoF"/>
+                            <constraint firstAttribute="centerX" secondItem="U8q-d0-hHq" secondAttribute="centerX" id="LGm-oD-lfv"/>
+                            <constraint firstAttribute="centerX" secondItem="1fx-wl-fxn" secondAttribute="centerX" id="fOk-Yq-7o0"/>
+                            <constraint firstItem="vaN-sT-spE" firstAttribute="top" secondItem="1fx-wl-fxn" secondAttribute="bottom" constant="31" id="lK4-CL-TCZ"/>
+                            <constraint firstItem="U8q-d0-hHq" firstAttribute="top" secondItem="vaN-sT-spE" secondAttribute="bottom" constant="34" id="tVp-hX-DA4"/>
+                            <constraint firstItem="1fx-wl-fxn" firstAttribute="centerY" secondItem="bi4-NV-T1D" secondAttribute="centerY" id="vGP-0z-NzT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ei4-Sb-qqC"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ilX-bI-atb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1908" y="967"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pe3-LW-LFe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" navigationBarHidden="YES" id="sKY-yi-T0c" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TgZ-sY-q6l">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="tp4-xs-Tvh" kind="relationship" relationship="rootViewController" id="piy-eJ-1zg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gKC-SE-5vu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1096" y="967"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="ambulancedash_logo.png" width="327" height="135"/>
+    </resources>
 </document>

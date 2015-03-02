@@ -15,6 +15,7 @@
 @property (nonatomic, assign) AMBGameType gameType;
 @property (nonatomic, assign) AMBVehicleType vehicleType;
 @property (nonatomic, assign) AMBLevelType levelType;
+@property (nonatomic, assign) BOOL tutorialMode;
 
 
 @end

@@ -430,13 +430,6 @@
     <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4096" y="4144" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="30"/>
-    <property name="frequencyUpperRange" value="50"/>
-   </properties>
-  </object>
   <object name="fuel.spawn" type="fuel.spawn" x="7680" y="7680" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="40"/>
@@ -492,23 +485,22 @@
   </object>
   <object name="fuel.spawn" type="fuel.spawn" x="4380.15" y="3594.74" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
+    <property name="firstSpawnAt" value="30"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5418.88" y="4426.69" width="256" height="256">
+  <object name="fuel.spawn" type="fuel.spawn" x="5599.25" y="4548.88" width="256" height="256">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
+    <property name="firstSpawnAt" value="30"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="50"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4403.25" y="4918.88" width="256" height="256">
+  <object name="invincibility.spawn" type="invincibility.spawn" x="4146" y="8538" width="204" height="192">
    <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="30"/>
-    <property name="frequencyUpperRange" value="50"/>
+    <property name="firstSpawnAt" value="35"/>
+    <property name="frequency" value="90"/>
    </properties>
   </object>
  </objectgroup>

@@ -33,7 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self quickStartButtonPressed:nil];
+    // [self quickStartButtonPressed:nil]; // automatically pushes the game view immediately
     
 }
 
@@ -47,7 +47,7 @@
     AMBGameSetupViewController *gameSetup = [self.storyboard instantiateViewControllerWithIdentifier:@"AMBGameSetupViewController"];
     
     gameSetup.gameType = sender.tag;
-    
+
     [self.navigationController pushViewController:gameSetup animated:YES];
 }
 
@@ -60,12 +60,13 @@
     [self.navigationController pushViewController:credits animated:YES];
 }
 
-- (IBAction)quickStartButtonPressed:(id)sender {
+- (IBAction)quickStartButtonPressed:(UIButton *)sender {
     GameViewController *gameView = [self.storyboard instantiateViewControllerWithIdentifier:@"AMBGameViewController"];
     
     gameView.gameType = 0;
     gameView.vehicleType = AMBVehicleWhite;
     gameView.levelType = AMBCity1;
+    gameView.tutorialMode = sender.tag;
     
     [self.navigationController pushViewController:gameView animated:YES];
 

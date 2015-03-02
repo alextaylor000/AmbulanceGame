@@ -99,6 +99,10 @@
 		B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B919C92ADC00ACD50F /* AMBSpawner.m */; };
 		B9EE2EF91AA2DFD900909137 /* AMBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2EF81AA2DFD900909137 /* AMBTimer.m */; };
 		B9EE2EFA1AA2DFE200909137 /* AMBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2EF81AA2DFD900909137 /* AMBTimer.m */; };
+		B9EE2F031AA3C43100909137 /* ambulancedash_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EE2F011AA3C43100909137 /* ambulancedash_logo.png */; };
+		B9EE2F041AA3C43100909137 /* ambulancedash_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EE2F011AA3C43100909137 /* ambulancedash_logo.png */; };
+		B9EE2F051AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EE2F021AA3C43100909137 /* ambulancedash_logo@2x.png */; };
+		B9EE2F061AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9EE2F021AA3C43100909137 /* ambulancedash_logo@2x.png */; };
 		B9F4F0A71985626600578DA4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4F0A61985626600578DA4 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -197,6 +201,8 @@
 		B9E959B919C92ADC00ACD50F /* AMBSpawner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBSpawner.m; sourceTree = "<group>"; };
 		B9EE2EF71AA2DFD900909137 /* AMBTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTimer.h; sourceTree = "<group>"; };
 		B9EE2EF81AA2DFD900909137 /* AMBTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTimer.m; sourceTree = "<group>"; };
+		B9EE2F011AA3C43100909137 /* ambulancedash_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ambulancedash_logo.png; sourceTree = "<group>"; };
+		B9EE2F021AA3C43100909137 /* ambulancedash_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ambulancedash_logo@2x.png"; sourceTree = "<group>"; };
 		B9F4F0A61985626600578DA4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -351,6 +357,8 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B9EE2F011AA3C43100909137 /* ambulancedash_logo.png */,
+				B9EE2F021AA3C43100909137 /* ambulancedash_logo@2x.png */,
 				B9BCC0611A803EE800FF2BAE /* pause.png */,
 				B903B1781A68D60F00414D8E /* level01_firstdraft_MINI-256.png */,
 				B9A0C32C1A57CD5300A9BD28 /* level01_firstdraft_MINI.png */,
@@ -563,10 +571,12 @@
 				B9BCC0621A803EE800FF2BAE /* pause.png in Resources */,
 				B9A0C32D1A57CD5300A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
+				B9EE2F031AA3C43100909137 /* ambulancedash_logo.png in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B9A4BD381A959F8F00C70201 /* notifications.atlas in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
+				B9EE2F051AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B9A4BD321A958BBF00C70201 /* level01_v001.tmx in Resources */,
 				B96A845C19BAC64E002E058B /* road-map-01_with_spawn_points.tmx in Resources */,
@@ -584,8 +594,10 @@
 			files = (
 				B9A4BD391A959F8F00C70201 /* notifications.atlas in Resources */,
 				B9A4BD331A958BBF00C70201 /* level01_v001.tmx in Resources */,
+				B9EE2F061AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */,
 				B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */,
 				B9C8E4D91A4B749D003F7354 /* test_controls.tmx in Resources */,
+				B9EE2F041AA3C43100909137 /* ambulancedash_logo.png in Resources */,
 				B9C8E4DC1A4B749D003F7354 /* 8bit_tileset_design_ver02.png in Resources */,
 				B9C8E4DD1A4B749D003F7354 /* road-map-01_with_spawn_points.tmx in Resources */,
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,

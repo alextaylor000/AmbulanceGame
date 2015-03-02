@@ -9,10 +9,22 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="0.86255216598510742" green="0.0" blue="0.086255624890327454" alpha="1" colorSpace="calibratedRGB"/>
+            <subviews>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="ambulancedash_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="eln-JZ-gMS">
+                    <rect key="frame" x="137" y="118" width="327" height="135"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="eln-JZ-gMS" secondAttribute="centerX" id="Pe3-Cq-u4L"/>
+                <constraint firstItem="eln-JZ-gMS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="118" id="YDu-OX-a0L"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
+    <resources>
+        <image name="ambulancedash_logo.png" width="327" height="135"/>
+    </resources>
 </document>
