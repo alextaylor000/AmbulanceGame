@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="256" tileheight="256">
  <tileset firstgid="1" name="road_tiles" tilewidth="256" tileheight="256">
-  <image source="road_tilemap_red_v001.png" width="1536" height="1536"/>
+  <image source="road_tilemap_red.png" width="1536" height="1536"/>
   <tile id="0">
    <properties>
     <property name="road" value="ew"/>
@@ -357,7 +357,7 @@
  </tileset>
  <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztl8cOwyAQRDfF6b335P+/MpsbwWtpMJIhzhzegRVrPcFgRCEi48SMMnAgaekrHYeBNw6p3ZVHRP/E8PMzamUWrc2VRUQ/UqNfu/0KKee2C9aWyiqif9aC9aNfu/z884BmmeeDfv/gd1HWDhtvHFLbKruI/qvhd1aODidvHMJeORh19Ju3mvuLErK/FnXzR7/f9UPuN/R9g95vVm9O91vVeubyf6ZfOr8m3kdWL88H/XL0G8p3RqdSzi1aeyovYK7V+6FX4U1I07wBRrQ21A==
+   eJztl9kKwyAQRad7033ft///yk6hD9ZM4RqhMfY+HIKXTDjoGLEQkUIZvp8pYLnQL2+/rtJy6HvjkOyq3CLqR4AzOsdWNlVmEfVIRr+8/XpS7ts2mM2VRUT9JIP5o19efv5+QHuZ+4N+/+B3UpYOK28ckq2VTUT92fA7KnuHgzcOYavsjBz95qXi+qKErK9F1f6jX3P9kPMNvd+g55tVm9L59m0+U/k/068+v1/cj6xa7g/6peg3kM8eHUu5b9HsrjyAd63aFx3QuS7QdaJf8/2e+wE2yQ==
   </data>
  </layer>
  <layer name="spawn_traffic" width="40" height="40">
