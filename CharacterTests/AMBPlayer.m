@@ -259,9 +259,9 @@
             
             
             self.controlState = PlayerIsStoppedAtTIntersection;
-#if DEBUG_PLAYER_CONTROL
-            NSLog(@"[control] PlayerIsDecelerating -> slamBrakes -> PlayerIsStoppedAtTIntersection");
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//            NSLog(@"[control] PlayerIsDecelerating -> slamBrakes -> PlayerIsStoppedAtTIntersection");
+//#endif
             
             
         }];
@@ -310,9 +310,9 @@
     [self runAction:startMoving completion:^(void){
         if ([self.name isEqualToString:@"player"]) {
             self.controlState = PlayerIsDrivingStraight;
-#if DEBUG_PLAYER_CONTROL
-            NSLog(@"[control] PlayerIsWithinTIntersection -> leaveIntersection -> PlayerIsDrivingStraight");
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//            NSLog(@"[control] PlayerIsWithinTIntersection -> leaveIntersection -> PlayerIsDrivingStraight");
+//#endif
         }
     }];
     
@@ -627,9 +627,9 @@
 }
 
 - (void)printMessage:(NSString *)message {
-    #if DEBUG_PLAYER_CONTROL
-        NSLog(@"%@", message);
-    #endif
+//    #if DEBUG_PLAYER_CONTROL
+//        NSLog(@"%@", message);
+//    #endif
     
 }
 

@@ -89,6 +89,8 @@
 		B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D840CE1A3172CF0073407C /* AMBPowerup.m */; };
 		B9E738621AB0044600EBA587 /* road_tilemap_red.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738601AB0044600EBA587 /* road_tilemap_red.png */; };
 		B9E738631AB0044600EBA587 /* road_tilemap_red.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738601AB0044600EBA587 /* road_tilemap_red.png */; };
+		B9E738671AB13D9D00EBA587 /* road_tilemap_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */; };
+		B9E738681AB13D9D00EBA587 /* road_tilemap_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */; };
 		B9E959B719C9239C00ACD50F /* AMBHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B619C9239C00ACD50F /* AMBHospital.m */; };
 		B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B919C92ADC00ACD50F /* AMBSpawner.m */; };
 		B9EE2EF91AA2DFD900909137 /* AMBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2EF81AA2DFD900909137 /* AMBTimer.m */; };
@@ -186,6 +188,7 @@
 		B9D840CD1A3172CF0073407C /* AMBPowerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBPowerup.h; path = ../AMBPowerup.h; sourceTree = "<group>"; };
 		B9D840CE1A3172CF0073407C /* AMBPowerup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBPowerup.m; path = ../AMBPowerup.m; sourceTree = "<group>"; };
 		B9E738601AB0044600EBA587 /* road_tilemap_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road_tilemap_red.png; sourceTree = "<group>"; };
+		B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "road_tilemap_red@2x.png"; sourceTree = "<group>"; };
 		B9E959B519C9239C00ACD50F /* AMBHospital.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBHospital.h; sourceTree = "<group>"; };
 		B9E959B619C9239C00ACD50F /* AMBHospital.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBHospital.m; sourceTree = "<group>"; };
 		B9E959B819C92ADC00ACD50F /* AMBSpawner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBSpawner.h; sourceTree = "<group>"; };
@@ -241,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				B9E738601AB0044600EBA587 /* road_tilemap_red.png */,
+				B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */,
 				B9A4BD311A958BBF00C70201 /* level01_v001.tmx */,
 			);
 			name = Levels;
@@ -560,6 +564,7 @@
 				B9A0C32D1A57CD5300A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
 				B9EE2F031AA3C43100909137 /* ambulancedash_logo.png in Resources */,
+				B9E738671AB13D9D00EBA587 /* road_tilemap_red@2x.png in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B9A4BD381A959F8F00C70201 /* notifications.atlas in Resources */,
@@ -592,6 +597,7 @@
 				B9E738631AB0044600EBA587 /* road_tilemap_red.png in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
 				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
+				B9E738681AB13D9D00EBA587 /* road_tilemap_red@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

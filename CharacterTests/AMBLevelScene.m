@@ -83,9 +83,9 @@ typedef enum {
 
 @property PanGestureState panGestureState;
 
-#if DEBUG_PLAYER_CONTROL
-@property SKLabelNode *controlStateLabel; // for the player
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//@property SKLabelNode *controlStateLabel; // for the player
+//#endif
 
 #if DEBUG_PLAYER_SWIPE
 @property SKLabelNode *swipeLabel;
@@ -410,34 +410,34 @@ typedef enum {
     _miniMap.position = CGPointMake(-_miniPlayer.position.x, -_miniPlayer.position.y);
     
     
-#if DEBUG_PLAYER_CONTROL
-    switch (_player.controlState) {
-        case PlayerIsStopped:
-            _controlStateLabel.text = @"PlayerIsStopped";
-            break;
-        case PlayerIsStoppedAtTIntersection:
-            _controlStateLabel.text = @"PlayerIsStoppedAtTIntersection";
-            break;
-        case PlayerIsWithinTIntersection:
-            _controlStateLabel.text = @"PlayerIsWithinTIntersection";
-            break;
-        case PlayerIsDrivingStraight:
-            _controlStateLabel.text = @"PlayerIsDrivingStraight";
-            break;
-        case PlayerIsAccelerating:
-            _controlStateLabel.text = @"PlayerIsAccelerating";
-            break;
-        case PlayerIsChangingLanes:
-            _controlStateLabel.text = @"PlayerIsChangingLanes";
-            break;
-        case PlayerIsDecelerating:
-            _controlStateLabel.text = @"PlayerIsDecelerating";
-            break;
-        case PlayerIsTurning:
-            _controlStateLabel.text = @"PlayerIsTurning";
-            break;
-    }
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//    switch (_player.controlState) {
+//        case PlayerIsStopped:
+//            _controlStateLabel.text = @"PlayerIsStopped";
+//            break;
+//        case PlayerIsStoppedAtTIntersection:
+//            _controlStateLabel.text = @"PlayerIsStoppedAtTIntersection";
+//            break;
+//        case PlayerIsWithinTIntersection:
+//            _controlStateLabel.text = @"PlayerIsWithinTIntersection";
+//            break;
+//        case PlayerIsDrivingStraight:
+//            _controlStateLabel.text = @"PlayerIsDrivingStraight";
+//            break;
+//        case PlayerIsAccelerating:
+//            _controlStateLabel.text = @"PlayerIsAccelerating";
+//            break;
+//        case PlayerIsChangingLanes:
+//            _controlStateLabel.text = @"PlayerIsChangingLanes";
+//            break;
+//        case PlayerIsDecelerating:
+//            _controlStateLabel.text = @"PlayerIsDecelerating";
+//            break;
+//        case PlayerIsTurning:
+//            _controlStateLabel.text = @"PlayerIsTurning";
+//            break;
+//    }
+//#endif
 }
 
 #pragma mark World Building

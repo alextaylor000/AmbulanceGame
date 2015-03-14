@@ -73,9 +73,9 @@ static const int TILE_LANE_WIDTH = 32;
     [self runAction:startMoving completion:^(void){
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsDrivingStraight;
-            #if DEBUG_PLAYER_CONTROL
-                NSLog(@"[control] PlayerIsAccelerating -> startMoving -> PlayerIsDrivingStraight");
-            #endif
+//            #if DEBUG_PLAYER_CONTROL
+//                NSLog(@"[control] PlayerIsAccelerating -> startMoving -> PlayerIsDrivingStraight");
+//            #endif
             }
     }];
     
@@ -98,9 +98,9 @@ static const int TILE_LANE_WIDTH = 32;
         
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsStopped;
-            #if DEBUG_PLAYER_CONTROL
-                    NSLog(@"[control] PlayerIsDecelerating -> stopMoving -> PlayerIsStopped");
-            #endif
+//            #if DEBUG_PLAYER_CONTROL
+//                    NSLog(@"[control] PlayerIsDecelerating -> stopMoving -> PlayerIsStopped");
+//            #endif
         }
     
     }];
@@ -153,9 +153,9 @@ static const int TILE_LANE_WIDTH = 32;
     [sprite runAction:wait completion:^(void){
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsDrivingStraight;
-#if DEBUG_PLAYER_CONTROL
-            NSLog(@"[control] PlayerIsTurning -> rotateByAngle (%1.0f,%1.0f) -> PlayerIsDrivingStraight",self.direction.x,self.direction.y);
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//            NSLog(@"[control] PlayerIsTurning -> rotateByAngle (%1.0f,%1.0f) -> PlayerIsDrivingStraight",self.direction.x,self.direction.y);
+//#endif
         }
         
     }];
@@ -185,10 +185,10 @@ static const int TILE_LANE_WIDTH = 32;
 
         if ([self.name isEqualToString:@"player"]) {
             _controlState = PlayerIsDrivingStraight;
-            #if DEBUG_PLAYER_CONTROL
-
-                NSLog(@"[control] PlayerIsChangingLanes -> moveBy -> PlayerIsDrivingStraight");
-            #endif
+//            #if DEBUG_PLAYER_CONTROL
+//
+//                NSLog(@"[control] PlayerIsChangingLanes -> moveBy -> PlayerIsDrivingStraight");
+//            #endif
         }
 
     }];
@@ -289,10 +289,10 @@ static const int TILE_LANE_WIDTH = 32;
                         [self.levelScene.camera rotateByAngle:degrees];
                         [self.levelScene rotateInteractives:degrees];
                         [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventTurnCorner]; // tutorial event
-    #if DEBUG_PLAYER_CONTROL
-                        
-                        NSLog(@"[control]    Valid turn; executing rotateByAngle");
-    #endif
+//    #if DEBUG_PLAYER_CONTROL
+//                        
+//                        NSLog(@"[control]    Valid turn; executing rotateByAngle");
+//    #endif
                     
                 }
                 
@@ -420,20 +420,20 @@ static const int TILE_LANE_WIDTH = 32;
         BOOL pointIsValid = CGPathContainsPoint(path, NULL, positionInTargetTile, FALSE);
         
 #if DEBUG_PLAYER_CONTROL
-        if ([self.name isEqualToString:@"player"]) {
-            if (pointIsValid) {
-                targetPointSprite.color = [SKColor greenColor];
-            }
-            
-            SKShapeNode *bounds = [SKShapeNode node];
-            bounds.path = path;
-            bounds.fillColor = [SKColor whiteColor];
-            bounds.alpha = 0.5;
-            bounds.zPosition = targetPointSprite.zPosition + 10;
-            
-            [targetTile addChild:bounds];
-            [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
-        }
+//        if ([self.name isEqualToString:@"player"]) {
+//            if (pointIsValid) {
+//                targetPointSprite.color = [SKColor greenColor];
+//            }
+//            
+//            SKShapeNode *bounds = [SKShapeNode node];
+//            bounds.path = path;
+//            bounds.fillColor = [SKColor whiteColor];
+//            bounds.alpha = 0.5;
+//            bounds.zPosition = targetPointSprite.zPosition + 10;
+//            
+//            [targetTile addChild:bounds];
+//            [bounds runAction:[SKAction sequence:@[[SKAction waitForDuration:1],[SKAction removeFromParent]]]];
+//        }
 #endif
         
         return pointIsValid;
