@@ -263,49 +263,22 @@ static const int TILE_LANE_WIDTH = 32;
         CGPoint rotatedPointNormalized = CGPointRotate(directionNormalized, degrees);
         CGPoint rotatedPoint;
         
-        
+        // is it single-lane?
         if (currentTileIsMultiLane) {
-            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width);
-            targetPoint = CGPointAdd(rotatedPoint, self.position);
-            isWithinBounds = [self isTargetPointValid:targetPoint];
-            
-            CGPoint targetTileCenter = [self centerOfTileWhichContainsPoint:targetPoint]; // get center of target tile
-
-            CGPoint offset =  CGPointMultiply(CGPointSubtract(targetTileCenter, self.position), rotatedPointNormalized); // calculate the offset between the center of the target tile and the player's position.
-            CGFloat offsetAbsolute = offset.x + offset.y; // "flatten" the offset; one of these numbers will be 0
-            
-            int targetTileGID = [self.levelScene.mapLayerRoad tileGidAt:targetTileCenter];
-            NSDictionary *targetTileProperties = [self.levelScene.tilemap propertiesForGid:targetTileGID];
-            
-            BOOL targetTileIsMultiLane;
-            if([[targetTileProperties[@"road"] substringToIndex:1] isEqualToString:@"b"]) { targetTileIsMultiLane = YES; } else { targetTileIsMultiLane = NO; }
-            
-            
-            if (offsetAbsolute <= self.levelScene.tilemap.tileSize.width && isWithinBounds) {
-                isWithinBounds = YES;
-            } else {
-                isWithinBounds = NO;
-            }
-            
-            
-#if DEBUG_PLAYER_CONTROL
-            NSLog(@"********");
-            NSLog(@"self.position           = %1.0f, %1.0f", self.position.x, self.position.y);
-            NSLog(@"targetTileCenter        = %1.0f, %1.0f", targetTileCenter.x, targetTileCenter.y);
-            NSLog(@"offset)                 = %1.3f", offsetAbsolute);
-            NSLog(@"isWithinBounds          = %i", isWithinBounds);
-            NSLog(@" ");
-            NSLog(@" ");
-#endif
-            
+            rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width*2);
         } else {
             rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width); // target tile is 1 over
-            targetPoint = CGPointAdd(rotatedPoint, self.position);
-            isWithinBounds = [self isTargetPointValid:targetPoint];
         }
         
+        targetPoint = CGPointAdd(rotatedPoint, self.position);
+        
+        isWithinBounds = [self isTargetPointValid:targetPoint];
 
-        if (isWithinBounds) {
+        int rotatedPointTileGID = [self.levelScene.mapLayerRoad tileGidAt:targetPoint];
+        CGPoint test = [self.levelScene.mapLayerRoad coordForPoint:targetPoint];
+        // TODO: get CENTER POINT of target tile. calculate the length between this and the player position. if it's greater than (1.5 tiles + one lane) then you can't turn
+        
+        if (isWithinBounds) { // the tile must be DIFFERENT than the current one to prevent turns when it could be a lane change
             if (CACurrentMediaTime() - _lastTurnEvent > 1) {
                 self.controlState = PlayerIsTurning;
                 _lastTurnEvent = CACurrentMediaTime();
@@ -415,11 +388,6 @@ static const int TILE_LANE_WIDTH = 32;
 }
 
 
-- (CGPoint)centerOfTileWhichContainsPoint:(CGPoint)point {
-    // returns the center point of the tile that contains the specified point.
-    return  [self.levelScene.mapLayerRoad pointForCoord: [self.levelScene.mapLayerRoad coordForPoint:point] ];
-}
-
 - (BOOL)isTargetPointValid: (CGPoint)targetPoint {
 
     // with the target point, get the target tile and determine a) if it's a road tile, and b) if the point within the road tile is a road surface (and not the border)
@@ -474,7 +442,10 @@ static const int TILE_LANE_WIDTH = 32;
     return NO; // no, it's not valid because it's not on a road tile!
 }
 
-//}
+/** Given a coordinate in the tilemap, calculates the center point of the tile in the tilemap coordinate system.  */
+- (CGPoint)centerOfTileAtCoord:(CGPoint)coord {
+    return CGPointZero;
+}
 
 - (void)startMovingTransitionState {
     // stub; overridden by Player.
