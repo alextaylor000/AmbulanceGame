@@ -373,7 +373,7 @@
  </tileset>
  <layer name="road" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmNkOwiAQRcfduu+71v//SoeEB6TT5AJGK52Hk8KkQ05gKKEFERXM2D4/wZxZJORLLuqXt1+f6TgMvX5I7M48EvIngDM6x1Ksbv5SxlS/dvkNqFq3XTC2ZFYJ+bMM5k/98vLz9wNay7o/1C9nv7Xl4rQNG68fEtsyu4T8q9M+Ws5O23Dy+iHsmYMQR8e8Oe2Q9UUJWV+J2PpTv//1Q8439H6Dnm9SbpPOt7r5bMr3Wf1+5/eN+5GUq/tD/ZroN6L3Gp1StW7RWMk8gXelXEMPdI6ljf9P1S/O7wXC6Tdp
+   eJztl9kKwyAQRad7033ft///yk6hD9ZM4RqhMfY+HIKXTDjoGLEQkUIZvp8pYLnQL2+/rtJy6HvjkOyq3CLqR4AzOsdWNlVmEfVIRr+8/XpS7ts2mM2VRUT9JIP5o19efv5+QHuZ+4N+/+B3UpYOK28ckq2VTUT92fA7KnuHgzcOYavsjBz95qXi+qKErK9F1f6jX3P9kPMNvd+g55tVm9L59m0+U/k/068+v1/cj6xa7g/6peg3kM8eHUu5b9HsrjyAd63aFx3QuS7QdaJf8/2e+wE2yQ==
   </data>
  </layer>
  <layer name="spawn_traffic" width="40" height="40">
