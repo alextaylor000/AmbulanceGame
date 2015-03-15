@@ -89,16 +89,12 @@
 }
 
 - (void)updatePatient {
-   // NSLog(@"updatePatient");
     // update TTL
-    patientTTL = [self.userData[@"timeToLive"]doubleValue] - (CACurrentMediaTime() - self.spawnTime);
-    NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
+    if (_state == PatientIsEnRoute) {
+        patientTTL = [self.userData[@"timeToLive"]doubleValue] - (CACurrentMediaTime() - self.spawnTime);
+        NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
+    }
     
-#if DEBUG_PATIENT
-    debugPatientTTL.text = [NSString stringWithFormat:@"%1.0f",patientTTL];
-    
-#endif
-
     if (patientTTL <= 0)   {
         if (_state == PatientIsEnRoute) {
             //[scoreKeeper eventLabelWithText:@"YOUR PATIENT HAS DIED! -points"];
@@ -120,7 +116,7 @@
     
     switch (_state) {
         case PatientIsWaitingForPickup:
-            self.spawnTime = CACurrentMediaTime(); // reset spawn time when a copy is made
+            //self.spawnTime = CACurrentMediaTime(); // reset spawn time when a copy is made
             scoreKeeper = [AMBScoreKeeper sharedInstance]; 
             
 #if DEBUG_PATIENT
@@ -134,6 +130,7 @@
         
         case PatientIsEnRoute:
             self.hidden = YES;
+            self.spawnTime = CACurrentMediaTime(); // start the clock when the patient gets picked up
             [self.minimapAvatar removeFromParent];
             #if DEBUG_PATIENT
                 NSLog(@"[patient] patient is EN-ROUTE!");
