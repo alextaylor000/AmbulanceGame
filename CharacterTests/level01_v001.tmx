@@ -95,12 +95,14 @@
    <properties>
     <property name="intersection" value="1"/>
     <property name="road" value="b_nsw"/>
+    <property name="valid_directions" value="N,S,W"/>
    </properties>
   </tile>
   <tile id="15">
    <properties>
     <property name="intersection" value="1"/>
     <property name="road" value="b_nes"/>
+    <property name="valid_directions" value="N,E,S"/>
    </properties>
   </tile>
   <tile id="16">
@@ -113,30 +115,35 @@
    <properties>
     <property name="intersection" value="1"/>
     <property name="road" value="b_new"/>
+    <property name="valid_directions" value="N,E,W"/>
    </properties>
   </tile>
   <tile id="18">
    <properties>
     <property name="intersection" value="1"/>
     <property name="road" value="bb_new_l"/>
+    <property name="valid_directions" value="N,E,S,W"/>
    </properties>
   </tile>
   <tile id="19">
    <properties>
     <property name="intersection" value="1"/>
     <property name="road" value="bb_new_r"/>
+    <property name="valid_directions" value="N,E,S,W"/>
    </properties>
   </tile>
   <tile id="20">
    <properties>
     <property name="intersection" value="1"/>
     <property name="road" value="bb_esw_l"/>
+    <property name="valid_directions" value="N,E,S,W"/>
    </properties>
   </tile>
   <tile id="21">
    <properties>
     <property name="intersection" value="1"/>
     <property name="road" value="bb_esw_r"/>
+    <property name="valid_directions" value="N,E,S,W"/>
    </properties>
   </tile>
   <tile id="22">
@@ -149,6 +156,7 @@
    <properties>
     <property name="intersection" value="1"/>
     <property name="road" value="b_esw"/>
+    <property name="valid_directions" value="E,S,W"/>
    </properties>
   </tile>
   <tile id="24">
@@ -156,6 +164,7 @@
     <property name="intersection" value="1"/>
     <property name="invalid_directions" value="{{-1,0},{0,0}}"/>
     <property name="road" value="bbb_nes_b"/>
+    <property name="valid_directions" value="E,S"/>
    </properties>
   </tile>
   <tile id="25">
@@ -163,6 +172,7 @@
     <property name="intersection" value="1"/>
     <property name="invalid_directions" value="{{-1,0},{0,0}}"/>
     <property name="road" value="bbb_nes_t"/>
+    <property name="valid_directions" value="N,E"/>
    </properties>
   </tile>
   <tile id="26">
@@ -170,6 +180,7 @@
     <property name="intersection" value="1"/>
     <property name="invalid_directions" value="{{1,0},{0,0}}"/>
     <property name="road" value="bbb_nsw_t"/>
+    <property name="valid_directions" value="N,W"/>
    </properties>
   </tile>
   <tile id="27">
@@ -177,6 +188,7 @@
     <property name="intersection" value="1"/>
     <property name="invalid_directions" value="{{1,0},{0,0}}"/>
     <property name="road" value="bbb_nsw_b"/>
+    <property name="valid_directions" value="S,W"/>
    </properties>
   </tile>
   <tile id="28">
@@ -184,6 +196,7 @@
     <property name="intersection" value="1"/>
     <property name="invalid_directions" value="{{0,1},{0,0}}"/>
     <property name="road" value="bbb_esw_l"/>
+    <property name="valid_directions" value="S,W"/>
    </properties>
   </tile>
   <tile id="29">
@@ -191,6 +204,7 @@
     <property name="intersection" value="1"/>
     <property name="invalid_directions" value="{{0,1},{0,0}}"/>
     <property name="road" value="bbb_esw_r"/>
+    <property name="valid_directions" value="E,S"/>
    </properties>
   </tile>
   <tile id="30">
@@ -198,6 +212,7 @@
     <property name="intersection" value="1"/>
     <property name="invalid_directions" value="{{0,-1},{0,0}}"/>
     <property name="road" value="bbb_new_l"/>
+    <property name="valid_directions" value="N,W"/>
    </properties>
   </tile>
   <tile id="31">
@@ -205,6 +220,7 @@
     <property name="intersection" value="1"/>
     <property name="invalid_directions" value="{{0,-1},{0,0}}"/>
     <property name="road" value="bbb_new_r"/>
+    <property name="valid_directions" value="N,E"/>
    </properties>
   </tile>
  </tileset>

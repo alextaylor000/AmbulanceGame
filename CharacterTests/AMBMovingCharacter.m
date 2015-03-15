@@ -269,20 +269,26 @@ static const int TILE_LANE_WIDTH = 32;
             targetPoint = CGPointAdd(rotatedPoint, self.position);
             isWithinBounds = [self isTargetPointValid:targetPoint];
             
+            // get valid directions; the turn will only be allowed if it's happening in a valid direction from the multi-lane.
+            NSString *validDirectionsStr = _currentTileProperties[@"valid_directions"];
+            NSArray *validDirectionsArr = [self parseValidDirections:validDirectionsStr];
+            
+            
             CGPoint targetTileCenter = [self centerOfTileWhichContainsPoint:targetPoint]; // get center of target tile
 
             CGPoint offset =  CGPointMultiply(CGPointSubtract(targetTileCenter, self.position), rotatedPointNormalized); // calculate the offset between the center of the target tile and the player's position.
             CGFloat offsetAbsolute = offset.x + offset.y; // "flatten" the offset; one of these numbers will be 0
             
-            int targetTileGID = [self.levelScene.mapLayerRoad tileGidAt:targetTileCenter];
-            NSDictionary *targetTileProperties = [self.levelScene.tilemap propertiesForGid:targetTileGID];
-            
-            BOOL targetTileIsMultiLane;
-            if([[targetTileProperties[@"road"] substringToIndex:1] isEqualToString:@"b"]) { targetTileIsMultiLane = YES; } else { targetTileIsMultiLane = NO; }
-            
             
             if (offsetAbsolute <= self.levelScene.tilemap.tileSize.width && isWithinBounds) {
-                isWithinBounds = YES;
+                if ([validDirectionsArr containsObject:[NSValue valueWithCGPoint:rotatedPointNormalized]]) {
+                    // the desired direction of travel matches a valid direction in the tile
+                    isWithinBounds = YES;
+                } else {
+                    isWithinBounds = NO;
+                }
+                
+
             } else {
                 isWithinBounds = NO;
             }
@@ -294,6 +300,8 @@ static const int TILE_LANE_WIDTH = 32;
             NSLog(@"targetTileCenter        = %1.0f, %1.0f", targetTileCenter.x, targetTileCenter.y);
             NSLog(@"offset)                 = %1.3f", offsetAbsolute);
             NSLog(@"isWithinBounds          = %i", isWithinBounds);
+            NSLog(@"valid_directions        = %@", validDirectionsStr);
+            NSLog(@"rotated_point =         = %1.0f,%1.0f",rotatedPointNormalized.x,rotatedPointNormalized.y);
             NSLog(@" ");
             NSLog(@" ");
 #endif
@@ -414,6 +422,29 @@ static const int TILE_LANE_WIDTH = 32;
 
 }
 
+
+- (NSArray *)parseValidDirections:(NSString *)directionsString {
+    NSArray *cardinalDirections = [directionsString componentsSeparatedByString:@","];
+    NSMutableArray *validDirections = [NSMutableArray array];
+    
+    for (NSString *str in cardinalDirections) {
+        if ([str isEqualToString:@"N"]) {
+            [validDirections addObject:[NSValue valueWithCGPoint:CGPointMake(0, 1)]];
+        } else if ([str isEqualToString:@"E"]) {
+            [validDirections addObject:[NSValue valueWithCGPoint:CGPointMake(1, 0)]];
+            
+        } else if ([str isEqualToString:@"S"]) {
+            [validDirections addObject:[NSValue valueWithCGPoint:CGPointMake(0, -1)]];
+            
+        } else if ([str isEqualToString:@"W"]) {
+            [validDirections addObject:[NSValue valueWithCGPoint:CGPointMake(-1, 0)]];
+            
+        }
+    
+    }
+    
+    return validDirections;
+}
 
 - (CGPoint)centerOfTileWhichContainsPoint:(CGPoint)point {
     // returns the center point of the tile that contains the specified point.

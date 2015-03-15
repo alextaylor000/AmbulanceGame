@@ -55,7 +55,15 @@ SKT_INLINE CGPoint CGPointRotate(CGPoint point, CGFloat degrees) {
     CGFloat r = DegreesToRadians(degrees);
     CGFloat px = point.x * cosf(r) - point.y * sinf(r);
     CGFloat py = point.x * sinf(r) + point.y * cosf(r);
-    return CGPointMake( roundf(px) , roundf(py) ); // rounded these values to remove values close to zero
+    
+    CGFloat px_r = roundf(px);
+    CGFloat py_r = roundf(py);
+    
+    px_r == -0 ? px_r = 0 : px_r;
+    py_r == -0 ? py_r = 0 : py_r;
+    
+    
+    return CGPointMake( px_r , py_r ); // rounded these values to remove values close to zero
 }
 
 
