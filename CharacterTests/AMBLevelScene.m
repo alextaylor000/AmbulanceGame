@@ -1108,12 +1108,13 @@ typedef enum {
 
 - (void)handlePan:(UIGestureRecognizer *)recognizer {
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
+    CGPoint trans = [(UIPanGestureRecognizer *)recognizer translationInView:self.view ];
     
     static CGFloat PAN_REVERSE_VEL = 200; // issue #36, recognize change of direction during pan
-    static CGFloat PAN_IDLE_VEL = 75; // issue #42, handle idle state during pan
+    static CGFloat PAN_IDLE_TRANS = 25; // issue #42, handle idle state during pan
     
 #if DEBUG_PLAYER_CONTROL
-    NSLog(@"handlePanl state=%li, velocity=%1.0f,%1.0f",recognizer.state,vel.x,vel.y);
+    NSLog(@"handlePan state=%li, velocity=%1.0f,%1.0f, trans=%1.0f,%1.0f",recognizer.state,vel.x,vel.y,trans.x,trans.y);
 #endif
     
     // if a Pan gesture has begun, fire up OUR state machine; otherwise pass the current state through
@@ -1130,17 +1131,19 @@ typedef enum {
                 self.panGestureState = GestureLeftDown;
                 [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateLeft];
-#if DEBUG_PLAYER_SWIPE
-                _swipeLabel.text = @"<<";
+#if DEBUG_PLAYER_CONTROL
+                NSLog(@"[GestureBegan] -> [GestureLeftDown]");
 #endif
+                
                 
             } else { // RIGHT
                 self.panGestureState = GestureRightDown;
                 [_player handleInput:PlayerControlsTurnRight keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateRight];
-#if DEBUG_PLAYER_SWIPE
-                _swipeLabel.text = @">>";
+#if DEBUG_PLAYER_CONTROL
+                NSLog(@"[GestureBegan] -> [GestureRightDown]");
 #endif
+                
                 
             }
             break;
@@ -1150,29 +1153,33 @@ typedef enum {
             if (recognizer.state == UIGestureRecognizerStateEnded) {
                 [_player handleInput:PlayerControlsTurnLeft keyDown:NO]; // fingers up!
                 [_player setTurnSignalState:PlayerTurnSignalStateOff];
-#if DEBUG_PLAYER_SWIPE
-                _swipeLabel.text = @"|";
-#endif
-                
                 break;
             }
             
-            if (vel.x <= PAN_REVERSE_VEL) { // LEFT, with margin of error
+            if (trans.x <= -PAN_IDLE_TRANS) { // LEFT, with margin of error
                 [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateLeft];
-#if DEBUG_PLAYER_SWIPE
-                _swipeLabel.text = @"<<";
+#if DEBUG_PLAYER_CONTROL
+                NSLog(@"[GestureLeftDown] LEFT");
 #endif
                 
                 
-            } else  { // RIGHT
+            } else if (vel.x >= PAN_IDLE_TRANS)  { // RIGHT
                 self.panGestureState = GestureRightDown;
                 [_player handleInput:PlayerControlsTurnRight keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateRight];
-#if DEBUG_PLAYER_SWIPE
-                _swipeLabel.text = @">>";
-                NSLog(@"[control] left->right with velocity %1.0f", vel.x);
+#if DEBUG_PLAYER_CONTROL
+                NSLog(@"[GestureLeftDown] RIGHT");
 #endif
+                
+        
+            } else { // IDLE
+                [_player handleInput:PlayerControlsTurnLeft keyDown:NO]; // fingers up!
+                [_player setTurnSignalState:PlayerTurnSignalStateOff];
+#if DEBUG_PLAYER_CONTROL
+                NSLog(@"[GestureLeftDown] IDLE");
+#endif
+                
                 
             }
             break;
@@ -1185,31 +1192,35 @@ typedef enum {
             if (recognizer.state == UIGestureRecognizerStateEnded) {
                 [_player handleInput:PlayerControlsTurnRight keyDown:NO]; // fingers up!
                 [_player setTurnSignalState:PlayerTurnSignalStateOff];
-#if DEBUG_PLAYER_SWIPE
-                _swipeLabel.text = @"|";
-#endif
-                
                 break;
             }
             
-            if (vel.x >= -PAN_REVERSE_VEL) { // RIGHT, with margin of error
+            if (trans.x >= PAN_IDLE_TRANS) { // RIGHT, with margin of error
                 [_player handleInput:PlayerControlsTurnRight keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateRight];
-#if DEBUG_PLAYER_SWIPE
-                _swipeLabel.text = @">>";
+#if DEBUG_PLAYER_CONTROL
+                NSLog(@"[GestureLeftDown] RIGHT");
 #endif
                 
                 
-            } else  { // LEFT
+            } else if (trans.x <= -PAN_IDLE_TRANS)  { // LEFT
                 self.panGestureState = GestureLeftDown;
                 [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateLeft];
-#if DEBUG_PLAYER_SWIPE
-                _swipeLabel.text = @"<<";
-                NSLog(@"[control] right->left with velocity %1.0f", vel.x);
+#if DEBUG_PLAYER_CONTROL
+                NSLog(@"[GestureLeftDown] LEFT");
 #endif
                 
-            } 
+                
+            } else { // IDLE
+                [_player handleInput:PlayerControlsTurnRight keyDown:NO]; // fingers up!
+                [_player setTurnSignalState:PlayerTurnSignalStateOff];
+#if DEBUG_PLAYER_CONTROL
+                NSLog(@"[GestureLeftDown] IDLE");
+#endif
+                
+                
+            }
 
 
             break;

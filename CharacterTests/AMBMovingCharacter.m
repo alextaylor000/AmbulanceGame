@@ -294,17 +294,17 @@ static const int TILE_LANE_WIDTH = 32;
             }
             
             
-#if DEBUG_PLAYER_CONTROL
-            NSLog(@"********");
-            NSLog(@"self.position           = %1.0f, %1.0f", self.position.x, self.position.y);
-            NSLog(@"targetTileCenter        = %1.0f, %1.0f", targetTileCenter.x, targetTileCenter.y);
-            NSLog(@"offset)                 = %1.3f", offsetAbsolute);
-            NSLog(@"isWithinBounds          = %i", isWithinBounds);
-            NSLog(@"valid_directions        = %@", validDirectionsStr);
-            NSLog(@"rotated_point =         = %1.0f,%1.0f",rotatedPointNormalized.x,rotatedPointNormalized.y);
-            NSLog(@" ");
-            NSLog(@" ");
-#endif
+//#if DEBUG_PLAYER_CONTROL
+//            NSLog(@"********");
+//            NSLog(@"self.position           = %1.0f, %1.0f", self.position.x, self.position.y);
+//            NSLog(@"targetTileCenter        = %1.0f, %1.0f", targetTileCenter.x, targetTileCenter.y);
+//            NSLog(@"offset)                 = %1.3f", offsetAbsolute);
+//            NSLog(@"isWithinBounds          = %i", isWithinBounds);
+//            NSLog(@"valid_directions        = %@", validDirectionsStr);
+//            NSLog(@"rotated_point =         = %1.0f,%1.0f",rotatedPointNormalized.x,rotatedPointNormalized.y);
+//            NSLog(@" ");
+//            NSLog(@" ");
+//#endif
             
         } else {
             rotatedPoint = CGPointMultiplyScalar(rotatedPointNormalized, self.levelScene.tilemap.tileSize.width); // target tile is 1 over
