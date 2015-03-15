@@ -27,7 +27,7 @@
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 
-#define kNumberCars   15
+
 
 static NSString * const LEVEL_NAME = @"level01_v001.tmx";
 
@@ -149,7 +149,7 @@ typedef enum {
         
         _tutorialMode = tut;
         
-        _renderTraffic = 1;
+        _renderTraffic = 0;
 
         self.physicsWorld.contactDelegate = self;
 
