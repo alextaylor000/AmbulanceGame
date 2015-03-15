@@ -83,6 +83,11 @@ typedef enum {
 
 @property PanGestureState panGestureState;
 
+#if DEBUG_PLAYER_CONTROL
+@property SKSpriteNode *panMover;
+#endif
+
+
 //#if DEBUG_PLAYER_CONTROL
 //@property SKLabelNode *controlStateLabel; // for the player
 //#endif
@@ -156,6 +161,14 @@ typedef enum {
         // indicator, created before createWorld so it can be referenced in initial spawns
         _indicator = [[AMBIndicator alloc]initForScene:self];
 
+#if DEBUG_PLAYER_CONTROL
+        _panMover = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(20, 20)];
+        _panMover.hidden = NO;
+        _panMover.zPosition = 999;
+        [self addChild:_panMover];
+#endif
+
+        
         
         // choose level
         NSString *levelName;
@@ -1110,8 +1123,15 @@ typedef enum {
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
     CGPoint trans = [(UIPanGestureRecognizer *)recognizer translationInView:self.view ];
     
-    static CGFloat PAN_REVERSE_VEL = 200; // issue #36, recognize change of direction during pan
-    static CGFloat PAN_IDLE_TRANS = 25; // issue #42, handle idle state during pan
+    
+    
+#if DEBUG_PLAYER_CONTROL
+    _panMover.position = trans;
+    _panMover.color = [SKColor whiteColor];
+#endif
+    
+    
+    static CGFloat PAN_IDLE_TRANS = 50; // issue #42, handle idle state during pan
     
 #if DEBUG_PLAYER_CONTROL
     NSLog(@"handlePan state=%li, velocity=%1.0f,%1.0f, trans=%1.0f,%1.0f",recognizer.state,vel.x,vel.y,trans.x,trans.y);
@@ -1123,22 +1143,30 @@ typedef enum {
     
     switch (self.panGestureState) {
         case GestureIdle:
-            // should never happen
+            if (fabsf(trans.x) > PAN_IDLE_TRANS) {
+                self.panGestureState = GestureBegan;
+#if DEBUG_PLAYER_CONTROL
+                _panMover.hidden = NO;
+                NSLog(@"[GestureIdle] -> [GestureBegan]");
+#endif
+                
+            }
             break;
         
         case GestureBegan:
             if (vel.x < 0) { // LEFT
                 self.panGestureState = GestureLeftDown;
-                [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
+                //[_player handleInput:PlayerControlsTurnLeft keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateLeft];
 #if DEBUG_PLAYER_CONTROL
+                _panMover.hidden = NO;
                 NSLog(@"[GestureBegan] -> [GestureLeftDown]");
 #endif
                 
                 
             } else { // RIGHT
                 self.panGestureState = GestureRightDown;
-                [_player handleInput:PlayerControlsTurnRight keyDown:YES];
+                //[_player handleInput:PlayerControlsTurnRight keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateRight];
 #if DEBUG_PLAYER_CONTROL
                 NSLog(@"[GestureBegan] -> [GestureRightDown]");
@@ -1164,7 +1192,7 @@ typedef enum {
 #endif
                 
                 
-            } else if (vel.x >= PAN_IDLE_TRANS)  { // RIGHT
+            } else if (trans.x >= PAN_IDLE_TRANS)  { // RIGHT
                 self.panGestureState = GestureRightDown;
                 [_player handleInput:PlayerControlsTurnRight keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateRight];
@@ -1174,10 +1202,12 @@ typedef enum {
                 
         
             } else { // IDLE
+                self.panGestureState = GestureIdle;
                 [_player handleInput:PlayerControlsTurnLeft keyDown:NO]; // fingers up!
                 [_player setTurnSignalState:PlayerTurnSignalStateOff];
 #if DEBUG_PLAYER_CONTROL
                 NSLog(@"[GestureLeftDown] IDLE");
+                _panMover.color = [SKColor greenColor];
 #endif
                 
                 
@@ -1213,10 +1243,12 @@ typedef enum {
                 
                 
             } else { // IDLE
+                self.panGestureState = GestureIdle;
                 [_player handleInput:PlayerControlsTurnRight keyDown:NO]; // fingers up!
                 [_player setTurnSignalState:PlayerTurnSignalStateOff];
 #if DEBUG_PLAYER_CONTROL
                 NSLog(@"[GestureLeftDown] IDLE");
+                _panMover.color = [SKColor greenColor];
 #endif
                 
                 
