@@ -226,7 +226,8 @@
                 
                 if (self.controlState == PlayerIsAccelerating ||
                     self.controlState == PlayerIsDecelerating ||
-                    self.controlState == PlayerIsDrivingStraight) {
+                    self.controlState == PlayerIsDrivingStraight ||
+                    self.controlState == PlayerIsChangingLanes) {
                     if (CGPointEqualToPoint(invalidDirection1, self.direction) ||
                         CGPointEqualToPoint(invalidDirection2, self.direction)) {
                         self.controlState = PlayerIsWithinTIntersection; // no valid inputs in this control state (intentional)

@@ -1109,11 +1109,12 @@ typedef enum {
 - (void)handlePan:(UIGestureRecognizer *)recognizer {
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
     
-    static CGFloat PAN_REVERSE_VEL = 200; // issue #36
+    static CGFloat PAN_REVERSE_VEL = 200; // issue #36, recognize change of direction during pan
+    static CGFloat PAN_IDLE_VEL = 75; // issue #42, handle idle state during pan
     
-//#if DEBUG_PLAYER_CONTROL
-//    NSLog(@"handlePanl state=%li, velocity%1.0f,%1.0f",recognizer.state,vel.x,vel.y);
-//#endif
+#if DEBUG_PLAYER_CONTROL
+    NSLog(@"handlePanl state=%li, velocity=%1.0f,%1.0f",recognizer.state,vel.x,vel.y);
+#endif
     
     // if a Pan gesture has begun, fire up OUR state machine; otherwise pass the current state through
     self.panGestureState = recognizer.state == UIGestureRecognizerStateBegan ? GestureBegan : self.panGestureState;
@@ -1164,7 +1165,7 @@ typedef enum {
 #endif
                 
                 
-            } else { // RIGHT
+            } else  { // RIGHT
                 self.panGestureState = GestureRightDown;
                 [_player handleInput:PlayerControlsTurnRight keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateRight];
@@ -1199,7 +1200,7 @@ typedef enum {
 #endif
                 
                 
-            } else { // LEFT
+            } else  { // LEFT
                 self.panGestureState = GestureLeftDown;
                 [_player handleInput:PlayerControlsTurnLeft keyDown:YES];
                 [_player setTurnSignalState:PlayerTurnSignalStateLeft];
@@ -1208,8 +1209,8 @@ typedef enum {
                 NSLog(@"[control] right->left with velocity %1.0f", vel.x);
 #endif
                 
-            }
-            break;
+            } 
+
 
             break;
             
