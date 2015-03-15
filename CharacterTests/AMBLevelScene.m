@@ -29,7 +29,7 @@
 
 
 
-static NSString * const LEVEL_NAME = @"level01_v001.tmx";
+static NSString * const LEVEL_NAME = @"level01_v001.tmx"; // TODO: this isn't used anymore, DELETE IT
 
 
 typedef enum {
