@@ -16,6 +16,11 @@
                     <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="invincibility.png" translatesAutoresizingMaskIntoConstraints="NO" id="SMv-c9-y0S">
+                                <rect key="frame" x="282" y="349" width="55" height="63"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -467,5 +472,6 @@
     </scenes>
     <resources>
         <image name="ambulancedash_logo.png" width="327" height="135"/>
+        <image name="invincibility.png" width="55" height="63"/>
     </resources>
 </document>
