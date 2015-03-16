@@ -24,6 +24,7 @@
 #import "AMBSpawner.h"
 #import "AMBPowerup.h"
 #import "AMBTrafficVehicle.h"
+#import "AMBFuelGauge.h"
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 
@@ -57,7 +58,7 @@ typedef enum {
 
 @property SKSpriteNode *miniPlayer; // for the minimap
 @property SKSpriteNode *miniHospital;
-
+@property AMBFuelGauge *fuelGauge;
 
 @property NSMutableArray *trafficVehicles; // for enumerating the traffic objects during update loop
 
@@ -236,6 +237,8 @@ typedef enum {
         _fuelStatus.zPosition = 999;
         [self addChild:_fuelStatus];
         
+        [self createFuelGauge];
+        
 
         
         // patient TTL
@@ -278,6 +281,12 @@ typedef enum {
 //    SKAction *fadeIn = [SKAction fadeInWithDuration:2.0];
 //    [_mapLayerTrafficAI runAction:fadeIn];
     
+}
+
+- (void)createFuelGauge {
+    _fuelGauge = [AMBFuelGauge fuelGaugeWithAmount:0];
+    [self addChild: _fuelGauge];
+    [_fuelGauge addFuel:124];
 }
 
 - (void)createMinimap {
@@ -610,6 +619,8 @@ typedef enum {
     [AMBPlayer loadSharedAssets];
     [AMBPowerup loadSharedAssets];
     [AMBTrafficVehicle loadSharedAssets];
+    [AMBFuelGauge loadSharedAssets];
+    
     
 }
 

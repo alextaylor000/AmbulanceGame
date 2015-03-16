@@ -91,6 +91,8 @@
 		B9E738631AB0044600EBA587 /* road_tilemap_red.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738601AB0044600EBA587 /* road_tilemap_red.png */; };
 		B9E738671AB13D9D00EBA587 /* road_tilemap_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */; };
 		B9E738681AB13D9D00EBA587 /* road_tilemap_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */; };
+		B9E738711AB6817400EBA587 /* AMBFuelGauge.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E738701AB6817400EBA587 /* AMBFuelGauge.m */; };
+		B9E738721AB6817400EBA587 /* AMBFuelGauge.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E738701AB6817400EBA587 /* AMBFuelGauge.m */; };
 		B9E959B719C9239C00ACD50F /* AMBHospital.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B619C9239C00ACD50F /* AMBHospital.m */; };
 		B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E959B919C92ADC00ACD50F /* AMBSpawner.m */; };
 		B9EE2EF91AA2DFD900909137 /* AMBTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2EF81AA2DFD900909137 /* AMBTimer.m */; };
@@ -189,6 +191,8 @@
 		B9D840CE1A3172CF0073407C /* AMBPowerup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBPowerup.m; path = ../AMBPowerup.m; sourceTree = "<group>"; };
 		B9E738601AB0044600EBA587 /* road_tilemap_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road_tilemap_red.png; sourceTree = "<group>"; };
 		B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "road_tilemap_red@2x.png"; sourceTree = "<group>"; };
+		B9E7386F1AB6817400EBA587 /* AMBFuelGauge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBFuelGauge.h; sourceTree = "<group>"; };
+		B9E738701AB6817400EBA587 /* AMBFuelGauge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBFuelGauge.m; sourceTree = "<group>"; };
 		B9E959B519C9239C00ACD50F /* AMBHospital.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBHospital.h; sourceTree = "<group>"; };
 		B9E959B619C9239C00ACD50F /* AMBHospital.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBHospital.m; sourceTree = "<group>"; };
 		B9E959B819C92ADC00ACD50F /* AMBSpawner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBSpawner.h; sourceTree = "<group>"; };
@@ -442,6 +446,8 @@
 		B9E959BC19C93C8D00ACD50F /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				B9E7386F1AB6817400EBA587 /* AMBFuelGauge.h */,
+				B9E738701AB6817400EBA587 /* AMBFuelGauge.m */,
 				B99FD09F1A046FE1007FC685 /* AMBCamera.h */,
 				B99FD0A01A046FE1007FC685 /* AMBCamera.m */,
 				B911C9E719C656CC00EA85D9 /* AMBCharacter.h */,
@@ -617,6 +623,7 @@
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
 				B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */,
 				B985AFA91A802538000B3423 /* AMBMainMenuViewController.m in Sources */,
+				B9E738711AB6817400EBA587 /* AMBFuelGauge.m in Sources */,
 				B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */,
 				B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */,
 				B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */,
@@ -652,6 +659,7 @@
 				B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */,
 				B9C8E4BE1A4B747E003F7354 /* AMBScoreKeeper.m in Sources */,
 				B9C8E4C01A4B747E003F7354 /* AMBCamera.m in Sources */,
+				B9E738721AB6817400EBA587 /* AMBFuelGauge.m in Sources */,
 				B9C8E4C21A4B747E003F7354 /* AMBCharacter.m in Sources */,
 				B9C8E4C41A4B747E003F7354 /* AMBMovingCharacter.m in Sources */,
 				B9C8E4C61A4B747E003F7354 /* AMBPatient.m in Sources */,
