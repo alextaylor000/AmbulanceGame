@@ -13,7 +13,7 @@
 #import "AMBPowerup.h"
 #import "AMBScoreKeeper.h"
 #import "SKTUtils.h"
-
+#import "AMBFuelGauge.h"
 
 
 
@@ -113,7 +113,7 @@
     
     _scoreKeeper = [AMBScoreKeeper sharedInstance]; // hook up the shared instance of the score keeper so we can talk to it
     
-    _fuel = 3;
+    _fuel = fuelCapacity; // fuel capacity from FuelGauge
     _fuelTimer = 0;
     
     self.controlState = PlayerIsStopped;
@@ -182,34 +182,6 @@
         }
         
         
-        _fuelTimer += delta;
-#if DEBUG_FUEL
-        NSLog(@"fueltimer=%1.0f",_fuelTimer);
-#endif
-        
-        
-        // update fuel if we're moving
-        if (_fuelTimer > FUEL_TIMER_INCREMENT) {
-            _fuelTimer = 0;
-            _fuel--; // decrement fuel
-#if DEBUG_FUEL
-            NSLog(@"fuel is now %f",_fuel);
-#endif
-            
-            owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
-            
-            if (_fuel == 0) {
-                [self stopMovingWithDecelTime:self.decelTimeSeconds];
-                [_scoreKeeper showNotification:ScoreKeeperNotificationFuelEmpty]; // OUT OF FUEL!
-                
-                
-            }
-            
-        }
-        
-
-        
-        
         
         // T-intersections
         if (self.currentTileProperties[@"invalid_directions"]) {
@@ -240,6 +212,20 @@
         }
 
     }
+}
+
+- (void)startMoving {
+    AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
+    [owningScene.fuelGauge startTimer];
+    [super startMoving];
+    
+}
+
+- (void)stopMovingWithDecelTime:(CGFloat)decel {
+    AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
+    [owningScene.fuelGauge stopTimer];
+
+    [super stopMovingWithDecelTime:decel];
 }
 
 
@@ -415,20 +401,19 @@
         case categoryPowerup:
 
             if ([other.node.name isEqualToString:@"fuel"]) {
-                if (_fuel < 3) {
-                    _fuel++;
-                    owningScene.fuelStatus.text = [NSString stringWithFormat:@"FUEL: %1.0f/3",_fuel];
-                    //[_scoreKeeper eventLabelWithText:@"+1 FUEL!"];
-                    [_scoreKeeper showNotification:ScoreKeeperNotificationFuelUp];
+
+                [owningScene.fuelGauge addFuel:fuelUnitsInPowerup];
+
+                [_scoreKeeper showNotification:ScoreKeeperNotificationFuelUp];
+                
+                [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventPickupFuel]; // tutorial event
+                
+                AMBCharacter *powerup = (AMBCharacter *)other.node;
+                [powerup removeFromParent];
+                [powerup.minimapAvatar removeFromParent];
                     
-                    [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventPickupFuel]; // tutorial event
                     
-                    AMBCharacter *powerup = (AMBCharacter *)other.node;
-                    [powerup removeFromParent];
-                    [powerup.minimapAvatar removeFromParent];
-                    
-                    
-                }
+
             } else if ([other.node.name isEqualToString:@"invincibility"]) {
 #warning preload this action
                 action = [SKAction sequence:@[[SKAction colorizeWithColor:[SKColor greenColor] colorBlendFactor:0.6 duration:0.25],[SKAction waitForDuration:PLAYER_INVINCIBLE_TIME],[SKAction colorizeWithColorBlendFactor:0.0 duration:0.25]]];

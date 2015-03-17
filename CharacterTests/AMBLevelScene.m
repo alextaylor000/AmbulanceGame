@@ -24,7 +24,6 @@
 #import "AMBSpawner.h"
 #import "AMBPowerup.h"
 #import "AMBTrafficVehicle.h"
-#import "AMBFuelGauge.h"
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
 
@@ -58,7 +57,7 @@ typedef enum {
 
 @property SKSpriteNode *miniPlayer; // for the minimap
 @property SKSpriteNode *miniHospital;
-@property AMBFuelGauge *fuelGauge;
+
 
 @property NSMutableArray *trafficVehicles; // for enumerating the traffic objects during update loop
 
@@ -228,15 +227,6 @@ typedef enum {
         
         
         
-        // fuel
-        _fuelStatus = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
-        _fuelStatus.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
-        _fuelStatus.text = [NSString stringWithFormat:@"FUEL: 3/3"];
-        _fuelStatus.fontColor = [SKColor yellowColor];
-        _fuelStatus.position = CGPointMake(self.size.width/2 - 250, self.size.height/2-75);
-        _fuelStatus.zPosition = 999;
-        [self addChild:_fuelStatus];
-        
         [self createFuelGauge];
         
 
@@ -285,6 +275,8 @@ typedef enum {
 
 - (void)createFuelGauge {
     _fuelGauge = [AMBFuelGauge fuelGaugeWithAmount:0];
+    _fuelGauge.position = CGPointMake(self.size.width/2 - _fuelGauge.size.width/2, self.size.height/2 - _fuelGauge.size.height/2 - 25); // 25 for padding
+    
     [self addChild: _fuelGauge];
     [_fuelGauge addFuel:124];
 }
@@ -396,7 +388,8 @@ typedef enum {
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
-
+    [_fuelGauge updateWithTimeSinceLastUpdate:_sceneDelta];
+    
     [self centerOnNode:_camera];
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];

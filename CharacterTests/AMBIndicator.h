@@ -12,8 +12,7 @@
 
 typedef enum {
     IndicatorHospital,
-    IndicatorPatient,
-    IndicatorFuel
+    IndicatorPatient
 } IndicatorType;
 
 @interface AMBIndicator : NSObject

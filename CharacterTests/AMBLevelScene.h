@@ -14,6 +14,7 @@
 #import "AMBScoreKeeper.h"
 #import "AMBTutorial.h"
 #import "AMBTimer.h"
+#import "AMBFuelGauge.h"
 
 @interface AMBLevelScene : AMBGameScene <SKPhysicsContactDelegate>
 
@@ -47,7 +48,7 @@
 @property (readonly, nonatomic) CGFloat sceneDelta;
 @property AMBScoreKeeper *scoreKeeper;
 @property SKLabelNode *patientTimeToLive;
-@property SKLabelNode *fuelStatus;
+@property AMBFuelGauge *fuelGauge;
 
 @property AMBIndicator *indicator;
 
@@ -69,6 +70,7 @@
 - (void)didCompleteTutorial;
 
 - (void)rotateInteractives:(CGFloat)degrees;
+
 
 
 

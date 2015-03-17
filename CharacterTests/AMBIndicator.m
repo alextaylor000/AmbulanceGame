@@ -127,8 +127,6 @@ static const CGFloat OSI_DUR_FADE_OUT =         0.25;
             spriteName = @"osi_hospital";
     } else if ([node isKindOfClass:[AMBPatient class]]) {
             spriteName = @"osi_patient";
-    } else if ([node isKindOfClass:[AMBPowerup class]]) {
-            spriteName = @"osi_fuel";
     }
     
     SKSpriteNode *indicator = [SKSpriteNode spriteNodeWithImageNamed:spriteName];
