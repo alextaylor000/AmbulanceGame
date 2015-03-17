@@ -45,11 +45,14 @@
     _fuelAmount = MIN(_fuelAmount + amt, fuelCapacity);
     NSInteger degrees = [AMBFuelGauge getDegreesForAmount:_fuelAmount];
     
-//    [_needle removeAllActions];
+    [_needle removeAllActions];
     
     SKAction *rotate = [SKAction rotateToAngle:DegreesToRadians(degrees) duration:0.75 shortestUnitArc:YES];
     rotate.timingMode = SKActionTimingEaseOut;
-    [_needle runAction:rotate completion:^(void){ [self startNeedleAnimation]; }];
+    [_needle runAction:rotate completion:^(void){
+        
+        [self startNeedleAnimation];
+    }];
 
 }
 
@@ -115,7 +118,7 @@
 
 - (void)startNeedleAnimation {
     // needle action
-    if (![_needle hasActions]) {
+    if (![_needle actionForKey:@"timer"]) {
         NSTimeInterval timeTilEmpty = ( _fuelAmount / fuelCapacity ) * (fuelUnitDuration * fuelCapacity);
         SKAction *timer = [SKAction rotateToAngle:DegreesToRadians(62) duration:timeTilEmpty shortestUnitArc:YES];
         [_needle runAction:timer withKey:@"timer"];

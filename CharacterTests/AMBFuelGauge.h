@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-static const NSInteger fuelCapacity = 124; // 124 total degrees in the gauge's rotation, this makes it easier
+static const CGFloat fuelCapacity = 124; // 124 total degrees in the gauge's rotation, this makes it easier
 
 /** Number of seconds a single unit of fuel lasts for. */
 static const CGFloat fuelUnitDuration = 0.25;
@@ -18,9 +18,9 @@ static const NSInteger fuelUnitsInPowerup = 5;
 
 @interface AMBFuelGauge : SKSpriteNode 
 
-@property (nonatomic) NSInteger fuelAmount;
+@property (nonatomic) CGFloat fuelAmount;
 @property BOOL fuelIsBeingUsed;
-@property NSTimeInterval fuelTimer; // times when the fuel started being depleted by startMoving
+@property CGFloat fuelTimer; // times when the fuel started being depleted by startMoving
 
 + (AMBFuelGauge *)fuelGaugeWithAmount:(NSInteger)startingAmount;
 + (void)loadSharedAssets;
