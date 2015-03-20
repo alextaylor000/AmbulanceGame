@@ -33,7 +33,6 @@
         
         SKSpriteNode *dazzle = [[self powerupDazzle] copy];
         dazzle.zPosition = -1;
-        [dazzle setScale:2.0];
         dazzle.color = [SKColor whiteColor];
         dazzle.colorBlendFactor = 1.0;
 

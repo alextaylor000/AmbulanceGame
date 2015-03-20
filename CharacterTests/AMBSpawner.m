@@ -109,7 +109,7 @@
         
         SKAction *fuelExpiry = [SKAction sequence:@[[SKAction waitForDuration:FUEL_EXPIRY_DURATION],[SKAction removeFromParent]]];
         [objectToSpawn runAction:fuelExpiry]; // fuel expires! BAM
-        [objectToSpawn.minimapAvatar runAction:fuelExpiry];
+//        [objectToSpawn.minimapAvatar runAction:fuelExpiry];
     }
     
     // PATIENT SPAWN

@@ -12,6 +12,7 @@
 @interface AMBFuelGauge ()
 
 @property SKSpriteNode *background;
+@property SKSpriteNode *backgroundWhite;
 @property SKSpriteNode *foreground;
 @property SKSpriteNode *needle;
 
@@ -25,10 +26,14 @@
     fuelGauge.fuelTimer = 0;
 
     fuelGauge.background =  [SKSpriteNode spriteNodeWithTexture:sFuelGaugeBackground];
+    fuelGauge.backgroundWhite = [SKSpriteNode spriteNodeWithTexture:sFuelGaugeBackgroundWhite];
     fuelGauge.needle =      [SKSpriteNode spriteNodeWithTexture:sFuelGaugeNeedle];
     fuelGauge.foreground =  [SKSpriteNode spriteNodeWithTexture:sFuelGaugeForeground];
     
+    fuelGauge.backgroundWhite.alpha = 0;
+    
     [fuelGauge addChild:fuelGauge.background];
+    [fuelGauge addChild:fuelGauge.backgroundWhite];
     [fuelGauge addChild:fuelGauge.needle];
     [fuelGauge addChild:fuelGauge.foreground];
     
@@ -37,6 +42,8 @@
     
     NSInteger degrees = [AMBFuelGauge getDegreesForAmount:startingAmount];
     fuelGauge.needle.zRotation = DegreesToRadians(degrees);
+
+    
     return fuelGauge;
 }
 
@@ -44,6 +51,8 @@
 - (void)addFuel:(NSInteger)amt {
     _fuelAmount = MIN(_fuelAmount + amt, fuelCapacity);
     NSInteger degrees = [AMBFuelGauge getDegreesForAmount:_fuelAmount];
+    
+    [_backgroundWhite runAction:sFuelGaugeFlash];
     
     [_needle removeAllActions];
     
@@ -70,19 +79,6 @@
     return self.background.size;
 }
 
-+ (void)loadSharedAssets {
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        SKTextureAtlas *gameObjectSprites = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
-        sFuelGaugeBackground = [gameObjectSprites textureNamed:@"fuelgauge_bg"];
-        sFuelGaugeForeground = [gameObjectSprites textureNamed:@"fuelgauge_inner-dial"];
-        sFuelGaugeNeedle = [gameObjectSprites textureNamed:@"fuelgauge_needle"];
-        
-    });
-    
-}
 
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta {
@@ -118,7 +114,7 @@
 
 - (void)startNeedleAnimation {
     // needle action
-    if (![_needle actionForKey:@"timer"]) {
+    if (![_needle actionForKey:@"timer"] && _fuelIsBeingUsed) {
         NSTimeInterval timeTilEmpty = ( _fuelAmount / fuelCapacity ) * (fuelUnitDuration * fuelCapacity);
         SKAction *timer = [SKAction rotateToAngle:DegreesToRadians(62) duration:timeTilEmpty shortestUnitArc:YES];
         [_needle runAction:timer withKey:@"timer"];
@@ -135,9 +131,29 @@
     // send a message to the scene
 }
 
++ (void)loadSharedAssets {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        SKTextureAtlas *gameObjectSprites = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
+        sFuelGaugeBackground = [gameObjectSprites textureNamed:@"fuelgauge_bg"];
+        sFuelGaugeBackgroundWhite = [gameObjectSprites textureNamed:@"fuelgauge_bg_white"];
+        sFuelGaugeForeground = [gameObjectSprites textureNamed:@"fuelgauge_inner-dial"];
+        sFuelGaugeNeedle = [gameObjectSprites textureNamed:@"fuelgauge_needle"];
+        
+        sFuelGaugeFlash = [SKAction sequence:@[[SKAction fadeAlphaTo:0.8 duration:0.075], [SKAction fadeAlphaTo:0.0 duration:0.25]]];
+        
+    });
+    
+}
+
+
 static SKTexture *sFuelGaugeBackground = nil;
+static SKTexture *sFuelGaugeBackgroundWhite = nil;
 static SKTexture *sFuelGaugeNeedle = nil;
 static SKTexture *sFuelGaugeForeground = nil;
+static SKAction *sFuelGaugeFlash = nil;
 
 
 

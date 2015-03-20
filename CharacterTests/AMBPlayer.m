@@ -404,13 +404,13 @@
 
                 [owningScene.fuelGauge addFuel:fuelUnitsInPowerup];
 
-                [_scoreKeeper showNotification:ScoreKeeperNotificationFuelUp];
+//                [_scoreKeeper showNotification:ScoreKeeperNotificationFuelUp];
                 
                 [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventPickupFuel]; // tutorial event
                 
                 AMBCharacter *powerup = (AMBCharacter *)other.node;
                 [powerup removeFromParent];
-                [powerup.minimapAvatar removeFromParent];
+//                [powerup.minimapAvatar removeFromParent];
                     
                     
 
