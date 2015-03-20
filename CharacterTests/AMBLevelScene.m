@@ -231,15 +231,6 @@ typedef enum {
         
 
         
-        // patient TTL
-        _patientTimeToLive = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
-        _patientTimeToLive.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
-        _patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: --"];
-        _patientTimeToLive.fontColor = [SKColor yellowColor];
-        _patientTimeToLive.position = CGPointMake(self.size.width/2 - 250, self.size.height/2-100);
-        _patientTimeToLive.zPosition = 999;
-        [self addChild:_patientTimeToLive];
-
     
         
         // tutorial

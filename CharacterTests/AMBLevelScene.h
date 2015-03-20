@@ -47,7 +47,7 @@
 @property (readonly, nonatomic) NSTimeInterval lastKeyPress;
 @property (readonly, nonatomic) CGFloat sceneDelta;
 @property AMBScoreKeeper *scoreKeeper;
-@property SKLabelNode *patientTimeToLive;
+
 @property AMBFuelGauge *fuelGauge;
 
 @property AMBIndicator *indicator;

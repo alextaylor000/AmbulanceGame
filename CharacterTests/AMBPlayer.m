@@ -344,8 +344,6 @@ typedef enum {
             [_sirens removeActionForKey:@"sirensOn"];
             _sirens.hidden = YES;
             
-            owningScene.patientTimeToLive.text = @"PATIENT: --";
-            
             
             break;
             
