@@ -15,6 +15,11 @@
 #import "SKTUtils.h"
 #import "AMBFuelGauge.h"
 
+typedef enum {
+    Hide,
+    PatientDied,
+    PatientDelivered
+} BubbleHideState;
 
 
 
@@ -30,6 +35,8 @@
 
 @property AMBScoreKeeper *scoreKeeper;
 @property NSTimeInterval fuelTimer; // times when the fuel started being depleted by startMoving
+
+@property SKSpriteNode *patientBubble;
 
 
 @end
@@ -65,6 +72,9 @@
     self.nativeSpeed = 600;
     self.speedPointsPerSec = self.nativeSpeed;
     self.pivotSpeed = 0;
+    
+#warning replace this scale with real graphics
+    [self setScale:1.2];
 
     self.accelTimeSeconds = 0.75;
     self.decelTimeSeconds = 0.35;
@@ -119,6 +129,18 @@
     self.controlState = PlayerIsStopped;
     
     
+    // bubble
+    _patientBubble = [SKSpriteNode spriteNodeWithTexture:sPatientBubble];
+    _patientBubble.position = CGPointMake(70, -50);
+    _patientBubble.alpha = 0;
+    _patientBubble.xScale = 0;
+    
+    sPatientTimer.text = @"0:00";
+    sPatientTimer.position = CGPointMake(0, 3);
+
+    [_patientBubble addChild:sPatientTimer];
+    [self addChild:_patientBubble];
+    
     
     return self;
 }
@@ -165,9 +187,15 @@
     // update the patient timer
     if (self.patient) {
         NSTimeInterval ttl = [self.patient getPatientTTL];
-        owningScene.patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: %1.1f",ttl];
+        //owningScene.patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: %1.1f",ttl];
+        sPatientTimer.text = [NSString stringWithFormat:@"%@",[self timeFormatted:ttl]];
 
+        if (ttl < 11) {
+            [self revealBubble];
+        }
+        
         if (self.patient.state == PatientIsDead) {
+            [self hideBubbleBecause:PatientDied];
             [self unloadPatient];
         }
     
@@ -339,6 +367,8 @@
         _patient = patient; // load the patient into the ambulance
         [self changeState:AmbulanceIsOccupied];
         [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventPickupPatient]; // tutorial event
+        
+        [self showBubble];
         return YES;
     }
     
@@ -347,10 +377,12 @@
 
 -(BOOL)unloadPatient {
     // unloads a patient from the ambulance (if there is one)
+    
     if (_patient) {
         [self changeState:AmbulanceIsEmpty];
         
         if (_patient.state == PatientIsEnRoute) {
+            [self hideBubbleBecause:PatientDelivered];
             [_patient changeState:PatientIsDelivered];
             [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventDeliverPatient]; // tutorial event
             _patient = nil;
@@ -619,6 +651,52 @@
     
 }
 
+- (void)showBubble {
+    SKAction *bubbleScale =  [SKAction sequence:@[[SKAction scaleTo:1.25 duration:0.15], [SKAction scaleTo:1.0 duration:0.075]]];
+    bubbleScale.timingMode = SKActionTimingEaseInEaseOut;
+
+    SKAction *bubbleFade = [SKAction fadeInWithDuration:0.25];
+
+    SKAction *fade = [SKAction sequence:@[[SKAction waitForDuration:5],[SKAction fadeAlphaTo:0.5 duration:0.5]]];
+    
+    SKAction *group = [SKAction group:@[bubbleScale, bubbleFade, fade]];
+    
+
+    [_patientBubble runAction:group];
+    
+}
+
+- (void)revealBubble {
+    if ([_patientBubble hasActions] == NO) {
+        SKAction *fadeUp = [SKAction fadeAlphaTo:1.0 duration:0.25];
+        [_patientBubble runAction:fadeUp];
+        
+    }
+}
+
+- (void)hideBubbleBecause:(BubbleHideState)reason {
+    SKAction *hide;
+    
+    switch (reason) {
+        case Hide:
+            hide = [SKAction fadeOutWithDuration:0.25];
+            break;
+            
+        case PatientDelivered:
+            hide = [SKAction fadeOutWithDuration:0.25];
+            break;
+            
+        case PatientDied:
+            hide = [SKAction fadeOutWithDuration:0.5];
+            break;
+            
+    }
+    
+    [_patientBubble runAction:hide];
+    
+}
+
+
 
 #pragma mark Assets
 + (void)loadSharedAssets {
@@ -631,23 +709,46 @@
         sTurnSignalLeft = [gameObjectSprites textureNamed:@"hud_swipe_turn-left_v001"];
         sTurnSignalRight = [gameObjectSprites textureNamed:@"hud_swipe_turn-right_v001"];;
         
+        sPatientBubble = [gameObjectSprites textureNamed:@"patient_bubble"];
+        sPatientTimer = [SKLabelNode labelNodeWithFontNamed:@"AvenirNextCondensed-Bold"];
+        sPatientTimer.fontSize = 25;
+        sPatientTimer.fontColor = [SKColor redColor];
+        sPatientTimer.zRotation = DegreesToRadians(-115);
+
+        
+        
         SKTextureAtlas *sirenAtlas = [SKTextureAtlas atlasNamed:@"sirens"];
         SKTexture *sirenLeft = [sirenAtlas textureNamed:@"amulance_sirens_left"];
         SKTexture *sirenRight = [sirenAtlas textureNamed:@"amulance_sirens_right"];        
+        
         sSirensOn = [SKAction repeatActionForever:[SKAction animateWithTextures:@[sirenLeft, sirenRight] timePerFrame:0.8]];
         
         sTurnSignalOn = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction fadeInWithDuration:0.15],[SKAction fadeOutWithDuration:0.15]]]];
         sTurnSignalFadeOut = [SKAction fadeOutWithDuration:0.15];
         
         
+        
     });
     
 }
+
+- (NSString *)timeFormatted:(int)totalSeconds // from http://stackoverflow.com/a/1739411
+{
+    
+    int seconds = totalSeconds % 60;
+    int minutes = (totalSeconds / 60) % 60;
+    //    int hours = totalSeconds / 3600;
+    
+    return [NSString stringWithFormat:@"%02d:%02d",minutes, seconds];
+}
+
 
 static SKTexture *sPlayerSprite = nil;
 static SKTexture *sSirenDefaultTexture = nil;
 static SKTexture *sTurnSignalLeft = nil;
 static SKTexture *sTurnSignalRight = nil;
+static SKTexture *sPatientBubble = nil;
+static SKLabelNode *sPatientTimer = nil;
 
 static SKAction *sSirensOn = nil;
 static SKAction *sTurnSignalOn = nil;

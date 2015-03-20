@@ -14,7 +14,7 @@ static const CGFloat fuelCapacity = 124; // 124 total degrees in the gauge's rot
 static const CGFloat fuelUnitDuration = 0.25;
 
 /** Amount of fuel you get when you run over a fuel powerup */
-static const NSInteger fuelUnitsInPowerup = 5;
+static const NSInteger fuelUnitsInPowerup = 4;
 
 @interface AMBFuelGauge : SKSpriteNode 
 
