@@ -8,6 +8,7 @@
 
 #import "AMBFuelGauge.h"
 #import "SKTUtils.h"
+#import "AMBLevelScene.h"
 
 @interface AMBFuelGauge ()
 
@@ -24,6 +25,7 @@
     AMBFuelGauge *fuelGauge = [AMBFuelGauge node];
     
     fuelGauge.fuelTimer = 0;
+    fuelGauge.isOutOfFuel = NO;
 
     fuelGauge.background =  [SKSpriteNode spriteNodeWithTexture:sFuelGaugeBackground];
     fuelGauge.backgroundWhite = [SKSpriteNode spriteNodeWithTexture:sFuelGaugeBackgroundWhite];
@@ -42,6 +44,7 @@
     
     NSInteger degrees = [AMBFuelGauge getDegreesForAmount:startingAmount];
     fuelGauge.needle.zRotation = DegreesToRadians(degrees);
+
 
     
     return fuelGauge;
@@ -128,7 +131,10 @@
 }
 
 - (void)outOfFuel {
-    // send a message to the scene
+    _isOutOfFuel = YES;
+    
+    AMBLevelScene *scene = (AMBLevelScene *)self.scene;
+    [scene outOfFuel];
 }
 
 + (void)loadSharedAssets {

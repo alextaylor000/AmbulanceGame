@@ -1115,6 +1115,8 @@ typedef enum {
 // Gesture Controls
 
 - (void)handlePan:(UIGestureRecognizer *)recognizer {
+    if ([_fuelGauge isOutOfFuel]) { return; }
+    
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
     CGPoint trans = [(UIPanGestureRecognizer *)recognizer translationInView:self.view ];
     
@@ -1260,7 +1262,14 @@ typedef enum {
     
 }
 
+- (void)outOfFuel {
+    [_scoreKeeper showNotification:ScoreKeeperNotificationFuelEmpty];
+    [_player stopMovingWithDecelTime:1.0];
+    
+}
+
 - (void)handleTap:(UIGestureRecognizer *)recognizer {
+    if ([_fuelGauge isOutOfFuel]) { return; }
     // two taps, start/stop moving
 //#if DEBUG_PLAYER_CONTROL
 //    NSLog(@"handleTap");
@@ -1276,6 +1285,7 @@ typedef enum {
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)recognizer {
+    if ([_fuelGauge isOutOfFuel]) { return; }    
     // will be called multiple times after the gesture is recognized.
     // you can query the recognizer's state to respond to specific events.
 

@@ -20,6 +20,7 @@ static const NSInteger fuelUnitsInPowerup = 4;
 
 @property (nonatomic) CGFloat fuelAmount;
 @property BOOL fuelIsBeingUsed;
+@property BOOL isOutOfFuel;
 @property CGFloat fuelTimer; // times when the fuel started being depleted by startMoving
 
 + (AMBFuelGauge *)fuelGaugeWithAmount:(NSInteger)startingAmount;

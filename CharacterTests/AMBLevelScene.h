@@ -71,7 +71,7 @@
 
 - (void)rotateInteractives:(CGFloat)degrees;
 
-
+- (void)outOfFuel;
 
 
 @end
