@@ -416,7 +416,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" misplaced="YES" image="ambulancedash_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="nvj-Dx-sHU">
-                                <rect key="frame" x="137" y="118" width="327" height="135"/>
+                                <rect key="frame" x="137" y="93" width="327" height="135"/>
                             </imageView>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaN-sT-spE">
                                 <rect key="frame" x="158" y="363" width="284" height="30"/>

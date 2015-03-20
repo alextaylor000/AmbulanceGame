@@ -132,6 +132,7 @@ typedef enum {
     // bubble
     _patientBubble = [SKSpriteNode spriteNodeWithTexture:sPatientBubble];
     _patientBubble.position = CGPointMake(70, -50);
+    _patientBubble.zPosition = 99;
     _patientBubble.alpha = 0;
     _patientBubble.xScale = 0;
     

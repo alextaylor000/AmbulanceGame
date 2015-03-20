@@ -154,7 +154,7 @@ typedef enum {
         
         _tutorialMode = tut;
         
-        _renderTraffic = 0;
+        _renderTraffic = 1;
 
         self.physicsWorld.contactDelegate = self;
 

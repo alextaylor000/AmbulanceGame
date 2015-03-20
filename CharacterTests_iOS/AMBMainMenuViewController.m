@@ -33,7 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self quickStartButtonPressed:nil]; // automatically pushes the game view immediately
+    //[self quickStartButtonPressed:nil]; // automatically pushes the game view immediately
     
 }
 
