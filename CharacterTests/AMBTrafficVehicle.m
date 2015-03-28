@@ -37,7 +37,6 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     
     if (self = [super initWithTexture:texture]) {
         // set constants
-        self.speedPointsPerSec = 600;
         self.pivotSpeed = 0;
         
         self.accelTimeSeconds = 0.75;

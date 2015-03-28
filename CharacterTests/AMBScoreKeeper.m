@@ -32,8 +32,6 @@
         _score = 0;
         _elapsedTime = 0;
         
-        
-        
     }
     
    return self;
@@ -41,11 +39,11 @@
 
 - (SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position {
     
-    _labelScore = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
-    _labelScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
-    _labelScore.text = [NSString stringWithFormat:@"SCORE: %ld", (long)points];
+    _labelScore = [SKLabelNode labelNodeWithFontNamed:@"AvenirNext-Bold"];
+    _labelScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
+    _labelScore.text = [NSString stringWithFormat:@"+ %ld", (long)points];
     _labelScore.fontColor = [SKColor yellowColor];
-    
+    _labelScore.fontSize = 70;
     _labelScore.position = position;
     
     _labelScore.zPosition = 999;
@@ -81,7 +79,7 @@
 }
 
 - (void)updateScoreLabelWithPoints:(NSInteger)points {
-    _labelScore.text = [NSString stringWithFormat:@"SCORE: %ld", (long)points];
+    _labelScore.text = [NSString stringWithFormat:@"+ %ld", (long)points];
 }
 
 

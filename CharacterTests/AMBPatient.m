@@ -89,20 +89,21 @@
 }
 
 - (void)updatePatient {
-   // NSLog(@"updatePatient");
-    // update TTL
-    patientTTL = [self.userData[@"timeToLive"]doubleValue] - (CACurrentMediaTime() - self.spawnTime);
-    NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
-    
-    if (patientTTL <= 0)   {
-        if (_state == PatientIsEnRoute) {
-            //[scoreKeeper eventLabelWithText:@"YOUR PATIENT HAS DIED! -points"];
+    if (_state == PatientIsEnRoute) {
+        // update TTL
+        patientTTL = [self.userData[@"timeToLive"]doubleValue] - (CACurrentMediaTime() - self.spawnTime);
+        NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
+
+        
+        if (patientTTL <= 0)   {
+            
             [scoreKeeper showNotification:ScoreKeeperNotificationPatientDied];
+            [self changeState:PatientIsDead];
+            
         }
         
-        [self changeState:PatientIsDead];
-
     }
+    
     
     
 }

@@ -108,12 +108,14 @@ typedef enum {
     
 
     _turnSignalLeft = [SKSpriteNode spriteNodeWithTexture:sTurnSignalLeft];
+//    [_turnSignalLeft setScale:2.0];
     _turnSignalLeft.position = CGPointMake(20, 28);
     _turnSignalLeft.zPosition = -1;
     _turnSignalLeft.alpha = 0;
     [self addChild:_turnSignalLeft];
     
     _turnSignalRight = [SKSpriteNode spriteNodeWithTexture:sTurnSignalRight];
+//    [_turnSignalRight setScale:2.0];
     _turnSignalRight.position = CGPointMake(20, -28);
     _turnSignalRight.zPosition = -1;
     _turnSignalRight.alpha = 0;
@@ -398,7 +400,7 @@ typedef enum {
     
     SKAction *action;
 #warning preload this action
-    SKAction *speedPenalty = [SKAction sequence:@[[SKAction waitForDuration:5.0],[SKAction runBlock:^(void) { [self adjustSpeedToTarget:self.nativeSpeed]; NSLog(@"Speed penalty end"); [self removeActionForKey:@"blink"]; self.alpha = 1.0; // reset alpha
+    SKAction *speedPenalty = [SKAction sequence:@[[SKAction waitForDuration:3.0],[SKAction runBlock:^(void) { [self adjustSpeedToTarget:self.nativeSpeed]; NSLog(@"Speed penalty end"); [self removeActionForKey:@"blink"]; self.alpha = 1.0; // reset alpha
     }]]];
     
     switch (other.categoryBitMask) {
@@ -414,7 +416,7 @@ typedef enum {
                 [self runAction:[SKAction repeatActionForever:action] withKey:@"blink"];
                 
                 // slow down the player temporarily
-                [self adjustSpeedToTarget:self.nativeSpeed * 0.75];
+                [self adjustSpeedToTarget:self.nativeSpeed * 0.70];
                 //NSLog(@"Speed penalty begin");
                 [self removeActionForKey:@"speedPenalty"]; // remove action if it's running already
                 [self runAction: speedPenalty withKey:@"speedPenalty"];
@@ -434,14 +436,11 @@ typedef enum {
             if ([other.node.name isEqualToString:@"fuel"]) {
 
                 [owningScene.fuelGauge addFuel:fuelUnitsInPowerup];
-
-//                [_scoreKeeper showNotification:ScoreKeeperNotificationFuelUp];
                 
                 [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventPickupFuel]; // tutorial event
                 
                 AMBCharacter *powerup = (AMBCharacter *)other.node;
                 [powerup removeFromParent];
-//                [powerup.minimapAvatar removeFromParent];
                     
                     
 

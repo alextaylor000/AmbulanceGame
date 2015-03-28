@@ -8,7 +8,7 @@
 
 #import "AMBMovingCharacter.h"
 
-static const CGFloat speedMultiplier = 150; // the vehicle speed (1, 2, 3) gets multiplied by this
+static const CGFloat speedMultiplier = 75; // the vehicle speed (1, 2, 3) gets multiplied by this
 typedef enum {
     VehicleIsStopped,
     VehicleIsDrivingStraight,

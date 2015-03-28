@@ -77,6 +77,8 @@ typedef enum {
 @property BOOL turnRequested;
 @property CGFloat turnDegrees;
 
+@property NSDictionary *initialConditions; // for restarting the game
+
 @property (nonatomic) NSMutableArray *spawners; // store an array of all the spawners in order to update them on every frame
 
 @property SKLabelNode *labelClock;
@@ -151,10 +153,17 @@ typedef enum {
             - Patient spawns controlled by tutorial
          
          */
+        _initialConditions = @{
+                               @"size" : [NSValue valueWithCGSize:size],
+                               @"gameType": [NSNumber numberWithInt:gameType],
+                               @"vehicleType": [NSNumber numberWithInt:vehicleType],
+                               @"levelType": [NSNumber numberWithInt:levelType],
+                               @"tutorial": [NSNumber numberWithBool:tut]
+                               };
         
         _tutorialMode = tut;
         
-        _renderTraffic = 0;
+        _renderTraffic = 1;
         self.backgroundColor = [SKColor yellowColor];
         self.physicsWorld.contactDelegate = self;
 
@@ -203,7 +212,7 @@ typedef enum {
         _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
         _scoreKeeper.scene = self;
         
-        SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 250, self.size.height/2-50)];
+        SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 120, self.size.height/2-80)];
         if (!labelScore.parent) {
             [self addChild:labelScore];
         }
@@ -218,11 +227,12 @@ typedef enum {
         // clock
         _gameClock = [[AMBTimer alloc] initWithSecondsRemaining:180]; // create the timer object. doesn't start until startTimer is called.
         
-        _labelClock = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
-        _labelClock.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+        _labelClock = [SKLabelNode labelNodeWithFontNamed:@"AvenirNextCondensed-Bold"];
+        _labelClock.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
         _labelClock.fontColor = [SKColor yellowColor];
         _labelClock.text = @"00:00";
-        _labelClock.position = CGPointMake(self.size.width/2 - 250, self.size.height/2 -150);
+        _labelClock.fontSize = 50;
+        _labelClock.position = CGPointMake(self.size.width/2 - 120, self.size.height/2 -130);
         [self addChild:_labelClock];
         
         
@@ -255,6 +265,10 @@ typedef enum {
 }
 
 
+- (void)restart {
+    
+}
+
 - (void)didCompleteTutorial {
     // do things like turn traffic on, start timer, etc.
     [_gameClock startTimer];
@@ -284,13 +298,16 @@ typedef enum {
     _miniMapContainer = [SKNode node];
     [_miniMapContainer addChild:_miniMap];
     
-    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(150,150)]; // TODO: change this colour as appropriate
-
+//    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor greenColor] size:CGSizeMake(150,150)]; // TODO: change this colour as appropriate
+    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithImageNamed:@"minimap_mask"];
+    SKSpriteNode *frameNode = [SKSpriteNode spriteNodeWithImageNamed:@"minimap_frame"];
+    
     SKCropNode *miniMapFrame = [[SKCropNode alloc]init];
     miniMapFrame.maskNode = maskNode;
 
     [miniMapFrame addChild:maskNode];
     [miniMapFrame addChild:_miniMapContainer];
+    [miniMapFrame addChild:frameNode];
 
     miniMapFrame.position = CGPointMake(-self.size.width/2 + 100, self.size.height/2-100);
     [self addChild:miniMapFrame];
@@ -301,7 +318,7 @@ typedef enum {
 - (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withSize:(CGFloat)size {
 
     CGFloat mult = _minimapScaleFactor * size; // in case we want something bigger than 1 tile...
-    SKSpriteNode *object = [SKSpriteNode spriteNodeWithColor:colour size:CGSizeMake(256*mult, 256*mult)];
+    SKSpriteNode *object = [SKSpriteNode spriteNodeWithColor:colour size:CGSizeMake(_tilemap.tileSize.width*mult, _tilemap.tileSize.width*mult)];
 
     CGPoint posScaled = CGPointMultiplyScalar(position, _minimapScaleFactor);
     object.position = posScaled;
@@ -416,34 +433,7 @@ typedef enum {
     _miniMap.position = CGPointMake(-_miniPlayer.position.x, -_miniPlayer.position.y);
     
     
-//#if DEBUG_PLAYER_CONTROL
-//    switch (_player.controlState) {
-//        case PlayerIsStopped:
-//            _controlStateLabel.text = @"PlayerIsStopped";
-//            break;
-//        case PlayerIsStoppedAtTIntersection:
-//            _controlStateLabel.text = @"PlayerIsStoppedAtTIntersection";
-//            break;
-//        case PlayerIsWithinTIntersection:
-//            _controlStateLabel.text = @"PlayerIsWithinTIntersection";
-//            break;
-//        case PlayerIsDrivingStraight:
-//            _controlStateLabel.text = @"PlayerIsDrivingStraight";
-//            break;
-//        case PlayerIsAccelerating:
-//            _controlStateLabel.text = @"PlayerIsAccelerating";
-//            break;
-//        case PlayerIsChangingLanes:
-//            _controlStateLabel.text = @"PlayerIsChangingLanes";
-//            break;
-//        case PlayerIsDecelerating:
-//            _controlStateLabel.text = @"PlayerIsDecelerating";
-//            break;
-//        case PlayerIsTurning:
-//            _controlStateLabel.text = @"PlayerIsTurning";
-//            break;
-//    }
-//#endif
+
 }
 
 #pragma mark World Building
@@ -656,6 +646,7 @@ typedef enum {
         // set up the layers/groups
         _mapLayerRoad =     [_tilemap layerNamed:@"road"];
         _mapLayerTraffic =  [_tilemap layerNamed:@"spawn_traffic"];
+
         
         _mapGroupSpawnPlayer =      [_tilemap groupNamed:@"spawn_player"];
         _mapGroupSpawnPatients =    [_tilemap groupNamed:@"spawn_patients"];
@@ -1292,7 +1283,7 @@ typedef enum {
     // state 1=began    state 3=ended
     //NSLog(@"handleLongPress state=%li",recognizer.state );
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        [_player adjustSpeedToTarget: VehicleSpeedSlow * speedMultiplier];
+        [_player adjustSpeedToTarget: 150];
         [self.tutorialOverlay playerDidPerformEvent:PlayerEventSlowDown]; // tutorial event
         
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="256" tileheight="256">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="256" tileheight="256">
  <tileset firstgid="1" name="road_tiles" tilewidth="256" tileheight="256" spacing="8" margin="4">
   <image source="road_tilemap_red.png" width="1584" height="1584"/>
   <tile id="0">
@@ -371,112 +371,112 @@
    </properties>
   </tile>
  </tileset>
- <layer name="road" width="40" height="40">
+ <layer name="road" width="80" height="80">
   <data encoding="base64" compression="zlib">
-   eJztmNkOwiAQRcfduu+71v//SoeEB6TT5AJGK52Hk8KkQ05gKKEFERXM2D4/wZxZJORLLuqXt1+f6TgMvX5I7M48EvIngDM6x1Ksbv5SxlS/dvkNqFq3XTC2ZFYJ+bMM5k/98vLz9wNay7o/1C9nv7Xl4rQNG68fEtsyu4T8q9M+Ws5O23Dy+iHsmYMQR8e8Oe2Q9UUJWV+J2PpTv//1Q8439H6Dnm9SbpPOt7r5bMr3Wf1+5/eN+5GUq/tD/ZroN6L3Gp1StW7RWMk8gXelXEMPdI6ljf9P1S/O7wXC6Tdp
+   eJzt28kOgjAYReE6z/M8+/5Pad0p1uQ3BemFszgLGkvws0IIOnDODRJv4psmcByq4Ycffrrhhx9+uuGHH3664Ycffrrhhx9+uuGHH3661dGvn5BfnseCn0b44VdmbV/jpW5m+5exi+8aMX+YgEfsZx5aA9axb+svZp+phx9++FXHr+M+z+tN49jMN4+YP07Ag/WHn1L44Vdm2euF9VzP9YP1h1/54YefpUVBHTPby8BrrGMr3zpi/qnA97krqENmex+xr41vGxi37vNc4Pss8/tr7Zfvr+VYFMIPP/x0/Sz3b9bnP9b7t9Bc7t/s6+/bOlNcf/jhh191/P7x/Cg0l+sH6w8//PDTqufez+Ej93let47dfHfDa0Nzn7US8IhdfzHV8feT+OGHn65fntXx/zP4pRN++OGnG3744acbfvjhpxt++OGnG3744acbfvjhF+4BNEHlAQ==
   </data>
  </layer>
- <layer name="spawn_traffic" width="40" height="40">
+ <layer name="spawn_traffic" width="80" height="80">
   <data encoding="base64" compression="zlib">
-   eJztmEsOgCAMRL2Mv0TdeP+7GWNMiJnqYOVr30qmCC2xFGwawzC+YADaDLQ+tCOBQPEhjQGtC9Lejq+dRztvbFpCe2pLmo/9D5SQv0tqBxLReeiM9tR2dcuNA7S/7pS2p0qMqR1wiOXLpLSzrMLzncbYSkDKmxqpOVZtbOz7bi1agYb6nfz1fOBLrJpVQ21k71r7+Zm5K0troskv6fzG2nOhhu/Fh2u8IepHTv8AYu7PbM1408cwcmYDQ3MK4Q==
+   eJzt2UESwiAMAEA+40E9WP3/47w7FQeIxsLuMZQ2w7QlGUoBAAAAAAAAgM9OjfHWa+h3yU5gQtaUaPfB+d7JUh7ZCQAkGN0/jqq3x9B35NmrVdQvjFD7fcfK3+WtMrYF3Gt7Gas9759cG+O986LiK1i1/gPmpG/jSEZ6kHNYFnlGeoV39csM6wJQo3/bF/3/t58AQBznbwAAAAAAAL/zBHbfBvk=
   </data>
  </layer>
- <objectgroup name="spawn_player">
-  <object name="player.spawn" type="player.spawn" x="4125.45" y="4395.57" width="256" height="256"/>
+ <objectgroup name="spawn_player" visible="0">
+  <object name="player.spawn" type="player.spawn" x="9245.45" y="9515.57" width="256" height="256"/>
  </objectgroup>
- <objectgroup name="spawn_patients">
-  <object name="patient_01" type="patient.spawn" x="5348.67" y="2957.33" width="256" height="256">
+ <objectgroup name="spawn_patients" visible="0">
+  <object name="patient_01" type="patient.spawn" x="10468.7" y="8077.33" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_02" type="patient.spawn" x="6941.56" y="1193.8" width="256" height="256">
+  <object name="patient_02" type="patient.spawn" x="12061.6" y="6313.8" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_03" type="patient.spawn" x="9440" y="4649.33" width="256" height="256">
+  <object name="patient_03" type="patient.spawn" x="14560" y="9769.33" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_04" type="patient.spawn" x="4908" y="8932" width="256" height="256">
+  <object name="patient_04" type="patient.spawn" x="10028" y="14052" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
-  <object name="patient_05" type="patient.spawn" x="5641.33" y="6800" width="256" height="256">
+  <object name="patient_05" type="patient.spawn" x="10761.3" y="11920" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
-  <object name="patient_01" type="patient.spawn" x="1856" y="3520" width="256" height="256">
+  <object name="patient_01" type="patient.spawn" x="6976" y="8640" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_01" type="patient.spawn" x="1605.33" y="2674.67" width="256" height="256">
+  <object name="patient_01" type="patient.spawn" x="6725.33" y="7794.67" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_01" type="patient.spawn" x="4280" y="2280" width="256" height="256">
+  <object name="patient_01" type="patient.spawn" x="9400" y="7400" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_01" type="patient.spawn" x="6939.45" y="3223.64" width="256" height="256">
+  <object name="patient_01" type="patient.spawn" x="12059.5" y="8343.64" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_01" type="patient.spawn" x="5216" y="5072" width="256" height="256">
+  <object name="patient_01" type="patient.spawn" x="10336" y="10192" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_05" type="patient.spawn" x="1524" y="1424" width="256" height="256">
+  <object name="patient_05" type="patient.spawn" x="6644" y="6544" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
-  <object name="patient_05" type="patient.spawn" x="6992" y="5600" width="256" height="256">
+  <object name="patient_05" type="patient.spawn" x="12112" y="10720" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="2"/>
    </properties>
   </object>
-  <object name="patient_05" type="patient.spawn" x="732" y="8992" width="256" height="256">
+  <object name="patient_05" type="patient.spawn" x="5852" y="14112" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="3"/>
    </properties>
   </object>
-  <object name="patient_05" type="patient.spawn" x="8758.91" y="990.667" width="256" height="256">
+  <object name="patient_05" type="patient.spawn" x="13878.9" y="6110.67" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
@@ -484,910 +484,910 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="spawn_hospitals">
-  <object name="hospital01" type="hospital" x="4353" y="4354.2" width="256" height="256"/>
+ <objectgroup name="spawn_hospitals" visible="0">
+  <object name="hospital01" type="hospital" x="9473" y="9474.2" width="256" height="256"/>
  </objectgroup>
- <objectgroup name="spawn_powerups">
-  <object name="fuel.spawn" type="fuel.spawn" x="3392" y="3648" width="50" height="50">
+ <objectgroup name="spawn_powerups" visible="0">
+  <object name="fuel.spawn" type="fuel.spawn" x="8512" y="8768" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="invincibility.spawn" type="invincibility.spawn" x="9461.67" y="3094.67" width="204" height="192">
+  <object name="invincibility.spawn" type="invincibility.spawn" x="14581.7" y="8214.67" width="204" height="192">
    <properties>
     <property name="firstSpawnAt" value="15"/>
     <property name="frequency" value="90"/>
    </properties>
   </object>
-  <object name="invincibility.spawn" type="invincibility.spawn" x="2298" y="3564" width="204" height="192">
+  <object name="invincibility.spawn" type="invincibility.spawn" x="7418" y="8684" width="204" height="192">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="90"/>
    </properties>
   </object>
-  <object name="invincibility.spawn" type="invincibility.spawn" x="5428.67" y="5687.33" width="204" height="192">
+  <object name="invincibility.spawn" type="invincibility.spawn" x="10548.7" y="10807.3" width="204" height="192">
    <properties>
     <property name="firstSpawnAt" value="40"/>
     <property name="frequency" value="999"/>
    </properties>
   </object>
-  <object name="invincibility.spawn" type="invincibility.spawn" x="4082" y="8538" width="204" height="192">
+  <object name="invincibility.spawn" type="invincibility.spawn" x="9202" y="13658" width="204" height="192">
    <properties>
     <property name="firstSpawnAt" value="35"/>
     <property name="frequency" value="90"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3456" y="3648" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8576" y="8768" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3520" y="3648" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8640" y="8768" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3584" y="3648" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8704" y="8768" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3648" y="3648" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8768" y="8768" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="1600" y="4672" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="6720" y="9792" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="1536" y="4288" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="6656" y="9408" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="1536" y="4352" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="6656" y="9472" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="1600" y="4736" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="6720" y="9856" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="1600" y="4608" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="6720" y="9728" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="1536" y="4224" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="6656" y="9344" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2240" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="7360" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2432" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="7552" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2368" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="7488" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2176" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="7296" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2304" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="7424" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3264" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8384" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3456" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8576" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3392" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8512" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3200" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8320" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3328" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8448" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2048" y="2432" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="7168" y="7552" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="3520" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="8640" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2176" y="2432" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="7296" y="7552" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="1984" y="2432" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="7104" y="7552" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2112" y="2432" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="7232" y="7552" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6336" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11456" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6400" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11520" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6272" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11392" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6464" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11584" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6592" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11712" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6528" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11648" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6464" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11584" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6336" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11456" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6528" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11648" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6400" y="5184" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="11520" y="10304" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="8000" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13120" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="8064" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13184" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="7936" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13056" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="8128" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13248" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="8256" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13376" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="8192" y="5056" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13312" y="10176" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="8128" y="5248" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13248" y="10368" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="8000" y="5248" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13120" y="10368" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="8192" y="5248" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13312" y="10368" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="8064" y="5248" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="13184" y="10368" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5696" y="4544" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10816" y="9664" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5696" y="4608" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10816" y="9728" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5696" y="4480" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10816" y="9600" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5696" y="4672" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10816" y="9792" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5696" y="4800" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10816" y="9920" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5696" y="4736" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10816" y="9856" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6976" y="3712" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="12096" y="8832" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="7040" y="3648" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="12160" y="8768" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="7040" y="3712" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="12160" y="8832" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6976" y="3648" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="12096" y="8768" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2304" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7424" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2496" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7616" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2432" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7552" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2560" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7680" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2496" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7616" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2368" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7488" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2368" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7488" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2432" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7552" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2240" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7360" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5504" y="2304" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10624" y="7424" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7104" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12224" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7296" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12416" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7232" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12352" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7360" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12480" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7296" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12416" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7168" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12288" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7168" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12288" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7232" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12352" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7040" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12160" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="7104" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10880" y="12224" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="8960" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14080" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="9152" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14272" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="9088" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14208" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="9216" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14336" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="9152" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14272" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="9024" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14144" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="9024" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14144" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="9088" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14208" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="8896" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14016" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="5440" y="8960" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="10560" y="14080" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4608" y="2432" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="9728" y="7552" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4544" y="2432" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="9664" y="7552" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4672" y="2432" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="9792" y="7552" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4928" y="2368" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="10048" y="7488" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4864" y="2368" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="9984" y="7488" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4992" y="2368" width="50" height="50">
+  <object name="fuel.spawn" type="fuel.spawn" x="10112" y="7488" width="50" height="50">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="640" y="3712" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="8832" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="576" y="3712" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="5696" y="8832" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="576" y="3648" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="5696" y="8768" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="640" y="3648" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="5760" y="8768" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2816" y="8000" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="7936" y="13120" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2880" y="8512" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="8000" y="13632" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2880" y="8384" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="8000" y="13504" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2816" y="8128" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="7936" y="13248" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2880" y="8448" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="8000" y="13568" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="2816" y="8064" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="7936" y="13184" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4160" y="8064" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="9280" y="13184" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4352" y="7744" width="50" height="50" rotation="-360">
+  <object name="fuel.spawn" type="fuel.spawn" x="9472" y="12864" width="50" height="50" rotation="-360">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4480" y="7744" width="50" height="50" rotation="-360">
+  <object name="fuel.spawn" type="fuel.spawn" x="9600" y="12864" width="50" height="50" rotation="-360">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4160" y="8192" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="9280" y="13312" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4416" y="7744" width="50" height="50" rotation="-360">
+  <object name="fuel.spawn" type="fuel.spawn" x="9536" y="12864" width="50" height="50" rotation="-360">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4160" y="8128" width="50" height="50" rotation="-90">
+  <object name="fuel.spawn" type="fuel.spawn" x="9280" y="13248" width="50" height="50" rotation="-90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="7616" y="1152" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="12736" y="6272" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="7552" y="1152" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="12672" y="6272" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="7552" y="1088" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="12672" y="6208" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="7616" y="1088" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="12736" y="6208" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6272" y="1088" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="11392" y="6208" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6208" y="1152" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="11328" y="6272" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6144" y="1088" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="11264" y="6208" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="6336" y="1152" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="11456" y="6272" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="9600" y="4096" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="14720" y="9216" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="9536" y="4288" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="14656" y="9408" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="9536" y="4224" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="14656" y="9344" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="9600" y="4160" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="14720" y="9280" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4224" y="3264" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="9344" y="8384" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4224" y="3520" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="9344" y="8640" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4224" y="3456" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="9344" y="8576" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4224" y="3328" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="9344" y="8448" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4224" y="3392" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="9344" y="8512" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
     <property name="frequencyUpperRange" value="0"/>
    </properties>
   </object>
-  <object name="fuel.spawn" type="fuel.spawn" x="4224" y="3200" width="50" height="50" rotation="90">
+  <object name="fuel.spawn" type="fuel.spawn" x="9344" y="8320" width="50" height="50" rotation="90">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="30"/>
