@@ -119,7 +119,7 @@
         NSLog(@"[patient] Spawning patient '%@'...", objectToSpawn.name);
 #endif
         
-        [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
+        //[owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
             
         // add to minimap
         SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withSize:1.25];

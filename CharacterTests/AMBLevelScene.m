@@ -154,8 +154,8 @@ typedef enum {
         
         _tutorialMode = tut;
         
-        _renderTraffic = 1;
-
+        _renderTraffic = 0;
+        self.backgroundColor = [SKColor yellowColor];
         self.physicsWorld.contactDelegate = self;
 
         // indicator, created before createWorld so it can be referenced in initial spawns
@@ -174,14 +174,14 @@ typedef enum {
         NSString *levelName;
         switch (levelType) {
             case AMBCity1:
-                levelName = @"level01_v001.tmx";
+                levelName = @"level01_v002.tmx";
                 break;
                 
             case AMBCity2:
-                levelName = @"level01_v001.tmx";
+                levelName = @"level01_v002.tmx";
                 
             case AMBCity3:
-                levelName = @"level01_v001.tmx";
+                levelName = @"level01_v002.tmx";
         }
         
         [self createWorldWithLevel:levelName];  // set up tilemap
@@ -240,7 +240,7 @@ typedef enum {
             [self addChild:_tutorialOverlay];
             [_tutorialOverlay beginTutorialAfterDelayOf:0.75];
             
-            // _mapLayerTrafficAI.alpha = 0; // hide the traffic
+             _mapLayerTrafficAI.alpha = 0; // hide the traffic
             
         }
 
@@ -259,8 +259,8 @@ typedef enum {
     // do things like turn traffic on, start timer, etc.
     [_gameClock startTimer];
     
-//    SKAction *fadeIn = [SKAction fadeInWithDuration:2.0];
-//    [_mapLayerTrafficAI runAction:fadeIn];
+    SKAction *fadeIn = [SKAction fadeInWithDuration:2.0];
+    [_mapLayerTrafficAI runAction:fadeIn];
     
 }
 

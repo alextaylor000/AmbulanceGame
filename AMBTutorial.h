@@ -13,6 +13,7 @@ typedef enum {
     TutorialStateStep01 = 1,
     TutorialStateStep02,
     TutorialStateStep03,
+    TutorialStateStep03A,
     TutorialStateStep04,
     TutorialStateStep05,
     TutorialStateStep06,

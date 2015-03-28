@@ -53,6 +53,8 @@
 		B9BCC05D1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */; };
 		B9BCC0621A803EE800FF2BAE /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = B9BCC0611A803EE800FF2BAE /* pause.png */; };
 		B9BCC0631A803EE800FF2BAE /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = B9BCC0611A803EE800FF2BAE /* pause.png */; };
+		B9C4DD981AC667020028DA50 /* level01_v002.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C4DD971AC667020028DA50 /* level01_v002.tmx */; };
+		B9C4DD991AC667020028DA50 /* level01_v002.tmx in Resources */ = {isa = PBXBuildFile; fileRef = B9C4DD971AC667020028DA50 /* level01_v002.tmx */; };
 		B9C8E4971A4B73F0003F7354 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4961A4B73F0003F7354 /* main.m */; };
 		B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4991A4B73F0003F7354 /* AppDelegate.m */; };
 		B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C8E4A11A4B73F0003F7354 /* GameViewController.m */; };
@@ -172,6 +174,7 @@
 		B9BCC05A1A8031DA00FF2BAE /* AMBGameSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameSetupViewController.h; path = ../AMBGameSetupViewController.h; sourceTree = "<group>"; };
 		B9BCC05B1A8031DA00FF2BAE /* AMBGameSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameSetupViewController.m; path = ../AMBGameSetupViewController.m; sourceTree = "<group>"; };
 		B9BCC0611A803EE800FF2BAE /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		B9C4DD971AC667020028DA50 /* level01_v002.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level01_v002.tmx; sourceTree = "<group>"; };
 		B9C8E4921A4B73F0003F7354 /* Dash!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dash!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C8E4951A4B73F0003F7354 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9C8E4961A4B73F0003F7354 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -247,6 +250,7 @@
 		B96A845219BAB723002E058B /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				B9C4DD971AC667020028DA50 /* level01_v002.tmx */,
 				B9E738601AB0044600EBA587 /* road_tilemap_red.png */,
 				B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */,
 				B9A4BD311A958BBF00C70201 /* level01_v001.tmx */,
@@ -577,6 +581,7 @@
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B9EE2F051AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
+				B9C4DD981AC667020028DA50 /* level01_v002.tmx in Resources */,
 				B9A4BD321A958BBF00C70201 /* level01_v001.tmx in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
 				B903B1791A68D60F00414D8E /* level01_firstdraft_MINI-256.png in Resources */,
@@ -596,6 +601,7 @@
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
 				B9A0C32E1A57D2F800A9BD28 /* level01_firstdraft_MINI.png in Resources */,
 				B903B17A1A68D66800414D8E /* level01_firstdraft_MINI-256.png in Resources */,
+				B9C4DD991AC667020028DA50 /* level01_v002.tmx in Resources */,
 				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
 				B9A4BD441A99990A00C70201 /* tutorial.atlas in Resources */,
 				B9BCC0631A803EE800FF2BAE /* pause.png in Resources */,

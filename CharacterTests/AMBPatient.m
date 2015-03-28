@@ -72,7 +72,7 @@
         
         self.name = @"patient";
         self.position = position;
-
+        [self setScale:0.5];
         self.severity = severity;
         self.state = PatientIsWaitingForPickup;
         [self storePatientUserData];
@@ -183,7 +183,6 @@
 
 - (void)storePatientUserData {
     // Defines severity data and stashes it in the node's userData property.
-    NSInteger medicalSupplies;
     NSTimeInterval timeToLive;
     NSInteger points;
     
@@ -193,19 +192,16 @@
     
     switch (self.severity) {
         case LevelOne:
-            medicalSupplies = 5;
             timeToLive = 40;
             points = 100;
             break;
         
         case LevelTwo:
-            medicalSupplies = 10;
             timeToLive = 45;
             points = 200;
             break;
             
         case LevelThree:
-            medicalSupplies = 15;
             timeToLive = 30;
             points = 300;
             break;
@@ -218,7 +214,6 @@
     
     self.userData = [[NSMutableDictionary alloc]init];
     
-    [self.userData setObject:[NSNumber numberWithInteger:medicalSupplies] forKey:@"medicalSupplies"];
     [self.userData setObject:[NSNumber numberWithDouble:timeToLive] forKey:@"timeToLive"];
     [self.userData setObject:[NSNumber numberWithInteger:points] forKey:@"points"];
 }

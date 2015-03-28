@@ -8,11 +8,12 @@
 
 #import "AMBTutorial.h"
 #import "AMBLevelScene.h"
-
+#import "AMBTimer.h"
 
 @interface AMBTutorial ()
 
 @property BOOL tutorialIsActive;
+
 
 @end
 
@@ -23,6 +24,7 @@
         _tutorialState = TutorialStateStep01;
         _tutorialIsActive = NO;
         self.alpha = 0;
+
     }
     
     return self;
@@ -44,7 +46,8 @@
 }
 
 - (void)playerDidPerformEvent:(PlayerEvent)event {
-  
+
+    
     if (_tutorialIsActive) {
         switch (_tutorialState) {
             case TutorialStateStep01:
@@ -64,12 +67,23 @@
 
             case TutorialStateStep03:
                 if (event == PlayerEventConstantMovement) {
-                    [self swapTextureTo:sTutorialTapAndHold afterDelay:0.5];
-                    _tutorialState = TutorialStateStep04;
+                    /* player has held down constant movement, change states and wait for a turn */
+                    _tutorialState = TutorialStateStep03A;
+
                 }
 
                 break;
 
+            case TutorialStateStep03A:
+                if (event == PlayerEventTurnCorner) {
+                    [self swapTextureTo:sTutorialTapAndHold afterDelay:0.5];
+                    _tutorialState = TutorialStateStep04;
+                    
+                }
+                
+                break;
+                
+                
             case TutorialStateStep04:
                 if (event == PlayerEventSlowDown) {
                     [self swapTextureTo:sTutorialYellowArrow afterDelay:0.5];
