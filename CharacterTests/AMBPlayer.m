@@ -37,6 +37,7 @@ typedef enum {
 @property NSTimeInterval fuelTimer; // times when the fuel started being depleted by startMoving
 
 @property SKSpriteNode *patientBubble;
+@property SKLabelNode *patientTimer;
 
 
 @end
@@ -137,11 +138,17 @@ typedef enum {
     _patientBubble.zPosition = 99;
     _patientBubble.alpha = 0;
     _patientBubble.xScale = 0;
-    
-    sPatientTimer.text = @"0:00";
-    sPatientTimer.position = CGPointMake(0, 3);
 
-    [_patientBubble addChild:sPatientTimer];
+    
+    _patientTimer = [SKLabelNode labelNodeWithFontNamed:@"AvenirNextCondensed-Bold"];
+    _patientTimer.fontSize = 25;
+    _patientTimer.fontColor = [SKColor redColor];
+    _patientTimer.zRotation = DegreesToRadians(-115);
+    
+    _patientTimer.text = @"0:00";
+    _patientTimer.position = CGPointMake(0, 3);
+
+    [_patientBubble addChild:_patientTimer];
     [self addChild:_patientBubble];
     
     
@@ -191,7 +198,7 @@ typedef enum {
     if (self.patient) {
         NSTimeInterval ttl = [self.patient getPatientTTL];
         //owningScene.patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: %1.1f",ttl];
-        sPatientTimer.text = [NSString stringWithFormat:@"%@",[self timeFormatted:ttl]];
+        _patientTimer.text = [NSString stringWithFormat:@"%@",[self timeFormatted:ttl]];
 
         if (ttl < 11) {
             [self revealBubble];
@@ -708,10 +715,6 @@ typedef enum {
         sTurnSignalRight = [gameObjectSprites textureNamed:@"hud_swipe_turn-right_v001"];;
         
         sPatientBubble = [gameObjectSprites textureNamed:@"patient_bubble"];
-        sPatientTimer = [SKLabelNode labelNodeWithFontNamed:@"AvenirNextCondensed-Bold"];
-        sPatientTimer.fontSize = 25;
-        sPatientTimer.fontColor = [SKColor redColor];
-        sPatientTimer.zRotation = DegreesToRadians(-115);
 
         
         
@@ -746,7 +749,7 @@ static SKTexture *sSirenDefaultTexture = nil;
 static SKTexture *sTurnSignalLeft = nil;
 static SKTexture *sTurnSignalRight = nil;
 static SKTexture *sPatientBubble = nil;
-static SKLabelNode *sPatientTimer = nil;
+
 
 static SKAction *sSirensOn = nil;
 static SKAction *sTurnSignalOn = nil;

@@ -260,6 +260,7 @@ typedef enum {
         }
         
         
+        
     }
     return self;
 }
@@ -267,14 +268,28 @@ typedef enum {
 
 - (void)restart {
     
+    // re-init the scene. use _tutorialMode because it will get set to "NO" if the user has completed it before restarting.
+    
+    // remove all objects from scene first
+    [self.scene removeAllChildren];
+    
+    AMBLevelScene *newScene = [[AMBLevelScene alloc]initWithSize:self.size gameType:[_initialConditions[@"gameType"] intValue] vehicleType:[_initialConditions[@"vehicleType"] intValue] levelType:[_initialConditions[@"levelType"]intValue] tutorial:_tutorialMode];
+    
+    SKTransition *fadeTransition = [SKTransition fadeWithColor:[SKColor colorWithRed:254 green:204 blue:44 alpha:1] duration:0.75];
+    
+    [self.view presentScene:newScene transition:fadeTransition];
+    
 }
 
 - (void)didCompleteTutorial {
+    _tutorialMode = NO;
+    
     // do things like turn traffic on, start timer, etc.
     [_gameClock startTimer];
     
     SKAction *fadeIn = [SKAction fadeInWithDuration:2.0];
     [_mapLayerTrafficAI runAction:fadeIn];
+    
     
 }
 
