@@ -1128,7 +1128,7 @@ typedef enum {
 #endif
     
     
-    static CGFloat PAN_IDLE_TRANS = 50; // issue #42, handle idle state during pan
+    static CGFloat PAN_IDLE_TRANS = 10; // issue #42, handle idle state during pan
     
 #if DEBUG_PLAYER_CONTROL
     NSLog(@"handlePan state=%li, velocity=%1.0f,%1.0f, trans=%1.0f,%1.0f",recognizer.state,vel.x,vel.y,trans.x,trans.y);
