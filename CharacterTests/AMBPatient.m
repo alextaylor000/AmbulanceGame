@@ -33,6 +33,7 @@
 
 @property CGFloat lifetime;
 
+
 @end
 
 @implementation AMBPatient {
@@ -77,7 +78,7 @@
         self.severity = severity;
         self.state = PatientIsWaitingForPickup;
         [self storePatientUserData];
-
+        
         
         
     }
@@ -92,9 +93,10 @@
 - (void)updatePatient {
     if (_state == PatientIsEnRoute) {
         // update TTL
-        patientTTL = [self.userData[@"timeToLive"]doubleValue] - (CACurrentMediaTime() - self.spawnTime);
-        NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
+        [_patientTimer update:CACurrentMediaTime()];
 
+        patientTTL = _patientTimer.timeRemaining;
+//        NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
         
         if (patientTTL <= 0)   {
             
@@ -119,18 +121,12 @@
         case PatientIsWaitingForPickup:
 //            self.spawnTime = CACurrentMediaTime(); // reset spawn time when a copy is made
             scoreKeeper = [AMBScoreKeeper sharedInstance]; 
-            
-#if DEBUG_PATIENT
-            debugPatientTTL = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
-            debugPatientTTL.text = [NSString stringWithFormat:@"%1.0f",patientTTL];
-            debugPatientTTL.fontColor = [SKColor yellowColor];
-            [self addChild:debugPatientTTL];
-#endif
-            
             break;
         
         case PatientIsEnRoute:
-            self.spawnTime = CACurrentMediaTime(); // reset spawn time when patient is picked up
+//            self.spawnTime = CACurrentMediaTime(); // reset spawn time when patient is picked up
+            [_patientTimer startTimer];
+            
             self.hidden = YES;
             [self.minimapAvatar removeFromParent];
             #if DEBUG_PATIENT

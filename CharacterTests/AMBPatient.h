@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "AMBCharacter.h"
-
+#import "AMBTimer.h"
 
 typedef enum {
     PatientIsWaitingForPickup,
@@ -30,7 +30,7 @@ typedef enum {
 @property CGPoint position;
 @property PatientSeverity severity;
 @property PatientState state;
-
+@property AMBTimer *patientTimer;
 
 
 + (instancetype) patientWithSeverity:(PatientSeverity)severity;

@@ -270,13 +270,26 @@ typedef enum {
 }
 
 - (void)pauseScene {
-    self.view.paused = YES;
     [_gameClock pauseTimer];
+    if (_player.patient) {
+        [_player.patient.patientTimer pauseTimer];
+    }
+    
+    self.view.paused = YES;
+
+    
 }
 
 - (void)resumeScene {
-    self.view.paused = NO;
+
     [_gameClock resumeTimer];
+    if (_player.patient) {
+        [_player.patient.patientTimer resumeTimer];
+    }
+
+    
+    self.view.paused = NO;
+
 }
 
 - (void)restart {

@@ -127,6 +127,8 @@
         [miniPatient runAction:[SKAction repeatActionForever:[SKAction sequence:@[fadeOut, [fadeOut reversedAction]]]]];
 
         AMBPatient *patient = (AMBPatient *)objectToSpawn;
+        patient.patientTimer = [[AMBTimer alloc]initWithSecondsRemaining: [patient.userData[@"timeToLive"] doubleValue] ];
+
         patient.minimapAvatar = miniPatient;
         
         [patient changeState:PatientIsWaitingForPickup];
