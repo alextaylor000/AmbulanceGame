@@ -31,6 +31,13 @@
     _timerState = AMBTimerStatePaused;
 }
 
+- (void)resumeTimer {
+    if (_timerState == AMBTimerStatePaused) {
+        _timerState = AMBTimerStateActive;
+        _lastUpdate = CACurrentMediaTime();
+    }
+}
+
 - (void)setTimerTo:(NSTimeInterval)seconds {
     _secondsRemaining = seconds;
 }

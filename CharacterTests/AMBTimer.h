@@ -41,6 +41,7 @@ typedef enum {
 - (NSTimeInterval)timeRemaining;
 - (void)startTimer;
 - (void)pauseTimer;
+- (void)resumeTimer;
 - (void)timerDidEnd;
 
 

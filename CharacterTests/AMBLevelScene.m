@@ -269,6 +269,15 @@ typedef enum {
     return self;
 }
 
+- (void)pauseScene {
+    self.view.paused = YES;
+    [_gameClock pauseTimer];
+}
+
+- (void)resumeScene {
+    self.view.paused = NO;
+    [_gameClock resumeTimer];
+}
 
 - (void)restart {
     
@@ -396,7 +405,7 @@ typedef enum {
 
 -(void)calcDelta:(CFTimeInterval)currentTime {
     if (self.sceneLastUpdate) {
-        _sceneDelta = currentTime - self.sceneLastUpdate;
+        _sceneDelta = fminf(0.02, currentTime - self.sceneLastUpdate); // run at 1/60 or never less than 1/50
     } else {
         _sceneDelta = 0;
     }
@@ -404,8 +413,11 @@ typedef enum {
     _sceneLastUpdate = currentTime;
 }
 
--(void)update:(CFTimeInterval)currentTime {
-    
+//-(void)update:(CFTimeInterval)currentTime {
+- (void)update:(NSTimeInterval)currentTime {
+    if (!self.paused) {
+        
+
     [self calcDelta:currentTime];
     
     // update the clock
@@ -450,9 +462,8 @@ typedef enum {
     // update minimap
     _miniPlayer.position = CGPointMultiplyScalar(_player.position, _minimapScaleFactor);
     _miniMap.position = CGPointMake(-_miniPlayer.position.x, -_miniPlayer.position.y);
-    
-    
 
+    } // self.paused
 }
 
 #pragma mark World Building

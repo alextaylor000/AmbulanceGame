@@ -73,5 +73,8 @@
 
 - (void)outOfFuel;
 
+- (void)pauseScene;
+- (void)resumeScene;
+
 - (void)restart;
 @end

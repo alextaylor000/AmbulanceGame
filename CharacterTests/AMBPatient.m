@@ -28,6 +28,7 @@
 #import "AMBPatient.h"
 #import "AMBScoreKeeper.h"
 
+
 @interface AMBPatient ()
 
 @property CGFloat lifetime;

@@ -81,11 +81,12 @@
 
 
 - (IBAction)pauseButtonPressed:(id)sender {
-    _gameScene.paused = YES;
+    [_gameScene pauseScene];
     
     UIAlertController *menu = [UIAlertController alertControllerWithTitle:@"Game Paused" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *resume = [UIAlertAction actionWithTitle:@"Resume" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) { _gameScene.paused = NO; }];
+    UIAlertAction *resume = [UIAlertAction actionWithTitle:@"Resume" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [_gameScene resumeScene]; }];
     
     UIAlertAction *mainmenu = [UIAlertAction actionWithTitle:@"Main Menu" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
     
