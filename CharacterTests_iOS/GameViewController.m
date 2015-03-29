@@ -65,7 +65,7 @@
         [_skView presentScene:_gameScene];
         
         [self.view addSubview:_skView];
-
+        [self.view sendSubviewToBack:_skView];
         // add HUD stuff here, if using UIKit
         
 //        __weak GameViewController *weakSelf = self;
@@ -78,13 +78,24 @@
 }
 
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self.view sendSubviewToBack:_skView];
-}
 
 - (IBAction)pauseButtonPressed:(id)sender {
-    // for now, pause just resets to main menu.
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    _gameScene.paused = YES;
+    
+    UIAlertController *menu = [UIAlertController alertControllerWithTitle:@"Game Paused" message:@"message" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *resume = [UIAlertAction actionWithTitle:@"Resume" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) { _gameScene.paused = NO; }];
+    
+    UIAlertAction *mainmenu = [UIAlertAction actionWithTitle:@"Main Menu" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+    
+    UIAlertAction *restart = [UIAlertAction actionWithTitle:@"Restart" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) { [_gameScene restart]; }];
+    
+    [menu addAction:mainmenu];
+    [menu addAction:restart];
+    [menu addAction:resume];
+    
+    [self presentViewController:menu animated:YES completion:nil];
+    
     
     
 }

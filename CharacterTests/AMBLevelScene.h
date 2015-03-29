@@ -73,5 +73,5 @@
 
 - (void)outOfFuel;
 
-
+- (void)restart;
 @end
