@@ -188,9 +188,11 @@ typedef enum {
                 
             case AMBCity2:
                 levelName = @"level01_v002.tmx";
+                break;
                 
             case AMBCity3:
                 levelName = @"level01_v002.tmx";
+                break;
         }
         
         [self createWorldWithLevel:levelName];  // set up tilemap
@@ -221,7 +223,9 @@ typedef enum {
         // notification node
         SKSpriteNode *notifications = [_scoreKeeper createNotificationAtPos:CGPointZero];
 
+
         [self addChild:notifications];
+
         
         
         // clock

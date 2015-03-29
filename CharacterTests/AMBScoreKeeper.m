@@ -66,14 +66,14 @@
 }
 
 -(SKSpriteNode *)createNotificationAtPos:(CGPoint)pos {
-    if (!_notificationNode) {
-        CGFloat sizeMult = (self.scene.size.width * 0.85) / sNotificationFuelEmpty.size.width; // this assumes that all notifications are the same size
 
-        _notificationNode = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(50, 50)];
-        _notificationNode.size = CGSizeMake(sNotificationFuelEmpty.size.width * sizeMult, sNotificationFuelEmpty.size.height * sizeMult);
-        _notificationNode.zPosition = 1000;
-        _notificationNode.alpha = 0;
-    }
+    CGFloat sizeMult = (self.scene.size.width * 0.85) / sNotificationFuelEmpty.size.width; // this assumes that all notifications are the same size
+
+    _notificationNode = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(50, 50)];
+    _notificationNode.size = CGSizeMake(sNotificationFuelEmpty.size.width * sizeMult, sNotificationFuelEmpty.size.height * sizeMult);
+    _notificationNode.zPosition = 1000;
+    _notificationNode.alpha = 0;
+
     
     return _notificationNode;
 }
