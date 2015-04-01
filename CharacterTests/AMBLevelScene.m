@@ -293,6 +293,7 @@ typedef enum {
 }
 
 - (void)restart {
+    self.view.paused = NO; // resume scene before restarting
     
     // re-init the scene. use _tutorialMode because it will get set to "NO" if the user has completed it before restarting.
     
