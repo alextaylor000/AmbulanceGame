@@ -97,7 +97,7 @@
     objectToSpawn = (AMBCharacter *)[[_spawnObjects objectAtIndex:i] copy]; // this becomes an immutable copy
     
     AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
-    
+
     objectToSpawn.zRotation = [owningScene.mapLayerInteractives.userData[@"childRotation"] floatValue]; // sync up the rotation of this new sprite with the rest of the existing sprites
     [objectToSpawn addObjectToNode:[owningScene mapLayerInteractives] atPosition:self.position];
 

@@ -389,9 +389,12 @@ typedef enum {
 }
 
 - (void) addPlayerUsingSprite:(AMBVehicleType)vehicleType {
+    NSDictionary *playerSpawn = [[_mapGroupSpawnPlayer objects] objectAtIndex:0];
+    _playerSpawnPoint = [self centerOfObject:playerSpawn];
+    
     
     _player = [[AMBPlayer alloc] initWithSprite:vehicleType];
-    _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y); // TODO: don't hardcode this offset!
+    _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y);
 
     [self addMovingCharacter:_player toLayer:_mapLayerRoad];
 #if DEBUG
@@ -503,8 +506,6 @@ typedef enum {
 
 - (void)createSpawners {
     // Set up spawn points
-    NSDictionary *playerSpawn = [[_mapGroupSpawnPlayer objects] objectAtIndex:0];
-    _playerSpawnPoint = [self centerOfObject:playerSpawn];
     
     NSArray *hospitalSpawns = [_mapGroupSpawnHospitals objects];
     for (NSDictionary *object in hospitalSpawns) {
@@ -525,7 +526,8 @@ typedef enum {
     // patient spawners
     NSArray *patientSpawns = [_mapGroupSpawnPatients objects];
     for (NSDictionary *object in patientSpawns) {
-        CGPoint spawnPoint = [self centerOfObject:object];
+        CGPoint spawnPoint = [self centerOfObject2:object];
+        
         
         // grab properties of the spawner from the TMX object directly
         NSTimeInterval firstSpawnAt = [[object valueForKey:@"firstSpawnAt"] intValue];
@@ -590,6 +592,8 @@ typedef enum {
     for (NSDictionary *object in powerupSpawns) {
         CGPoint spawnPoint = [self centerOfObject:object];
         
+        
+        
         // grab properties of the spawner from the TMX object directly
         NSTimeInterval firstSpawnAt = [[object valueForKey:@"firstSpawnAt"] intValue];
         NSTimeInterval frequency = [[object valueForKey:@"frequency"] intValue];
@@ -597,6 +601,11 @@ typedef enum {
         
         // get powerup type
         NSString *objectName = object[@"name"];
+        
+        if ([object[@"type"] isEqualToString:@"DEBUG"]) {
+            NSLog(@"debug");
+        }
+        
         AMBPowerupType powerupType;
         
         if ([objectName isEqualToString:@"fuel.spawn"]) {
@@ -1067,6 +1076,12 @@ typedef enum {
     return CGPointMake([[object objectForKey:@"x"] intValue] + [[object objectForKey:@"width"] intValue]/2,
                        [[object objectForKey:@"y"] intValue] + [[object objectForKey:@"height"] intValue]/2);
 }
+
+- (CGPoint)centerOfObject2:(NSDictionary *)object {
+    return CGPointMake([[object objectForKey:@"x"] intValue],
+                       [[object objectForKey:@"y"] intValue]);
+}
+
 
 
 #pragma mark Camera
