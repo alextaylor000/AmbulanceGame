@@ -1313,7 +1313,8 @@ typedef enum {
 }
 
 - (void)outOfFuel {
-    [_scoreKeeper showNotification:ScoreKeeperNotificationFuelEmpty];
+    
+    [_scoreKeeper handleEventOutOfFuel];
     [_player stopMovingWithDecelTime:1.0];
     
 }

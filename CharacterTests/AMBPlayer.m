@@ -433,7 +433,7 @@ typedef enum {
             
         case categoryHospital:
             if (self.patient) {
-                [_scoreKeeper scoreEventDeliveredPatient:self.patient];
+                [_scoreKeeper handleEventDeliveredPatient:self.patient];
                 [self unloadPatient];
             }
             break;
@@ -456,7 +456,7 @@ typedef enum {
                 action = [SKAction sequence:@[[SKAction colorizeWithColor:[SKColor greenColor] colorBlendFactor:0.6 duration:0.25],[SKAction waitForDuration:PLAYER_INVINCIBLE_TIME],[SKAction colorizeWithColorBlendFactor:0.0 duration:0.25]]];
                 [self runAction:action withKey:@"invincibility"]; // as long as this action exists on the player, the player will be immune to traffic
                 
-                [_scoreKeeper showNotification:ScoreKeeperNotificationInvincibility];
+                [_scoreKeeper handleEventInvincible];
                 [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventPickupInvincibility]; // tutorial event
 
                 AMBCharacter *powerup = (AMBCharacter *)other.node;

@@ -11,6 +11,36 @@
 #import "AMBPatient.h"
 #import "SKTUtils.h" // for RandomFloatRange
 
+
+#pragma mark SCORING CONSTANTS
+const int SCORE_PATIENT_SEVERITY_1 =                100000;
+const int SCORE_PATIENT_SEVERITY_2 =                200000;
+const int SCORE_PATIENT_SEVERITY_3 =                300000;
+const int SCORE_PATIENT_TTL_BONUS =                 50000;
+const int SCORE_SAFE_DRIVING_BONUS =                30000;
+const int SCORE_CARS_HIT_MULTIPLIER =               SCORE_SAFE_DRIVING_BONUS / 5; // max number of cars you can hit, then you get a zero safe driving
+const int SCORE_END_ALL_PATIENTS_DELIVERED_BONUS =  10000;
+
+
+
+
+
+typedef enum {
+    ScoreKeeperNotificationFuelEmpty,
+    ScoreKeeperNotificationFuelUp,
+    ScoreKeeperNotificationInvincibility,
+    ScoreKeeperNotificationPatientDelivered,
+    ScoreKeeperNotificationPatientDied,
+    ScoreKeeperNotificationTimeOut
+} ScoreKeeperNotifications;
+
+
+@interface AMBScoreKeeper ()
+
+@property NSInteger carsHit;
+
+@end
+
 @implementation AMBScoreKeeper
 
 /**
@@ -30,12 +60,29 @@
     if (self = [super init]) {
         /* Initialize anything needed for game logic */
         _score = 0;
-        _elapsedTime = 0;
+        _numPatientsDelivered = 0;
+        _carsHit = 0;
         
     }
     
    return self;
 }
+
+
+
+-(SKSpriteNode *)createNotificationAtPos:(CGPoint)pos {
+
+    CGFloat sizeMult = (self.scene.size.width * 0.85) / sNotificationFuelEmpty.size.width; // this assumes that all notifications are the same size
+
+    _notificationNode = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(50, 50)];
+    _notificationNode.size = CGSizeMake(sNotificationFuelEmpty.size.width * sizeMult, sNotificationFuelEmpty.size.height * sizeMult);
+    _notificationNode.zPosition = 1000;
+    _notificationNode.alpha = 0;
+
+    
+    return _notificationNode;
+}
+
 
 - (SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position {
     
@@ -51,39 +98,13 @@
     return _labelScore;
 }
 
--(SKLabelNode *)createEventlabelAtPos:(CGPoint)position {
-    if (!_labelEvent) {
-        _labelEvent = [SKLabelNode labelNodeWithFontNamed:@"Courier-Bold"];
-        _labelEvent.text = @"EVENT!";
-        _labelEvent.fontColor = [SKColor yellowColor];
-        _labelEvent.fontSize = 60;
-        _labelEvent.alpha = 0;
-        _labelEvent.zPosition = 1000;
-        _labelEvent.position = position;
-    }
-    
-    return _labelEvent;
-}
-
--(SKSpriteNode *)createNotificationAtPos:(CGPoint)pos {
-
-    CGFloat sizeMult = (self.scene.size.width * 0.85) / sNotificationFuelEmpty.size.width; // this assumes that all notifications are the same size
-
-    _notificationNode = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(50, 50)];
-    _notificationNode.size = CGSizeMake(sNotificationFuelEmpty.size.width * sizeMult, sNotificationFuelEmpty.size.height * sizeMult);
-    _notificationNode.zPosition = 1000;
-    _notificationNode.alpha = 0;
-
-    
-    return _notificationNode;
-}
-
 - (void)updateScoreLabelWithPoints:(NSInteger)points {
+    // TODO: Use NSNumberFormatter to output comma-formatted numbers
     _labelScore.text = [NSString stringWithFormat:@"+ %ld", (long)points];
 }
 
 
-- (void) updateScore:(NSInteger)points {
+- (void) updateScore:(NSInteger)points withMessage:(NSString *)message {
     _score += points;
     
     [self updateScoreLabelWithPoints:_score];
@@ -95,30 +116,39 @@
 }
 
 #pragma mark Scoring Events
-- (void) scoreEventDeliveredPatient:(AMBPatient *)patient {
+- (void)handleEventDeliveredPatient:(AMBPatient *)patient {
     NSMutableDictionary *userData = patient.userData;
-    
-    NSInteger medicalSupplies = [[userData valueForKey:@"medicalSupplies"] integerValue];
+    NSTimeInterval timeRemaining = [patient getPatientTTL];
     NSTimeInterval timeToLive = [[userData valueForKey:@"timeToLive"] doubleValue];
-    NSInteger points =          [[userData valueForKey:@"points"] integerValue];
+    PatientSeverity severity = [[userData valueForKey:@"severity"] intValue];
+    
+    int PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_1; // init to default amount
+    
+    switch (severity) {
+        case LevelOne:
+            PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_1;
+            break;
+            
+        case LevelTwo:
+            PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_2;
+            break;
+            
+        case LevelThree:
+            PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_3;
+            break;
+    }
     
     // define the formula for applying points
-    NSInteger netPoints = points;
+    NSInteger netPoints = PATIENT_DELIVERED_BASE_SCORE;
+    NSInteger patientTTLpoints = SCORE_PATIENT_TTL_BONUS * ( timeRemaining / timeToLive );
+    NSInteger safeDriving = SCORE_SAFE_DRIVING_BONUS - ( _carsHit * SCORE_CARS_HIT_MULTIPLIER );
     
-    [self updateScore:netPoints];
-    
-#if DEBUG
-    NSLog(@"patient DELIVERED!");
-#endif
-    
-}
+    [self updateScore:netPoints withMessage:@"Patient Delivered"];
+    [self updateScore:patientTTLpoints withMessage:@"Time Bonus"];
+    [self updateScore:safeDriving withMessage:@"Safe Driving Bonus"];
 
-- (void)eventLabelWithText:(NSString *)text {
-    _labelEvent.text = text;
+    [self showNotification:ScoreKeeperNotificationPatientDelivered];
     
-    SKAction *action;
-    action = [SKAction sequence:@[[SKAction fadeInWithDuration:0.075],[SKAction waitForDuration:2.0],[SKAction fadeOutWithDuration:0.075]]];
-    [_labelEvent runAction:action];
     
 }
 

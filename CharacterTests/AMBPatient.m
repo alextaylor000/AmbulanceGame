@@ -100,7 +100,6 @@
         
         if (patientTTL <= 0)   {
             
-            [scoreKeeper showNotification:ScoreKeeperNotificationPatientDied];
             [self changeState:PatientIsDead];
             
         }
@@ -135,8 +134,7 @@
             break;
             
         case PatientIsDelivered:
-            //[scoreKeeper eventLabelWithText:@"PATIENT DELIVERED! +points"];
-            [scoreKeeper showNotification:ScoreKeeperNotificationPatientDelivered];
+
             [self removeFromParent];
             
 #if DEBUG_PATIENT
@@ -214,6 +212,7 @@
     
     [self.userData setObject:[NSNumber numberWithDouble:timeToLive] forKey:@"timeToLive"];
     [self.userData setObject:[NSNumber numberWithInteger:points] forKey:@"points"];
+    [self.userData setObject:[NSNumber numberWithInteger:self.severity] forKey:@"severity"];
 }
 
 

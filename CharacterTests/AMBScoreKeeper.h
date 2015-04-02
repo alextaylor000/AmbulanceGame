@@ -8,32 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
-//#import "AMBPatient.h"
+
 @class AMBPatient;
 
 /* Game rules used by other classes */
-
-typedef enum {
-    ScoreKeeperNotificationFuelEmpty,
-    ScoreKeeperNotificationFuelUp,
-    ScoreKeeperNotificationInvincibility,
-    ScoreKeeperNotificationPatientDelivered,
-    ScoreKeeperNotificationPatientDied,
-    ScoreKeeperNotificationTimeOut
-} ScoreKeeperNotifications;
-
-
-
 @interface AMBScoreKeeper : NSObject
 
 @property SKScene *scene; // stores the scene instance so we can create labels
 
+/** Overall score for play session */
 @property (readonly, nonatomic) NSInteger score;
-@property (readonly, nonatomic) NSTimeInterval elapsedTime;
-
+@property (readonly, nonatomic) NSInteger numPatientsDelivered;
 
 @property SKLabelNode *labelScore;
-@property SKLabelNode *labelEvent;
 @property SKSpriteNode *notificationNode;
 
 
@@ -42,12 +29,13 @@ typedef enum {
 
 /* Labels */
 -(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
--(SKLabelNode *)createEventlabelAtPos:(CGPoint)position;
 -(SKSpriteNode *)createNotificationAtPos:(CGPoint)pos;
 
 /* Scoring Events */
-- (void) scoreEventDeliveredPatient:(AMBPatient *)patient;
-- (void) eventLabelWithText:(NSString *)text;
-- (void)showNotification:(ScoreKeeperNotifications)notification;
+- (void) handleEventDeliveredPatient:(AMBPatient *)patient;
+- (void) handleEventCarHit;
+- (void) handleEventOutOfFuel;
+- (void) handleEventInvincible;
+
 
 @end
