@@ -419,6 +419,8 @@ typedef enum {
             if (![self actionForKey:@"invincibility"]) {
 #warning preload this action
                 
+                [_scoreKeeper handleEventCarHit];
+                
                 action = [SKAction sequence:@[[SKAction fadeAlphaTo:0.1 duration:0],[SKAction waitForDuration:0.1],[SKAction fadeAlphaTo:1.0 duration:0.1],[SKAction waitForDuration:0.1]]];
                 [self runAction:[SKAction repeatActionForever:action] withKey:@"blink"];
                 

@@ -33,6 +33,8 @@
 		B98823971969998400903B73 /* AMBLevelScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823961969998400903B73 /* AMBLevelScene.m */; };
 		B988239A1969998400903B73 /* AMBAppDelegateOSX.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823991969998400903B73 /* AMBAppDelegateOSX.m */; };
 		B98823BE19699C4400903B73 /* AMBPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B98823BD19699C4400903B73 /* AMBPlayer.m */; };
+		B989BFD11ACF58EC003F9FC0 /* AMBGameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = B989BFD01ACF58EC003F9FC0 /* AMBGameOver.m */; };
+		B989BFD21ACF58EC003F9FC0 /* AMBGameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = B989BFD01ACF58EC003F9FC0 /* AMBGameOver.m */; };
 		B99E6F2119A16467003A7551 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B99E6F1C19A16467003A7551 /* .gitignore */; };
 		B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F1E19A16467003A7551 /* JSTileMap.m */; };
 		B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = B99E6F2019A16467003A7551 /* LFCGzipUtility.m */; };
@@ -152,6 +154,8 @@
 		B98823AE1969998400903B73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B98823BC19699C4400903B73 /* AMBPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBPlayer.h; sourceTree = "<group>"; };
 		B98823BD19699C4400903B73 /* AMBPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBPlayer.m; sourceTree = "<group>"; };
+		B989BFCF1ACF58EC003F9FC0 /* AMBGameOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBGameOver.h; sourceTree = "<group>"; };
+		B989BFD01ACF58EC003F9FC0 /* AMBGameOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBGameOver.m; sourceTree = "<group>"; };
 		B99E6F1C19A16467003A7551 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B99E6F1D19A16467003A7551 /* JSTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTileMap.h; sourceTree = "<group>"; };
 		B99E6F1E19A16467003A7551 /* JSTileMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTileMap.m; sourceTree = "<group>"; };
@@ -439,6 +443,8 @@
 				B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */,
 				B98823981969998400903B73 /* AMBLevelScene.h */,
 				B98823961969998400903B73 /* AMBLevelScene.m */,
+				B989BFCF1ACF58EC003F9FC0 /* AMBGameOver.h */,
+				B989BFD01ACF58EC003F9FC0 /* AMBGameOver.m */,
 			);
 			name = Scene;
 			sourceTree = "<group>";
@@ -618,6 +624,7 @@
 				B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */,
 				B9CC738419B26F9400A376BC /* AMBPatient.m in Sources */,
 				B9B3EDB01A1EC2C20068C52B /* AMBTrafficVehicle.m in Sources */,
+				B989BFD11ACF58EC003F9FC0 /* AMBGameOver.m in Sources */,
 				B98823971969998400903B73 /* AMBLevelScene.m in Sources */,
 				B985AFAC1A80270E000B3423 /* AMBCreditsViewController.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
@@ -654,6 +661,7 @@
 				B9C8E4EC1A4B7769003F7354 /* LFCGzipUtility.m in Sources */,
 				B9C8E4ED1A4B7769003F7354 /* SKAction+SKTExtras.m in Sources */,
 				B9C8E4EE1A4B7769003F7354 /* SKEmitterNode+SKTExtras.m in Sources */,
+				B989BFD21ACF58EC003F9FC0 /* AMBGameOver.m in Sources */,
 				B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */,
 				B985AFAE1A802A1A000B3423 /* AMBCreditsViewController.m in Sources */,
 				B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */,

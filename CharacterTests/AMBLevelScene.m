@@ -26,7 +26,7 @@
 #import "AMBTrafficVehicle.h"
 #import "JSTilemap.h"   // for supporting TMX maps
 #import "SKTUtils.h"
-
+#import "AMBGameOver.h"
 
 
 static NSString * const LEVEL_NAME = @"level01_v001.tmx"; // TODO: this isn't used anymore, DELETE IT
@@ -1316,6 +1316,18 @@ typedef enum {
     
     [_scoreKeeper handleEventOutOfFuel];
     [_player stopMovingWithDecelTime:1.0];
+
+    
+    
+    SKAction *runGameOver =
+    [SKAction sequence:@[
+        [SKAction waitForDuration:3.0],
+        [SKAction runBlock:^(void)
+         {
+             SKScene *gameOverScene = [[AMBGameOver alloc]initWithSize:self.size scoreKeeper:_scoreKeeper];
+             [self.view presentScene:gameOverScene transition:[SKTransition fadeWithColor:[SKColor whiteColor] duration:0.25]];
+          }]]];
+    [self runAction:runGameOver];
     
 }
 

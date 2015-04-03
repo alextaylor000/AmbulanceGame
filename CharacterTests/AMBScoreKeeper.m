@@ -22,9 +22,6 @@ const int SCORE_CARS_HIT_MULTIPLIER =               SCORE_SAFE_DRIVING_BONUS / 5
 const int SCORE_END_ALL_PATIENTS_DELIVERED_BONUS =  10000;
 
 
-
-
-
 typedef enum {
     ScoreKeeperNotificationFuelEmpty,
     ScoreKeeperNotificationFuelUp,
@@ -149,7 +146,20 @@ typedef enum {
 
     [self showNotification:ScoreKeeperNotificationPatientDelivered];
     
+    _carsHit = 0;
     
+}
+
+- (void)handleEventCarHit {
+    _carsHit += 1;
+}
+
+- (void)handleEventOutOfFuel {
+    [self showNotification:ScoreKeeperNotificationFuelEmpty];
+}
+
+- (void)handleEventInvincible {
+    [self showNotification:ScoreKeeperNotificationInvincibility];
 }
 
 - (void)showNotification:(ScoreKeeperNotifications)notification {

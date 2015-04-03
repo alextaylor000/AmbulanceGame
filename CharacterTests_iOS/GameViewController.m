@@ -48,9 +48,6 @@
         _gameScene = [[AMBLevelScene alloc]initWithSize:sceneSize gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType tutorial:_tutorialMode];
         _gameScene.scaleMode = SKSceneScaleModeAspectFit;
 
-
-        
-
         
         
         NSLog(@"Presenting game view with a size of %1.0f,%1.0f, ScaleMode %ld", _skView.bounds.size.width, _skView.bounds.size.height, _gameScene.scaleMode);
