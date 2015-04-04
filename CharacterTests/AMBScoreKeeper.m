@@ -80,6 +80,9 @@ typedef enum {
     return _notificationNode;
 }
 
+- (NSString *)scoreDisplay {
+    return [NSString stringWithFormat:@"%ld", (long)_score];
+}
 
 - (SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position {
     

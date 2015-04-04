@@ -30,6 +30,7 @@
 /* Labels */
 -(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
 -(SKSpriteNode *)createNotificationAtPos:(CGPoint)pos;
+- (NSString *)scoreDisplay;
 
 /* Scoring Events */
 - (void) handleEventDeliveredPatient:(AMBPatient *)patient;

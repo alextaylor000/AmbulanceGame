@@ -1325,6 +1325,7 @@ typedef enum {
         [SKAction runBlock:^(void)
          {
              SKScene *gameOverScene = [[AMBGameOver alloc]initWithSize:self.size scoreKeeper:_scoreKeeper];
+             gameOverScene.scaleMode = SKSceneScaleModeAspectFit;
              [self.view presentScene:gameOverScene transition:[SKTransition fadeWithColor:[SKColor whiteColor] duration:0.25]];
           }]]];
     [self runAction:runGameOver];
