@@ -81,14 +81,18 @@ typedef enum {
 }
 
 - (NSString *)scoreDisplay {
-    return [NSString stringWithFormat:@"%ld", (long)_score];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSString *stringWithCommas = [formatter stringFromNumber:[NSNumber numberWithInteger:_score]];
+    
+    return stringWithCommas;
 }
 
 - (SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position {
     
     _labelScore = [SKLabelNode labelNodeWithFontNamed:@"AvenirNext-Bold"];
     _labelScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
-    _labelScore.text = [NSString stringWithFormat:@"+ %ld", (long)points];
+    _labelScore.text = [self scoreDisplay];
     _labelScore.fontColor = [SKColor yellowColor];
     _labelScore.fontSize = 70;
     _labelScore.position = position;
@@ -99,8 +103,7 @@ typedef enum {
 }
 
 - (void)updateScoreLabelWithPoints:(NSInteger)points {
-    // TODO: Use NSNumberFormatter to output comma-formatted numbers
-    _labelScore.text = [NSString stringWithFormat:@"+ %ld", (long)points];
+    _labelScore.text = [self scoreDisplay];
 }
 
 

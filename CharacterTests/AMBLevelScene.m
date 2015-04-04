@@ -32,6 +32,7 @@
 static NSString * const LEVEL_NAME = @"level01_v001.tmx"; // TODO: this isn't used anymore, DELETE IT
 
 
+
 typedef enum {
     GestureIdle,
     GestureBegan,
@@ -145,6 +146,10 @@ typedef enum {
 - (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType tutorial:(BOOL)tut {
 
     if (self = [super initWithSize:size]) {
+        
+        
+        
+        
         /**
         
          Differences in tutorial mode:
@@ -444,6 +449,10 @@ typedef enum {
     [_gameClock update:currentTime];
     _labelClock.text = [self timeFormatted:[_gameClock secondsRemaining]];
 
+        
+    if (_gameClock.timerState == AMBTimerStateEmpty) {
+        [self gameOverBecause:GameOverReasonOutOfTime];
+    }
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
     [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
@@ -1318,12 +1327,25 @@ typedef enum {
     
 }
 
-- (void)outOfFuel {
+- (void)gameOverBecause:(GameOverReason)reason {
     
-    [_scoreKeeper handleEventOutOfFuel];
-    [_player stopMovingWithDecelTime:1.0];
+    switch (reason) {
+        case GameOverReasonOutOfFuel:
+            [_scoreKeeper handleEventOutOfFuel];
+            break;
+            
+        case GameOverReasonOutOfTime:
+            [_scoreKeeper handleEventOutOfTime];
+            break;
+            
+        case GameOverReasonSavedEveryone:
+            [_scoreKeeper handleEventSavedEveryone];
+            break;
+            
+    }
 
-    
+    [_player stopMovingWithDecelTime:1.0];
+    [_gameClock pauseTimer];
     
     SKAction *runGameOver =
     [SKAction sequence:@[

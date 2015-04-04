@@ -16,6 +16,13 @@
 #import "AMBTimer.h"
 #import "AMBFuelGauge.h"
 
+typedef enum {
+    GameOverReasonOutOfFuel,
+    GameOverReasonOutOfTime,
+    GameOverReasonSavedEveryone
+} GameOverReason;
+
+
 @interface AMBLevelScene : AMBGameScene <SKPhysicsContactDelegate>
 
 
@@ -70,8 +77,7 @@
 - (void)didCompleteTutorial;
 
 - (void)rotateInteractives:(CGFloat)degrees;
-
-- (void)outOfFuel;
+- (void)gameOverBecause:(GameOverReason)reason;
 
 - (void)pauseScene;
 - (void)resumeScene;

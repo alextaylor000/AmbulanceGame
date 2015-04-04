@@ -134,7 +134,7 @@
     _isOutOfFuel = YES;
     
     AMBLevelScene *scene = (AMBLevelScene *)self.scene;
-    [scene outOfFuel];
+    [scene gameOverBecause:GameOverReasonOutOfFuel];
 }
 
 + (void)loadSharedAssets {

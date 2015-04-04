@@ -38,6 +38,8 @@
 - (void) handleEventCarHit;
 - (void) handleEventOutOfFuel;
 - (void) handleEventInvincible;
+- (void) handleEventOutOfTime;
+- (void) handleEventSavedEveryone;
 
 
 @end
