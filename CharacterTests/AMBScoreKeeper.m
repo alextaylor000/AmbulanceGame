@@ -57,7 +57,7 @@ typedef enum {
     if (self = [super init]) {
         /* Initialize anything needed for game logic */
         _score = 0;
-        _numPatientsDelivered = 0;
+        _patientsDelivered = 0;
         _carsHit = 0;
         
     }
@@ -121,6 +121,8 @@ typedef enum {
     NSTimeInterval timeRemaining = [patient getPatientTTL];
     NSTimeInterval timeToLive = [[userData valueForKey:@"timeToLive"] doubleValue];
     PatientSeverity severity = [[userData valueForKey:@"severity"] intValue];
+    
+    _patientsDelivered += 1;
     
     int PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_1; // init to default amount
     

@@ -18,7 +18,8 @@
 
 /** Overall score for play session */
 @property (readonly, nonatomic) NSInteger score;
-@property (readonly, nonatomic) NSInteger numPatientsDelivered;
+@property (nonatomic) NSInteger patientsTotal;
+@property (nonatomic) NSInteger patientsDelivered;
 
 @property SKLabelNode *labelScore;
 @property SKSpriteNode *notificationNode;

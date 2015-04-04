@@ -40,7 +40,7 @@ typedef enum {
             [self formatLabelNode:numPatients withFormat:GameOverLabelFormatCategory];
             numPatients.position = CGPointMake(100, -50);
             
-                SKLabelNode *numPatientsPoints = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%ld", (long)_scoreKeeper.numPatientsDelivered]];
+                SKLabelNode *numPatientsPoints = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%ld / %ld", (long)_scoreKeeper.patientsDelivered, (long)_scoreKeeper.patientsTotal]];
                 [self formatLabelNode:numPatientsPoints withFormat:GameOverLabelFormatValue];
                 [numPatients addChild: numPatientsPoints];
             

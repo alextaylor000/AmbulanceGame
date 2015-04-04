@@ -163,6 +163,11 @@ typedef enum {
         
         _tutorialMode = tut;
         
+        // scoring
+        _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
+        _scoreKeeper.scene = self;
+        
+        
         _renderTraffic = 1;
         self.backgroundColor = [SKColor yellowColor];
         self.physicsWorld.contactDelegate = self;
@@ -210,9 +215,7 @@ typedef enum {
         
         _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
         
-        // scoring
-        _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
-        _scoreKeeper.scene = self;
+
         
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 120, self.size.height/2-80)];
         if (!labelScore.parent) {
@@ -525,6 +528,9 @@ typedef enum {
 
     // patient spawners
     NSArray *patientSpawns = [_mapGroupSpawnPatients objects];
+    
+    [_scoreKeeper setPatientsTotal:[patientSpawns count]];
+    
     for (NSDictionary *object in patientSpawns) {
         CGPoint spawnPoint = [self centerOfObject2:object];
         
