@@ -166,6 +166,10 @@ typedef enum {
     [self showNotification:ScoreKeeperNotificationFuelEmpty];
 }
 
+- (void)handleEventOutOfTime {
+    [self showNotification:ScoreKeeperNotificationTimeOut];
+}
+
 - (void)handleEventInvincible {
     [self showNotification:ScoreKeeperNotificationInvincibility];
 }
