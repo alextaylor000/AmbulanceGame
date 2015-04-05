@@ -97,9 +97,26 @@ typedef enum {
     _labelScore.fontSize = 70;
     _labelScore.position = position;
     
+
+    
     _labelScore.zPosition = 999;
     
     return _labelScore;
+}
+
+- (SKLabelNode *)createScoreUpdateLabelAtPos:(CGPoint)position {
+    _labelScoreUpdate = [SKLabelNode labelNodeWithFontNamed:@"AvenirNext"];
+    _labelScoreUpdate.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
+    _labelScoreUpdate.text = @"..";
+    _labelScoreUpdate.fontSize = 25;
+    _labelScoreUpdate.fontColor = [SKColor yellowColor];
+    _labelScoreUpdate.position = position;
+    _labelScoreUpdate.zPosition = 999;
+    _labelScoreUpdate.alpha = 0;
+    
+    _labelScoreUpdate.userData = [NSMutableDictionary dictionaryWithObject:[NSValue valueWithCGPoint:position] forKey:@"originalPos"];
+    
+    return _labelScoreUpdate;
 }
 
 - (void)updateScoreLabelWithPoints:(NSInteger)points {
@@ -112,9 +129,22 @@ typedef enum {
     
     [self updateScoreLabelWithPoints:_score];
 
-    #if DEBUG
-        NSLog(@"[[    SCORE:   %ld    ]]", (long)_score);
-    #endif
+    // create a message
+    
+    _labelScoreUpdate.position = [_labelScoreUpdate.userData[@"originalPos"] CGPointValue];
+    _labelScoreUpdate.text = [NSString stringWithFormat:@"%@ +%ld", message, (long)points];
+    SKAction *move = [SKAction moveBy:CGVectorMake(0, 15) duration:0.75];
+    move.timingMode = SKActionTimingEaseOut;
+    SKAction *moveSeq = [SKAction sequence:@[move, [SKAction waitForDuration:0.5], move]];
+
+    SKAction *fade = [SKAction fadeAlphaTo:1.0 duration:0.15];
+    SKAction *fadeOut = [SKAction fadeAlphaTo:0.0 duration:0.15];
+    SKAction *fadeSeq = [SKAction sequence:@[fade, [SKAction waitForDuration:moveSeq.duration - fade.duration - fadeOut.duration], fadeOut ]];
+    
+    SKAction *sequence = [SKAction group:@[  moveSeq,  fadeSeq ]];
+    
+    [_labelScoreUpdate runAction:sequence];
+
 
 }
 
@@ -145,7 +175,18 @@ typedef enum {
     
     // define the formula for applying points
     NSInteger netPoints = PATIENT_DELIVERED_BASE_SCORE;
-    NSInteger patientTTLpoints = SCORE_PATIENT_TTL_BONUS * ( timeRemaining / timeToLive );
+    NSInteger patientTTLpoints;
+    
+    CGFloat timeBonusRatio = timeRemaining / timeToLive;
+    
+    if (timeBonusRatio > 0.75) {
+        patientTTLpoints = SCORE_PATIENT_TTL_BONUS;
+    } else if (timeBonusRatio > 0.4 && timeBonusRatio < 0.75) {
+        patientTTLpoints = SCORE_PATIENT_TTL_BONUS / 10;
+    } else if (timeBonusRatio < 0.25) {
+        patientTTLpoints = SCORE_PATIENT_TTL_BONUS / 100;
+    }
+    
     NSInteger safeDriving = SCORE_SAFE_DRIVING_BONUS - ( _carsHit * SCORE_CARS_HIT_MULTIPLIER );
     
     [self updateScore:netPoints withMessage:@"Patient Delivered"];

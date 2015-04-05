@@ -226,6 +226,11 @@ typedef enum {
         if (!labelScore.parent) {
             [self addChild:labelScore];
         }
+        
+        SKLabelNode *labelScoreUpdate = [_scoreKeeper createScoreUpdateLabelAtPos:CGPointMake(self.size.width/2 - 120, self.size.height/2 - 200)];
+        if (!labelScoreUpdate.parent) {
+            [self addChild:labelScoreUpdate];
+        }
      
         
         // notification node

@@ -22,6 +22,7 @@
 @property (nonatomic) NSInteger patientsDelivered;
 
 @property SKLabelNode *labelScore;
+@property SKLabelNode *labelScoreUpdate;
 @property SKSpriteNode *notificationNode;
 
 
@@ -30,6 +31,7 @@
 
 /* Labels */
 -(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
+- (SKLabelNode *)createScoreUpdateLabelAtPos:(CGPoint)position;
 -(SKSpriteNode *)createNotificationAtPos:(CGPoint)pos;
 - (NSString *)scoreDisplay;
 
