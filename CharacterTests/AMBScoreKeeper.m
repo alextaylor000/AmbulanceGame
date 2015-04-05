@@ -154,6 +154,11 @@ typedef enum {
 
     [self showNotification:ScoreKeeperNotificationPatientDelivered];
     
+    if (_patientsDelivered == _patientsTotal) {
+        [_scene performSelector:@selector(allPatientsDelivered)];
+    }
+
+    
     _carsHit = 0;
     
 }
@@ -173,6 +178,11 @@ typedef enum {
 - (void)handleEventInvincible {
     [self showNotification:ScoreKeeperNotificationInvincibility];
 }
+
+-(void)handleEventSavedEveryone {
+    // do nothing just yet
+}
+
 
 - (void)showNotification:(ScoreKeeperNotifications)notification {
     switch (notification) {

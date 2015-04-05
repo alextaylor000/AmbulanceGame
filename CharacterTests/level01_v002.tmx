@@ -385,13 +385,6 @@
   <object name="player.spawn" type="player.spawn" x="9245.45" y="9515.57" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="spawn_patients">
-  <object name="patient_01" type="patient.spawn" x="10468.7" y="8077.33" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
   <object name="patient_02" type="patient.spawn" x="12061.6" y="6313.8" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
@@ -399,88 +392,11 @@
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_03" type="patient.spawn" x="14560" y="9769.33" width="256" height="256">
+  <object name="patient_02" type="patient.spawn" x="10062" y="10284" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_04" type="patient.spawn" x="10028" y="14052" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="2"/>
-   </properties>
-  </object>
-  <object name="patient_05" type="patient.spawn" x="10761.3" y="11920" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="2"/>
-   </properties>
-  </object>
-  <object name="patient_01" type="patient.spawn" x="6976" y="8640" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_01" type="patient.spawn" x="6725.33" y="7794.67" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_01" type="patient.spawn" x="9400" y="7400" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_01" type="patient.spawn" x="12059.5" y="8343.64" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_01" type="patient.spawn" x="10336" y="10192" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_05" type="patient.spawn" x="6644" y="6544" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="2"/>
-   </properties>
-  </object>
-  <object name="patient_05" type="patient.spawn" x="12112" y="10720" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="2"/>
-   </properties>
-  </object>
-  <object name="patient_05" type="patient.spawn" x="5852" y="14112" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="3"/>
-   </properties>
-  </object>
-  <object name="patient_05" type="patient.spawn" x="13878.9" y="6110.67" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="2"/>
    </properties>
   </object>
  </objectgroup>

@@ -300,6 +300,10 @@ typedef enum {
 
 }
 
+- (void)allPatientsDelivered {
+    [self gameOverBecause:GameOverReasonSavedEveryone];
+}
+
 - (void)restart {
     self.view.paused = NO; // resume scene before restarting
     
@@ -541,7 +545,7 @@ typedef enum {
     [_scoreKeeper setPatientsTotal:[patientSpawns count]];
     
     for (NSDictionary *object in patientSpawns) {
-        CGPoint spawnPoint = [self centerOfObject2:object];
+        CGPoint spawnPoint = [self centerOfObject:object];
         
         
         // grab properties of the spawner from the TMX object directly
@@ -1092,10 +1096,6 @@ typedef enum {
                        [[object objectForKey:@"y"] intValue] + [[object objectForKey:@"height"] intValue]/2);
 }
 
-- (CGPoint)centerOfObject2:(NSDictionary *)object {
-    return CGPointMake([[object objectForKey:@"x"] intValue],
-                       [[object objectForKey:@"y"] intValue]);
-}
 
 
 
