@@ -27,7 +27,9 @@
     
     if (!_skView) {
         _skView = [[SKView alloc] initWithFrame:self.view.bounds];
-
+        _skView.showsPhysics = YES;
+        
+        
         /*  The scene is designed for iPhone aspect ratio (1.78), and simply increases the width if an iPad (1.33) is detected. */
         /* iPhone 4s: 960x640 / 1.5 */
         CGSize sceneSize = CGSizeMake(576, 1024);
@@ -58,6 +60,8 @@
          2 SKSceneScaleModeAspectFit ,
          3 SKSceneScaleModeResizeFill
          */
+        
+        
         
         
         [_skView presentScene:_gameScene];

@@ -75,19 +75,19 @@ typedef enum {
     self.pivotSpeed = 0;
     
 #warning replace this scale with real graphics
-    [self setScale:1.2];
+    //[self setScale:1.2];
 
     self.accelTimeSeconds = 0.75;
     self.decelTimeSeconds = 0.35;
     
     self.name = @"player";
-    self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
-    self.anchorPoint = CGPointMake(0.35, 0.5);
+    //self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
+    //self.anchorPoint = CGPointMake(0.35, 0.5);
     self.zRotation = DegreesToRadians(90);
     self.zPosition = 100;
     
     // physics (for collisions)
-    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(self.size.width * 0.8, self.size.height * 0.6 )];
     self.physicsBody.categoryBitMask = categoryPlayer;
     self.physicsBody.contactTestBitMask = categoryHospital | categoryPatient | categoryTraffic | categoryPowerup;
     self.physicsBody.collisionBitMask = 0;
