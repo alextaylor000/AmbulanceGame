@@ -12,6 +12,8 @@
 #import "SKTUtils.h" // for RandomFloatRange
 
 
+const int SCORE_LABEL_SPACING = 30; // vertical spacing between score messages (e.g. "Safe DRiving bonus")
+
 #pragma mark SCORING CONSTANTS
 const int SCORE_PATIENT_SEVERITY_1 =                100000;
 const int SCORE_PATIENT_SEVERITY_2 =                200000;
@@ -20,6 +22,7 @@ const int SCORE_PATIENT_TTL_BONUS =                 50000;
 const int SCORE_SAFE_DRIVING_BONUS =                30000;
 const int SCORE_CARS_HIT_MULTIPLIER =               SCORE_SAFE_DRIVING_BONUS / 5; // max number of cars you can hit, then you get a zero safe driving
 const int SCORE_END_ALL_PATIENTS_DELIVERED_BONUS =  10000;
+
 
 
 typedef enum {
@@ -35,6 +38,8 @@ typedef enum {
 @interface AMBScoreKeeper ()
 
 @property NSInteger carsHit;
+@property NSMutableArray *messages; // keeps track of the score messages, for positioning on screen.
+@property NSNumberFormatter *formatter; // for adding the commas
 
 @end
 
@@ -59,7 +64,10 @@ typedef enum {
         _score = 0;
         _patientsDelivered = 0;
         _carsHit = 0;
-        
+        _messages = [NSMutableArray array];
+
+        _formatter = [[NSNumberFormatter alloc]init];
+        [_formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     }
     
    return self;
@@ -80,10 +88,9 @@ typedef enum {
     return _notificationNode;
 }
 
-- (NSString *)scoreDisplay {
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSString *stringWithCommas = [formatter stringFromNumber:[NSNumber numberWithInteger:_score]];
+- (NSString *)scoreDisplay:(NSInteger)score {
+    
+    NSString *stringWithCommas = [_formatter stringFromNumber:[NSNumber numberWithInteger:score]];
     
     return stringWithCommas;
 }
@@ -92,7 +99,7 @@ typedef enum {
     
     _labelScore = [SKLabelNode labelNodeWithFontNamed:@"AvenirNext-Bold"];
     _labelScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
-    _labelScore.text = [self scoreDisplay];
+    _labelScore.text = [self scoreDisplay:_score];
     _labelScore.fontColor = [SKColor yellowColor];
     _labelScore.fontSize = 70;
     _labelScore.position = position;
@@ -119,8 +126,12 @@ typedef enum {
     return _labelScoreUpdate;
 }
 
-- (void)updateScoreLabelWithPoints:(NSInteger)points {
-    _labelScore.text = [self scoreDisplay];
+- (void) updateScoreLabelWithPoints:(NSInteger)points {
+    _labelScore.text = [self scoreDisplay:_score];
+}
+
+- (void)update {
+    
 }
 
 
@@ -128,25 +139,36 @@ typedef enum {
     _score += points;
     
     [self updateScoreLabelWithPoints:_score];
-
-    // create a message
     
-    _labelScoreUpdate.position = [_labelScoreUpdate.userData[@"originalPos"] CGPointValue];
-    _labelScoreUpdate.text = [NSString stringWithFormat:@"%@ +%ld", message, (long)points];
-    SKAction *move = [SKAction moveBy:CGVectorMake(0, 15) duration:0.75];
-    move.timingMode = SKActionTimingEaseOut;
-    SKAction *moveSeq = [SKAction sequence:@[move, [SKAction waitForDuration:0.5], move]];
-
-    SKAction *fade = [SKAction fadeAlphaTo:1.0 duration:0.15];
-    SKAction *fadeOut = [SKAction fadeAlphaTo:0.0 duration:0.15];
-    SKAction *fadeSeq = [SKAction sequence:@[fade, [SKAction waitForDuration:moveSeq.duration - fade.duration - fadeOut.duration], fadeOut ]];
+    [_labelScore runAction:sScoreLabelPop];
     
-    SKAction *sequence = [SKAction group:@[  moveSeq,  fadeSeq ]];
-    
-    [_labelScoreUpdate runAction:sequence];
+    if (message) {
+        SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"AvenirNext-Regular"];
+        label.fontSize = 25;
+        label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
+        label.fontColor = [SKColor yellowColor];
+        label.alpha = 0; // start hidden
+        
+        NSString *pointsCommas = [self scoreDisplay:points];
+        
+        NSUInteger mCount = [_messages count];
+        
+        [label setText:[NSString stringWithFormat:@"%@: +%@", message, pointsCommas]];
+        
+        [_messages addObject:label];
+        
+        label.position = CGPointMake(_scene.size.width/2 - 120, _scene.size.height/2 - 170 - mCount * SCORE_LABEL_SPACING);
 
+        
+        [_scene addChild:label];
+        [label runAction:sScoreMessageActions[mCount] completion:^(void){ [_messages removeObject:label]; }];
+        
+    }
 
 }
+
+
+
 
 #pragma mark Scoring Events
 - (void)handleEventDeliveredPatient:(AMBPatient *)patient {
@@ -272,14 +294,25 @@ typedef enum {
         sNotificationPatientDied = [notifications textureNamed:@"notification_patient-died"];
         sNotificationTimeOut = [notifications textureNamed:@"notification_time-out"];
         
-        sNotificationAppear = [SKAction group:@[
-                                                [SKAction fadeInWithDuration:0.15]]]; // these are groups so that we can add more complex animation later
+        sScoreLabelPop = [SKAction sequence:@[[SKAction scaleTo:1.25 duration:0.15],[SKAction scaleTo:1.0 duration:0.075]]];
         
-        sNotificationHide = [SKAction group:@[
-                                              [SKAction fadeOutWithDuration:0.15]]];
+        sNotificationSequence = [SKAction sequence:@[[SKAction fadeInWithDuration:0.15], [SKAction waitForDuration:2.5], [SKAction fadeOutWithDuration:0.15]]];
         
-        sNotificationSequence = [SKAction sequence:@[sNotificationAppear, [SKAction waitForDuration:2.5], sNotificationHide]];
-        
+        // set up score message actions, to allow the "stacking" of score messages without dynamically creating actions.
+        sScoreMessageActions = [NSArray arrayWithObjects:
+                                [SKAction sequence:@[
+                                    [SKAction waitForDuration:0.15], [SKAction fadeInWithDuration:0.15], [SKAction waitForDuration:4.0], [SKAction fadeOutWithDuration:0.5]]],
+
+                                [SKAction sequence:@[
+                                    [SKAction waitForDuration:0.3], [SKAction fadeInWithDuration:0.15], [SKAction waitForDuration:4.0], [SKAction fadeOutWithDuration:0.5]]],
+                                
+                                [SKAction sequence:@[
+                                    [SKAction waitForDuration:0.45], [SKAction fadeInWithDuration:0.15], [SKAction waitForDuration:4.0], [SKAction fadeOutWithDuration:0.5]]],
+
+                                [SKAction sequence:@[
+                                    [SKAction waitForDuration:0.6], [SKAction fadeInWithDuration:0.15], [SKAction waitForDuration:4.0], [SKAction fadeOutWithDuration:0.5]]],
+                                
+                                nil];
         
     });
     
@@ -291,9 +324,9 @@ static SKTexture *sNotificationInvincibility = nil;
 static SKTexture *sNotificationPatientDelivered = nil;
 static SKTexture *sNotificationPatientDied = nil;
 static SKTexture *sNotificationTimeOut = nil;
-static SKAction *sNotificationAppear = nil;
-static SKAction *sNotificationHide = nil;
 static SKAction *sNotificationSequence = nil;
+static SKAction *sScoreLabelPop = nil;
+static NSArray *sScoreMessageActions = nil;
 
 
 @end

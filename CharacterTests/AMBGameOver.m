@@ -51,7 +51,7 @@ typedef enum {
             [self formatLabelNode:score withFormat:GameOverLabelFormatCategory];
             score.position = CGPointMake(100, -100);
             
-                SKLabelNode *scorePoints = [SKLabelNode labelNodeWithText:[_scoreKeeper scoreDisplay]];
+            SKLabelNode *scorePoints = [SKLabelNode labelNodeWithText:[_scoreKeeper scoreDisplay:0]];
                 [self formatLabelNode:scorePoints withFormat:GameOverLabelFormatValue];
                 [score addChild:scorePoints];
             

@@ -61,10 +61,10 @@ static const CGFloat resumeMovementDelayUpper = 1.25;
     vehicle.name = @"traffic"; // for grouped enumeration
     
     // physics
-    vehicle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:vehicle.size];
+    vehicle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(vehicle.size.width * 0.75, vehicle.size.height * 0.75)];
     vehicle.physicsBody.categoryBitMask = categoryTraffic;
     vehicle.physicsBody.collisionBitMask = 0;
-//    vehicle.physicsBody.contactTestBitMask = 0;
+
     
     vehicle.collisionZoneTailgating = [SKSpriteNode spriteNodeWithColor:[SKColor yellowColor] size:CGSizeMake(vehicle.size.width * tailgateZoneMultiplier, vehicle.size.height)]; // the coordinates are based on the node being oriented to the right
     vehicle.collisionZoneTailgating.name = @"trafficVehicleCollisionZone";

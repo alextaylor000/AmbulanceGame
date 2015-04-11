@@ -392,7 +392,42 @@
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_02" type="patient.spawn" x="10062" y="10284" width="256" height="256">
+  <object name="patient_02" type="patient.spawn" x="10036" y="9964" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="9999"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_02" type="patient.spawn" x="9402" y="9962" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="9999"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_02" type="patient.spawn" x="9899.27" y="8741.7" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="9999"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_02" type="patient.spawn" x="10468" y="9199.27" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="9999"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_02" type="patient.spawn" x="10462.9" y="9784.12" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="9999"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_02" type="patient.spawn" x="9259.88" y="8741.7" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>

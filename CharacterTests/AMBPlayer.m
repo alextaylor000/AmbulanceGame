@@ -87,7 +87,7 @@ typedef enum {
     self.zPosition = 100;
     
     // physics (for collisions)
-    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(self.size.width * 0.8, self.size.height * 0.6 )];
+    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(self.size.width * 0.8, self.size.height * 0.8)];
     self.physicsBody.categoryBitMask = categoryPlayer;
     self.physicsBody.contactTestBitMask = categoryHospital | categoryPatient | categoryTraffic | categoryPowerup;
     self.physicsBody.collisionBitMask = 0;

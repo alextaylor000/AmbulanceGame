@@ -27,7 +27,7 @@
     
     if (!_skView) {
         _skView = [[SKView alloc] initWithFrame:self.view.bounds];
-        _skView.showsPhysics = YES;
+        //_skView.showsPhysics = YES;
         
         
         /*  The scene is designed for iPhone aspect ratio (1.78), and simply increases the width if an iPad (1.33) is detected. */
