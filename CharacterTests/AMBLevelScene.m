@@ -227,11 +227,6 @@ typedef enum {
             [self addChild:labelScore];
         }
         
-        SKLabelNode *labelScoreUpdate = [_scoreKeeper createScoreUpdateLabelAtPos:CGPointMake(self.size.width/2 - 120, self.size.height/2 - 200)];
-        if (!labelScoreUpdate.parent) {
-            [self addChild:labelScoreUpdate];
-        }
-     
         
         // notification node
         SKSpriteNode *notifications = [_scoreKeeper createNotificationAtPos:CGPointZero];
@@ -458,6 +453,8 @@ typedef enum {
     [_gameClock update:currentTime];
     _labelClock.text = [self timeFormatted:[_gameClock secondsRemaining]];
 
+    // update the score
+    [_scoreKeeper update];
         
     if (_gameClock.timerState == AMBTimerStateEmpty) {
         [self gameOverBecause:GameOverReasonOutOfTime];

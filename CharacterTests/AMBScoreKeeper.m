@@ -12,7 +12,8 @@
 #import "SKTUtils.h" // for RandomFloatRange
 
 
-const int SCORE_LABEL_SPACING = 30; // vertical spacing between score messages (e.g. "Safe DRiving bonus")
+const int SCORE_LABEL_SPACING = 34; // vertical spacing between score messages (e.g. "Safe DRiving bonus")
+const int SCORE_LABEL_FRAME_UPDATE = 2500; // add this many points per frame when animating the score label
 
 #pragma mark SCORING CONSTANTS
 const int SCORE_PATIENT_SEVERITY_1 =                100000;
@@ -20,7 +21,8 @@ const int SCORE_PATIENT_SEVERITY_2 =                200000;
 const int SCORE_PATIENT_SEVERITY_3 =                300000;
 const int SCORE_PATIENT_TTL_BONUS =                 50000;
 const int SCORE_SAFE_DRIVING_BONUS =                30000;
-const int SCORE_CARS_HIT_MULTIPLIER =               SCORE_SAFE_DRIVING_BONUS / 5; // max number of cars you can hit, then you get a zero safe driving
+const int SCORE_CARS_HIT_MAX =                      5;
+const int SCORE_CARS_HIT_MULTIPLIER =               SCORE_SAFE_DRIVING_BONUS / SCORE_CARS_HIT_MAX; // max number of cars you can hit, then you get a zero safe driving
 const int SCORE_END_ALL_PATIENTS_DELIVERED_BONUS =  10000;
 
 
@@ -40,6 +42,7 @@ typedef enum {
 @property NSInteger carsHit;
 @property NSMutableArray *messages; // keeps track of the score messages, for positioning on screen.
 @property NSNumberFormatter *formatter; // for adding the commas
+@property NSInteger scoreDisplay; // the score that's currently displayed. may differ from score when points have just been added and the label is still animating itself.
 
 @end
 
@@ -62,6 +65,8 @@ typedef enum {
     if (self = [super init]) {
         /* Initialize anything needed for game logic */
         _score = 0;
+        _scoreDisplay = 0;
+        
         _patientsDelivered = 0;
         _carsHit = 0;
         _messages = [NSMutableArray array];
@@ -111,39 +116,26 @@ typedef enum {
     return _labelScore;
 }
 
-- (SKLabelNode *)createScoreUpdateLabelAtPos:(CGPoint)position {
-    _labelScoreUpdate = [SKLabelNode labelNodeWithFontNamed:@"AvenirNext"];
-    _labelScoreUpdate.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
-    _labelScoreUpdate.text = @"..";
-    _labelScoreUpdate.fontSize = 25;
-    _labelScoreUpdate.fontColor = [SKColor yellowColor];
-    _labelScoreUpdate.position = position;
-    _labelScoreUpdate.zPosition = 999;
-    _labelScoreUpdate.alpha = 0;
-    
-    _labelScoreUpdate.userData = [NSMutableDictionary dictionaryWithObject:[NSValue valueWithCGPoint:position] forKey:@"originalPos"];
-    
-    return _labelScoreUpdate;
-}
-
-- (void) updateScoreLabelWithPoints:(NSInteger)points {
-    _labelScore.text = [self scoreDisplay:_score];
-}
 
 - (void)update {
+    if (_scoreDisplay < _score) {
+        _scoreDisplay += SCORE_LABEL_FRAME_UPDATE;
+        
+        if (_scoreDisplay > _score) { _scoreDisplay = _score; };
     
+        [_labelScore setText:[self scoreDisplay:_scoreDisplay]];
+        
+    }
 }
 
 
 - (void) updateScore:(NSInteger)points withMessage:(NSString *)message {
     _score += points;
     
-    [self updateScoreLabelWithPoints:_score];
-    
     [_labelScore runAction:sScoreLabelPop];
     
     if (message) {
-        SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"AvenirNext-Regular"];
+        SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"AvenirNext-Bold"];
         label.fontSize = 25;
         label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
         label.fontColor = [SKColor yellowColor];
@@ -159,7 +151,6 @@ typedef enum {
         
         label.position = CGPointMake(_scene.size.width/2 - 120, _scene.size.height/2 - 170 - mCount * SCORE_LABEL_SPACING);
 
-        
         [_scene addChild:label];
         [label runAction:sScoreMessageActions[mCount] completion:^(void){ [_messages removeObject:label]; }];
         
@@ -198,22 +189,41 @@ typedef enum {
     // define the formula for applying points
     NSInteger netPoints = PATIENT_DELIVERED_BASE_SCORE;
     NSInteger patientTTLpoints;
+    NSString *patientTTLmessage;
     
     CGFloat timeBonusRatio = timeRemaining / timeToLive;
     
+    
     if (timeBonusRatio > 0.75) {
         patientTTLpoints = SCORE_PATIENT_TTL_BONUS;
+        patientTTLmessage = @"Speedy!";
     } else if (timeBonusRatio > 0.4 && timeBonusRatio < 0.75) {
         patientTTLpoints = SCORE_PATIENT_TTL_BONUS / 10;
+        patientTTLmessage = @"OK!";
     } else if (timeBonusRatio < 0.25) {
         patientTTLpoints = SCORE_PATIENT_TTL_BONUS / 100;
+        patientTTLmessage = @"Sluggish!";
     }
     
-    NSInteger safeDriving = SCORE_SAFE_DRIVING_BONUS - ( _carsHit * SCORE_CARS_HIT_MULTIPLIER );
+/*
+ 
+ const int SCORE_SAFE_DRIVING_BONUS =                30000;
+ const int SCORE_CARS_HIT_MAX =                      5;
+ const int SCORE_CARS_HIT_MULTIPLIER =               SCORE_SAFE_DRIVING_BONUS / SCORE_CARS_HIT_MAX; // max number of cars you can hit, then you get a zero safe
+ 
+ */
+    
+
+    
+    NSInteger safeDriving = fmax(0, SCORE_SAFE_DRIVING_BONUS - ( _carsHit * SCORE_CARS_HIT_MULTIPLIER ) );
+    
+    NSInteger safeDrivingPct = fmax(0, ((SCORE_CARS_HIT_MAX - _carsHit) / (float)SCORE_CARS_HIT_MAX) * 100);
+    NSString *safeDrivingPctDisplay = [NSString stringWithFormat:@"%ld", safeDrivingPct];
+    
     
     [self updateScore:netPoints withMessage:@"Patient Delivered"];
-    [self updateScore:patientTTLpoints withMessage:@"Time Bonus"];
-    [self updateScore:safeDriving withMessage:@"Safe Driving Bonus"];
+    [self updateScore:patientTTLpoints withMessage: [NSString stringWithFormat:@"Time: %@", patientTTLmessage]];
+    [self updateScore:safeDriving withMessage: [NSString stringWithFormat:@"Safe Driving %@%%", safeDrivingPctDisplay] ];
 
     [self showNotification:ScoreKeeperNotificationPatientDelivered];
     

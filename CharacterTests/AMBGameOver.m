@@ -73,7 +73,7 @@ typedef enum {
             break;
             
         case GameOverLabelFormatCategory:
-            label.fontName = @"AvenirNext";
+            label.fontName = @"AvenirNext-Regular";
             label.fontColor = [SKColor blackColor];
             label.fontSize = 45;
             label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
