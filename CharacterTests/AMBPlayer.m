@@ -197,10 +197,10 @@ typedef enum {
     // update the patient timer
     if (self.patient) {
         NSTimeInterval ttl = [self.patient getPatientTTL];
-        //owningScene.patientTimeToLive.text = [NSString stringWithFormat:@"PATIENT: %1.1f",ttl];
         _patientTimer.text = [NSString stringWithFormat:@"%@",[self timeFormatted:ttl]];
 
         if (ttl < 11) {
+            // reveal the bubble with time approaching zeo
             [self revealBubble];
         }
         
@@ -701,7 +701,9 @@ typedef enum {
             
     }
     
+    [_patientBubble removeAllActions]; // remove actions which may be running (e.g. the show action may still be running)
     [_patientBubble runAction:hide];
+
     
 }
 

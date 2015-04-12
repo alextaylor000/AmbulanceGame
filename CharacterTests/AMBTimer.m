@@ -25,6 +25,7 @@
 - (void)startTimer {
     _startTime = CACurrentMediaTime();
     _timerState = AMBTimerStateActive;
+    
 }
 
 - (void)pauseTimer {

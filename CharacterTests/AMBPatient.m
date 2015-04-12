@@ -125,6 +125,7 @@
         case PatientIsEnRoute:
 //            self.spawnTime = CACurrentMediaTime(); // reset spawn time when patient is picked up
             [_patientTimer startTimer];
+            patientTTL = _patientTimer.timeRemaining;
             
             self.hidden = YES;
             [self.minimapAvatar removeFromParent];
