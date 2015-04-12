@@ -96,7 +96,7 @@
         [_patientTimer update:CACurrentMediaTime()];
 
         patientTTL = _patientTimer.timeRemaining;
-//        NSNumber *ttl = [NSNumber numberWithDouble:patientTTL];
+
         
         if (patientTTL <= 0)   {
             

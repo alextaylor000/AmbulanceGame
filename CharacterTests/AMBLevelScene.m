@@ -144,9 +144,6 @@ typedef enum {
 
     if (self = [super initWithSize:size]) {
         
-        
-        
-        
         /**
         
          Differences in tutorial mode:
@@ -177,14 +174,6 @@ typedef enum {
         // indicator, created before createWorld so it can be referenced in initial spawns
         _indicator = [[AMBIndicator alloc]initForScene:self];
 
-#if DEBUG_PLAYER_CONTROL
-        _panMover = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(20, 20)];
-        _panMover.hidden = NO;
-        _panMover.zPosition = 999;
-        [self addChild:_panMover];
-#endif
-
-        
         
         // choose level
         NSString *levelName;
@@ -216,8 +205,6 @@ typedef enum {
         [_tilemap addChild:_camera];
         
         _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
-        
-
         
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 120, self.size.height/2-80)];
         if (!labelScore.parent) {
@@ -302,18 +289,19 @@ typedef enum {
 }
 
 - (void)restart {
-    self.view.paused = NO; // resume scene before restarting
-    
     // re-init the scene. use _tutorialMode because it will get set to "NO" if the user has completed it before restarting.
     
-    // remove all objects from scene first
-    [self.scene removeAllChildren];
+    [self.scene removeAllChildren];    // remove all objects from scene first
+    [self.scoreKeeper init]; // re-init scorekeeper
+
     
     AMBLevelScene *newScene = [[AMBLevelScene alloc]initWithSize:self.size gameType:[_initialConditions[@"gameType"] intValue] vehicleType:[_initialConditions[@"vehicleType"] intValue] levelType:[_initialConditions[@"levelType"]intValue] tutorial:_tutorialMode];
     
     SKTransition *fadeTransition = [SKTransition fadeWithColor:[SKColor colorWithRed:254 green:204 blue:44 alpha:1] duration:0.75];
-    
+
+    self.view.paused = NO;
     [self.view presentScene:newScene transition:fadeTransition];
+
     
 }
 

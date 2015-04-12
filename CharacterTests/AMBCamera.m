@@ -38,7 +38,7 @@
         _idleOffset = 0;
         _activeOffset = 0; // previously 200
         _state = CameraIsIdle;
-        
+        _miniMap = nil;
         
         // set initial position to center on the target sprite
         self.position = _targetSprite.position;

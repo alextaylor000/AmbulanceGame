@@ -29,6 +29,7 @@
 
 + (AMBScoreKeeper *)sharedInstance;
 + (void)loadSharedAssets;
+- (id)init;
 
 /* Labels */
 -(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
