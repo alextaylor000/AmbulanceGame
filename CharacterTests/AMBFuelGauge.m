@@ -132,7 +132,7 @@
 
 - (void)outOfFuel {
     _isOutOfFuel = YES;
-    
+
     AMBLevelScene *scene = (AMBLevelScene *)self.scene;
     [scene gameOverBecause:GameOverReasonOutOfFuel];
 }

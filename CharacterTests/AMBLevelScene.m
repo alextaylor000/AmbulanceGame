@@ -530,12 +530,12 @@ typedef enum {
         AMBHospital *hospital = [[AMBHospital alloc] init];
         hospital.blendMode = SKBlendModeReplace;
         
-        CGPoint hospitalPos = [self centerOfObject:object];
-        [hospital addObjectToNode:_mapLayerRoad atPosition:hospitalPos];
+        _hospitalLocation = [self centerOfObject:object];
+        [hospital addObjectToNode:_mapLayerRoad atPosition:_hospitalLocation];
         
         // add hospital indicator target
         [_indicator addTarget:hospital type:IndicatorHospital];
-        _miniHospital = [self addObjectToMinimapAtPoint:hospitalPos withColour:[SKColor whiteColor] withSize:1.5]; // TODO: this assumes just one hospital. does it matter?
+        _miniHospital = [self addObjectToMinimapAtPoint:_hospitalLocation withColour:[SKColor whiteColor] withSize:1.5]; // TODO: this assumes just one hospital. does it matter?
     }
 
     
@@ -1175,6 +1175,7 @@ typedef enum {
         return _player.size.height;
     }
 }
+
 
 #pragma mark Controls
 #if TARGET_OS_IPHONE

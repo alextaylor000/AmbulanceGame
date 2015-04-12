@@ -199,7 +199,7 @@ typedef enum {
         patientTTLmessage = @"Speedy!";
     } else if (timeBonusRatio > 0.4 && timeBonusRatio < 0.75) {
         patientTTLpoints = SCORE_PATIENT_TTL_BONUS / 10;
-        patientTTLmessage = @"OK!";
+        patientTTLmessage = @"Decent!";
     } else if (timeBonusRatio < 0.25) {
         patientTTLpoints = SCORE_PATIENT_TTL_BONUS / 100;
         patientTTLmessage = @"Sluggish!";
@@ -222,7 +222,7 @@ typedef enum {
     
     
     [self updateScore:netPoints withMessage:@"Patient Delivered"];
-    [self updateScore:patientTTLpoints withMessage: [NSString stringWithFormat:@"Time: %@", patientTTLmessage]];
+    [self updateScore:patientTTLpoints withMessage: [NSString stringWithFormat:@"%@", patientTTLmessage]];
     [self updateScore:safeDriving withMessage: [NSString stringWithFormat:@"Safe Driving %@%%", safeDrivingPctDisplay] ];
 
     [self showNotification:ScoreKeeperNotificationPatientDelivered];

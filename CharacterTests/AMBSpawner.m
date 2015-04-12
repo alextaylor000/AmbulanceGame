@@ -43,6 +43,8 @@
         _spawnObjects = objects;
         _spawnObjectsCount = [_spawnObjects count];
         
+
+        
         if (_frequency <= 0) {
             _frequency = INFINITY; // protect against missing properties in TMX file; otherwise an object will spawn every frame!
         }
@@ -104,23 +106,14 @@
 
     // FUEL SPAWN
     if ([objectToSpawn isKindOfClass:[AMBPowerup class]]) {
-//        SKSpriteNode *miniFuel = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor yellowColor] withSize:1];
-//        objectToSpawn.minimapAvatar = miniFuel;
-        
         SKAction *fuelExpiry = [SKAction sequence:@[[SKAction waitForDuration:FUEL_EXPIRY_DURATION],[SKAction removeFromParent]]];
         [objectToSpawn runAction:fuelExpiry]; // fuel expires! BAM
-//        [objectToSpawn.minimapAvatar runAction:fuelExpiry];
     }
     
     // PATIENT SPAWN
     if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
-#if DEBUG_PATIENT
+
         
-        NSLog(@"[patient] Spawning patient '%@'...", objectToSpawn.name);
-#endif
-        
-        //[owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
-            
         // add to minimap
         SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withSize:1.25];
         SKAction *fadeOut = [SKAction fadeOutWithDuration:0.25];
@@ -129,12 +122,13 @@
         AMBPatient *patient = (AMBPatient *)objectToSpawn;
         patient.patientTimer = [[AMBTimer alloc]initWithSecondsRemaining: [patient.userData[@"timeToLive"] doubleValue] ];
 
+        CGFloat distanceFromHospital = CGPointLength( CGPointSubtract(self.position, owningScene.hospitalLocation) );
+        [patient.userData setObject:[NSNumber numberWithFloat:distanceFromHospital] forKey:@"distanceFromHospital"];
+        
         patient.minimapAvatar = miniPatient;
         
+        
         [patient changeState:PatientIsWaitingForPickup];
-#if DEBUG_INDICATOR
-        NSLog(@"Adding indicator for target");
-#endif
     }
     
 

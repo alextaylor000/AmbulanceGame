@@ -34,6 +34,7 @@ typedef enum {
 @property (readonly, nonatomic) TMXLayer *mapLayerScenery; // for buildings, grass, etc.
 @property (readonly, nonatomic) TMXLayer *mapLayerTraffic; // for placement of traffic - will be hidden during gameplay
 @property SKSpriteNode *miniMap; // the minimap!
+@property CGPoint hospitalLocation;
 
 @property AMBCamera *camera;
 
@@ -72,6 +73,8 @@ typedef enum {
 - (void)levelWithTilemap:(NSString *)tilemapFile;
 
 - (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withSize:(CGFloat)size; // for adding patients to the minimap from the spawner class
+
+
 
 /** Called when the tutorial ends. Performs operations to the scene which make it "playable." */
 - (void)didCompleteTutorial;

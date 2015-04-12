@@ -10,6 +10,9 @@
 #import "AMBCharacter.h"
 
 static const float TURN_BUFFER = 1; // attempt a turn every frame for this many seconds after initial keypress. this helps reduce the accuracy required to hit a corner just right.
+
+static const float PLAYER_NATIVE_SPEED = 600.0;
+
 // control state enum
 typedef enum {
     PlayerIsStopped,
