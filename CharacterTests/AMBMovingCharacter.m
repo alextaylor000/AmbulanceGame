@@ -13,7 +13,7 @@
 #import "AMBMovingCharacter.h"
 #import "SKTUtils.h"
 
-static const int TILE_LANE_WIDTH = 32;
+
 
 
 

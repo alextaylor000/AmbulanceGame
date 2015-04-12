@@ -17,6 +17,8 @@
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
 		B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */; };
+		B94E27D81AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
+		B94E27D91AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
 		B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */ = {isa = PBXBuildFile; fileRef = B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
 		B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
@@ -123,6 +125,7 @@
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B94E27D71AD9F5F5000919D1 /* AMBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBConstants.h; sourceTree = "<group>"; };
 		B966BA701A2A9A9900145FA9 /* AMBTrafficVehicleState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicleState.h; sourceTree = "<group>"; };
 		B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicleState.m; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* AMBScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBScoreKeeper.h; sourceTree = "<group>"; };
@@ -489,6 +492,7 @@
 				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
 				B9EE2EF71AA2DFD900909137 /* AMBTimer.h */,
 				B9EE2EF81AA2DFD900909137 /* AMBTimer.m */,
+				B94E27D71AD9F5F5000919D1 /* AMBConstants.h */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -628,6 +632,7 @@
 				B98823971969998400903B73 /* AMBLevelScene.m in Sources */,
 				B985AFAC1A80270E000B3423 /* AMBCreditsViewController.m in Sources */,
 				B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */,
+				B94E27D81AD9F5F5000919D1 /* AMBConstants.h in Sources */,
 				B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */,
 				B985AFA91A802538000B3423 /* AMBMainMenuViewController.m in Sources */,
 				B9E738711AB6817400EBA587 /* AMBFuelGauge.m in Sources */,
@@ -665,6 +670,7 @@
 				B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */,
 				B985AFAE1A802A1A000B3423 /* AMBCreditsViewController.m in Sources */,
 				B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */,
+				B94E27D91AD9F5F5000919D1 /* AMBConstants.h in Sources */,
 				B9C8E4BE1A4B747E003F7354 /* AMBScoreKeeper.m in Sources */,
 				B9C8E4C01A4B747E003F7354 /* AMBCamera.m in Sources */,
 				B9E738721AB6817400EBA587 /* AMBFuelGauge.m in Sources */,

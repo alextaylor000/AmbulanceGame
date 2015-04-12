@@ -7,14 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-
-static const CGFloat fuelCapacity = 124; // 124 total degrees in the gauge's rotation, this makes it easier
-
-/** Number of seconds a single unit of fuel lasts for. */
-static const CGFloat fuelUnitDuration = 0.25;
-
-/** Amount of fuel you get when you run over a fuel powerup */
-static const NSInteger fuelUnitsInPowerup = 8;
+#import "AMBConstants.h"
 
 @interface AMBFuelGauge : SKSpriteNode 
 

@@ -70,7 +70,7 @@ typedef enum {
     self = [super initWithTexture:playerTexture]; // loads from texture atlas
     
     // set constants
-    self.nativeSpeed = 600;
+    self.nativeSpeed = PLAYER_NATIVE_SPEED;
     self.speedPointsPerSec = self.nativeSpeed;
     self.pivotSpeed = 0;
     
@@ -419,7 +419,10 @@ typedef enum {
             if (![self actionForKey:@"invincibility"]) {
 #warning preload this action
                 
-                [_scoreKeeper handleEventCarHit];
+                if (self.patient) {
+                    [_scoreKeeper handleEventCarHit];
+                }
+
                 
                 action = [SKAction sequence:@[[SKAction fadeAlphaTo:0.1 duration:0],[SKAction waitForDuration:0.1],[SKAction fadeAlphaTo:1.0 duration:0.1],[SKAction waitForDuration:0.1]]];
                 [self runAction:[SKAction repeatActionForever:action] withKey:@"blink"];

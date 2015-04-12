@@ -7,10 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "AMBConstants.h"
 #import "AMBMovingCharacter.h"
 #import "AMBPatient.h"
 
-static const CGFloat PLAYER_INVINCIBLE_TIME = 10.0; // how long is a player invincible for?
 
 typedef enum {
     AmbulanceIsOccupied,

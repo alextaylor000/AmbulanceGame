@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
 
+#import "AMBConstants.h"
 #import "AMBIndicator.h"
 #import "AMBCamera.h"
 #import "AMBLevelScene.h"
@@ -15,9 +16,6 @@
 #import "AMBPatient.h"
 #import "AMBPowerup.h"
 
-static const CGFloat OSI_PADDING =              40; // indicator padding from screen edge
-static const CGFloat OSI_DUR_FADE_IN =          0.25;
-static const CGFloat OSI_DUR_FADE_OUT =         0.25;
 
 
 @interface AMBIndicator ()

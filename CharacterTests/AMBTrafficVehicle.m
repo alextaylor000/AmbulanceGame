@@ -12,9 +12,6 @@
 
 
 
-static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is enabled is the vehicle's height multiplied by this value.
-static const CGFloat resumeMovementDelayLower = 0.5; // if the vehicle is stopped, a random delay between when the blocking vehicle starts moving and when this vehicle starts moving.
-static const CGFloat resumeMovementDelayUpper = 1.25;
 
 
 @interface AMBTrafficVehicle ()

@@ -6,24 +6,11 @@
 //  Copyright (c) 2014 Alex Taylor. All rights reserved.
 //
 
+
 #import "AMBScoreKeeper.h"
 #import "AMBLevelScene.h" 
 #import "AMBPatient.h"
 #import "SKTUtils.h" // for RandomFloatRange
-
-
-const int SCORE_LABEL_SPACING = 34; // vertical spacing between score messages (e.g. "Safe DRiving bonus")
-const int SCORE_LABEL_FRAME_UPDATE = 2500; // add this many points per frame when animating the score label
-
-#pragma mark SCORING CONSTANTS
-const int SCORE_PATIENT_SEVERITY_1 =                100000;
-const int SCORE_PATIENT_SEVERITY_2 =                200000;
-const int SCORE_PATIENT_SEVERITY_3 =                300000;
-const int SCORE_PATIENT_TTL_BONUS =                 50000;
-const int SCORE_SAFE_DRIVING_BONUS =                30000;
-const int SCORE_CARS_HIT_MAX =                      5;
-const int SCORE_CARS_HIT_MULTIPLIER =               SCORE_SAFE_DRIVING_BONUS / SCORE_CARS_HIT_MAX; // max number of cars you can hit, then you get a zero safe driving
-const int SCORE_END_ALL_PATIENTS_DELIVERED_BONUS =  10000;
 
 
 
@@ -31,7 +18,9 @@ typedef enum {
     ScoreKeeperNotificationFuelEmpty,
     ScoreKeeperNotificationFuelUp,
     ScoreKeeperNotificationInvincibility,
-    ScoreKeeperNotificationPatientDelivered,
+    ScoreKeeperNotificationPatientDeliveredFast,
+    ScoreKeeperNotificationPatientDeliveredMedium,
+    ScoreKeeperNotificationPatientDeliveredSlow,
     ScoreKeeperNotificationPatientDied,
     ScoreKeeperNotificationTimeOut
 } ScoreKeeperNotifications;
@@ -145,7 +134,7 @@ typedef enum {
         
         NSUInteger mCount = [_messages count];
         
-        [label setText:[NSString stringWithFormat:@"%@: +%@", message, pointsCommas]];
+        [label setText:[NSString stringWithFormat:@"%@ +%@", message, pointsCommas]];
         
         [_messages addObject:label];
         
@@ -164,6 +153,7 @@ typedef enum {
 #pragma mark Scoring Events
 - (void)handleEventDeliveredPatient:(AMBPatient *)patient {
     NSMutableDictionary *userData = patient.userData;
+
     NSTimeInterval timeRemaining = [patient getPatientTTL];
     NSTimeInterval timeToLive = [[userData valueForKey:@"timeToLive"] doubleValue];
     PatientSeverity severity = [[userData valueForKey:@"severity"] intValue];
@@ -190,29 +180,33 @@ typedef enum {
     NSInteger netPoints = PATIENT_DELIVERED_BASE_SCORE;
     NSInteger patientTTLpoints;
     NSString *patientTTLmessage;
+
+    CGFloat patientDeliveryBenchmark = [userData[@"distanceFromHospital"] floatValue] / PLAYER_NATIVE_SPEED;
+    CGFloat timeElapsed = timeToLive - timeRemaining;
+    CGFloat timeBonusRatio = timeElapsed / patientDeliveryBenchmark;
     
-    CGFloat timeBonusRatio = timeRemaining / timeToLive;
+    ScoreKeeperNotifications deliverySpeed;
+        
     
-    
-    if (timeBonusRatio > 0.75) {
-        patientTTLpoints = SCORE_PATIENT_TTL_BONUS;
-        patientTTLmessage = @"Speedy!";
-    } else if (timeBonusRatio > 0.4 && timeBonusRatio < 0.75) {
-        patientTTLpoints = SCORE_PATIENT_TTL_BONUS / 10;
-        patientTTLmessage = @"Decent!";
-    } else if (timeBonusRatio < 0.25) {
+    if (timeBonusRatio >= SCORE_TIMEBONUS_SLOW) {
         patientTTLpoints = SCORE_PATIENT_TTL_BONUS / 100;
         patientTTLmessage = @"Sluggish!";
+        deliverySpeed = ScoreKeeperNotificationPatientDeliveredSlow;
+        
+    } else if (timeBonusRatio < SCORE_TIMEBONUS_SLOW && timeBonusRatio > SCORE_TIMEBONUS_FAST) {
+        patientTTLpoints = SCORE_PATIENT_TTL_BONUS / 10;
+        patientTTLmessage = @"Decent!";
+        deliverySpeed = ScoreKeeperNotificationPatientDeliveredMedium;
+        
+    } else if (timeBonusRatio <= SCORE_TIMEBONUS_FAST) {
+        patientTTLpoints = SCORE_PATIENT_TTL_BONUS;
+        patientTTLmessage = @"Speedy!";
+        deliverySpeed = ScoreKeeperNotificationPatientDeliveredFast;
+        
     }
     
-/*
- 
- const int SCORE_SAFE_DRIVING_BONUS =                30000;
- const int SCORE_CARS_HIT_MAX =                      5;
- const int SCORE_CARS_HIT_MULTIPLIER =               SCORE_SAFE_DRIVING_BONUS / SCORE_CARS_HIT_MAX; // max number of cars you can hit, then you get a zero safe
- 
- */
     
+
 
     
     NSInteger safeDriving = fmax(0, SCORE_SAFE_DRIVING_BONUS - ( _carsHit * SCORE_CARS_HIT_MULTIPLIER ) );
@@ -221,11 +215,11 @@ typedef enum {
     NSString *safeDrivingPctDisplay = [NSString stringWithFormat:@"%ld", safeDrivingPct];
     
     
-    [self updateScore:netPoints withMessage:@"Patient Delivered"];
+    [self updateScore:netPoints withMessage:@"Patient Delivered:"];
     [self updateScore:patientTTLpoints withMessage: [NSString stringWithFormat:@"%@", patientTTLmessage]];
-    [self updateScore:safeDriving withMessage: [NSString stringWithFormat:@"Safe Driving %@%%", safeDrivingPctDisplay] ];
+    [self updateScore:safeDriving withMessage: [NSString stringWithFormat:@"Safe Driving %@%%:", safeDrivingPctDisplay] ];
 
-    [self showNotification:ScoreKeeperNotificationPatientDelivered];
+    [self showNotification:deliverySpeed];
     
     if (_patientsDelivered == _patientsTotal) {
         [_scene performSelector:@selector(allPatientsDelivered)];
@@ -271,8 +265,16 @@ typedef enum {
             _notificationNode.texture = sNotificationInvincibility;
             break;
             
-        case ScoreKeeperNotificationPatientDelivered:
-            _notificationNode.texture = sNotificationPatientDelivered;
+        case ScoreKeeperNotificationPatientDeliveredFast:
+            _notificationNode.texture = sNotificationPatientDeliveredFast;
+            break;
+            
+        case ScoreKeeperNotificationPatientDeliveredMedium:
+            _notificationNode.texture = sNotificationPatientDeliveredMedium;
+            break;
+            
+        case ScoreKeeperNotificationPatientDeliveredSlow:
+            _notificationNode.texture = sNotificationPatientDeliveredSlow;
             break;
             
         case ScoreKeeperNotificationPatientDied:
@@ -300,7 +302,9 @@ typedef enum {
         sNotificationFuelEmpty = [notifications textureNamed:@"notification_fuel-empty"];
         sNotificationFuelUp = [notifications textureNamed:@"notification_fuel-up"];
         sNotificationInvincibility = [notifications textureNamed:@"notification_invincibility"];
-        sNotificationPatientDelivered = [notifications textureNamed:@"notification_patient-delivered"];
+        sNotificationPatientDeliveredFast = [notifications textureNamed:@"notification_patient-delivered_fast"];
+        sNotificationPatientDeliveredMedium = [notifications textureNamed:@"notification_patient-delivered_medium"];
+        sNotificationPatientDeliveredSlow = [notifications textureNamed:@"notification_patient-delivered_slow"];
         sNotificationPatientDied = [notifications textureNamed:@"notification_patient-died"];
         sNotificationTimeOut = [notifications textureNamed:@"notification_time-out"];
         
@@ -331,7 +335,9 @@ typedef enum {
 static SKTexture *sNotificationFuelEmpty = nil;
 static SKTexture *sNotificationFuelUp = nil;
 static SKTexture *sNotificationInvincibility = nil;
-static SKTexture *sNotificationPatientDelivered = nil;
+static SKTexture *sNotificationPatientDeliveredFast = nil;
+static SKTexture *sNotificationPatientDeliveredMedium = nil;
+static SKTexture *sNotificationPatientDeliveredSlow = nil;
 static SKTexture *sNotificationPatientDied = nil;
 static SKTexture *sNotificationTimeOut = nil;
 static SKAction *sNotificationSequence = nil;
