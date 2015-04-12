@@ -486,7 +486,28 @@ typedef enum {
     // update traffic
     if (_renderTraffic) {
         for (AMBTrafficVehicle *vehicle in _trafficVehicles) {
-            [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
+            CGFloat distanceFromPlayer = CGPointDistance(self.player.position, vehicle.position);
+
+
+            if (vehicle.hidden) {
+                if (distanceFromPlayer < TRAFFIC_MAX_DISTANCE_FROM_PLAYER) {
+                    // vehicle has entered the player's space; begin animating.
+                    vehicle.hidden = NO;
+                    [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
+                }
+                
+            } else {
+                if (distanceFromPlayer < TRAFFIC_MAX_DISTANCE_FROM_PLAYER) {
+                    // vehicle is within the player's space; continue animating.
+                    [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
+                } else {
+                    // vehicle has left the player's space; stop animation and reset to original position.
+                    vehicle.hidden = YES;
+                    vehicle.position = vehicle.originalPosition;
+                    
+                }
+            }
+
         }
         
     }
@@ -596,7 +617,6 @@ typedef enum {
                     
                     BOOL intersections = [tileProperties[@"shouldTurnAtIntersections"] boolValue];
 
-    //                NSLog(@"Adding traffic object at %1.0f,%1.0f",center.x,center.y);
                     [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"] shouldTurnAtIntersections:intersections];
                 }
 
@@ -692,6 +712,7 @@ typedef enum {
     AMBTrafficVehicle *traffic = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:pos withRotation:rotation shouldTurnAtIntersections:intersections];
 
     traffic.name = @"real_traffic";
+    traffic.hidden = YES; // traffic starts hidden until player approaches
     [self addMovingCharacter:traffic toLayer:_mapLayerTrafficAI];
     [_trafficVehicles addObject:traffic];
     

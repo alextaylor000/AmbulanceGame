@@ -378,7 +378,7 @@
  </layer>
  <layer name="spawn_traffic" width="80" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2UESwiAMAEA+40E9WP3/47w7FQeIxsLuMZQ2w7QlGUoBAAAAAAAAgM9OjfHWa+h3yU5gQtaUaPfB+d7JUh7ZCQAkGN0/jqq3x9B35NmrVdQvjFD7fcfK3+WtMrYF3Gt7Gas9759cG+O986LiK1i1/gPmpG/jSEZ6kHNYFnlGeoV39csM6wJQo3/bF/3/t58AQBznbwAAAAAAAL/zBHbfBvk=
+   eJzt2kESgjAMAMB+xoN6UPz/47g7qNM2EGl3j4FCpgM0YVoKAAAAAAAAAPx2qYzXnkO7W3YCAzKnRFs6x3smS3llJwCQoHf9OKvWHkPfkWerVlG/wP+Z+b187Hyt59uxyPvt6V4Zbx0XFZ/BrPUfMCZ9G2fS8//5GpZFnp5e4VP9MsK8AHyjf9sW/f23ngBAHHuvAAAAAAAAjrMClfsGlw==
   </data>
  </layer>
  <objectgroup name="spawn_player">
@@ -393,41 +393,6 @@
    </properties>
   </object>
   <object name="patient_02" type="patient.spawn" x="10036" y="9964" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_02" type="patient.spawn" x="9402" y="9962" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_02" type="patient.spawn" x="9899.27" y="8741.7" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_02" type="patient.spawn" x="10468" y="9199.27" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_02" type="patient.spawn" x="10462.9" y="9784.12" width="256" height="256">
-   <properties>
-    <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="9999"/>
-    <property name="severity" value="1"/>
-   </properties>
-  </object>
-  <object name="patient_02" type="patient.spawn" x="9259.88" y="8741.7" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>

@@ -416,8 +416,7 @@ typedef enum {
             break;
             
         case categoryTraffic:
-            if (![self actionForKey:@"invincibility"]) {
-#warning preload this action
+            if (![self actionForKey:@"invincibility"] && other.node.hidden == NO) {
                 
                 if (self.patient) {
                     [_scoreKeeper handleEventCarHit];

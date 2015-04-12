@@ -47,6 +47,7 @@ static const CGFloat speedMultiplier = 75; // the vehicle speed (1, 2, 3) gets m
 static const int tailgateZoneMultiplier = 2; // the zone in which tailgating is enabled is the vehicle's height multiplied by this value.
 static const CGFloat resumeMovementDelayLower = 0.5; // if the vehicle is stopped, a random delay between when the blocking vehicle starts moving and when this vehicle starts moving.
 static const CGFloat resumeMovementDelayUpper = 1.25;
+static const CGFloat TRAFFIC_MAX_DISTANCE_FROM_PLAYER = 1024; // when traffic vehicles are within this many points away from the player, they will be activated. value is 1024 because this is the largest dimension of the screen and so the traffic vehicles are guaranteed to be offscreen at this point.
 
 #pragma mark SCORE KEEPER
 static const int SCORE_LABEL_SPACING = 34; // vertical spacing between score messages (e.g. "Safe DRiving bonus")

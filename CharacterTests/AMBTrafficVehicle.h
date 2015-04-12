@@ -38,7 +38,7 @@ typedef enum {
 @property SKSpriteNode *collisionZoneTailgating; // if a vehicle enters this zone in front of this vehicle, this vehicle's speed will be adjusted.
 @property SKSpriteNode *collisionZoneStopping; // if a vehicle enters this zone in front of this vehicle, this vehicle will stop quickly.
 @property BOOL shouldTurnAtIntersections;
-
+@property CGPoint originalPosition; // stores the original spawn point of the vehicle so we can reset it 
 
 + (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation shouldTurnAtIntersections:(BOOL)shouldTurn;
 - (void)beganCollision:(SKPhysicsContact *)contact;

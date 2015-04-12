@@ -53,6 +53,7 @@
     vehicle.speedPointsPerSec = speed * speedMultiplier;
     vehicle.nativeSpeed = vehicle.speedPointsPerSec; // store the native speed so we can refer to it later
     vehicle.position = point;
+    vehicle.originalPosition = point; // store the original position so we can reset it based on distance from player
     vehicle.zRotation = rotation;
     vehicle.direction = CGPointForAngle(rotation);
     vehicle.name = @"traffic"; // for grouped enumeration
