@@ -492,8 +492,12 @@ typedef enum {
             if (vehicle.hidden) {
                 if (distanceFromPlayer < TRAFFIC_MAX_DISTANCE_FROM_PLAYER) {
                     // vehicle has entered the player's space; begin animating.
-                    vehicle.hidden = NO;
-                    [vehicle updateWithTimeSinceLastUpdate:_sceneDelta];
+
+                    // randomize the wait time to give the illusion of ... randomness!
+                    [vehicle runAction:[SKAction waitForDuration:0 withRange:8] completion:^(void){
+                        vehicle.hidden = NO;
+                    }];
+
                 }
                 
             } else {
@@ -504,6 +508,8 @@ typedef enum {
                     // vehicle has left the player's space; stop animation and reset to original position.
                     vehicle.hidden = YES;
                     vehicle.position = vehicle.originalPosition;
+                    vehicle.zRotation = vehicle.originalRotation;
+                    vehicle.direction = vehicle.originalDirection;
                     
                 }
             }
@@ -1205,8 +1211,6 @@ typedef enum {
     
     CGPoint vel = [(UIPanGestureRecognizer *)recognizer velocityInView:self.view]; // negative x if moving to the left; we can ignore the y
     CGPoint trans = [(UIPanGestureRecognizer *)recognizer translationInView:self.view ];
-    
-    
     
 #if DEBUG_PLAYER_CONTROL
     _panMover.position = trans;

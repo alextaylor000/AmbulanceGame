@@ -55,7 +55,9 @@
     vehicle.position = point;
     vehicle.originalPosition = point; // store the original position so we can reset it based on distance from player
     vehicle.zRotation = rotation;
+    vehicle.originalRotation = rotation; // store the original rotation so we can reset it based on distance from player
     vehicle.direction = CGPointForAngle(rotation);
+    vehicle.originalDirection = vehicle.direction;
     vehicle.name = @"traffic"; // for grouped enumeration
     
     // physics
