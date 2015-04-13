@@ -31,14 +31,14 @@ typedef enum {
             self.anchorPoint = CGPointMake(0, 0.5);
             
             SKLabelNode *gameOver = [SKLabelNode labelNodeWithText:@"GAME OVER!"];
-            gameOver.position = CGPointMake(100, 100);
+            gameOver.position = CGPointMake(GAMEOVER_LEFT_JUSTIFICATION, 100);
             [self formatLabelNode:gameOver withFormat:GameOverLabelFormatHeadline];
             [self addChild:gameOver];
             
             
             SKLabelNode *numPatients = [SKLabelNode labelNodeWithText:@"Patients saved:"];
             [self formatLabelNode:numPatients withFormat:GameOverLabelFormatCategory];
-            numPatients.position = CGPointMake(100, -50);
+            numPatients.position = CGPointMake(GAMEOVER_LEFT_JUSTIFICATION, -50);
             
                 SKLabelNode *numPatientsPoints = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%ld / %ld", (long)_scoreKeeper.patientsDelivered, (long)_scoreKeeper.patientsTotal]];
                 [self formatLabelNode:numPatientsPoints withFormat:GameOverLabelFormatValue];
@@ -49,7 +49,7 @@ typedef enum {
             
             SKLabelNode *score = [SKLabelNode labelNodeWithText:@"Total Score:"];
             [self formatLabelNode:score withFormat:GameOverLabelFormatCategory];
-            score.position = CGPointMake(100, -100);
+            score.position = CGPointMake(GAMEOVER_LEFT_JUSTIFICATION, -100);
             
             SKLabelNode *scorePoints = [SKLabelNode labelNodeWithText:[_scoreKeeper scoreDisplay:0]];
                 [self formatLabelNode:scorePoints withFormat:GameOverLabelFormatValue];
@@ -84,7 +84,7 @@ typedef enum {
             label.fontColor = [SKColor blackColor];
             label.fontSize = 45;
             label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
-            label.position = CGPointMake(600, 0);
+            label.position = CGPointMake(GAMEOVER_VALUE_PADDING, 0);
 
             break;
             

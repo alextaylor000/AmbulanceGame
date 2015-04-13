@@ -66,3 +66,7 @@ static const int SCORE_CARS_HIT_MAX =                      5;
 static const int SCORE_CARS_HIT_MULTIPLIER =               SCORE_SAFE_DRIVING_BONUS / SCORE_CARS_HIT_MAX; // max number of cars you can hit, then you get a zero safe driving
 static const int SCORE_END_ALL_PATIENTS_DELIVERED_BONUS =  10000;
 
+
+#pragma mark GAME OVER SCENE ALIGNMENTS
+static const int GAMEOVER_LEFT_JUSTIFICATION    =   80;  // distance between left of screen and score category text
+static const int GAMEOVER_VALUE_PADDING         =   450; // distance between left of score category text and end of score value

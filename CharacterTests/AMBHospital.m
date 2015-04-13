@@ -15,11 +15,10 @@
     
     if (self = [super initWithTexture:hospitalTexture]) {
         
-        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(self.size.width * 3, self.size.height * 3)]; // for the physics body, expand the hospital's size so that it encompasses all the surrounding road blocks. this obviously assumes that the hospital occupies one entire tile!
+        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(self.size.width, self.size.height)]; // the hospital entity is the invisible area that the patient can be dropped off within. the actual graphic is simply placed on the tilemap.
         self.physicsBody.categoryBitMask = categoryHospital;
         self.physicsBody.collisionBitMask = 0x00000000;
-        
-        //self.zPosition = 200; // TODO: do we need to manage z positions?
+//        self.hidden = YES;
     
     }
     
