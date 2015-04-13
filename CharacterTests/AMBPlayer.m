@@ -281,12 +281,11 @@ typedef enum {
         [self runAction:stopMoving completion:^{
             self.isMoving = NO;
             self.speedPointsPerSec = 0;
-            
+            AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
+
+            [owningScene.fuelGauge stopTimer];
             
             self.controlState = PlayerIsStoppedAtTIntersection;
-//#if DEBUG_PLAYER_CONTROL
-//            NSLog(@"[control] PlayerIsDecelerating -> slamBrakes -> PlayerIsStoppedAtTIntersection");
-//#endif
             
             
         }];

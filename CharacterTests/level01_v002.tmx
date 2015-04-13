@@ -382,17 +382,17 @@
   </data>
  </layer>
  <objectgroup name="spawn_player">
-  <object name="player.spawn" type="player.spawn" x="9245.45" y="9515.57" width="256" height="256"/>
+  <object name="player.spawn" type="player.spawn" x="9219.65" y="10160.6" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="spawn_patients">
-  <object name="patient_02" type="patient.spawn" x="12061.6" y="6313.8" width="256" height="256">
+  <object name="patient_02" type="patient.spawn" x="9839.92" y="8704.97" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_02" type="patient.spawn" x="10036" y="9964" width="256" height="256">
+  <object name="patient_02" type="patient.spawn" x="9237.33" y="9902.96" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>

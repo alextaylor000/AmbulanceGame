@@ -95,7 +95,7 @@ typedef enum {
     _labelScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
     _labelScore.text = [self scoreDisplay:_score];
     _labelScore.fontColor = [SKColor yellowColor];
-    _labelScore.fontSize = 70;
+    _labelScore.fontSize = 50;
     _labelScore.position = position;
     
 
@@ -123,9 +123,14 @@ typedef enum {
     
     [_labelScore runAction:sScoreLabelPop];
     
+    // check label size
+    if (_score > 9999999) {
+        _labelScore.fontSize = 40;
+    }
+    
     if (message) {
         SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"AvenirNext-Bold"];
-        label.fontSize = 25;
+        label.fontSize = 20;
         label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
         label.fontColor = [SKColor yellowColor];
         label.alpha = 0; // start hidden
@@ -138,7 +143,7 @@ typedef enum {
         
         [_messages addObject:label];
         
-        label.position = CGPointMake(_scene.size.width/2 - 120, _scene.size.height/2 - 170 - mCount * SCORE_LABEL_SPACING);
+        label.position = CGPointMake(_scene.size.width/2 - 120, _scene.size.height/2 - 150 - mCount * SCORE_LABEL_SPACING);
 
         [_scene addChild:label];
         [label runAction:sScoreMessageActions[mCount] completion:^(void){ [_messages removeObject:label]; }];
@@ -162,17 +167,22 @@ typedef enum {
     
     int PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_1; // init to default amount
     
+    NSString *patientType;
+    
     switch (severity) {
         case LevelOne:
             PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_1;
+            patientType = @"Stable";
             break;
             
         case LevelTwo:
             PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_2;
+            patientType = @"At-risk";
             break;
             
         case LevelThree:
             PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_3;
+            patientType = @"Critical";
             break;
     }
     
@@ -215,7 +225,7 @@ typedef enum {
     NSString *safeDrivingPctDisplay = [NSString stringWithFormat:@"%ld", safeDrivingPct];
     
     
-    [self updateScore:netPoints withMessage:@"Patient Delivered:"];
+    [self updateScore:netPoints withMessage:[NSString stringWithFormat:@"%@ Patient", patientType]];
     [self updateScore:patientTTLpoints withMessage: [NSString stringWithFormat:@"%@", patientTTLmessage]];
     [self updateScore:safeDriving withMessage: [NSString stringWithFormat:@"Safe Driving %@%%:", safeDrivingPctDisplay] ];
 

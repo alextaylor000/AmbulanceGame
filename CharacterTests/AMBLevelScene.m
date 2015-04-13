@@ -217,8 +217,6 @@ typedef enum {
 
 
         [self addChild:notifications];
-
-        
         
         // clock
         _gameClock = [[AMBTimer alloc] initWithSecondsRemaining:180]; // create the timer object. doesn't start until startTimer is called.
@@ -227,8 +225,8 @@ typedef enum {
         _labelClock.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
         _labelClock.fontColor = [SKColor yellowColor];
         _labelClock.text = @"00:00";
-        _labelClock.fontSize = 50;
-        _labelClock.position = CGPointMake(self.size.width/2 - 120, self.size.height/2 -130);
+        _labelClock.fontSize = 30;
+        _labelClock.position = CGPointMake(self.size.width/2 - 120, self.size.height/2 -115);
         [self addChild:_labelClock];
         
         
