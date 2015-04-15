@@ -47,5 +47,6 @@ typedef enum {
 - (void)endedCollision:(SKPhysicsContact *)contact;
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)changeState:(VehicleState)newState;
+- (void)swapTexture; // randomly picks a new texture for the traffic vehicle
 
 @end

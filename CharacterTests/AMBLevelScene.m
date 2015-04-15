@@ -497,6 +497,8 @@ typedef enum {
                     vehicle.zRotation = vehicle.originalRotation;
                     vehicle.direction = vehicle.originalDirection;
                     
+                    [vehicle swapTexture];
+                    
                 }
             }
 
@@ -609,7 +611,7 @@ typedef enum {
                     
                     BOOL intersections = [tileProperties[@"shouldTurnAtIntersections"] boolValue];
 
-                    [self spawnTrafficObjectAt:center rotation:tileProperties[@"orientation"] shouldTurnAtIntersections:intersections];
+                    [self spawnTrafficObjectAt:center vehicleType:VehicleTypeRandom rotation:tileProperties[@"orientation"] shouldTurnAtIntersections:intersections];
                 }
 
             }
@@ -687,7 +689,7 @@ typedef enum {
 
 
 
-- (void)spawnTrafficObjectAt:(CGPoint)pos rotation:(NSString *)rot shouldTurnAtIntersections:(BOOL)intersections {
+- (void)spawnTrafficObjectAt:(CGPoint)pos vehicleType:(VehicleType)vt rotation:(NSString *)rot shouldTurnAtIntersections:(BOOL)intersections {
 
     CGFloat rotation;
 
@@ -701,7 +703,7 @@ typedef enum {
         rotation = DegreesToRadians(180);
     }
 
-    AMBTrafficVehicle *traffic = [AMBTrafficVehicle createVehicle:VehicleTypeSedan withSpeed:VehicleSpeedSlow atPoint:pos withRotation:rotation shouldTurnAtIntersections:intersections];
+    AMBTrafficVehicle *traffic = [AMBTrafficVehicle createVehicle:vt withSpeed:VehicleSpeedSlow atPoint:pos withRotation:rotation shouldTurnAtIntersections:intersections];
 
     traffic.name = @"real_traffic";
     traffic.hidden = YES; // traffic starts hidden until player approaches

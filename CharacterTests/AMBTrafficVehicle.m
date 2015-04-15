@@ -49,6 +49,10 @@
     
     AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]initWithTexture:sVehicleType1Texture];
     
+    if (type == VehicleTypeRandom) {
+        [vehicle swapTexture];
+    }
+    
     vehicle.shouldTurnAtIntersections = shouldTurn;
     vehicle.speedPointsPerSec = speed * speedMultiplier;
     vehicle.nativeSpeed = vehicle.speedPointsPerSec; // store the native speed so we can refer to it later
@@ -243,6 +247,11 @@
     
 }
 
+- (void)swapTexture {
+    SKTexture *newTexture = [sVehicleTypeArray objectAtIndex:(int)RandomFloatRange(0, 4)];
+    [self setTexture:newTexture];
+}
+
 #pragma mark Assets
 + (void)loadSharedAssets {
     
@@ -252,14 +261,26 @@
         // thought I needed to preload this, but it seems to use the same instance as other invocations (e.g. in powerup)
         SKTextureAtlas *gameObjectSprites = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
         
-        sVehicleType1Texture = [gameObjectSprites textureNamed:@"traffic"];
+        sVehicleType1Texture = [gameObjectSprites textureNamed:@"traffic01"];
+        sVehicleType2Texture = [gameObjectSprites textureNamed:@"traffic02"];
+        sVehicleType3Texture = [gameObjectSprites textureNamed:@"traffic03"];
+        sVehicleType4Texture = [gameObjectSprites textureNamed:@"traffic04"];
+        sVehicleType5Texture = [gameObjectSprites textureNamed:@"traffic05"];
 
+        sVehicleTypeArray = [NSArray arrayWithObjects:sVehicleType1Texture, sVehicleType2Texture, sVehicleType3Texture, sVehicleType4Texture, sVehicleType5Texture, nil];
     });
     
     
 }
 
 static SKTexture *sVehicleType1Texture = nil;
+static SKTexture *sVehicleType2Texture = nil;
+static SKTexture *sVehicleType3Texture = nil;
+static SKTexture *sVehicleType4Texture = nil;
+static SKTexture *sVehicleType5Texture = nil;
+static NSArray *sVehicleTypeArray = nil;
+
+
 - (SKTexture *)vehicleType1Texture {
     return sVehicleType1Texture;
 }
