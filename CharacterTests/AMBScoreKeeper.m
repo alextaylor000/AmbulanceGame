@@ -57,6 +57,7 @@ typedef enum {
         _scoreDisplay = 0;
         
         _patientsDelivered = 0;
+        _patientsDied = 0;
         _carsHit = 0;
         _messages = [NSMutableArray array];
 
@@ -231,8 +232,8 @@ typedef enum {
 
     [self showNotification:deliverySpeed];
     
-    if (_patientsDelivered == _patientsTotal) {
-        [_scene performSelector:@selector(allPatientsDelivered)];
+    if (_patientsDelivered + _patientsDied == _patientsTotal) {
+        [_scene performSelector:@selector(allPatientsProcessed)];
     }
 
     
@@ -241,7 +242,7 @@ typedef enum {
 }
 
 - (void)handleEventPatientDied {
-    //
+    _patientsDied += 1;
 }
 
 - (void)handleEventCarHit {

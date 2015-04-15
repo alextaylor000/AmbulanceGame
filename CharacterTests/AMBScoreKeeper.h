@@ -21,6 +21,7 @@
 @property (readonly, nonatomic) NSInteger score;
 @property (nonatomic) NSInteger patientsTotal;
 @property (nonatomic) NSInteger patientsDelivered;
+@property (nonatomic) NSInteger patientsDied;
 
 @property SKLabelNode *labelScore;
 @property SKLabelNode *labelScoreUpdate;

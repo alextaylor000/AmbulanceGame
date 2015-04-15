@@ -19,7 +19,7 @@
 typedef enum {
     GameOverReasonOutOfFuel,
     GameOverReasonOutOfTime,
-    GameOverReasonSavedEveryone
+    GameOverReasonNoMorePatients
 } GameOverReason;
 
 

@@ -282,8 +282,8 @@ typedef enum {
 
 }
 
-- (void)allPatientsDelivered {
-    [self gameOverBecause:GameOverReasonSavedEveryone];
+- (void)allPatientsProcessed {
+    [self gameOverBecause:GameOverReasonNoMorePatients];
 }
 
 - (void)restart {
@@ -1351,7 +1351,7 @@ typedef enum {
             [_scoreKeeper handleEventOutOfTime];
             break;
             
-        case GameOverReasonSavedEveryone:
+        case GameOverReasonNoMorePatients:
             [_scoreKeeper handleEventSavedEveryone];
             break;
             
