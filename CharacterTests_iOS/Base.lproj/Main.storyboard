@@ -466,6 +466,39 @@
             </objects>
             <point key="canvasLocation" x="1908" y="967"/>
         </scene>
+        <!--Game Over View Controller-->
+        <scene sceneID="mOT-q2-Pdm">
+            <objects>
+                <viewController storyboardIdentifier="AMBGameOverViewController" id="e6b-lR-cCG" customClass="AMBGameOverViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kHK-l6-m3c"/>
+                        <viewControllerLayoutGuide type="bottom" id="1hq-fL-J9i"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="we7-zd-FJp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="GAME OVER" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R7Q-vm-xVT">
+                                <rect key="frame" x="166" y="136" width="269" height="76"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="269" id="Kwj-mJ-rHC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="40"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.94567918120000005" blue="0.010418546799999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="R7Q-vm-xVT" firstAttribute="top" secondItem="kHK-l6-m3c" secondAttribute="bottom" constant="116" id="nNb-4P-b59"/>
+                            <constraint firstItem="R7Q-vm-xVT" firstAttribute="centerX" secondItem="we7-zd-FJp" secondAttribute="centerX" id="o0Q-di-T7j"/>
+                            <constraint firstItem="1hq-fL-J9i" firstAttribute="top" secondItem="R7Q-vm-xVT" secondAttribute="bottom" constant="388" id="ztn-N1-UfG"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vvF-gq-CK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="250" y="1029"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="pe3-LW-LFe">
             <objects>

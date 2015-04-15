@@ -11,6 +11,7 @@
 		B903B17A1A68D66800414D8E /* level01_firstdraft_MINI-256.png in Resources */ = {isa = PBXBuildFile; fileRef = B903B1781A68D60F00414D8E /* level01_firstdraft_MINI-256.png */; };
 		B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */; };
 		B911C9E919C656CC00EA85D9 /* AMBCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = B911C9E819C656CC00EA85D9 /* AMBCharacter.m */; };
+		B91E8CB01ADF14B300AB1A8D /* AMBGameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B91E8CAF1ADF14B300AB1A8D /* AMBGameOverViewController.m */; };
 		B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */; };
 		B91EF24D1978E7BF00E66405 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2451978E7BF00E66405 /* SKEmitterNode+SKTExtras.m */; };
 		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
@@ -114,6 +115,8 @@
 		B911C9E519C4DE6200EA85D9 /* AMBGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameScene.m; path = ../AMBGameScene.m; sourceTree = "<group>"; };
 		B911C9E719C656CC00EA85D9 /* AMBCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBCharacter.h; sourceTree = "<group>"; };
 		B911C9E819C656CC00EA85D9 /* AMBCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBCharacter.m; sourceTree = "<group>"; };
+		B91E8CAE1ADF14B300AB1A8D /* AMBGameOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBGameOverViewController.h; sourceTree = "<group>"; };
+		B91E8CAF1ADF14B300AB1A8D /* AMBGameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBGameOverViewController.m; sourceTree = "<group>"; };
 		B91EF2421978E7BF00E66405 /* SKAction+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SKTExtras.h"; sourceTree = "<group>"; };
 		B91EF2431978E7BF00E66405 /* SKAction+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKAction+SKTExtras.m"; sourceTree = "<group>"; };
 		B91EF2441978E7BF00E66405 /* SKEmitterNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKEmitterNode+SKTExtras.h"; sourceTree = "<group>"; };
@@ -273,6 +276,8 @@
 				B985AFAB1A80270E000B3423 /* AMBCreditsViewController.m */,
 				B9C8E4A01A4B73F0003F7354 /* GameViewController.h */,
 				B9C8E4A11A4B73F0003F7354 /* GameViewController.m */,
+				B91E8CAE1ADF14B300AB1A8D /* AMBGameOverViewController.h */,
+				B91E8CAF1ADF14B300AB1A8D /* AMBGameOverViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -689,6 +694,7 @@
 				B9C8E4D61A4B747E003F7354 /* AMBGameScene.m in Sources */,
 				B9C8E4D81A4B747E003F7354 /* AMBLevelScene.m in Sources */,
 				B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */,
+				B91E8CB01ADF14B300AB1A8D /* AMBGameOverViewController.m in Sources */,
 				B9BCC05D1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */,
 				B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */,
 				B9EE2EFA1AA2DFE200909137 /* AMBTimer.m in Sources */,
