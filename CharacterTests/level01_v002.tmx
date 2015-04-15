@@ -388,14 +388,14 @@
   <object name="player.spawn" type="player.spawn" x="9219.65" y="10160.6" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="spawn_patients">
-  <object name="patient_02" type="patient.spawn" x="9839.92" y="8704.97" width="256" height="256">
+  <object name="patient_02" type="patient.spawn" x="9205.96" y="9204.11" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>
     <property name="severity" value="1"/>
    </properties>
   </object>
-  <object name="patient_02" type="patient.spawn" x="9237.33" y="9902.96" width="256" height="256">
+  <object name="patient_02" type="patient.spawn" x="14609.4" y="6357.71" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
     <property name="frequency" value="9999"/>

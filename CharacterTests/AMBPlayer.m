@@ -207,6 +207,7 @@ typedef enum {
         if (self.patient.state == PatientIsDead) {
             [self hideBubbleBecause:PatientDied];
             [self unloadPatient];
+            [_scoreKeeper handleEventPatientDied];
         }
     
     }
@@ -392,9 +393,10 @@ typedef enum {
             [self hideBubbleBecause:PatientDelivered];
             [_patient changeState:PatientIsDelivered];
             [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventDeliverPatient]; // tutorial event
-            _patient = nil;
             return YES;
         }
+        
+        _patient = nil;
     }
     
     return NO;

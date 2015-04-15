@@ -98,7 +98,7 @@
         patientTTL = _patientTimer.timeRemaining;
 
         
-        if (patientTTL <= 0)   {
+        if (patientTTL < 1)   {
             
             [self changeState:PatientIsDead];
             

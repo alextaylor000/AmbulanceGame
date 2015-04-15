@@ -240,6 +240,10 @@ typedef enum {
     
 }
 
+- (void)handleEventPatientDied {
+    //
+}
+
 - (void)handleEventCarHit {
     _carsHit += 1;
 }

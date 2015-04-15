@@ -40,6 +40,7 @@
 
 /* Scoring Events */
 - (void) handleEventDeliveredPatient:(AMBPatient *)patient;
+- (void) handleEventPatientDied;
 - (void) handleEventCarHit;
 - (void) handleEventOutOfFuel;
 - (void) handleEventInvincible;
