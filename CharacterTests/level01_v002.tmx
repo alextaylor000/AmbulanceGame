@@ -371,9 +371,12 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="53" name="hospital" tilewidth="256" tileheight="256">
+  <image source="hospital.png" trans="ff00ff" width="256" height="256"/>
+ </tileset>
  <layer name="road" width="80" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2sluwyAUBVA6pumYzvPw/19ZumsdIr2UOpj0LO4CZBA+eQZZzjylNB8hR38411nO+UTWsqnw48ePHz9+rdfMjx8/fj2FHz9+/Pjxa71mfvz48esp/Pjx48eP32+yn7PzLYeD9jp9rzlvFeOPJ+BR+5uXaiDat6r+auacevjx47c9fgdpeV/fDfZd5Cwqxp9OwEP98esp/Pi1zPC8iO71zg/1x699+PGL5HKkPA3aV4Vron3XOTcV459HvM/7kfI4aD9UzHWbc1foj875MuJ9tnx+o1nn+Y2spYfw48evX7/I+1v0+0/0/a001vtbvP5W1VmP9cePH7/t8dvE96PSWOeH+uPHj19fmaWfe/hJWt7Xo33vOR+Ba0tjv7I3AY/a+qvJf/z/JD9+/Pjx49d6zfz48ePXU/jx48ePH7/Wa+bHjx+/nsKPHz9+/Nr7jZlPkw3ksg==
+   eJzt2sluwyAUBVA6N53nefqJ/v+vle5ax5FeSgkmOYu7ABmET55BljNLKc0q5PAf5zrNOZvIWlYVfvz48ePHr/Wa+fHjx6+n8OPHjx8/fq3XzI8fP349hR8/fvz48ftLdnO2fmR/0F6m7zXnrWD80QQ8Sn/zsRqI9i2qv5I5px5+/Pitj99emt/Xt4N95zkXBeNPJuCh/vj1FH78WmZ4XkT3eueH+uPXPiV+n/w2pv4uK+Vp0L4auSbad51zUzD+ueJ93lfK46D9UDDXbc7dSH90zpeK99ny+Y1mmec3spYewo8fv379Iu9v0e8/0fe3sbHe3+L1t6jOeqw/fvz4rY/fKr4fjY11fqg/fvz49ZWD9HsPP07z+3q07z3nI3Dt2Njv7EzAo7T+SrKJ/5/kx48fP378Wq+ZHz9+/HoKP378+PHj13rN/Pjx49dT+PHjx49fe7+a+QK3JOTe
   </data>
  </layer>
  <layer name="spawn_traffic" width="80" height="80">
@@ -401,7 +404,7 @@
   </object>
  </objectgroup>
  <objectgroup name="spawn_hospitals">
-  <object name="hospital01" type="hospital" x="9473" y="9474.2" width="256" height="256"/>
+  <object name="hospital01" type="hospital" x="9218.26" y="9472.61" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="spawn_powerups">
   <object name="fuel.spawn" type="fuel.spawn" x="8512" y="8768" width="50" height="50">
