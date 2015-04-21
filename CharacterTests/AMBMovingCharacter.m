@@ -324,10 +324,6 @@
                         [self.levelScene.camera rotateByAngle:degrees];
                         [self.levelScene rotateInteractives:degrees];
                         [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventTurnCorner]; // tutorial event
-//    #if DEBUG_PLAYER_CONTROL
-//                        
-//                        NSLog(@"[control]    Valid turn; executing rotateByAngle");
-//    #endif
                     
                 }
                 

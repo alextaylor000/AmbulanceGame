@@ -269,8 +269,7 @@ typedef enum {
 
 
 - (void)slamBrakes {
-    //if (self.hasActions == NO) { // this was conflicting with the invincibility powerup. did we need it for something specific?
-        
+    
         // stopMoving with an end state of PlayerIsStoppedAtTIntersection
         CGFloat decelTime = self.decelTimeSeconds/2;
         SKAction *stopMoving = [SKAction customActionWithDuration:decelTime actionBlock:^(SKNode *node, CGFloat elapsedTime){
@@ -291,7 +290,7 @@ typedef enum {
             
         }];
     
-    //}
+
 
     
 }
@@ -319,8 +318,11 @@ typedef enum {
     self.direction = [self getDirectionFromAngle:self.zRotation];
 
     
-    // rotate the camera
+    // rotate the camera, etc.
     [self.levelScene.camera rotateByAngle:degrees];
+    [self.levelScene rotateInteractives:degrees];
+    [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventTurnCorner]; // tutorial event
+    
     
     // start moving
     self.isMoving = YES;

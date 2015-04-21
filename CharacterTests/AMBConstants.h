@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
 
+#pragma mark CAMERA
+static const CGFloat CAMERA_ROTATION_SPEED = 0.65;
+
 #pragma mark CHARACTER - Collision Bitmasks
 static const uint32_t categoryPlayer =                  0x1 << 0;
 static const uint32_t categoryPatient =                 0x1 << 1;

@@ -159,7 +159,7 @@
     
     SKNode *parentNode = self.parent.parent; // should be world node
     
-    SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(degrees*-1) duration:0.65];
+    SKAction *rotate = [SKAction rotateByAngle:DegreesToRadians(degrees*-1) duration:CAMERA_ROTATION_SPEED];
     rotate.timingMode = SKActionTimingEaseOut;
     
     

@@ -722,8 +722,11 @@ typedef enum {
     
     
     // "interactives" layer. fuel, invincibility, and patients - anything that needs to rotate against the camera's rotation
+    CGFloat rotation = 0;
+
+    
     _mapLayerInteractives = [SKNode node];
-    _mapLayerInteractives.userData = [NSMutableDictionary dictionaryWithObject:@0 forKey:@"childRotation"];
+    _mapLayerInteractives.userData = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithFloat:rotation] forKey:@"childRotation"];
     
     [_tilemap addChild:_mapLayerInteractives];
     
@@ -1138,8 +1141,11 @@ typedef enum {
     
     _mapLayerInteractives.userData[@"childRotation"] = [NSNumber numberWithFloat:angle];
 
+    SKAction *rotate = [SKAction rotateToAngle:angle duration:CAMERA_ROTATION_SPEED shortestUnitArc:YES];
+    
     for (SKNode *child in [_mapLayerInteractives children]) {
-        child.zRotation = angle;
+//        child.zRotation = angle;
+        [child runAction:rotate];
     }
 }
 
