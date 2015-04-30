@@ -152,6 +152,12 @@ typedef enum {
             - Patient spawns controlled by tutorial
          
          */
+        // set basic scene settings
+        self.backgroundColor = [SKColor yellowColor];
+        self.physicsWorld.contactDelegate = self;
+        
+        
+        // save initial conditions for game mode and restarting.
         _initialConditions = @{
                                @"size" : [NSValue valueWithCGSize:size],
                                @"gameType": [NSNumber numberWithInt:gameType],
@@ -160,20 +166,18 @@ typedef enum {
                                @"tutorial": [NSNumber numberWithBool:tut]
                                };
         
+        // should we start in tutorial mode or not?
         _tutorialMode = tut;
         
-        // scoring
+        // init scoring
         _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
         _scoreKeeper.scene = self;
         
         
         _renderTraffic = 1;
-        self.backgroundColor = [SKColor yellowColor];
-        self.physicsWorld.contactDelegate = self;
 
         // indicator, created before createWorld so it can be referenced in initial spawns
         _indicator = [[AMBIndicator alloc]initForScene:self];
-
         
         // choose level
         NSString *levelName;
@@ -191,6 +195,7 @@ typedef enum {
                 break;
         }
         
+        // set up scene
         [self createWorldWithLevel:levelName];  // set up tilemap
         [self createMinimap];                   // minimap
         [self createSpawners];                  // used to be in createWorld
@@ -233,9 +238,6 @@ typedef enum {
         
         [self createFuelGauge];
         
-
-        
-    
         
         // tutorial
         if (_tutorialMode) {
