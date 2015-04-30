@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
-#import "AMBGameScene.h" // for the NS_ENUMs that define game options
+#import "AMBConstants.h" // for the NS_ENUMs that define game options
 
 @interface GameViewController : UIViewController
 

@@ -26,7 +26,7 @@
 @property SKLabelNode *labelScore;
 @property SKLabelNode *labelScoreUpdate;
 @property SKSpriteNode *notificationNode;
-
+@property AMBGameType gameType;
 
 + (AMBScoreKeeper *)sharedInstance;
 + (void)loadSharedAssets;

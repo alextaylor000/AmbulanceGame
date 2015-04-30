@@ -56,12 +56,13 @@ typedef enum {
 @property (readonly, nonatomic) CGFloat sceneDelta;
 @property AMBScoreKeeper *scoreKeeper;
 
+
 @property AMBFuelGauge *fuelGauge;
 
 @property AMBIndicator *indicator;
 
 @property NSTimeInterval gameStartTime; // when the game started (init)
-
+@property AMBTimer *gameClock;
 @property AMBTutorial *tutorialOverlay;
 
 

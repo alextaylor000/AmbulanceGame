@@ -42,6 +42,6 @@ typedef enum {
 - (instancetype) initWithSprite:(AMBVehicleType)vehicleType;
 - (void)changeState:(AmbulanceState)newState;
 - (BOOL)loadPatient:(AMBPatient *)patient;
-- (BOOL)unloadPatient;
+- (void)unloadPatient;
 - (void)handleInput:(PlayerControls)input keyDown:(BOOL)keyDown;
 @end

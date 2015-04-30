@@ -72,7 +72,7 @@ typedef enum {
 @property CGPoint playerSpawnPoint;
 @property NSInteger currentTileGid;
 
-@property BOOL turnRequested;
+
 @property CGFloat turnDegrees;
 
 @property NSDictionary *initialConditions; // for restarting the game
@@ -98,7 +98,7 @@ typedef enum {
 
 @property CGFloat minimapScaleFactor; // how much to scale positions by on the minimap; a product of the minimap size relative to the tilemap size
 
-@property AMBTimer *gameClock;
+
 
 
 @end
@@ -172,6 +172,8 @@ typedef enum {
         // init scoring
         _scoreKeeper = [AMBScoreKeeper sharedInstance]; // create a singleton ScoreKeeper
         _scoreKeeper.scene = self;
+        _scoreKeeper.gameType = gameType;
+
         
         
         _renderTraffic = 1;
@@ -179,20 +181,19 @@ typedef enum {
         // indicator, created before createWorld so it can be referenced in initial spawns
         _indicator = [[AMBIndicator alloc]initForScene:self];
         
-        // choose level
+        // choose level BASED ON GAME TYPE
         NSString *levelName;
-        switch (levelType) {
-            case AMBCity1:
-                levelName = @"level01_v002.tmx";
+        switch (gameType) {
+            case AMBGameTypeDayShift:
+                levelName = @"level01_dayshift.tmx";
                 break;
+            
+            case AMBGameTypeSuddenDeath:
+                levelName = @"level01_endless.tmx"; // b/c the only difference in this game mode is the countdown clock
                 
-            case AMBCity2:
-                levelName = @"level01_v002.tmx";
-                break;
-                
-            case AMBCity3:
-                levelName = @"level01_v002.tmx";
-                break;
+            case AMBGameTypeEndless:
+                levelName = @"level01_endless.tmx";
+
         }
         
         // set up scene
@@ -200,17 +201,16 @@ typedef enum {
         [self createMinimap];                   // minimap
         [self createSpawners];                  // used to be in createWorld
         [self addPlayerUsingSprite:vehicleType];
-
+        [self createFuelGauge];
         
-        _turnRequested = NO;
-        
-        // camera
+        // init camera
         _camera = [[AMBCamera alloc] initWithTargetSprite:_player];
         _camera.zPosition = 999;
         [_tilemap addChild:_camera];
-        
         _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
         
+        
+        // add score label
         SKLabelNode *labelScore = [_scoreKeeper createScoreLabelWithPoints:0 atPos:CGPointMake(self.size.width/2 - 120, self.size.height/2-80)];
         if (!labelScore.parent) {
             [self addChild:labelScore];
@@ -219,27 +219,39 @@ typedef enum {
         
         // notification node
         SKSpriteNode *notifications = [_scoreKeeper createNotificationAtPos:CGPointZero];
-
-
         [self addChild:notifications];
         
-        // clock
-        _gameClock = [[AMBTimer alloc] initWithSecondsRemaining:180]; // create the timer object. doesn't start until startTimer is called.
         
+        // init clock based on game type
+        NSString *labelClockText = @"00:00";
+        
+        switch (gameType) {
+            case AMBGameTypeDayShift:
+                // create the timer object. doesn't start until startTimer is called.
+                _gameClock = [[AMBTimer alloc] initWithSecondsRemaining:GAMETYPE_DAYSHIFT_LENGTH];
+                break;
+                
+            case AMBGameTypeSuddenDeath:
+                _gameClock = [[AMBTimer alloc] initWithSecondsRemaining:GAMETYPE_SUDDEN_LENGTH];
+                break;
+                
+            case AMBGameTypeEndless:
+                _gameClock = [[AMBTimer alloc] initWithSecondsRemaining:0]; // endless!
+                labelClockText = @"∞";
+                break;
+        }
+        
+        
+        // add clock label
         _labelClock = [SKLabelNode labelNodeWithFontNamed:@"AvenirNextCondensed-Bold"];
         _labelClock.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
         _labelClock.fontColor = [SKColor yellowColor];
-        _labelClock.text = @"00:00";
+        _labelClock.text = labelClockText;
         _labelClock.fontSize = 30;
         _labelClock.position = CGPointMake(self.size.width/2 - 120, self.size.height/2 -115);
         [self addChild:_labelClock];
         
-        
-        
-        [self createFuelGauge];
-        
-        
-        // tutorial
+        // init tutorial (if applicable)
         if (_tutorialMode) {
             _tutorialOverlay = [AMBTutorial tutorialOverlay];
             _tutorialOverlay.position = CGPointMake(0, 200);
@@ -250,7 +262,7 @@ typedef enum {
             
         }
 
-        // start clock
+        // start the clock!
         if (!_tutorialMode) {
             [_gameClock startTimer];
         }
@@ -322,7 +334,7 @@ typedef enum {
     _fuelGauge.position = CGPointMake(self.size.width/2 - _fuelGauge.size.width/2, self.size.height/2 - _fuelGauge.size.height/2 - 25); // 25 for padding
     
     [self addChild: _fuelGauge];
-    [_fuelGauge addFuel:124];
+    [_fuelGauge addFuel:fuelCapacity]; // 124 units
 }
 
 - (void)createMinimap {
@@ -427,10 +439,9 @@ typedef enum {
     _sceneLastUpdate = currentTime;
 }
 
-//-(void)update:(CFTimeInterval)currentTime {
+
 - (void)update:(NSTimeInterval)currentTime {
     if (!self.paused) {
-        
 
     [self calcDelta:currentTime];
     

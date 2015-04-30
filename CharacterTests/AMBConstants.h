@@ -9,8 +9,34 @@
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
 
+# pragma mark GAME MODES
+static const NSTimeInterval GAMETYPE_DAYSHIFT_LENGTH = 180; // countdown timer for the "day shift" game mode
+static const NSTimeInterval GAMETYPE_SUDDEN_LENGTH = 45; // countdown timer for the "sudden death" game mode
+static const NSTimeInterval SUDDEN_DEATH_PATIENT_TIME_BONUS = 30; // you get this many seconds for each patient delivered
+
+
+typedef NS_ENUM(int, AMBVehicleType) {
+    AMBVehicleWhite,
+    AMBVehicleRed,
+    AMBVehicleSpecial1,
+    AMBVehicleSpecial2
+};
+
+typedef NS_ENUM (int, AMBLevelType) {
+    AMBCity1,
+    AMBCity2,
+    AMBCity3
+};
+
+typedef NS_ENUM(int, AMBGameType) {
+    AMBGameTypeDayShift,
+    AMBGameTypeSuddenDeath,
+    AMBGameTypeEndless
+};
+
 #pragma mark CAMERA
 static const CGFloat CAMERA_ROTATION_SPEED = 0.65;
+
 
 #pragma mark CHARACTER - Collision Bitmasks
 static const uint32_t categoryPlayer =                  0x1 << 0;

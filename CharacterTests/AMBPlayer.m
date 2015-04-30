@@ -74,9 +74,6 @@ typedef enum {
     self.speedPointsPerSec = self.nativeSpeed;
     self.pivotSpeed = 0;
     
-#warning replace this scale with real graphics
-    //[self setScale:1.2];
-
     self.accelTimeSeconds = 0.75;
     self.decelTimeSeconds = 0.35;
     
@@ -94,6 +91,7 @@ typedef enum {
 
     
     self.direction = CGPointMake(0, 1); // default direction, move up
+    self.patient = nil;
     
     _state = AmbulanceIsEmpty; // set initial ambulance state
     
@@ -109,14 +107,13 @@ typedef enum {
     
 
     _turnSignalLeft = [SKSpriteNode spriteNodeWithTexture:sTurnSignalLeft];
-//    [_turnSignalLeft setScale:2.0];
+
     _turnSignalLeft.position = CGPointMake(20, 28);
     _turnSignalLeft.zPosition = -1;
     _turnSignalLeft.alpha = 0;
     [self addChild:_turnSignalLeft];
     
     _turnSignalRight = [SKSpriteNode spriteNodeWithTexture:sTurnSignalRight];
-//    [_turnSignalRight setScale:2.0];
     _turnSignalRight.position = CGPointMake(20, -28);
     _turnSignalRight.zPosition = -1;
     _turnSignalRight.alpha = 0;
@@ -385,7 +382,7 @@ typedef enum {
     return NO;
 }
 
--(BOOL)unloadPatient {
+-(void)unloadPatient {
     // unloads a patient from the ambulance (if there is one)
     
     if (_patient) {
@@ -395,13 +392,11 @@ typedef enum {
             [self hideBubbleBecause:PatientDelivered];
             [_patient changeState:PatientIsDelivered];
             [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventDeliverPatient]; // tutorial event
-            return YES;
         }
         
         _patient = nil;
     }
     
-    return NO;
 }
 
 - (void)collidedWith:(SKPhysicsBody *)other victimNodeName:(NSString *)name {
@@ -410,7 +405,7 @@ typedef enum {
     
     SKAction *action;
 #warning preload this action
-    SKAction *speedPenalty = [SKAction sequence:@[[SKAction waitForDuration:3.0],[SKAction runBlock:^(void) { [self adjustSpeedToTarget:self.nativeSpeed]; NSLog(@"Speed penalty end"); [self removeActionForKey:@"blink"]; self.alpha = 1.0; // reset alpha
+    SKAction *speedPenalty = [SKAction sequence:@[[SKAction waitForDuration:3.0],[SKAction runBlock:^(void) { [self adjustSpeedToTarget:self.nativeSpeed];  [self removeActionForKey:@"blink"]; self.alpha = 1.0; // reset alpha
     }]]];
     
     switch (other.categoryBitMask) {

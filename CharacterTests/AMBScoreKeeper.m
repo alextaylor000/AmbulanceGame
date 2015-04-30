@@ -140,7 +140,14 @@ typedef enum {
         
         NSUInteger mCount = [_messages count];
         
-        [label setText:[NSString stringWithFormat:@"%@ +%@", message, pointsCommas]];
+        NSString *stringToDisplay;
+        if (points == 0) {
+            stringToDisplay = [NSString stringWithFormat:@"%@", message];
+        } else {
+            stringToDisplay = [NSString stringWithFormat:@"%@ +%@", message, pointsCommas];
+        }
+        
+        [label setText:stringToDisplay];
         
         [_messages addObject:label];
         
@@ -229,8 +236,17 @@ typedef enum {
     [self updateScore:netPoints withMessage:[NSString stringWithFormat:@"%@ Patient", patientType]];
     [self updateScore:patientTTLpoints withMessage: [NSString stringWithFormat:@"%@", patientTTLmessage]];
     [self updateScore:safeDriving withMessage: [NSString stringWithFormat:@"Safe Driving %@%%:", safeDrivingPctDisplay] ];
+    
 
     [self showNotification:deliverySpeed];
+    
+    // add time if we're in sudden death mode
+    if (_gameType == AMBGameTypeSuddenDeath) {
+        AMBLevelScene *levelScene = (AMBLevelScene *)_scene;
+        [levelScene.gameClock addTime: SUDDEN_DEATH_PATIENT_TIME_BONUS ];
+        [self updateScore:0 withMessage: [NSString stringWithFormat:@"More Time! +%.0fs", SUDDEN_DEATH_PATIENT_TIME_BONUS]];
+    }
+    
     
     if (_patientsDelivered + _patientsDied == _patientsTotal) {
         [_scene performSelector:@selector(allPatientsProcessed)];
