@@ -569,11 +569,10 @@ typedef enum {
     // patient spawners
     NSArray *patientSpawns = [_mapGroupSpawnPatients objects];
     
-    [_scoreKeeper setPatientsTotal:[patientSpawns count]];
+    [_scoreKeeper setPatientsTotal:[patientSpawns count]]; // if the game mode is day shift, scorekeeper needs to know how many patients there are
     
     for (NSDictionary *object in patientSpawns) {
         CGPoint spawnPoint = [self centerOfObject:object];
-        
         
         // grab properties of the spawner from the TMX object directly
         NSTimeInterval firstSpawnAt = [[object valueForKey:@"firstSpawnAt"] intValue];
@@ -596,7 +595,7 @@ typedef enum {
                                                            withObjects:patientsForSpawner];
         
         [spawner addObjectToNode:_mapLayerRoad atPosition:spawnPoint];
-        [_spawners addObject:spawner];
+        [_spawners addObject:spawner]; // add to the spawners array so we can call update()
     }
 
     // traffic spawners

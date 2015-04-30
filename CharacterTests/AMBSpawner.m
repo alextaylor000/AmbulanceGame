@@ -15,12 +15,13 @@
 @interface AMBSpawner ()
 
 @property (nonatomic) BOOL spawningIsActive;
+
 @property (nonatomic) NSTimeInterval lastSpawnTime;
 @property (nonatomic) NSTimeInterval nextSpawnAt;
 
 @property (nonatomic) NSArray *spawnObjects;
 @property (nonatomic) NSInteger spawnObjectsCount;
-
+@property AMBCharacter *spawnedObject; // the spawner keeps track of the object it spawned; if the object no longer has a parent, then this gets set to nil and the spawner is allowed to spawn a new object
 
 @end
 
@@ -86,52 +87,55 @@
 }
 
 - (void)fireSpawnEvent {
-    _lastSpawnTime = CACurrentMediaTime();
-    
-    NSUInteger i = 0;
-    AMBCharacter *objectToSpawn;
-    
-    
-    if (_spawnObjectsCount > 1) {
-        i = RandomFloatRange(0, _spawnObjectsCount - 1);
-    }
-    
-    objectToSpawn = (AMBCharacter *)[[_spawnObjects objectAtIndex:i] copy]; // this becomes an immutable copy
-    
-    AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
-
-    objectToSpawn.zRotation = [owningScene.mapLayerInteractives.userData[@"childRotation"] floatValue]; // sync up the rotation of this new sprite with the rest of the existing sprites
-    [objectToSpawn addObjectToNode:[owningScene mapLayerInteractives] atPosition:self.position];
-
-
-    // FUEL SPAWN
-    if ([objectToSpawn isKindOfClass:[AMBPowerup class]]) {
-        SKAction *fuelExpiry = [SKAction sequence:@[[SKAction waitForDuration:FUEL_EXPIRY_DURATION],[SKAction removeFromParent]]];
-        [objectToSpawn runAction:fuelExpiry]; // fuel expires! BAM
-    }
-    
-    // PATIENT SPAWN
-    if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
-        // add indicator
-        [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
+    if (!_spawnedObject.parent) {
+        _spawnedObject = nil; // if the spawned object has been picked up, this spawner can create a new one
         
-        // add to minimap
-        SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withSize:1.25];
-        SKAction *fadeOut = [SKAction fadeOutWithDuration:0.25];
-        [miniPatient runAction:[SKAction repeatActionForever:[SKAction sequence:@[fadeOut, [fadeOut reversedAction]]]]];
-
-        AMBPatient *patient = (AMBPatient *)objectToSpawn;
-        patient.patientTimer = [[AMBTimer alloc]initWithSecondsRemaining: [patient.userData[@"timeToLive"] doubleValue] ];
-
-        CGFloat distanceFromHospital = CGPointLength( CGPointSubtract(self.position, owningScene.hospitalLocation) );
-        [patient.userData setObject:[NSNumber numberWithFloat:distanceFromHospital] forKey:@"distanceFromHospital"];
+        _lastSpawnTime = CACurrentMediaTime();
         
-        patient.minimapAvatar = miniPatient;
+        NSUInteger i = 0;
+        AMBCharacter *objectToSpawn;
         
         
-        [patient changeState:PatientIsWaitingForPickup];
-    }
-    
+        if (_spawnObjectsCount > 1) {
+            i = RandomFloatRange(0, _spawnObjectsCount - 1);
+        }
+        
+        objectToSpawn = (AMBCharacter *)[[_spawnObjects objectAtIndex:i] copy]; // this becomes an immutable copy
+        
+        AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
+        
+        objectToSpawn.zRotation = [owningScene.mapLayerInteractives.userData[@"childRotation"] floatValue]; // sync up the rotation of this new sprite with the rest of the existing sprites
+        [objectToSpawn addObjectToNode:[owningScene mapLayerInteractives] atPosition:self.position];
+        _spawnedObject = objectToSpawn;
+        
+        // FUEL SPAWN
+        if ([objectToSpawn isKindOfClass:[AMBPowerup class]]) {
+            SKAction *fuelExpiry = [SKAction sequence:@[[SKAction waitForDuration:FUEL_EXPIRY_DURATION],[SKAction removeFromParent]]];
+            [objectToSpawn runAction:fuelExpiry]; // fuel expires! BAM
+        }
+        
+        // PATIENT SPAWN
+        if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
+            // add indicator
+            [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
+            
+            // add to minimap
+            SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withSize:1.25];
+            SKAction *fadeOut = [SKAction fadeOutWithDuration:0.25];
+            [miniPatient runAction:[SKAction repeatActionForever:[SKAction sequence:@[fadeOut, [fadeOut reversedAction]]]]];
+            
+            AMBPatient *patient = (AMBPatient *)objectToSpawn;
+            patient.patientTimer = [[AMBTimer alloc]initWithSecondsRemaining: [patient.userData[@"timeToLive"] doubleValue] ];
+            
+            CGFloat distanceFromHospital = CGPointLength( CGPointSubtract(self.position, owningScene.hospitalLocation) );
+            [patient.userData setObject:[NSNumber numberWithFloat:distanceFromHospital] forKey:@"distanceFromHospital"];
+            
+            patient.minimapAvatar = miniPatient;
+            
+            
+            [patient changeState:PatientIsWaitingForPickup];
+        }
+    } // if !_spawnedObject.parent
 
 }
 
