@@ -71,6 +71,7 @@
             indicator = [self createIndicatorForNode:targetObject];
             [arrObj setObject:indicator forKey:@"indicator"];
             [_scene addChild:indicator];
+            indicator.zPosition = -2;
             
         } else {
             indicator = [arrObj valueForKey:@"indicator"];
@@ -128,7 +129,7 @@
     }
     
     SKSpriteNode *indicator = [SKSpriteNode spriteNodeWithImageNamed:spriteName];
-    indicator.zPosition = 100;
+    indicator.zPosition = AMBWorldLayerHUDLower;
     indicator.name = spriteName;
     return indicator;
 }

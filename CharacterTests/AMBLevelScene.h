@@ -75,6 +75,8 @@ typedef enum {
 
 - (SKSpriteNode *)addObjectToMinimapAtPoint:(CGPoint)position withColour:(SKColor *)colour withSize:(CGFloat)size; // for adding patients to the minimap from the spawner class
 
+- (void)addNode:(SKNode *)node atWorldLayer:(AMBWorldLayers)layer;
+
 
 
 /** Called when the tutorial ends. Performs operations to the scene which make it "playable." */

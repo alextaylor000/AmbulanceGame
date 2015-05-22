@@ -76,7 +76,7 @@ typedef enum {
 
     _notificationNode = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:CGSizeMake(50, 50)];
     _notificationNode.size = CGSizeMake(sNotificationFuelEmpty.size.width * sizeMult, sNotificationFuelEmpty.size.height * sizeMult);
-    _notificationNode.zPosition = 1000;
+    _notificationNode.zPosition = AMBWorldLayerHUDUpper;
     _notificationNode.alpha = 0;
 
     
@@ -101,7 +101,7 @@ typedef enum {
     
 
     
-    _labelScore.zPosition = 999;
+    _labelScore.zPosition = AMBWorldLayerHUDUpper;
     
     return _labelScore;
 }

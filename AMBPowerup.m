@@ -25,7 +25,7 @@
     }
     
     if (self = [super initWithTexture:texture]) {
-        self.zPosition = 10;
+        self.zPosition = AMBWorldLayerInteractives;
         
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
         self.physicsBody.categoryBitMask = categoryPowerup;

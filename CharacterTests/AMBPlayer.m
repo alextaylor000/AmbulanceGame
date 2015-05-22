@@ -81,7 +81,7 @@ typedef enum {
     //self.size = CGSizeMake(self.size.width*0.75,self.size.height*0.75);
     //self.anchorPoint = CGPointMake(0.35, 0.5);
     self.zRotation = DegreesToRadians(90);
-    self.zPosition = 100;
+    self.zPosition = AMBWorldLayerPlayer;
     
     // physics (for collisions)
     self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(self.size.width * 0.8, self.size.height * 0.8)];
@@ -132,7 +132,6 @@ typedef enum {
     // bubble
     _patientBubble = [SKSpriteNode spriteNodeWithTexture:sPatientBubble];
     _patientBubble.position = CGPointMake(70, -50);
-    _patientBubble.zPosition = 99;
     _patientBubble.alpha = 0;
     _patientBubble.xScale = 0;
 

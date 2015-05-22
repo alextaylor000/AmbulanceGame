@@ -56,7 +56,7 @@ typedef enum {
 @property SKSpriteNode *miniPlayer; // for the minimap
 @property SKSpriteNode *miniHospital;
 
-
+@property NSMutableArray *layers;
 @property NSMutableArray *trafficVehicles; // for enumerating the traffic objects during update loop
 
 
@@ -156,6 +156,8 @@ typedef enum {
         self.backgroundColor = [SKColor yellowColor];
         self.physicsWorld.contactDelegate = self;
         
+            
+        
         
         // save initial conditions for game mode and restarting.
         _initialConditions = @{
@@ -198,6 +200,8 @@ typedef enum {
         
         // set up scene
         [self createWorldWithLevel:levelName];  // set up tilemap
+        
+        
         [self createMinimap];                   // minimap
         [self createSpawners];                  // used to be in createWorld
         [self addPlayerUsingSprite:vehicleType];
@@ -205,7 +209,6 @@ typedef enum {
         
         // init camera
         _camera = [[AMBCamera alloc] initWithTargetSprite:_player];
-        _camera.zPosition = 999;
         [_tilemap addChild:_camera];
         _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
         
@@ -342,14 +345,13 @@ typedef enum {
     
     _miniMap = [SKSpriteNode spriteNodeWithImageNamed:@"level01_firstdraft_MINI-256.png"];
     _miniMap.anchorPoint = CGPointMake(0, 0);
-    _miniMap.zPosition = 1000;
+    _miniMap.zPosition = AMBWorldLayerHUDUpper;
 
     _minimapScaleFactor = _miniMap.size.width / (_tilemap.mapSize.width * _tilemap.tileSize.width); // makes objects 1 tile big
 
     _miniMapContainer = [SKNode node];
     [_miniMapContainer addChild:_miniMap];
     
-//    SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor greenColor] size:CGSizeMake(150,150)]; // TODO: change this colour as appropriate
     SKSpriteNode *maskNode = [SKSpriteNode spriteNodeWithImageNamed:@"minimap_mask"];
     SKSpriteNode *frameNode = [SKSpriteNode spriteNodeWithImageNamed:@"minimap_frame"];
     
@@ -359,6 +361,7 @@ typedef enum {
     [miniMapFrame addChild:maskNode];
     [miniMapFrame addChild:_miniMapContainer];
     [miniMapFrame addChild:frameNode];
+    miniMapFrame.zPosition = -1;
 
     miniMapFrame.position = CGPointMake(-self.size.width/2 + 100, self.size.height/2-100);
     [self addChild:miniMapFrame];
@@ -373,7 +376,6 @@ typedef enum {
 
     CGPoint posScaled = CGPointMultiplyScalar(position, _minimapScaleFactor);
     object.position = posScaled;
-    object.zPosition = 100;
     [_miniMap addChild:object];
 
 #if DEBUG_MINIMAP
@@ -404,11 +406,9 @@ typedef enum {
     
     _player = [[AMBPlayer alloc] initWithSprite:vehicleType];
     _player.position = CGPointMake(_playerSpawnPoint.x, _playerSpawnPoint.y);
+    _player.zPosition = 999;
 
     [self addMovingCharacter:_player toLayer:_mapLayerRoad];
-#if DEBUG
-    NSLog(@"adding player at %1.0f,%1.0f",_playerSpawnPoint.x,_playerSpawnPoint.y);
-#endif
     
     
     _miniPlayer = [self addObjectToMinimapAtPoint:_player.position withColour:[SKColor greenColor] withSize:1];
@@ -535,16 +535,32 @@ typedef enum {
     _worldNode.position = CGPointMake(0, sceneHeight); // camera offset
     [self addChild:_worldNode];
     
+    
+    
     [self levelWithTilemap:level_name];
 
     if (_tilemap) {
         [_worldNode addChild:_tilemap];
+        
+        _layers = [NSMutableArray arrayWithCapacity:AMBWorldLayerCount];
+        for (int i = 0; i < AMBWorldLayerCount; i++) {
+            SKNode *layer = [[SKNode alloc] init];
+            layer.zPosition = i - AMBWorldLayerCount;
+            [_tilemap addChild:layer];
+            [(NSMutableArray *)_layers addObject:layer];
+        }
         
     }
     
     
     
 }
+
+- (void)addNode:(SKNode *)node atWorldLayer:(AMBWorldLayers)layer {
+    SKNode *layerNode = self.layers[layer];
+    [layerNode addChild:node];
+}
+
 
 
 - (void)createSpawners {
@@ -728,19 +744,18 @@ typedef enum {
 - (void)levelWithTilemap:(NSString *)tilemapFile {
     _tilemap = [self tileMapFromFile:tilemapFile];
     
+
+    _mapLayerInteractives = [SKNode node];
+    _mapLayerInteractives.userData = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithFloat:0] forKey:@"childRotation"];
+    
+    [_tilemap addChild:_mapLayerInteractives];
+    
+    
     // traffic layer
     _mapLayerTrafficAI = [SKNode node];
     [_tilemap addChild:_mapLayerTrafficAI];
     
     
-    // "interactives" layer. fuel, invincibility, and patients - anything that needs to rotate against the camera's rotation
-    CGFloat rotation = 0;
-
-    
-    _mapLayerInteractives = [SKNode node];
-    _mapLayerInteractives.userData = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithFloat:rotation] forKey:@"childRotation"];
-    
-    [_tilemap addChild:_mapLayerInteractives];
     
     
     if (_tilemap) {

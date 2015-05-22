@@ -69,8 +69,7 @@
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
         self.physicsBody.categoryBitMask = categoryPatient;
         self.physicsBody.collisionBitMask = 0x00000000;
-
-
+        self.zPosition = AMBWorldLayerInteractives;
         
         self.name = @"patient";
         self.position = position;
@@ -163,20 +162,6 @@
 }
 
 
-- (void)labelDisplay:(NSString *)text {
-    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"Upheaval Pro"];
-    label.text = text;
-    label.fontColor = [SKColor yellowColor];
-    label.fontSize = 80;
-    label.alpha = 0;
-    label.zPosition = 1000;
-    [self.parent addChild:label];
-    
-    SKAction *action;
-    action = [SKAction sequence:@[[SKAction fadeInWithDuration:0.075],[SKAction waitForDuration:2.0],[SKAction fadeOutWithDuration:0.075]]];
-    [label runAction:action];
-
-}
 
 - (void)storePatientUserData {
     // Defines severity data and stashes it in the node's userData property.

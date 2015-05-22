@@ -43,11 +43,6 @@
         // set initial position to center on the target sprite
         self.position = _targetSprite.position;
         
-#if DEBUG
-        SKSpriteNode *boundingBox = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor] size:_boundingBox];
-        boundingBox.alpha = 0.15;
-        [self addChild:boundingBox];
-#endif
     }
     
     return self;

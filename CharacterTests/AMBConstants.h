@@ -15,6 +15,16 @@ static const NSTimeInterval GAMETYPE_SUDDEN_LENGTH = 45; // countdown timer for 
 static const NSTimeInterval SUDDEN_DEATH_PATIENT_TIME_BONUS = 30; // you get this many seconds for each patient delivered
 
 
+typedef NS_ENUM(int, AMBWorldLayers) {
+    AMBWorldLayerTerrain,
+    AMBWorldLayerInteractives,
+    AMBWorldLayerTraffic,
+    AMBWorldLayerPlayer,
+    AMBWorldLayerHUDLower, // for stuff like the indicators
+    AMBWorldLayerHUDUpper,
+    AMBWorldLayerCount // thanks, Adventure ;)
+};
+
 typedef NS_ENUM(int, AMBVehicleType) {
     AMBVehicleWhite,
     AMBVehicleRed,
