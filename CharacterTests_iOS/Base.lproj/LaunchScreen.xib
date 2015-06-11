@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,17 +11,31 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="ambulancedash_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="eln-JZ-gMS">
-                    <rect key="frame" x="137" y="93" width="327" height="135"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="ambulancedash_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="eln-JZ-gMS">
+                    <rect key="frame" x="77" y="172.5" width="327" height="135"/>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2015 Alex Taylor" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Yp-32-NXc">
+                    <rect key="frame" x="171" y="315" width="138.5" height="19.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.78431372549019607" green="0.13725490196078433" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="centerY" secondItem="eln-JZ-gMS" secondAttribute="centerY" id="Gfd-Pp-rTE"/>
                 <constraint firstAttribute="centerX" secondItem="eln-JZ-gMS" secondAttribute="centerX" id="Pe3-Cq-u4L"/>
-                <constraint firstItem="eln-JZ-gMS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="118" id="YDu-OX-a0L"/>
+                <constraint firstAttribute="bottom" secondItem="7Yp-32-NXc" secondAttribute="bottom" constant="50" id="U9X-IC-TjA"/>
+                <constraint firstItem="7Yp-32-NXc" firstAttribute="top" secondItem="eln-JZ-gMS" secondAttribute="bottom" constant="8" id="Uiq-AD-qRO"/>
+                <constraint firstAttribute="centerX" secondItem="7Yp-32-NXc" secondAttribute="centerX" constant="-0.5" id="ffA-Qj-GGx"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="U9X-IC-TjA"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>

@@ -17,6 +17,18 @@
 		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
+		B92DEF1C1B27F15600C72105 /* item_dayshift.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF161B27F15600C72105 /* item_dayshift.png */; };
+		B92DEF1D1B27F15600C72105 /* item_dayshift.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF161B27F15600C72105 /* item_dayshift.png */; };
+		B92DEF1E1B27F15600C72105 /* item_endless.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF171B27F15600C72105 /* item_endless.png */; };
+		B92DEF1F1B27F15600C72105 /* item_endless.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF171B27F15600C72105 /* item_endless.png */; };
+		B92DEF201B27F15600C72105 /* item_game-center.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF181B27F15600C72105 /* item_game-center.png */; };
+		B92DEF211B27F15600C72105 /* item_game-center.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF181B27F15600C72105 /* item_game-center.png */; };
+		B92DEF221B27F15600C72105 /* item_help.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF191B27F15600C72105 /* item_help.png */; };
+		B92DEF231B27F15600C72105 /* item_help.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF191B27F15600C72105 /* item_help.png */; };
+		B92DEF241B27F15600C72105 /* item_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF1A1B27F15600C72105 /* item_settings.png */; };
+		B92DEF251B27F15600C72105 /* item_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF1A1B27F15600C72105 /* item_settings.png */; };
+		B92DEF261B27F15600C72105 /* item_sudden-death.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF1B1B27F15600C72105 /* item_sudden-death.png */; };
+		B92DEF271B27F15600C72105 /* item_sudden-death.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF1B1B27F15600C72105 /* item_sudden-death.png */; };
 		B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */; };
 		B94E27D81AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
 		B94E27D91AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
@@ -131,6 +143,12 @@
 		B91EF2491978E7BF00E66405 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
+		B92DEF161B27F15600C72105 /* item_dayshift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_dayshift.png; sourceTree = "<group>"; };
+		B92DEF171B27F15600C72105 /* item_endless.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_endless.png; sourceTree = "<group>"; };
+		B92DEF181B27F15600C72105 /* item_game-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item_game-center.png"; sourceTree = "<group>"; };
+		B92DEF191B27F15600C72105 /* item_help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_help.png; sourceTree = "<group>"; };
+		B92DEF1A1B27F15600C72105 /* item_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_settings.png; sourceTree = "<group>"; };
+		B92DEF1B1B27F15600C72105 /* item_sudden-death.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item_sudden-death.png"; sourceTree = "<group>"; };
 		B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B94E27D71AD9F5F5000919D1 /* AMBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBConstants.h; sourceTree = "<group>"; };
 		B966BA701A2A9A9900145FA9 /* AMBTrafficVehicleState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicleState.h; sourceTree = "<group>"; };
@@ -260,6 +278,19 @@
 			path = CharacterTests/SKTUtils;
 			sourceTree = "<group>";
 		};
+		B92DEF121B27EAC300C72105 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				B92DEF161B27F15600C72105 /* item_dayshift.png */,
+				B92DEF171B27F15600C72105 /* item_endless.png */,
+				B92DEF181B27F15600C72105 /* item_game-center.png */,
+				B92DEF191B27F15600C72105 /* item_help.png */,
+				B92DEF1A1B27F15600C72105 /* item_settings.png */,
+				B92DEF1B1B27F15600C72105 /* item_sudden-death.png */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
 		B96A845219BAB723002E058B /* Levels */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +405,7 @@
 		B98823BF19699E3A00903B73 /* GameArt */ = {
 			isa = PBXGroup;
 			children = (
+				B92DEF121B27EAC300C72105 /* Menu */,
 				B9EE2F011AA3C43100909137 /* ambulancedash_logo.png */,
 				B9EE2F021AA3C43100909137 /* ambulancedash_logo@2x.png */,
 				B9BCC0611A803EE800FF2BAE /* pause.png */,
@@ -590,9 +622,12 @@
 				B9C8E4FF1A533449003F7354 /* GameObjectSprites.atlas in Resources */,
 				B9BCC0621A803EE800FF2BAE /* pause.png in Resources */,
 				B9E738621AB0044600EBA587 /* road_tilemap_red.png in Resources */,
+				B92DEF241B27F15600C72105 /* item_settings.png in Resources */,
 				B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */,
 				B9EE2F031AA3C43100909137 /* ambulancedash_logo.png in Resources */,
 				B9EA88161AF1E693001AC3B7 /* level01_endless.tmx in Resources */,
+				B92DEF261B27F15600C72105 /* item_sudden-death.png in Resources */,
+				B92DEF221B27F15600C72105 /* item_help.png in Resources */,
 				B9EA88131AF1E4BC001AC3B7 /* level01_dayshift.tmx in Resources */,
 				B9E738671AB13D9D00EBA587 /* road_tilemap_red@2x.png in Resources */,
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
@@ -600,11 +635,14 @@
 				B9A4BD381A959F8F00C70201 /* notifications.atlas in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B9EE2F051AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */,
+				B92DEF201B27F15600C72105 /* item_game-center.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B9C4DD981AC667020028DA50 /* level01_v002.tmx in Resources */,
 				B9A4BD321A958BBF00C70201 /* level01_v001.tmx in Resources */,
 				B98823951969998400903B73 /* MainMenu.xib in Resources */,
+				B92DEF1E1B27F15600C72105 /* item_endless.png in Resources */,
 				B903B1791A68D60F00414D8E /* level01_firstdraft_MINI-256.png in Resources */,
+				B92DEF1C1B27F15600C72105 /* item_dayshift.png in Resources */,
 				B9A4BD431A99990A00C70201 /* tutorial.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -617,6 +655,7 @@
 				B9A4BD331A958BBF00C70201 /* level01_v001.tmx in Resources */,
 				B9EA88171AF1E693001AC3B7 /* level01_endless.tmx in Resources */,
 				B9EE2F061AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */,
+				B92DEF271B27F15600C72105 /* item_sudden-death.png in Resources */,
 				B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */,
 				B9EE2F041AA3C43100909137 /* ambulancedash_logo.png in Resources */,
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
@@ -624,11 +663,16 @@
 				B9EA88141AF1E4BC001AC3B7 /* level01_dayshift.tmx in Resources */,
 				B9C4DD991AC667020028DA50 /* level01_v002.tmx in Resources */,
 				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
+				B92DEF1F1B27F15600C72105 /* item_endless.png in Resources */,
 				B9A4BD441A99990A00C70201 /* tutorial.atlas in Resources */,
 				B9BCC0631A803EE800FF2BAE /* pause.png in Resources */,
 				B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */,
+				B92DEF251B27F15600C72105 /* item_settings.png in Resources */,
 				B9E738631AB0044600EBA587 /* road_tilemap_red.png in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
+				B92DEF1D1B27F15600C72105 /* item_dayshift.png in Resources */,
+				B92DEF211B27F15600C72105 /* item_game-center.png in Resources */,
+				B92DEF231B27F15600C72105 /* item_help.png in Resources */,
 				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
 				B9E738681AB13D9D00EBA587 /* road_tilemap_red@2x.png in Resources */,
 			);
@@ -883,7 +927,7 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = CharacterTests_iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "Dash!";
@@ -902,7 +946,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = CharacterTests_iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "Dash!";

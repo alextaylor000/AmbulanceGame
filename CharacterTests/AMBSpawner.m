@@ -117,7 +117,7 @@
         // PATIENT SPAWN
         if ([objectToSpawn isKindOfClass:[AMBPatient class]]) {
             // add indicator
-            [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
+//            [owningScene.indicator addTarget:objectToSpawn type:IndicatorPatient];
             
             // add to minimap
             SKSpriteNode *miniPatient = [owningScene addObjectToMinimapAtPoint:objectToSpawn.position withColour:[SKColor whiteColor] withSize:1.25];

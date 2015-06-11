@@ -19,7 +19,7 @@
     
     // initialize level and vehicle type
     self.vehicleType = 0;
-    self.levelType = 0;
+    self.levelType = 0; // currently only one level type
 }
 
 
