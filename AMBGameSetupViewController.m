@@ -20,6 +20,30 @@
     // initialize level and vehicle type
     self.vehicleType = 0;
     self.levelType = 0; // currently only one level type
+    
+    UIImage *gameTypeImage;
+    NSString *gameTypeDescription;
+    
+    switch (self.gameType) {
+        case AMBGameTypeDayShift:
+            gameTypeImage = [UIImage imageNamed:@"item_dayshift"];
+            gameTypeDescription = @"Your city needs you! Rescue as many patients as you can in 3 minutes.";
+            break;
+            
+        case AMBGameTypeEndless:
+            gameTypeImage = [UIImage imageNamed:@"item_endless"];
+            gameTypeDescription = @"Saving lives is your one and only focus in life. No timer, endless patients.";
+            break;
+            
+        case AMBGameTypeSuddenDeath:
+            gameTypeImage = [UIImage imageNamed:@"item_sudden-death"];
+            gameTypeDescription = @"Pay it forward. Each patient you rescue gives you more time on your dwindling clock.";
+            break;
+    }
+    
+    [self.gameTypeTitle setImage:gameTypeImage];
+    [self.gameTypeDescription setText:gameTypeDescription];
+
 }
 
 

@@ -29,6 +29,10 @@
 		B92DEF251B27F15600C72105 /* item_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF1A1B27F15600C72105 /* item_settings.png */; };
 		B92DEF261B27F15600C72105 /* item_sudden-death.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF1B1B27F15600C72105 /* item_sudden-death.png */; };
 		B92DEF271B27F15600C72105 /* item_sudden-death.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF1B1B27F15600C72105 /* item_sudden-death.png */; };
+		B92DEF2A1B2959C000C72105 /* item_back.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF281B2959C000C72105 /* item_back.png */; };
+		B92DEF2B1B2959C000C72105 /* item_back.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF281B2959C000C72105 /* item_back.png */; };
+		B92DEF2C1B2959C000C72105 /* item_go.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF291B2959C000C72105 /* item_go.png */; };
+		B92DEF2D1B2959C000C72105 /* item_go.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF291B2959C000C72105 /* item_go.png */; };
 		B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */; };
 		B94E27D81AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
 		B94E27D91AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
@@ -149,6 +153,8 @@
 		B92DEF191B27F15600C72105 /* item_help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_help.png; sourceTree = "<group>"; };
 		B92DEF1A1B27F15600C72105 /* item_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_settings.png; sourceTree = "<group>"; };
 		B92DEF1B1B27F15600C72105 /* item_sudden-death.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item_sudden-death.png"; sourceTree = "<group>"; };
+		B92DEF281B2959C000C72105 /* item_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_back.png; sourceTree = "<group>"; };
+		B92DEF291B2959C000C72105 /* item_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_go.png; sourceTree = "<group>"; };
 		B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B94E27D71AD9F5F5000919D1 /* AMBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBConstants.h; sourceTree = "<group>"; };
 		B966BA701A2A9A9900145FA9 /* AMBTrafficVehicleState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicleState.h; sourceTree = "<group>"; };
@@ -281,6 +287,8 @@
 		B92DEF121B27EAC300C72105 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				B92DEF281B2959C000C72105 /* item_back.png */,
+				B92DEF291B2959C000C72105 /* item_go.png */,
 				B92DEF161B27F15600C72105 /* item_dayshift.png */,
 				B92DEF171B27F15600C72105 /* item_endless.png */,
 				B92DEF181B27F15600C72105 /* item_game-center.png */,
@@ -633,9 +641,11 @@
 				B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */,
 				B988238D1969998400903B73 /* InfoPlist.strings in Resources */,
 				B9A4BD381A959F8F00C70201 /* notifications.atlas in Resources */,
+				B92DEF2C1B2959C000C72105 /* item_go.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
 				B9EE2F051AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */,
 				B92DEF201B27F15600C72105 /* item_game-center.png in Resources */,
+				B92DEF2A1B2959C000C72105 /* item_back.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B9C4DD981AC667020028DA50 /* level01_v002.tmx in Resources */,
 				B9A4BD321A958BBF00C70201 /* level01_v001.tmx in Resources */,
@@ -663,7 +673,9 @@
 				B9EA88141AF1E4BC001AC3B7 /* level01_dayshift.tmx in Resources */,
 				B9C4DD991AC667020028DA50 /* level01_v002.tmx in Resources */,
 				B9C8E4E91A4B749D003F7354 /* sirens.atlas in Resources */,
+				B92DEF2B1B2959C000C72105 /* item_back.png in Resources */,
 				B92DEF1F1B27F15600C72105 /* item_endless.png in Resources */,
+				B92DEF2D1B2959C000C72105 /* item_go.png in Resources */,
 				B9A4BD441A99990A00C70201 /* tutorial.atlas in Resources */,
 				B9BCC0631A803EE800FF2BAE /* pause.png in Resources */,
 				B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */,

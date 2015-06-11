@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ble-Ic-dqM">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -310,13 +309,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="SELECT VEHICLE:" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pwW-7U-0cC">
-                                <rect key="frame" x="205" y="182" width="190" height="30"/>
+                                <rect key="frame" x="199" y="335" width="190" height="30"/>
                                 <color key="textColor" white="0.86693548389999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMA-Xn-fB7">
-                                <rect key="frame" x="136" y="220" width="50" height="30"/>
+                                <rect key="frame" x="130" y="373" width="50" height="30"/>
                                 <state key="normal" title="Classic">
                                     <color key="titleColor" red="1" green="0.91357858290000005" blue="0.28640266580000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -326,7 +325,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7y2-2a-ldQ">
-                                <rect key="frame" x="214" y="220" width="73" height="30"/>
+                                <rect key="frame" x="208" y="373" width="73" height="30"/>
                                 <state key="normal" title="Red Racer">
                                     <color key="titleColor" red="1" green="0.91357858290000005" blue="0.28640266580000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -336,7 +335,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JFf-Bw-2OZ">
-                                <rect key="frame" x="311" y="220" width="64" height="30"/>
+                                <rect key="frame" x="305" y="373" width="64" height="30"/>
                                 <state key="normal" title="Special 1">
                                     <color key="titleColor" red="1" green="0.91357858290000005" blue="0.28640266580000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -346,7 +345,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mC6-az-LMU">
-                                <rect key="frame" x="400" y="220" width="64" height="30"/>
+                                <rect key="frame" x="394" y="373" width="64" height="30"/>
                                 <state key="normal" title="Special 2">
                                     <color key="titleColor" red="1" green="0.91357858290000005" blue="0.28640266580000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -355,9 +354,14 @@
                                     <action selector="vehicleSelected:" destination="u7r-7G-BT1" eventType="touchUpInside" id="THe-94-sHj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeO-fy-mq1">
-                                <rect key="frame" x="26" y="550" width="35" height="30"/>
-                                <state key="normal" title="Back">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeO-fy-mq1">
+                                <rect key="frame" x="36" y="550" width="68" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68" id="1OA-XO-Jsc"/>
+                                    <constraint firstAttribute="height" constant="30" id="RrY-To-Uia"/>
+                                    <constraint firstAttribute="width" secondItem="xeO-fy-mq1" secondAttribute="height" multiplier="34:15" id="ZZ8-o2-lfu"/>
+                                </constraints>
+                                <state key="normal" image="item_back.png">
                                     <color key="titleColor" red="1" green="0.91357858290000005" blue="0.28640266580000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -365,33 +369,106 @@
                                     <action selector="backButtonPressed:" destination="u7r-7G-BT1" eventType="touchUpInside" id="Zdh-tv-tG0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLC-s4-6jM">
-                                <rect key="frame" x="249" y="491" width="103" height="65"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="41"/>
-                                <state key="normal" title="GO!">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="item_sudden-death.png" translatesAutoresizingMaskIntoConstraints="NO" id="dXG-hT-GQW">
+                                <rect key="frame" x="97" y="100" width="407" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="5WV-DL-WY7">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="35"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="400" id="KZe-TQ-Snf"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="KZe-TQ-Snf"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="-11" y="57" width="407" height="38"/>
+                                </variation>
+                            </imageView>
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cEW-vu-HW7">
+                                <rect key="frame" x="125" y="167" width="350" height="101"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="1eF-i5-gd2"/>
+                                    <constraint firstAttribute="width" constant="350" id="MtY-Uc-awV">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="250"/>
+                                    </constraint>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
+                                <color key="textColor" red="0.93854748603351956" green="0.93854748603351956" blue="0.93854748603351956" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1eF-i5-gd2"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="75" y="110" width="250" height="119"/>
+                                </variation>
+                            </textView>
+                            <button opaque="NO" tag="11" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLC-s4-6jM">
+                                <rect key="frame" x="423" y="532" width="139" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="7jk-9j-jjN"/>
+                                    <constraint firstAttribute="width" constant="139" id="enp-ww-1LE"/>
+                                    <constraint firstAttribute="width" constant="186" id="fw0-sC-lhu"/>
+                                    <constraint firstAttribute="height" constant="48" id="t2b-vN-9vz"/>
+                                    <constraint firstAttribute="width" secondItem="bLC-s4-6jM" secondAttribute="height" multiplier="93:32" id="wjg-zX-40l"/>
+                                </constraints>
+                                <state key="normal" image="item_go.png">
                                     <color key="titleColor" red="1" green="0.91357858290000005" blue="0.28640266580000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="7jk-9j-jjN"/>
+                                        <exclude reference="fw0-sC-lhu"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="goButtonPressed:" destination="u7r-7G-BT1" eventType="touchUpInside" id="BDX-Qq-YG9"/>
                                     <action selector="levelSelected:" destination="u7r-7G-BT1" eventType="touchUpInside" id="ce5-52-Yxk"/>
                                 </connections>
                             </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="ambulancedash_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="LFN-Za-1D0">
-                                <rect key="frame" x="137" y="75" width="327" height="135"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.78431372549019607" green="0.13725490196078433" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="LFN-Za-1D0" secondAttribute="centerX" id="B0u-TO-rlq"/>
-                            <constraint firstItem="LFN-Za-1D0" firstAttribute="top" secondItem="Kpy-nb-Uuy" secondAttribute="bottom" constant="55" id="W0A-1m-o6Z"/>
-                            <constraint firstItem="LFN-Za-1D0" firstAttribute="top" relation="lessThanOrEqual" secondItem="Kpy-nb-Uuy" secondAttribute="bottom" constant="200" id="ZjN-8h-pGo"/>
+                            <constraint firstItem="xeO-fy-mq1" firstAttribute="leading" secondItem="5zq-qL-Xcf" secondAttribute="leadingMargin" constant="20" id="3YK-kb-2et"/>
+                            <constraint firstAttribute="centerX" secondItem="cEW-vu-HW7" secondAttribute="centerX" id="73w-Zt-hMw"/>
+                            <constraint firstItem="cEW-vu-HW7" firstAttribute="top" secondItem="dXG-hT-GQW" secondAttribute="bottom" constant="8" id="Dt4-8c-wch"/>
+                            <constraint firstAttribute="width" secondItem="dXG-hT-GQW" secondAttribute="width" multiplier="0.45" id="UDC-wQ-b64"/>
+                            <constraint firstItem="cEW-vu-HW7" firstAttribute="leading" secondItem="dXG-hT-GQW" secondAttribute="leading" constant="63" id="bF2-qE-w8a"/>
+                            <constraint firstItem="cEW-vu-HW7" firstAttribute="width" secondItem="dXG-hT-GQW" secondAttribute="width" id="ecQ-6i-cBi"/>
+                            <constraint firstItem="cEW-vu-HW7" firstAttribute="leading" secondItem="dXG-hT-GQW" secondAttribute="leading" id="efb-0U-v2o"/>
+                            <constraint firstItem="KyD-c4-k88" firstAttribute="top" secondItem="bLC-s4-6jM" secondAttribute="bottom" constant="20" id="f6B-Gx-KT9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bLC-s4-6jM" secondAttribute="trailing" id="hqb-Ss-s2u"/>
+                            <constraint firstAttribute="centerX" secondItem="dXG-hT-GQW" secondAttribute="centerX" id="i6z-h6-pzO"/>
+                            <constraint firstItem="KyD-c4-k88" firstAttribute="top" secondItem="xeO-fy-mq1" secondAttribute="bottom" constant="20" id="iND-4K-142"/>
+                            <constraint firstItem="dXG-hT-GQW" firstAttribute="top" secondItem="Kpy-nb-Uuy" secondAttribute="bottom" constant="80" id="vdu-cq-06Q"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="UDC-wQ-b64"/>
+                                <exclude reference="bF2-qE-w8a"/>
+                                <exclude reference="ecQ-6i-cBi"/>
+                                <exclude reference="efb-0U-v2o"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="bF2-qE-w8a"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="gameTypeDescription" destination="cEW-vu-HW7" id="GcA-kb-0Hi"/>
+                        <outlet property="gameTypeTitle" destination="dXG-hT-GQW" id="pOa-c3-ogA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rN9-yZ-4mj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2546" y="196"/>
+            <point key="canvasLocation" x="2544" y="195"/>
         </scene>
         <!--Credits Menu-->
         <scene sceneID="2rs-FS-Ky4">
@@ -504,9 +581,11 @@
     </scenes>
     <resources>
         <image name="ambulancedash_logo.png" width="327" height="135"/>
+        <image name="item_back.png" width="373" height="189"/>
         <image name="item_dayshift.png" width="1458" height="271"/>
         <image name="item_endless.png" width="1217" height="271"/>
         <image name="item_game-center.png" width="489" height="429"/>
+        <image name="item_go.png" width="1095" height="383"/>
         <image name="item_help.png" width="404" height="404"/>
         <image name="item_settings.png" width="407" height="428"/>
         <image name="item_sudden-death.png" width="2036" height="271"/>

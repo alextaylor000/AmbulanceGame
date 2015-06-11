@@ -14,6 +14,9 @@
 @property (nonatomic, assign) AMBGameType gameType;
 @property (nonatomic, assign) AMBVehicleType vehicleType;
 @property (nonatomic, assign) AMBLevelType levelType;
+@property (weak, nonatomic) IBOutlet UIImageView *gameTypeTitle;
+@property (weak, nonatomic) IBOutlet UITextView *gameTypeDescription;
+
 
 
 @end
