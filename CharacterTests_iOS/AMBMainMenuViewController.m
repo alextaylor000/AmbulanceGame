@@ -10,6 +10,8 @@
 #import "AMBGameSetupViewController.h"
 #import "GameViewController.h"
 #import "AMBCreditsViewController.h"
+#import "AMBSettingsViewController.h"
+#import "AMBGameCenterViewController.h"
 #import "AMBLevelScene.h" // for preloading
 
 @interface AMBMainMenuViewController ()
@@ -57,6 +59,16 @@
     AMBCreditsViewController *credits = [self.storyboard instantiateViewControllerWithIdentifier:@"AMBCreditsViewController"];
     
     [self.navigationController pushViewController:credits animated:YES];
+}
+
+- (IBAction)gameCenterButtonPressed:(id)sender {
+    AMBGameCenterViewController *gameCenter = [self.storyboard instantiateViewControllerWithIdentifier:@"AMBGameCenterViewController"];
+    [self.navigationController pushViewController:gameCenter animated:YES];
+}
+
+- (IBAction)settingsButtonPressed:(id)sender {
+    AMBSettingsViewController *settings = [self.storyboard instantiateViewControllerWithIdentifier:@"AMBSettingsViewController"];
+    [self.navigationController pushViewController:settings animated:YES];
 }
 
 - (IBAction)quickStartButtonPressed:(UIButton *)sender {

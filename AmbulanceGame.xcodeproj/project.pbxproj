@@ -17,6 +17,8 @@
 		B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2471978E7BF00E66405 /* SKNode+SKTExtras.m */; };
 		B91EF24F1978E7BF00E66405 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = B91EF2491978E7BF00E66405 /* SKTAudio.m */; };
 		B91EF2501978E7BF00E66405 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = B91EF24B1978E7BF00E66405 /* SKTUtils.mm */; };
+		B9271A531B6FE802002E25E3 /* item_controls.png in Resources */ = {isa = PBXBuildFile; fileRef = B9271A521B6FE802002E25E3 /* item_controls.png */; };
+		B9271A541B6FE802002E25E3 /* item_controls.png in Resources */ = {isa = PBXBuildFile; fileRef = B9271A521B6FE802002E25E3 /* item_controls.png */; };
 		B92DEF1C1B27F15600C72105 /* item_dayshift.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF161B27F15600C72105 /* item_dayshift.png */; };
 		B92DEF1D1B27F15600C72105 /* item_dayshift.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF161B27F15600C72105 /* item_dayshift.png */; };
 		B92DEF1E1B27F15600C72105 /* item_endless.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF171B27F15600C72105 /* item_endless.png */; };
@@ -36,6 +38,12 @@
 		B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */; };
 		B94E27D81AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
 		B94E27D91AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
+		B95FEC641B8827F30014B4E8 /* settings_header.png in Resources */ = {isa = PBXBuildFile; fileRef = B95FEC631B8827F30014B4E8 /* settings_header.png */; };
+		B95FEC651B8827F30014B4E8 /* settings_header.png in Resources */ = {isa = PBXBuildFile; fileRef = B95FEC631B8827F30014B4E8 /* settings_header.png */; };
+		B95FEC681B88289F0014B4E8 /* AMBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95FEC671B88289F0014B4E8 /* AMBSettingsViewController.m */; };
+		B95FEC691B88289F0014B4E8 /* AMBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95FEC671B88289F0014B4E8 /* AMBSettingsViewController.m */; };
+		B95FEC6C1B882A990014B4E8 /* AMBGameCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95FEC6B1B882A990014B4E8 /* AMBGameCenterViewController.m */; };
+		B95FEC6D1B882A990014B4E8 /* AMBGameCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95FEC6B1B882A990014B4E8 /* AMBGameCenterViewController.m */; };
 		B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */ = {isa = PBXBuildFile; fileRef = B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
 		B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
@@ -147,6 +155,7 @@
 		B91EF2491978E7BF00E66405 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
 		B91EF24A1978E7BF00E66405 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
 		B91EF24B1978E7BF00E66405 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
+		B9271A521B6FE802002E25E3 /* item_controls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_controls.png; sourceTree = "<group>"; };
 		B92DEF161B27F15600C72105 /* item_dayshift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_dayshift.png; sourceTree = "<group>"; };
 		B92DEF171B27F15600C72105 /* item_endless.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_endless.png; sourceTree = "<group>"; };
 		B92DEF181B27F15600C72105 /* item_game-center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item_game-center.png"; sourceTree = "<group>"; };
@@ -157,6 +166,11 @@
 		B92DEF291B2959C000C72105 /* item_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_go.png; sourceTree = "<group>"; };
 		B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B94E27D71AD9F5F5000919D1 /* AMBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBConstants.h; sourceTree = "<group>"; };
+		B95FEC631B8827F30014B4E8 /* settings_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_header.png; sourceTree = "<group>"; };
+		B95FEC661B88289F0014B4E8 /* AMBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBSettingsViewController.h; sourceTree = SOURCE_ROOT; };
+		B95FEC671B88289F0014B4E8 /* AMBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBSettingsViewController.m; sourceTree = SOURCE_ROOT; };
+		B95FEC6A1B882A990014B4E8 /* AMBGameCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameCenterViewController.h; path = ../AMBGameCenterViewController.h; sourceTree = "<group>"; };
+		B95FEC6B1B882A990014B4E8 /* AMBGameCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameCenterViewController.m; path = ../AMBGameCenterViewController.m; sourceTree = "<group>"; };
 		B966BA701A2A9A9900145FA9 /* AMBTrafficVehicleState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicleState.h; sourceTree = "<group>"; };
 		B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicleState.m; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* AMBScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBScoreKeeper.h; sourceTree = "<group>"; };
@@ -287,7 +301,9 @@
 		B92DEF121B27EAC300C72105 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				B95FEC631B8827F30014B4E8 /* settings_header.png */,
 				B92DEF281B2959C000C72105 /* item_back.png */,
+				B9271A521B6FE802002E25E3 /* item_controls.png */,
 				B92DEF291B2959C000C72105 /* item_go.png */,
 				B92DEF161B27F15600C72105 /* item_dayshift.png */,
 				B92DEF171B27F15600C72105 /* item_endless.png */,
@@ -325,6 +341,10 @@
 				B9C8E4A11A4B73F0003F7354 /* GameViewController.m */,
 				B91E8CAE1ADF14B300AB1A8D /* AMBGameOverViewController.h */,
 				B91E8CAF1ADF14B300AB1A8D /* AMBGameOverViewController.m */,
+				B95FEC661B88289F0014B4E8 /* AMBSettingsViewController.h */,
+				B95FEC671B88289F0014B4E8 /* AMBSettingsViewController.m */,
+				B95FEC6A1B882A990014B4E8 /* AMBGameCenterViewController.h */,
+				B95FEC6B1B882A990014B4E8 /* AMBGameCenterViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -643,8 +663,10 @@
 				B9A4BD381A959F8F00C70201 /* notifications.atlas in Resources */,
 				B92DEF2C1B2959C000C72105 /* item_go.png in Resources */,
 				B99E6F2119A16467003A7551 /* .gitignore in Resources */,
+				B95FEC641B8827F30014B4E8 /* settings_header.png in Resources */,
 				B9EE2F051AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */,
 				B92DEF201B27F15600C72105 /* item_game-center.png in Resources */,
+				B9271A531B6FE802002E25E3 /* item_controls.png in Resources */,
 				B92DEF2A1B2959C000C72105 /* item_back.png in Resources */,
 				B98823931969998400903B73 /* Credits.rtf in Resources */,
 				B9C4DD981AC667020028DA50 /* level01_v002.tmx in Resources */,
@@ -668,6 +690,7 @@
 				B92DEF271B27F15600C72105 /* item_sudden-death.png in Resources */,
 				B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */,
 				B9EE2F041AA3C43100909137 /* ambulancedash_logo.png in Resources */,
+				B95FEC651B8827F30014B4E8 /* settings_header.png in Resources */,
 				B9C8E4E51A4B749D003F7354 /* hospital.png in Resources */,
 				B903B17A1A68D66800414D8E /* level01_firstdraft_MINI-256.png in Resources */,
 				B9EA88141AF1E4BC001AC3B7 /* level01_dayshift.tmx in Resources */,
@@ -683,6 +706,7 @@
 				B9E738631AB0044600EBA587 /* road_tilemap_red.png in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
 				B92DEF1D1B27F15600C72105 /* item_dayshift.png in Resources */,
+				B9271A541B6FE802002E25E3 /* item_controls.png in Resources */,
 				B92DEF211B27F15600C72105 /* item_game-center.png in Resources */,
 				B92DEF231B27F15600C72105 /* item_help.png in Resources */,
 				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
@@ -716,9 +740,11 @@
 				B9A4BD401A985CD900C70201 /* AMBTutorial.m in Sources */,
 				B9E959B719C9239C00ACD50F /* AMBHospital.m in Sources */,
 				B911C9E919C656CC00EA85D9 /* AMBCharacter.m in Sources */,
+				B95FEC6C1B882A990014B4E8 /* AMBGameCenterViewController.m in Sources */,
 				B91EF24C1978E7BF00E66405 /* SKAction+SKTExtras.m in Sources */,
 				B98823BE19699C4400903B73 /* AMBPlayer.m in Sources */,
 				B91EF24E1978E7BF00E66405 /* SKNode+SKTExtras.m in Sources */,
+				B95FEC681B88289F0014B4E8 /* AMBSettingsViewController.m in Sources */,
 				B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */,
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
@@ -743,6 +769,7 @@
 				B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */,
 				B985AFAE1A802A1A000B3423 /* AMBCreditsViewController.m in Sources */,
 				B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */,
+				B95FEC6D1B882A990014B4E8 /* AMBGameCenterViewController.m in Sources */,
 				B94E27D91AD9F5F5000919D1 /* AMBConstants.h in Sources */,
 				B9C8E4BE1A4B747E003F7354 /* AMBScoreKeeper.m in Sources */,
 				B9C8E4C01A4B747E003F7354 /* AMBCamera.m in Sources */,
@@ -752,6 +779,7 @@
 				B9C8E4C61A4B747E003F7354 /* AMBPatient.m in Sources */,
 				B9C8E4C81A4B747E003F7354 /* AMBPlayer.m in Sources */,
 				B9A4BD411A985CD900C70201 /* AMBTutorial.m in Sources */,
+				B95FEC691B88289F0014B4E8 /* AMBSettingsViewController.m in Sources */,
 				B9C8E4CA1A4B747E003F7354 /* AMBPowerup.m in Sources */,
 				B9C8E4CC1A4B747E003F7354 /* AMBTrafficVehicle.m in Sources */,
 				B9C8E4CE1A4B747E003F7354 /* AMBTrafficVehicleState.m in Sources */,
