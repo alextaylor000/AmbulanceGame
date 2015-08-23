@@ -44,6 +44,8 @@
 		B95FEC691B88289F0014B4E8 /* AMBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95FEC671B88289F0014B4E8 /* AMBSettingsViewController.m */; };
 		B95FEC6C1B882A990014B4E8 /* AMBGameCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95FEC6B1B882A990014B4E8 /* AMBGameCenterViewController.m */; };
 		B95FEC6D1B882A990014B4E8 /* AMBGameCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95FEC6B1B882A990014B4E8 /* AMBGameCenterViewController.m */; };
+		B95FEC701B8A46BC0014B4E8 /* AMBEndlessTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = B95FEC6F1B8A46BC0014B4E8 /* AMBEndlessTimer.m */; };
+		B95FEC711B8A46BC0014B4E8 /* AMBEndlessTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = B95FEC6F1B8A46BC0014B4E8 /* AMBEndlessTimer.m */; };
 		B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */ = {isa = PBXBuildFile; fileRef = B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */; };
 		B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = B96F159819BA8379003E9809 /* AMBScoreKeeper.m */; };
 		B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B97831451A190C1F002A10BC /* AMBIndicator.m */; };
@@ -171,6 +173,8 @@
 		B95FEC671B88289F0014B4E8 /* AMBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBSettingsViewController.m; sourceTree = SOURCE_ROOT; };
 		B95FEC6A1B882A990014B4E8 /* AMBGameCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBGameCenterViewController.h; path = ../AMBGameCenterViewController.h; sourceTree = "<group>"; };
 		B95FEC6B1B882A990014B4E8 /* AMBGameCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBGameCenterViewController.m; path = ../AMBGameCenterViewController.m; sourceTree = "<group>"; };
+		B95FEC6E1B8A46BC0014B4E8 /* AMBEndlessTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBEndlessTimer.h; sourceTree = "<group>"; };
+		B95FEC6F1B8A46BC0014B4E8 /* AMBEndlessTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBEndlessTimer.m; sourceTree = "<group>"; };
 		B966BA701A2A9A9900145FA9 /* AMBTrafficVehicleState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBTrafficVehicleState.h; sourceTree = "<group>"; };
 		B966BA711A2A9A9900145FA9 /* AMBTrafficVehicleState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBTrafficVehicleState.m; sourceTree = "<group>"; };
 		B96F159719BA8379003E9809 /* AMBScoreKeeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBScoreKeeper.h; sourceTree = "<group>"; };
@@ -565,6 +569,8 @@
 				B96F159819BA8379003E9809 /* AMBScoreKeeper.m */,
 				B9EE2EF71AA2DFD900909137 /* AMBTimer.h */,
 				B9EE2EF81AA2DFD900909137 /* AMBTimer.m */,
+				B95FEC6E1B8A46BC0014B4E8 /* AMBEndlessTimer.h */,
+				B95FEC6F1B8A46BC0014B4E8 /* AMBEndlessTimer.m */,
 				B94E27D71AD9F5F5000919D1 /* AMBConstants.h */,
 			);
 			name = Logic;
@@ -748,6 +754,7 @@
 				B96F159919BA8379003E9809 /* AMBScoreKeeper.m in Sources */,
 				B99E6F2219A16467003A7551 /* JSTileMap.m in Sources */,
 				B99E6F2319A16467003A7551 /* LFCGzipUtility.m in Sources */,
+				B95FEC701B8A46BC0014B4E8 /* AMBEndlessTimer.m in Sources */,
 				B911C9E619C4DE6200EA85D9 /* AMBGameScene.m in Sources */,
 				B97831461A190C1F002A10BC /* AMBIndicator.m in Sources */,
 				B9BCC05C1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */,
@@ -768,6 +775,7 @@
 				B989BFD21ACF58EC003F9FC0 /* AMBGameOver.m in Sources */,
 				B9C8E4EF1A4B7769003F7354 /* SKNode+SKTExtras.m in Sources */,
 				B985AFAE1A802A1A000B3423 /* AMBCreditsViewController.m in Sources */,
+				B95FEC711B8A46BC0014B4E8 /* AMBEndlessTimer.m in Sources */,
 				B9C8E4F01A4B7769003F7354 /* SKTAudio.m in Sources */,
 				B95FEC6D1B882A990014B4E8 /* AMBGameCenterViewController.m in Sources */,
 				B94E27D91AD9F5F5000919D1 /* AMBConstants.h in Sources */,

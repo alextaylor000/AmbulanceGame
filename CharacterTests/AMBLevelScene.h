@@ -14,6 +14,7 @@
 #import "AMBScoreKeeper.h"
 #import "AMBTutorial.h"
 #import "AMBTimer.h"
+#import "AMBEndlessTimer.h"
 #import "AMBFuelGauge.h"
 
 typedef enum {

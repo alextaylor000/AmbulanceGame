@@ -43,6 +43,7 @@ typedef enum {
 - (void)pauseTimer;
 - (void)resumeTimer;
 - (void)timerDidEnd;
+- (NSString *)labelText;
 
 
 @end

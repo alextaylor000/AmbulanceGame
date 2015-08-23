@@ -83,4 +83,19 @@
     _timerState = AMBTimerStateEmpty;
 }
 
+- (NSString *)labelText {
+    return [self timeFormatted:self.secondsRemaining];
+}
+
+- (NSString *)timeFormatted:(int)totalSeconds // from http://stackoverflow.com/a/1739411
+{
+    
+    int seconds = totalSeconds % 60;
+    int minutes = (totalSeconds / 60) % 60;
+    //    int hours = totalSeconds / 3600;
+    
+    return [NSString stringWithFormat:@"%02d:%02d",minutes, seconds];
+}
+
+
 @end

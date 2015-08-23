@@ -239,8 +239,8 @@ typedef enum {
                 break;
                 
             case AMBGameTypeEndless:
-                _gameClock = [[AMBTimer alloc] initWithSecondsRemaining:0]; // endless!
-                labelClockText = @"∞";
+//                _gameClock = [[AMBTimer alloc] initWithSecondsRemaining:0]; // endless!
+                _gameClock = [[AMBEndlessTimer alloc] initWithSecondsRemaining:0];
                 break;
         }
         
@@ -415,15 +415,6 @@ typedef enum {
     _miniMap.position = CGPointMake(-_miniPlayer.position.x, -_miniPlayer.position.y);
 }
 
-- (NSString *)timeFormatted:(int)totalSeconds // from http://stackoverflow.com/a/1739411
-{
-    
-    int seconds = totalSeconds % 60;
-    int minutes = (totalSeconds / 60) % 60;
-//    int hours = totalSeconds / 3600;
-    
-    return [NSString stringWithFormat:@"%02d:%02d",minutes, seconds];
-}
 
 - (float)randomValueBetween:(float)low andValue:(float)high {//Used to return a random value between two points
     return (((float) arc4random() / 0xFFFFFFFFu) * (high - low)) + low;
@@ -447,7 +438,7 @@ typedef enum {
     
     // update the clock
     [_gameClock update:currentTime];
-    _labelClock.text = [self timeFormatted:[_gameClock secondsRemaining]];
+    _labelClock.text = [_gameClock labelText];
 
     // update the score
     [_scoreKeeper update];
