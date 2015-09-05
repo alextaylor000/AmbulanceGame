@@ -9,13 +9,13 @@
 #import "AMBMainMenuViewController.h"
 #import "GameViewController.h"
 #import "AMBLevelScene.h"
-#import "AMBConstants.h"
+//#import "AMBConstants.h"
 
 @interface GameViewController ()
 
 @property SKView *skView;
 @property AMBLevelScene *gameScene;
-
+@property AMBConstants *ambConstants;
 @end
 
 
@@ -30,6 +30,7 @@
         //_skView.showsPhysics = YES;
         
         
+        _ambConstants = [AMBConstants sharedInstance];
         /*  The scene is designed for iPhone aspect ratio (1.78), and simply increases the width if an iPad (1.33) is detected. */
         /* iPhone 4s: 960x640 / 1.5 */
         CGSize sceneSize = CGSizeMake(576, 1024);
@@ -52,7 +53,7 @@
 
         
         
-        NSLog(@"Presenting game view with a size of %1.0f,%1.0f, ScaleMode %ld", _skView.bounds.size.width, _skView.bounds.size.height, _gameScene.scaleMode);
+        NSLog(@"Presenting game view with a size of %1.0f,%1.0f, ScaleMode %ld", _skView.bounds.size.width, _skView.bounds.size.height, (long)_gameScene.scaleMode);
         /*
          For reference:
          0 SKSceneScaleModeFill ,
@@ -100,12 +101,12 @@
     if (self.gameType == AMBGameTypeSuddenDeath) {
         [menu addTextFieldWithConfigurationHandler:^(UITextField *textField){
             textField.keyboardType = UIKeyboardTypeNumberPad;
-            textField.placeholder = [NSString stringWithFormat:@"Bonus Time (secs): %.f", SUDDEN_DEATH_PATIENT_TIME_BONUS];
+            textField.placeholder = [NSString stringWithFormat:@"Bonus Time (secs): %.f", _ambConstants.SuddenDeathPatientTimeBonus];
         }];
         
         [menu addTextFieldWithConfigurationHandler:^(UITextField *textField){
             textField.keyboardType = UIKeyboardTypeNumberPad;
-            textField.placeholder = [NSString stringWithFormat:@"Patient TTL (secs): %.f", SUDDEN_DEATH_OVERRIDE_PATIENT_TTL ];
+            textField.placeholder = [NSString stringWithFormat:@"Patient TTL (secs): %.f", _ambConstants.SuddenDeathOverridePatientTTL ];
         }];
         UIAlertAction *update = [UIAlertAction actionWithTitle:@"Restart/sd" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
             

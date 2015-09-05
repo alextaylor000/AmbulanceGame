@@ -12,8 +12,10 @@
 # pragma mark GAME MODES
 static const NSTimeInterval GAMETYPE_DAYSHIFT_LENGTH = 180; // countdown timer for the "day shift" game mode
 static const NSTimeInterval GAMETYPE_SUDDEN_LENGTH = 45; // countdown timer for the "sudden death" game mode
-static NSTimeInterval SUDDEN_DEATH_PATIENT_TIME_BONUS = 30; // you get this many seconds for each patient delivered
-static NSTimeInterval SUDDEN_DEATH_OVERRIDE_PATIENT_TTL = 0; // can be overridden in-game for debug purposes
+//static NSTimeInterval SUDDEN_DEATH_PATIENT_TIME_BONUS = 30; // you get this many seconds for each patient delivered
+//static NSTimeInterval SUDDEN_DEATH_OVERRIDE_PATIENT_TTL = 0; // can be overridden in-game for debug purposes
+
+
 
 typedef NS_ENUM(int, AMBWorldLayers) {
     AMBWorldLayerTerrain,
@@ -109,3 +111,15 @@ static const int SCORE_END_ALL_PATIENTS_DELIVERED_BONUS =  10000;
 #pragma mark GAME OVER SCENE ALIGNMENTS
 static const int GAMEOVER_LEFT_JUSTIFICATION    =   80;  // distance between left of screen and score category text
 static const int GAMEOVER_VALUE_PADDING         =   450; // distance between left of score category text and end of score value
+
+@interface AMBConstants : NSObject
+
+@property NSTimeInterval SuddenDeathPatientTimeBonus;
+@property NSTimeInterval SuddenDeathOverridePatientTTL;
+
+
++ (AMBConstants *)sharedInstance;
+- (id)init;
+
+
+@end

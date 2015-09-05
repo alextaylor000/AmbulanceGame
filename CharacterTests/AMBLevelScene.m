@@ -43,6 +43,7 @@ typedef enum {
 
 @interface AMBLevelScene ()
 
+@property AMBConstants *ambConstants;
 @property NSTimeInterval lastUpdateTimeInterval;
 
 @property SKNode *worldNode;
@@ -143,6 +144,8 @@ typedef enum {
 - (id)initWithSize:(CGSize)size gameType:(AMBGameType)gameType vehicleType:(AMBVehicleType)vehicleType levelType:(AMBLevelType)levelType tutorial:(BOOL)tut {
 
     if (self = [super initWithSize:size]) {
+        _ambConstants = [AMBConstants sharedInstance];
+        
         
         /**
         
@@ -323,11 +326,13 @@ typedef enum {
 - (void)restartForSuddenDeathPatientBonus:(NSTimeInterval)bonus newPatientTTL:(NSTimeInterval)patientTTL {
     // this function for debug purposes only
     if (bonus > 0) {
-        SUDDEN_DEATH_PATIENT_TIME_BONUS = bonus;
+//        SUDDEN_DEATH_PATIENT_TIME_BONUS = bonus;
+        _ambConstants.SuddenDeathPatientTimeBonus = bonus;
     }
     
     if (patientTTL > 0) {
-        SUDDEN_DEATH_OVERRIDE_PATIENT_TTL = patientTTL;
+//        SUDDEN_DEATH_OVERRIDE_PATIENT_TTL = patientTTL;
+        _ambConstants.SuddenDeathOverridePatientTTL = patientTTL;
     }
 
     [self restart];

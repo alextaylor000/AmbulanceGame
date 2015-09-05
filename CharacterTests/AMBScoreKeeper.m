@@ -27,7 +27,7 @@ typedef enum {
 
 
 @interface AMBScoreKeeper ()
-
+@property AMBConstants *ambConstants;
 @property NSInteger carsHit;
 @property NSMutableArray *messages; // keeps track of the score messages, for positioning on screen.
 @property NSNumberFormatter *formatter; // for adding the commas
@@ -60,6 +60,8 @@ typedef enum {
         _patientsDied = 0;
         _carsHit = 0;
         _messages = [NSMutableArray array];
+        
+        _ambConstants = [AMBConstants sharedInstance];
 
         _formatter = [[NSNumberFormatter alloc]init];
         [_formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -243,8 +245,8 @@ typedef enum {
     // add time if we're in sudden death mode
     if (_gameType == AMBGameTypeSuddenDeath) {
         AMBLevelScene *levelScene = (AMBLevelScene *)_scene;
-        [levelScene.gameClock addTime: SUDDEN_DEATH_PATIENT_TIME_BONUS ];
-        [self updateScore:0 withMessage: [NSString stringWithFormat:@"More Time! +%.0fs", SUDDEN_DEATH_PATIENT_TIME_BONUS]];
+        [levelScene.gameClock addTime: _ambConstants.SuddenDeathPatientTimeBonus ];
+        [self updateScore:0 withMessage: [NSString stringWithFormat:@"More Time! +%.0fs", _ambConstants.SuddenDeathPatientTimeBonus]];
     }
     
     

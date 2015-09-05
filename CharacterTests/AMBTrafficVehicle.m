@@ -63,7 +63,7 @@
     vehicle.direction = CGPointForAngle(rotation);
     vehicle.originalDirection = vehicle.direction;
     vehicle.name = @"traffic"; // for grouped enumeration
-    vehicle.zPosition = AMBWorldLayerTraffic;
+    vehicle.zPosition = AMBWorldLayerTraffic; 
     
     // physics
     vehicle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(vehicle.size.width * 0.75, vehicle.size.height * 0.75)];

@@ -31,6 +31,7 @@
 
 @interface AMBPatient ()
 
+@property AMBConstants *ambConstants;
 @property CGFloat lifetime;
 
 
@@ -66,6 +67,7 @@
     
     
     if (self = [super initWithTexture:patientTexture]) {
+        _ambConstants = [AMBConstants sharedInstance];
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
         self.physicsBody.categoryBitMask = categoryPatient;
         self.physicsBody.collisionBitMask = 0x00000000;
@@ -77,8 +79,6 @@
         self.severity = severity;
         self.state = PatientIsWaitingForPickup;
         [self storePatientUserData];
-        
-        
         
     }
     
@@ -195,8 +195,8 @@
     }
     
     // debug! hello dolly
-    if (SUDDEN_DEATH_OVERRIDE_PATIENT_TTL > 0) {
-        timeToLive = SUDDEN_DEATH_OVERRIDE_PATIENT_TTL;
+    if (_ambConstants.SuddenDeathOverridePatientTTL > 0) {
+        timeToLive = _ambConstants.SuddenDeathOverridePatientTTL;
     }
     
     self.userData = [[NSMutableDictionary alloc]init];

@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "AMBLevelScene.h"
-#import "AMBConstants.h"
+//#import "AMBConstants.h"
 
 
 @interface AMBCharacter : SKSpriteNode

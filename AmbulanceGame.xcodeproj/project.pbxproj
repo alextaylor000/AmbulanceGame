@@ -118,6 +118,8 @@
 		B9CC738D19B3D26900A376BC /* sirens.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738C19B3D26900A376BC /* sirens.atlas */; };
 		B9CC738F19B3DA0C00A376BC /* hospital.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC738E19B3DA0C00A376BC /* hospital.png */; };
 		B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */ = {isa = PBXBuildFile; fileRef = B9D840CE1A3172CF0073407C /* AMBPowerup.m */; };
+		B9E3A4381B9BA0C700D7F3FF /* AMBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E3A4371B9BA0C700D7F3FF /* AMBConstants.m */; };
+		B9E3A4391B9BA0C700D7F3FF /* AMBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B9E3A4371B9BA0C700D7F3FF /* AMBConstants.m */; };
 		B9E738621AB0044600EBA587 /* road_tilemap_red.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738601AB0044600EBA587 /* road_tilemap_red.png */; };
 		B9E738631AB0044600EBA587 /* road_tilemap_red.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738601AB0044600EBA587 /* road_tilemap_red.png */; };
 		B9E738671AB13D9D00EBA587 /* road_tilemap_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */; };
@@ -245,6 +247,7 @@
 		B9CC738E19B3DA0C00A376BC /* hospital.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hospital.png; sourceTree = "<group>"; };
 		B9D840CD1A3172CF0073407C /* AMBPowerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMBPowerup.h; path = ../AMBPowerup.h; sourceTree = "<group>"; };
 		B9D840CE1A3172CF0073407C /* AMBPowerup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMBPowerup.m; path = ../AMBPowerup.m; sourceTree = "<group>"; };
+		B9E3A4371B9BA0C700D7F3FF /* AMBConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBConstants.m; sourceTree = "<group>"; };
 		B9E738601AB0044600EBA587 /* road_tilemap_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road_tilemap_red.png; sourceTree = "<group>"; };
 		B9E738661AB13D9D00EBA587 /* road_tilemap_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "road_tilemap_red@2x.png"; sourceTree = "<group>"; };
 		B9E7386F1AB6817400EBA587 /* AMBFuelGauge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBFuelGauge.h; sourceTree = "<group>"; };
@@ -572,6 +575,7 @@
 				B95FEC6E1B8A46BC0014B4E8 /* AMBEndlessTimer.h */,
 				B95FEC6F1B8A46BC0014B4E8 /* AMBEndlessTimer.m */,
 				B94E27D71AD9F5F5000919D1 /* AMBConstants.h */,
+				B9E3A4371B9BA0C700D7F3FF /* AMBConstants.m */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -738,6 +742,7 @@
 				B94E27D81AD9F5F5000919D1 /* AMBConstants.h in Sources */,
 				B9E959BA19C92ADC00ACD50F /* AMBSpawner.m in Sources */,
 				B985AFA91A802538000B3423 /* AMBMainMenuViewController.m in Sources */,
+				B9E3A4381B9BA0C700D7F3FF /* AMBConstants.m in Sources */,
 				B9E738711AB6817400EBA587 /* AMBFuelGauge.m in Sources */,
 				B9D840CF1A3172CF0073407C /* AMBPowerup.m in Sources */,
 				B966BA721A2A9A9900145FA9 /* AMBTrafficVehicleState.m in Sources */,
@@ -798,6 +803,7 @@
 				B9C8E4D61A4B747E003F7354 /* AMBGameScene.m in Sources */,
 				B9C8E4D81A4B747E003F7354 /* AMBLevelScene.m in Sources */,
 				B9C8E4A21A4B73F0003F7354 /* GameViewController.m in Sources */,
+				B9E3A4391B9BA0C700D7F3FF /* AMBConstants.m in Sources */,
 				B91E8CB01ADF14B300AB1A8D /* AMBGameOverViewController.m in Sources */,
 				B9BCC05D1A8031DA00FF2BAE /* AMBGameSetupViewController.m in Sources */,
 				B9C8E49A1A4B73F0003F7354 /* AppDelegate.m in Sources */,

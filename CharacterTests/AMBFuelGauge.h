@@ -7,7 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "AMBConstants.h"
+//#import "AMBConstants.h"
 
 @interface AMBFuelGauge : SKSpriteNode 
 

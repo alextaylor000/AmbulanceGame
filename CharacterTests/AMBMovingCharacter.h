@@ -7,7 +7,7 @@
 //
 //  A high-level superclass that handles moving sprites, like traffic and the player.
 
-#import "AMBConstants.h"
+//#import "AMBConstants.h"
 #import "AMBCharacter.h"
 
 
