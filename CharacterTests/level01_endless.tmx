@@ -388,10 +388,211 @@
   <object name="player.spawn" type="player.spawn" x="9245.45" y="9515.57" width="256" height="256"/>
  </objectgroup>
  <objectgroup name="spawn_patients">
-  <object name="patient_01" type="patient.spawn" x="10336" y="10192" width="256" height="256">
+  <object name="patient_close" type="patient.spawn" x="10280.2" y="10211.9" width="256" height="256">
    <properties>
     <property name="firstSpawnAt" value="0"/>
-    <property name="frequency" value="2"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="10596.5" y="6637.95" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="7905.54" y="6211.67" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="6613.23" y="6657.96" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="5663.23" y="7166.26" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="5647.44" y="6152.7" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_close" type="patient.spawn" x="6657.96" y="8173.75" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="5655.44" y="11008.8" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_close" type="patient.spawn" x="6628.98" y="12559.7" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="6643.93" y="14107.5" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="8194.81" y="14060.5" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_close" type="patient.spawn" x="9219.37" y="12788.3" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_close" type="patient.spawn" x="10517.6" y="12552.7" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="10780.2" y="13850.9" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="12001.4" y="13556.2" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="13086" y="13563.2" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="14617.6" y="12849.1" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="14075.5" y="10272.9" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="14562" y="10955" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="13047.9" y="9955.32" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_close" type="patient.spawn" x="12040.4" y="8945.68" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="13339.6" y="7689.54" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_close" type="patient.spawn" x="9955.46" y="7399.93" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_01" type="patient.spawn" x="14082.5" y="6169.68" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="5"/>
+    <property name="frequencyUpperRange" value="35"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_close" type="patient.spawn" x="7471.52" y="10084.9" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
+    <property name="severity" value="1"/>
+   </properties>
+  </object>
+  <object name="patient_close" type="patient.spawn" x="10662.5" y="7924.57" width="256" height="256">
+   <properties>
+    <property name="firstSpawnAt" value="0"/>
+    <property name="frequency" value="60"/>
+    <property name="frequencyUpperRange" value="90"/>
     <property name="severity" value="1"/>
    </properties>
   </object>

@@ -194,6 +194,11 @@
         
     }
     
+    // debug! hello dolly
+    if (SUDDEN_DEATH_OVERRIDE_PATIENT_TTL > 0) {
+        timeToLive = SUDDEN_DEATH_OVERRIDE_PATIENT_TTL;
+    }
+    
     self.userData = [[NSMutableDictionary alloc]init];
     
     [self.userData setObject:[NSNumber numberWithDouble:timeToLive] forKey:@"timeToLive"];

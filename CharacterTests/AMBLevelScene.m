@@ -320,6 +320,19 @@ typedef enum {
     
 }
 
+- (void)restartForSuddenDeathPatientBonus:(NSTimeInterval)bonus newPatientTTL:(NSTimeInterval)patientTTL {
+    // this function for debug purposes only
+    if (bonus > 0) {
+        SUDDEN_DEATH_PATIENT_TIME_BONUS = bonus;
+    }
+    
+    if (patientTTL > 0) {
+        SUDDEN_DEATH_OVERRIDE_PATIENT_TTL = patientTTL;
+    }
+
+    [self restart];
+}
+
 - (void)didCompleteTutorial {
     _tutorialMode = NO;
     
@@ -576,7 +589,10 @@ typedef enum {
     // patient spawners
     NSArray *patientSpawns = [_mapGroupSpawnPatients objects];
     
-    [_scoreKeeper setPatientsTotal:[patientSpawns count]]; // if the game mode is day shift, scorekeeper needs to know how many patients there are
+    if (_scoreKeeper.gameType == AMBGameTypeDayShift) {
+        [_scoreKeeper setPatientsTotal:[patientSpawns count]]; // if the game mode is day shift, scorekeeper needs to know how many patients there are
+    }
+
     
     for (NSDictionary *object in patientSpawns) {
         CGPoint spawnPoint = [self centerOfObject:object];
@@ -586,7 +602,6 @@ typedef enum {
         NSTimeInterval frequency = [[object valueForKey:@"frequency"] intValue];
         NSTimeInterval frequencyUpperRange = [[object valueForKey:@"frequencyUpperRange"] intValue]; // defaults to 0
 
-        // build an array of patients based on the severity property (can be comma-separated)
         NSArray *severityArray = [[object valueForKey:@"severity"] componentsSeparatedByString:@","];
         NSMutableArray *patientsForSpawner = [[NSMutableArray alloc]init];
         

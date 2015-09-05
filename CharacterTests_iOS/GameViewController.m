@@ -9,7 +9,7 @@
 #import "AMBMainMenuViewController.h"
 #import "GameViewController.h"
 #import "AMBLevelScene.h"
-
+#import "AMBConstants.h"
 
 @interface GameViewController ()
 
@@ -96,6 +96,25 @@
     }];
     
     UIAlertAction *restart = [UIAlertAction actionWithTitle:@"Restart" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) { [_gameScene restart]; }];
+    
+    if (self.gameType == AMBGameTypeSuddenDeath) {
+        [menu addTextFieldWithConfigurationHandler:^(UITextField *textField){
+            textField.keyboardType = UIKeyboardTypeNumberPad;
+            textField.placeholder = [NSString stringWithFormat:@"Bonus Time (secs): %.f", SUDDEN_DEATH_PATIENT_TIME_BONUS];
+        }];
+        
+        [menu addTextFieldWithConfigurationHandler:^(UITextField *textField){
+            textField.keyboardType = UIKeyboardTypeNumberPad;
+            textField.placeholder = [NSString stringWithFormat:@"Patient TTL (secs): %.f", SUDDEN_DEATH_OVERRIDE_PATIENT_TTL ];
+        }];
+        UIAlertAction *update = [UIAlertAction actionWithTitle:@"Restart/sd" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            
+            NSTimeInterval bonus = [[[[menu textFields]objectAtIndex:0]text]integerValue];
+            NSTimeInterval ttl = [[[[menu textFields]objectAtIndex:1]text ]integerValue];
+            [_gameScene restartForSuddenDeathPatientBonus:bonus newPatientTTL:ttl];
+        }];
+        [menu addAction: update];
+    }
     
     [menu addAction:mainmenu];
     [menu addAction:restart];

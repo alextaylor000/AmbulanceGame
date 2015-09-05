@@ -79,7 +79,7 @@ typedef enum {
     _notificationNode.zPosition = AMBWorldLayerHUDUpper;
     _notificationNode.alpha = 0;
 
-    
+
     return _notificationNode;
 }
 

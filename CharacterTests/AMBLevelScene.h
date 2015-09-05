@@ -90,4 +90,5 @@ typedef enum {
 - (void)resumeScene;
 
 - (void)restart;
+- (void)restartForSuddenDeathPatientBonus:(NSTimeInterval)bonus newPatientTTL:(NSTimeInterval)patientTTL;
 @end

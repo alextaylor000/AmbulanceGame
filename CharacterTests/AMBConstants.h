@@ -12,8 +12,8 @@
 # pragma mark GAME MODES
 static const NSTimeInterval GAMETYPE_DAYSHIFT_LENGTH = 180; // countdown timer for the "day shift" game mode
 static const NSTimeInterval GAMETYPE_SUDDEN_LENGTH = 45; // countdown timer for the "sudden death" game mode
-static const NSTimeInterval SUDDEN_DEATH_PATIENT_TIME_BONUS = 30; // you get this many seconds for each patient delivered
-
+static NSTimeInterval SUDDEN_DEATH_PATIENT_TIME_BONUS = 30; // you get this many seconds for each patient delivered
+static NSTimeInterval SUDDEN_DEATH_OVERRIDE_PATIENT_TTL = 0; // can be overridden in-game for debug purposes
 
 typedef NS_ENUM(int, AMBWorldLayers) {
     AMBWorldLayerTerrain,
