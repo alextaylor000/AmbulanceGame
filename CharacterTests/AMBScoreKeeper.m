@@ -250,7 +250,7 @@ typedef enum {
     }
     
     
-    if (_patientsDelivered + _patientsDied == _patientsTotal) {
+    if (_patientsDelivered + _patientsDied == _patientsTotal && _gameType != AMBGameTypeEndless) {
         [_scene performSelector:@selector(allPatientsProcessed)];
     }
 

@@ -26,8 +26,8 @@
 - (id)init {
     if (self = [super init]) {
         
-        _SuddenDeathPatientTimeBonus = 30;
-        _SuddenDeathOverridePatientTTL = 0;
+        _SuddenDeathPatientTimeBonus = 10;
+        _SuddenDeathOverridePatientTTL = 20;
         
         
     }
