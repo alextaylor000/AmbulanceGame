@@ -127,7 +127,8 @@ typedef enum {
     _fuel = fuelCapacity; // fuel capacity from FuelGauge
     _fuelTimer = 0;
     
-    self.controlState = PlayerIsStopped;
+    [self changeControlState:PlayerIsStopped];
+//    self.controlState = PlayerIsStopped;
     
     
     // bubble
@@ -248,7 +249,8 @@ typedef enum {
                     self.controlState == PlayerIsChangingLanes) {
                     if (CGPointEqualToPoint(invalidDirection1, self.direction) ||
                         CGPointEqualToPoint(invalidDirection2, self.direction)) {
-                        self.controlState = PlayerIsWithinTIntersection; // no valid inputs in this control state (intentional)
+                        [self changeControlState:PlayerIsWithinTIntersection];
+//                        self.controlState = PlayerIsWithinTIntersection; // no valid inputs in this control state (intentional)
                         
                         [self slamBrakes]; // instead of stopMoving
                     }
@@ -291,8 +293,9 @@ typedef enum {
             AMBLevelScene *__weak owningScene = [self characterScene]; // declare a reference to the scene as weak, to prevent a reference cycle. Inspired by animationDidComplete in Adventure.
 
             [owningScene.fuelGauge stopTimer];
-            
-            self.controlState = PlayerIsStoppedAtTIntersection;
+
+            [self changeControlState:PlayerIsStoppedAtTIntersection];
+//            self.controlState = PlayerIsStoppedAtTIntersection;
             
             
         }];
@@ -304,7 +307,8 @@ typedef enum {
 
 - (void)leaveIntersectionWithInput:(PlayerControls)input {
 
-    self.controlState = PlayerIsWithinTIntersection;
+    [self changeControlState:PlayerIsWithinTIntersection];
+//    self.controlState = PlayerIsWithinTIntersection;
 
     // rotate, then start moving
     CGFloat degrees = (input == PlayerControlsTurnLeft) ? 90 : -90;
@@ -343,7 +347,8 @@ typedef enum {
     }];
     [self runAction:startMoving completion:^(void){
         if ([self.name isEqualToString:@"player"]) {
-            self.controlState = PlayerIsDrivingStraight;
+            [self changeControlState:PlayerIsDrivingStraight];
+//            self.controlState = PlayerIsDrivingStraight;
 //#if DEBUG_PLAYER_CONTROL
 //            NSLog(@"[control] PlayerIsWithinTIntersection -> leaveIntersection -> PlayerIsDrivingStraight");
 //#endif
@@ -353,6 +358,16 @@ typedef enum {
 }
 
 #pragma mark Game Logic
+-(void)changeControlState:(PlayerControlState)newState {
+    self.controlState = newState;
+    
+    if (self.controlState == PlayerIsChangingLanes) {
+        if (![self actionForKey:@"changeLanes"]) {
+            [self runAction:sAudioChangeLanes withKey:@"changeLanes"];
+        }
+    }
+}
+
 -(void)changeState:(AmbulanceState)newState {
     _state = newState;
 
@@ -495,7 +510,9 @@ typedef enum {
             
             // valid inputs: <UP>
             if (input == PlayerControlsStartMoving) {
-                self.controlState = PlayerIsAccelerating;
+
+//                self.controlState = PlayerIsAccelerating;
+                [self changeControlState:PlayerIsAccelerating];
                 message = @"[control] PlayerIsStopped -> handleInput:startMoving -> PlayerIsAccelerating";
                 [self printMessage:message];
                 [self startMoving];
@@ -533,20 +550,23 @@ typedef enum {
             
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStopMoving) {
-                self.controlState = PlayerIsDecelerating;
+                [self changeControlState:PlayerIsDecelerating];
+//                self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsAccelerating -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
                 [self stopMovingWithDecelTime:self.decelTimeSeconds];
                 
             } else if   (input == PlayerControlsTurnLeft) {
                 self.laneChangeDegrees = 90;
-                self.controlState = PlayerIsChangingLanes;
+                [self changeControlState:PlayerIsChangingLanes];
+//                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsAccelerating -> handleInput:turnLeft";
                 [self printMessage:message];
                 
             } else if   (input == PlayerControlsTurnRight) {
                 self.laneChangeDegrees = -90;
-                self.controlState = PlayerIsChangingLanes;
+                [self changeControlState:PlayerIsChangingLanes];
+//                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsAccelerating -> handleInput:turnRight";
                 [self printMessage:message];
             }
@@ -557,20 +577,23 @@ typedef enum {
             
             // valid inputs: <UP>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStartMoving) {
-                self.controlState = PlayerIsAccelerating;
+                [self changeControlState:PlayerIsAccelerating];
+//                self.controlState = PlayerIsAccelerating;
                 message = @"[control] PlayerIsDecelerating -> handleInput:startMoving -> PlayerIsAccelerating";
                 [self printMessage:message];
                 [self startMoving];
                 
             } else if   (input == PlayerControlsTurnLeft) {
                 self.laneChangeDegrees = 90;
-                self.controlState = PlayerIsChangingLanes;
+                [self changeControlState:PlayerIsChangingLanes];
+//                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDecelerating -> handleInput:turnLeft";
                 [self printMessage:message]; // can we cancel all actions here to return to normal speed?
                 
             } else if   (input == PlayerControlsTurnRight) {
                 self.laneChangeDegrees = -90;
-                self.controlState = PlayerIsChangingLanes;
+                [self changeControlState:PlayerIsChangingLanes];
+//                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDecelerating -> handleInput:turnRight";
                 [self printMessage:message];
             }
@@ -585,7 +608,8 @@ typedef enum {
             
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStopMoving) {
-                self.controlState = PlayerIsDecelerating;
+                [self changeControlState:PlayerIsDecelerating];
+//                self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
                 [self stopMovingWithDecelTime:self.decelTimeSeconds];
@@ -593,13 +617,15 @@ typedef enum {
                 
             } else if   (input == PlayerControlsTurnLeft) {
                 self.laneChangeDegrees = 90;
-                self.controlState = PlayerIsChangingLanes;
+                [self changeControlState:PlayerIsChangingLanes];
+//                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:turnLeft";
                 [self printMessage:message];
                 
             } else if   (input == PlayerControlsTurnRight) {
                 self.laneChangeDegrees = -90;
-                self.controlState = PlayerIsChangingLanes;
+                [self changeControlState:PlayerIsChangingLanes];
+//                self.controlState = PlayerIsChangingLanes;
                 message = @"[control] PlayerIsDrivingStraight -> handleInput:turnRight";
                 [self printMessage:message];
             }
@@ -618,7 +644,8 @@ typedef enum {
             
             // valid inputs: <DOWN>,<LEFT>,<RIGHT>
             if (input == PlayerControlsStopMoving) {
-                self.controlState = PlayerIsDecelerating;
+                [self changeControlState:PlayerIsDecelerating];
+//                self.controlState = PlayerIsDecelerating;
                 message = @"[control] PlayerIsChangingLanes -> handleInput:stopMoving -> PlayerIsDecelerating";
                 [self printMessage:message];
                 [self stopMovingWithDecelTime:self.decelTimeSeconds];
@@ -642,13 +669,16 @@ typedef enum {
                 if   (input == PlayerControlsTurnLeft) {
                     // TODO: consider changing this to ONLY change lanes on keyUp, not introduce the possibility of turning.
                     [self authorizeMoveEvent:90 snapToLane:YES];
-                    self.controlState = PlayerIsDrivingStraight;
+                    [self changeControlState:PlayerIsDrivingStraight];
+                    
+                    //self.controlState = PlayerIsDrivingStraight;
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnLeft -> PlayerIsDrivingStraight";
                     [self printMessage:message];
                     
                 } else if   (input == PlayerControlsTurnRight) {
                     [self authorizeMoveEvent:-90 snapToLane:YES];
-                    self.controlState = PlayerIsDrivingStraight;
+                    [self changeControlState:PlayerIsDrivingStraight];
+//                    self.controlState = PlayerIsDrivingStraight;
                     message = @"[control] PlayerIsChangingLanes -> handleInput:keyUP/turnRight -> PlayerIsDrivingStraight";
                     [self printMessage:message];
                 }
@@ -748,8 +778,7 @@ typedef enum {
         sAudioPatientDelivered = [SKAction playSoundFileNamed:@"patient_delivered.caf" waitForCompletion:NO];
         sAudioPatientFlatline = [SKAction playSoundFileNamed:@"patient_flatline.caf" waitForCompletion:YES];
         sAudioPatientPickup = [SKAction playSoundFileNamed:@"patient_pickup.caf" waitForCompletion:NO];
-        
-        
+        sAudioChangeLanes = [SKAction playSoundFileNamed:@"player_change_lanes.caf" waitForCompletion:YES];
         
         
         
@@ -782,7 +811,7 @@ static SKAction *sAudioPatientTimerWarning = nil;
 static SKAction *sAudioPatientDelivered = nil;
 static SKAction *sAudioPatientFlatline = nil;
 static SKAction *sAudioPatientPickup = nil;
-
+static SKAction *sAudioChangeLanes = nil;
 
 
 
