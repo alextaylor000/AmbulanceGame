@@ -38,6 +38,7 @@ typedef enum {
 
 @property SKSpriteNode *patientBubble;
 @property SKLabelNode *patientTimer;
+@property BOOL timerWarning; // true when the timer is revealed
 
 
 @end
@@ -147,6 +148,8 @@ typedef enum {
     [_patientBubble addChild:_patientTimer];
     [self addChild:_patientBubble];
     
+    _timerWarning = NO;
+    
     
     return self;
 }
@@ -195,9 +198,11 @@ typedef enum {
         NSTimeInterval ttl = [self.patient getPatientTTL];
         _patientTimer.text = [NSString stringWithFormat:@"%@",[self timeFormatted:ttl]];
 
-        if (ttl < 11) {
+        if (ttl < 11 && !_timerWarning) {
             // reveal the bubble with time approaching zeo
             [self revealBubble];
+            [self runAction:sAudioPatientTimerWarning];
+            _timerWarning = YES;
         }
         
         if (self.patient.state == PatientIsDead) {
@@ -682,6 +687,7 @@ typedef enum {
 
 - (void)hideBubbleBecause:(BubbleHideState)reason {
     SKAction *hide;
+    _timerWarning = NO;
     
     switch (reason) {
         case Hide:
@@ -730,6 +736,10 @@ typedef enum {
         sTurnSignalOn = [SKAction repeatActionForever:[SKAction sequence:@[[SKAction fadeInWithDuration:0.15],[SKAction fadeOutWithDuration:0.15]]]];
         sTurnSignalFadeOut = [SKAction fadeOutWithDuration:0.15];
         
+        sAudioPatientTimerWarning = [SKAction playSoundFileNamed:@"patient_timer_warning.caf" waitForCompletion:NO];
+        
+        
+        
         
         
     });
@@ -757,6 +767,7 @@ static SKTexture *sPatientBubble = nil;
 static SKAction *sSirensOn = nil;
 static SKAction *sTurnSignalOn = nil;
 static SKAction *sTurnSignalFadeOut = nil;
+static SKAction *sAudioPatientTimerWarning = nil;
 
 
 

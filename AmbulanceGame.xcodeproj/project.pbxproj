@@ -35,6 +35,10 @@
 		B92DEF2B1B2959C000C72105 /* item_back.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF281B2959C000C72105 /* item_back.png */; };
 		B92DEF2C1B2959C000C72105 /* item_go.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF291B2959C000C72105 /* item_go.png */; };
 		B92DEF2D1B2959C000C72105 /* item_go.png in Resources */ = {isa = PBXBuildFile; fileRef = B92DEF291B2959C000C72105 /* item_go.png */; };
+		B935C5691BC9FCDC007D80E5 /* patient_delivered.caf in Resources */ = {isa = PBXBuildFile; fileRef = B935C5651BC9FCDC007D80E5 /* patient_delivered.caf */; };
+		B935C56A1BC9FCDC007D80E5 /* patient_flatline.caf in Resources */ = {isa = PBXBuildFile; fileRef = B935C5661BC9FCDC007D80E5 /* patient_flatline.caf */; };
+		B935C56B1BC9FCDC007D80E5 /* patient_pickup.caf in Resources */ = {isa = PBXBuildFile; fileRef = B935C5671BC9FCDC007D80E5 /* patient_pickup.caf */; };
+		B935C56C1BC9FCDC007D80E5 /* patient_timer_warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = B935C5681BC9FCDC007D80E5 /* patient_timer_warning.caf */; };
 		B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */; };
 		B94E27D81AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
 		B94E27D91AD9F5F5000919D1 /* AMBConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = B94E27D71AD9F5F5000919D1 /* AMBConstants.h */; };
@@ -168,6 +172,10 @@
 		B92DEF1B1B27F15600C72105 /* item_sudden-death.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "item_sudden-death.png"; sourceTree = "<group>"; };
 		B92DEF281B2959C000C72105 /* item_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_back.png; sourceTree = "<group>"; };
 		B92DEF291B2959C000C72105 /* item_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_go.png; sourceTree = "<group>"; };
+		B935C5651BC9FCDC007D80E5 /* patient_delivered.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = patient_delivered.caf; sourceTree = "<group>"; };
+		B935C5661BC9FCDC007D80E5 /* patient_flatline.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = patient_flatline.caf; sourceTree = "<group>"; };
+		B935C5671BC9FCDC007D80E5 /* patient_pickup.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = patient_pickup.caf; sourceTree = "<group>"; };
+		B935C5681BC9FCDC007D80E5 /* patient_timer_warning.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = patient_timer_warning.caf; sourceTree = "<group>"; };
 		B93A94DE1A5FA28D003F8BA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B94E27D71AD9F5F5000919D1 /* AMBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBConstants.h; sourceTree = "<group>"; };
 		B95FEC631B8827F30014B4E8 /* settings_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_header.png; sourceTree = "<group>"; };
@@ -320,6 +328,17 @@
 				B92DEF1B1B27F15600C72105 /* item_sudden-death.png */,
 			);
 			name = Menu;
+			sourceTree = "<group>";
+		};
+		B935C5641BC9FCCD007D80E5 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				B935C5651BC9FCDC007D80E5 /* patient_delivered.caf */,
+				B935C5661BC9FCDC007D80E5 /* patient_flatline.caf */,
+				B935C5671BC9FCDC007D80E5 /* patient_pickup.caf */,
+				B935C5681BC9FCDC007D80E5 /* patient_timer_warning.caf */,
+			);
+			name = Audio;
 			sourceTree = "<group>";
 		};
 		B96A845219BAB723002E058B /* Levels */ = {
@@ -489,6 +508,7 @@
 		B9C8E48D1A4B7386003F7354 /* Game Assets */ = {
 			isa = PBXGroup;
 			children = (
+				B935C5641BC9FCCD007D80E5 /* Audio */,
 				B96A845219BAB723002E058B /* Levels */,
 				B98823BF19699E3A00903B73 /* GameArt */,
 			);
@@ -693,9 +713,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B935C56B1BC9FCDC007D80E5 /* patient_pickup.caf in Resources */,
 				B9A4BD391A959F8F00C70201 /* notifications.atlas in Resources */,
 				B9A4BD331A958BBF00C70201 /* level01_v001.tmx in Resources */,
 				B9EA88171AF1E693001AC3B7 /* level01_endless.tmx in Resources */,
+				B935C5691BC9FCDC007D80E5 /* patient_delivered.caf in Resources */,
 				B9EE2F061AA3C43100909137 /* ambulancedash_logo@2x.png in Resources */,
 				B92DEF271B27F15600C72105 /* item_sudden-death.png in Resources */,
 				B9C8E5001A53345B003F7354 /* GameObjectSprites.atlas in Resources */,
@@ -713,10 +735,12 @@
 				B9BCC0631A803EE800FF2BAE /* pause.png in Resources */,
 				B93A94DF1A5FA28D003F8BA9 /* Images.xcassets in Resources */,
 				B92DEF251B27F15600C72105 /* item_settings.png in Resources */,
+				B935C56A1BC9FCDC007D80E5 /* patient_flatline.caf in Resources */,
 				B9E738631AB0044600EBA587 /* road_tilemap_red.png in Resources */,
 				B9C8E4AA1A4B73F0003F7354 /* LaunchScreen.xib in Resources */,
 				B92DEF1D1B27F15600C72105 /* item_dayshift.png in Resources */,
 				B9271A541B6FE802002E25E3 /* item_controls.png in Resources */,
+				B935C56C1BC9FCDC007D80E5 /* patient_timer_warning.caf in Resources */,
 				B92DEF211B27F15600C72105 /* item_game-center.png in Resources */,
 				B92DEF231B27F15600C72105 /* item_help.png in Resources */,
 				B9C8E4A51A4B73F0003F7354 /* Main.storyboard in Resources */,
