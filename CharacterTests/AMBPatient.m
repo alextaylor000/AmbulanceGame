@@ -50,9 +50,12 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        // load shared assets here!
+        // shared assets
     });
 }
+
+
+
 
 + (instancetype) patientWithSeverity:(PatientSeverity)severity {
     AMBPatient *patient = [[AMBPatient alloc]initWithSeverity:severity position:CGPointZero];
@@ -131,10 +134,10 @@
             #if DEBUG_PATIENT
                 NSLog(@"[patient] patient is EN-ROUTE!");
             #endif
+            
             break;
             
         case PatientIsDelivered:
-
             [self removeFromParent];
             
 #if DEBUG_PATIENT

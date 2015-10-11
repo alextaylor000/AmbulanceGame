@@ -205,6 +205,12 @@ typedef enum {
             _timerWarning = YES;
         }
         
+        if (ttl < 3) {
+            if (![self actionForKey:@"flatline"]) {
+                [self runAction:sAudioPatientFlatline withKey:@"flatline"]; // will start at 2 secs
+            }
+        }
+        
         if (self.patient.state == PatientIsDead) {
             [self hideBubbleBecause:PatientDied];
             [self unloadPatient];
@@ -364,6 +370,7 @@ typedef enum {
             //[_sirens runAction:[SKAction repeatActionForever:_sirensOn] withKey:@"sirensOn"];
             [_sirens runAction:sSirensOn withKey:@"sirensOn"];
             _sirens.hidden = NO;
+            [self runAction:sAudioPatientPickup];
             [owningScene.indicator removeTarget:self.patient];
             break;
     }
@@ -393,6 +400,7 @@ typedef enum {
         [self changeState:AmbulanceIsEmpty];
         
         if (_patient.state == PatientIsEnRoute) {
+            [self runAction:sAudioPatientDelivered];
             [self hideBubbleBecause:PatientDelivered];
             [_patient changeState:PatientIsDelivered];
             [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventDeliverPatient]; // tutorial event
@@ -737,6 +745,9 @@ typedef enum {
         sTurnSignalFadeOut = [SKAction fadeOutWithDuration:0.15];
         
         sAudioPatientTimerWarning = [SKAction playSoundFileNamed:@"patient_timer_warning.caf" waitForCompletion:NO];
+        sAudioPatientDelivered = [SKAction playSoundFileNamed:@"patient_delivered.caf" waitForCompletion:NO];
+        sAudioPatientFlatline = [SKAction playSoundFileNamed:@"patient_flatline.caf" waitForCompletion:YES];
+        sAudioPatientPickup = [SKAction playSoundFileNamed:@"patient_pickup.caf" waitForCompletion:NO];
         
         
         
@@ -768,6 +779,9 @@ static SKAction *sSirensOn = nil;
 static SKAction *sTurnSignalOn = nil;
 static SKAction *sTurnSignalFadeOut = nil;
 static SKAction *sAudioPatientTimerWarning = nil;
+static SKAction *sAudioPatientDelivered = nil;
+static SKAction *sAudioPatientFlatline = nil;
+static SKAction *sAudioPatientPickup = nil;
 
 
 
