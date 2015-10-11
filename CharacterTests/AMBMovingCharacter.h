@@ -49,6 +49,7 @@ typedef enum {
 
 @property PlayerControlState controlState;
 
+
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)delta;
 - (void)startMoving;
 - (void)stopMovingWithDecelTime:(CGFloat)decel;
@@ -57,5 +58,5 @@ typedef enum {
 - (void)authorizeMoveEvent: (CGFloat)degrees snapToLane:(BOOL)snap;
 - (void)adjustSpeedToTarget:(CGFloat)targetSpeed;
 - (CGPoint)getDirectionFromAngle:(CGFloat)angle;
-
++ (void)loadSharedAssets;
 @end

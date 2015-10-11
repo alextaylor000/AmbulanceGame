@@ -360,12 +360,12 @@ typedef enum {
 #pragma mark Game Logic
 -(void)changeControlState:(PlayerControlState)newState {
     self.controlState = newState;
-    
-    if (self.controlState == PlayerIsChangingLanes) {
-        if (![self actionForKey:@"changeLanes"]) {
-            [self runAction:sAudioChangeLanes withKey:@"changeLanes"];
-        }
-    }
+// moved to AMBMovingCharacter/authorizeMoveEvent
+//    if (self.controlState == PlayerIsChangingLanes) {
+//        if (![self actionForKey:@"changeLanes"]) {
+//            [self runAction:sAudioChangeLanes withKey:@"changeLanes"];
+//        }
+//    }
 }
 
 -(void)changeState:(AmbulanceState)newState {
@@ -752,6 +752,7 @@ typedef enum {
 
 #pragma mark Assets
 + (void)loadSharedAssets {
+    [super loadSharedAssets]; // load from MovingCharacter
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

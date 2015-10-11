@@ -385,6 +385,7 @@
     isWithinBounds = [self isTargetPointValid:targetPoint];
 
     if (isWithinBounds) {
+        
         if (snap) {
             self.controlState = PlayerIsChangingLanes;
             [self moveBy:targetOffset]; // moveBy will update the state upon completion
@@ -401,6 +402,11 @@
             CGVector moveVector = CGVectorMake(moveAmt.x, moveAmt.y);
             [self runAction:[SKAction moveBy:moveVector duration:self.sceneDelta]];
             if ([self.name isEqualToString:@"player"]) {
+                // play sound
+                if (![self actionForKey:@"changeLanes"]) {
+                    [self runAction:sAudioChangeLanes withKey:@"changeLanes"];
+                }
+
                 [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventConstantMovement]; // tutorial event
             }
             
@@ -475,5 +481,20 @@
 - (void)startMovingTransitionState {
     // stub; overridden by Player.
 }
+
++ (void)loadSharedAssets {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        sAudioChangeLanes = [SKAction playSoundFileNamed:@"player_change_lanes.caf" waitForCompletion:YES];
+        
+        
+        
+    });
+    
+}
+
+static SKAction *sAudioChangeLanes = nil;
 
 @end
