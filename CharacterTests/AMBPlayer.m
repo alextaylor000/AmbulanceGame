@@ -330,7 +330,7 @@ typedef enum {
 
     
     // rotate the camera, etc.
-    [self.levelScene.camera rotateByAngle:degrees];
+    [self.levelScene.ambCamera rotateByAngle:degrees];
     [self.levelScene rotateInteractives:degrees];
     [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventTurnCorner]; // tutorial event
     

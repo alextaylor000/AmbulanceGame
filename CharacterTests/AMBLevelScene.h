@@ -37,7 +37,7 @@ typedef enum {
 @property SKSpriteNode *miniMap; // the minimap!
 @property CGPoint hospitalLocation;
 
-@property AMBCamera *camera;
+@property AMBCamera *ambCamera;
 
 @property BOOL tutorialMode; // enables the tutorial
 

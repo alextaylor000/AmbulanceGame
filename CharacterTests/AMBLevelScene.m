@@ -211,9 +211,9 @@ typedef enum {
         [self createFuelGauge];
         
         // init camera
-        _camera = [[AMBCamera alloc] initWithTargetSprite:_player];
-        [_tilemap addChild:_camera];
-        _camera.miniMap = _miniMapContainer; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
+        _ambCamera = [[AMBCamera alloc] initWithTargetSprite:_player];
+        [_tilemap addChild:_ambCamera];
+        _ambCamera.miniMap = _miniMapContainer; // the camera needs to know about the minimap so it can rotate it at the same time as the real world
         
         
         // add score label
@@ -466,10 +466,10 @@ typedef enum {
     }
     
     [_player updateWithTimeSinceLastUpdate:_sceneDelta];
-    [_camera updateWithTimeSinceLastUpdate:_sceneDelta];
+    [_ambCamera updateWithTimeSinceLastUpdate:_sceneDelta];
     [_fuelGauge updateWithTimeSinceLastUpdate:_sceneDelta];
     
-    [self centerOnNode:_camera];
+    [self centerOnNode:_ambCamera];
     
     _currentTileGid = [_mapLayerRoad tileGidAt:_player.position];
 

@@ -321,7 +321,7 @@
                 if ([self.name isEqualToString:@"player"]) {
 
                         
-                        [self.levelScene.camera rotateByAngle:degrees];
+                        [self.levelScene.ambCamera rotateByAngle:degrees];
                         [self.levelScene rotateInteractives:degrees];
                         [self.levelScene.tutorialOverlay playerDidPerformEvent:PlayerEventTurnCorner]; // tutorial event
                     

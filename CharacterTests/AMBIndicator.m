@@ -140,7 +140,7 @@
     CGFloat halfWidth = _scene.frame.size.width/2 - OSI_PADDING;
     
     CGPoint targetPos = [_scene.camera convertPoint:target.position fromNode:_scene.tilemap];
-    targetPos = CGPointRotate(targetPos, RadiansToDegrees(_scene.camera.rotation)); // apply the camera's effective rotation. remember, it's the worldnode that is rotating, so the camera actually never rotates
+    targetPos = CGPointRotate(targetPos, RadiansToDegrees(_scene.ambCamera.rotation)); // apply the camera's effective rotation. remember, it's the worldnode that is rotating, so the camera actually never rotates
     
     CGFloat slope = targetPos.y / targetPos.x;
     CGPoint indicatorPos;
