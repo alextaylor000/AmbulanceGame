@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ble-Ic-dqM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ble-Ic-dqM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -59,7 +60,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="meW-wK-5Io">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="meW-wK-5Io">
                                 <rect key="frame" x="36" y="528" width="49" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="meW-wK-5Io" secondAttribute="height" multiplier="49:52" id="1xe-ZZ-JeC"/>
@@ -187,7 +188,7 @@
                                     <action selector="gameModeButtonPressed:" destination="L3B-QC-3hZ" eventType="touchUpInside" id="Cb2-Zk-Vsi"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0R-ei-LCv">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0R-ei-LCv">
                                 <rect key="frame" x="514" y="530" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="6se-j7-vxA">
@@ -369,7 +370,7 @@
                                     <action selector="vehicleSelected:" destination="u7r-7G-BT1" eventType="touchUpInside" id="THe-94-sHj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeO-fy-mq1">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeO-fy-mq1">
                                 <rect key="frame" x="36" y="550" width="68" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="68" id="1OA-XO-Jsc"/>
@@ -497,7 +498,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="187-kK-UBp">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="187-kK-UBp">
                                 <rect key="frame" x="36" y="550" width="68" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="187-kK-UBp" secondAttribute="height" multiplier="34:15" id="JBG-Oe-jKt"/>
@@ -518,7 +519,7 @@
                                     <action selector="backButtonPressed:" destination="wF7-pX-Xwj" eventType="touchUpInside" id="DbC-jn-7H2"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings_header.png" translatesAutoresizingMaskIntoConstraints="NO" id="c8R-Cs-W5l">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="settings_header.png" translatesAutoresizingMaskIntoConstraints="NO" id="c8R-Cs-W5l">
                                 <rect key="frame" x="96" y="75" width="408" height="114"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="c8R-Cs-W5l" secondAttribute="height" multiplier="240:67" id="DPZ-3b-nvN"/>
@@ -559,7 +560,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vyp-Jt-XIo">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vyp-Jt-XIo">
                                 <rect key="frame" x="36" y="550" width="68" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="vyp-Jt-XIo" secondAttribute="height" multiplier="34:15" id="Coh-Op-hxf"/>
@@ -605,13 +606,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="item_controls.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aqz-xG-lJG">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="item_controls.png" translatesAutoresizingMaskIntoConstraints="NO" id="Aqz-xG-lJG">
                                 <rect key="frame" x="26" y="75" width="548" height="360"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Aqz-xG-lJG" secondAttribute="height" multiplier="434:285" id="9fD-lN-jMH"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSw-oO-815">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSw-oO-815">
                                 <rect key="frame" x="36" y="550" width="68" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="SSw-oO-815" secondAttribute="height" multiplier="34:15" id="7Nt-Ef-ErZ"/>

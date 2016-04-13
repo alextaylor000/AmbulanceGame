@@ -47,11 +47,11 @@
 
 + (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation shouldTurnAtIntersections:(BOOL)shouldTurn {
     
-    AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]initWithTexture:sVehicleType1Texture];
+    AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]initWithTexture:sVehicleType4Texture];
     
-    if (type == VehicleTypeRandom) {
-        [vehicle swapTexture];
-    }
+//    if (type == VehicleTypeRandom) {
+//        [vehicle swapTexture];
+//    }
     
     vehicle.shouldTurnAtIntersections = shouldTurn;
     vehicle.speedPointsPerSec = speed * speedMultiplier;

@@ -232,7 +232,7 @@ typedef enum {
     NSInteger safeDriving = fmax(0, SCORE_SAFE_DRIVING_BONUS - ( _carsHit * SCORE_CARS_HIT_MULTIPLIER ) );
     
     NSInteger safeDrivingPct = fmax(0, ((SCORE_CARS_HIT_MAX - _carsHit) / (float)SCORE_CARS_HIT_MAX) * 100);
-    NSString *safeDrivingPctDisplay = [NSString stringWithFormat:@"%ld", safeDrivingPct];
+    NSString *safeDrivingPctDisplay = [NSString stringWithFormat:@"%ld", (long)safeDrivingPct];
     
     
     [self updateScore:netPoints withMessage:[NSString stringWithFormat:@"%@ Patient", patientType]];

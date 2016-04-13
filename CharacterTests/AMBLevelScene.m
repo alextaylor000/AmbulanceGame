@@ -360,10 +360,8 @@ typedef enum {
 
 - (void)createMinimap {
     
-    
     _miniMap = [SKSpriteNode spriteNodeWithImageNamed:@"level01_firstdraft_MINI-256.png"];
     _miniMap.anchorPoint = CGPointMake(0, 0);
-    _miniMap.zPosition = AMBWorldLayerHUDUpper;
 
     _minimapScaleFactor = _miniMap.size.width / (_tilemap.mapSize.width * _tilemap.tileSize.width); // makes objects 1 tile big
 
@@ -376,10 +374,9 @@ typedef enum {
     SKCropNode *miniMapFrame = [[SKCropNode alloc]init];
     miniMapFrame.maskNode = maskNode;
 
-    [miniMapFrame addChild:maskNode];
     [miniMapFrame addChild:_miniMapContainer];
     [miniMapFrame addChild:frameNode];
-    miniMapFrame.zPosition = -1;
+    miniMapFrame.zPosition = AMBWorldLayerHUDUpper;
 
     miniMapFrame.position = CGPointMake(-self.size.width/2 + 100, self.size.height/2-100);
     [self addChild:miniMapFrame];
@@ -710,7 +707,7 @@ typedef enum {
 
 #pragma mark Assets
 + (void)loadSceneAssets {
-    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
+    //SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"GameObjectSprites"];
     
     [AMBTutorial loadSharedAssets];
     [AMBScoreKeeper loadSharedAssets];

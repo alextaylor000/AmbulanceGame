@@ -168,7 +168,7 @@
 
 - (void)storePatientUserData {
     // Defines severity data and stashes it in the node's userData property.
-    NSTimeInterval timeToLive;
+    NSTimeInterval timeToLive = 0.0;
     NSInteger points;
     
     if (self.severity == RandomSeverity) {

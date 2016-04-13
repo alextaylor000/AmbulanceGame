@@ -27,7 +27,7 @@ typedef enum {
 
 @interface AMBPatient : AMBCharacter
 
-@property CGPoint position;
+//@property CGPoint position;
 @property PatientSeverity severity;
 @property PatientState state;
 @property AMBTimer *patientTimer;
