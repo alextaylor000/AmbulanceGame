@@ -88,6 +88,7 @@
             [indicator runAction:[SKAction fadeInWithDuration:OSI_DUR_FADE_IN]]; // TODO: wtf, this is running every frame! bad coding!
 
             indicator.position = [self calculateIndicatorPositionForTarget:targetObject];
+            
             indicator.zRotation = atan2f(indicator.position.y, indicator.position.x);
             
             SKSpriteNode *targetObjSprite = targetObject;
@@ -108,10 +109,10 @@
 - (BOOL)targetIsOnscreen:(SKSpriteNode *)target {
     CGPoint targetPos = target.position;
     CGRect screenRect;
-    screenRect.origin = CGPointMake(_scene.camera.position.x - (_scene.size.width/2), _scene.camera.position.y - (_scene.size.height/2));
+    screenRect.origin = CGPointMake(_scene.ambCamera.position.x - (_scene.size.width/2), _scene.ambCamera.position.y - (_scene.size.height/2));
     screenRect.size = _scene.size;
     
-    if (CGRectContainsPoint(screenRect, [target.parent convertPoint:targetPos toNode:_scene.camera])) {
+    if (CGRectContainsPoint(screenRect, [target.parent convertPoint:targetPos toNode:_scene.ambCamera])) {
         return YES;
     }
 
@@ -139,7 +140,7 @@
     CGFloat halfHeight = _scene.frame.size.height/2 - OSI_PADDING;
     CGFloat halfWidth = _scene.frame.size.width/2 - OSI_PADDING;
     
-    CGPoint targetPos = [_scene.camera convertPoint:target.position fromNode:_scene.tilemap];
+    CGPoint targetPos = [_scene.ambCamera convertPoint:target.position fromNode:_scene.tilemap];
     targetPos = CGPointRotate(targetPos, RadiansToDegrees(_scene.ambCamera.rotation)); // apply the camera's effective rotation. remember, it's the worldnode that is rotating, so the camera actually never rotates
     
     CGFloat slope = targetPos.y / targetPos.x;
