@@ -47,7 +47,7 @@
 
 + (AMBTrafficVehicle *)createVehicle:(VehicleType)type withSpeed:(VehicleSpeed)speed atPoint:(CGPoint)point withRotation:(CGFloat)rotation shouldTurnAtIntersections:(BOOL)shouldTurn {
     
-    AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]initWithTexture:sVehicleType4Texture];
+    AMBTrafficVehicle *vehicle = [[AMBTrafficVehicle alloc]initWithTexture:sVehicleType1Texture];
     
 //    if (type == VehicleTypeRandom) {
 //        [vehicle swapTexture];
@@ -249,7 +249,7 @@
 }
 
 - (void)swapTexture {
-    SKTexture *newTexture = [sVehicleTypeArray objectAtIndex:(int)RandomFloatRange(0, 4)];
+    SKTexture *newTexture = [sVehicleTypeArray objectAtIndex:(int)RandomFloatRange(0, 2)];
     [self setTexture:newTexture];
 }
 
@@ -265,10 +265,13 @@
         sVehicleType1Texture = [gameObjectSprites textureNamed:@"traffic01"];
         sVehicleType2Texture = [gameObjectSprites textureNamed:@"traffic02"];
         sVehicleType3Texture = [gameObjectSprites textureNamed:@"traffic03"];
-        sVehicleType4Texture = [gameObjectSprites textureNamed:@"traffic04"];
-        sVehicleType5Texture = [gameObjectSprites textureNamed:@"traffic05"];
 
-        sVehicleTypeArray = [NSArray arrayWithObjects:sVehicleType1Texture, sVehicleType2Texture, sVehicleType3Texture, sVehicleType4Texture, sVehicleType5Texture, nil];
+        sVehicleTypeArray = [NSArray arrayWithObjects:
+                             sVehicleType1Texture,
+                             sVehicleType2Texture,
+                             sVehicleType3Texture,
+                             nil
+                             ];
     });
     
     
@@ -277,8 +280,6 @@
 static SKTexture *sVehicleType1Texture = nil;
 static SKTexture *sVehicleType2Texture = nil;
 static SKTexture *sVehicleType3Texture = nil;
-static SKTexture *sVehicleType4Texture = nil;
-static SKTexture *sVehicleType5Texture = nil;
 static NSArray *sVehicleTypeArray = nil;
 
 

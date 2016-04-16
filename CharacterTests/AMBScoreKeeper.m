@@ -261,6 +261,7 @@ typedef enum {
 
 - (void)handleEventPatientDied {
     _patientsDied += 1;
+    [self showNotification:ScoreKeeperNotificationPatientDied];
 }
 
 - (void)handleEventCarHit {
