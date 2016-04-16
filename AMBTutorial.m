@@ -86,7 +86,7 @@
                 
             case TutorialStateStep04:
                 if (event == PlayerEventSlowDown) {
-                    [self swapTextureTo:sTutorialYellowArrow afterDelay:0.5];
+                    [self swapTextureTo:sTutorialMinimap afterDelay:0.5];
                     _tutorialState = TutorialStateStep05;
                 }
 
@@ -204,7 +204,7 @@
         sTutorialSwipe = [tutorialAtlas textureNamed:@"tutorial_swipe"];
         sTutorialSwipeAndHold = [tutorialAtlas textureNamed:@"tutorial_swipe-and-hold"];
         sTutorialTapAndHold = [tutorialAtlas textureNamed:@"tutorial_tap-and-hold"];
-        sTutorialYellowArrow = [tutorialAtlas textureNamed:@"tutorial_yellow-arrow"];
+        sTutorialMinimap = [tutorialAtlas textureNamed:@"tutorial_minimap"];
         sTutorialWhiteArrow = [tutorialAtlas textureNamed:@"tutorial_white-arrow"];
         sTutorialFuel = [tutorialAtlas textureNamed:@"tutorial_fuel"];
         sTutorialInvincibility = [tutorialAtlas textureNamed:@"tutorial_invincibility"];
@@ -223,7 +223,7 @@ static SKTexture *sTutorialStartAndStop = nil;
 static SKTexture *sTutorialSwipe = nil;
 static SKTexture *sTutorialSwipeAndHold = nil;
 static SKTexture *sTutorialTapAndHold = nil;
-static SKTexture *sTutorialYellowArrow = nil;
+static SKTexture *sTutorialMinimap = nil;
 static SKTexture *sTutorialWhiteArrow = nil;
 static SKTexture *sTutorialFuel = nil;
 static SKTexture *sTutorialInvincibility = nil;
