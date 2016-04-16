@@ -54,6 +54,7 @@
 
 
 
+
 - (IBAction)creditsButtonPressed:(id)sender {
 #warning Figure out how to best reuse these view controllers
     AMBCreditsViewController *credits = [self.storyboard instantiateViewControllerWithIdentifier:@"AMBCreditsViewController"];
@@ -68,10 +69,12 @@
     gameView.gameType = 0;
     gameView.vehicleType = AMBVehicleWhite;
     gameView.levelType = AMBCity1;
-    gameView.tutorialMode = sender.tag;
+    gameView.tutorialMode = YES;
     
     [self.navigationController pushViewController:gameView animated:YES];
 
 }
+
+
 
 @end
