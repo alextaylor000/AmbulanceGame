@@ -261,6 +261,7 @@ typedef enum {
         if (_tutorialMode) {
             _tutorialOverlay = [AMBTutorial tutorialOverlay];
             _tutorialOverlay.position = CGPointMake(0, 200);
+            _tutorialOverlay.zPosition = AMBWorldLayerHUDUpper;
             [self addChild:_tutorialOverlay];
             [_tutorialOverlay beginTutorialAfterDelayOf:0.75];
             
