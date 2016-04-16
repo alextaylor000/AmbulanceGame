@@ -53,10 +53,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)vehicleSelected:(UIButton *)sender {
-    self.vehicleType = sender.tag;
-    NSLog(@"Selected vehicle type %i", self.vehicleType);
-}
 
 - (IBAction)levelSelected:(UIButton *)sender {
     self.levelType = sender.tag - 10;
