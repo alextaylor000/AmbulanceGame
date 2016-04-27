@@ -71,25 +71,34 @@
             indicator = [self createIndicatorForNode:targetObject];
             [arrObj setObject:indicator forKey:@"indicator"];
             [_scene addChild:indicator];
-            indicator.zPosition = -2;
+            //indicator.zPosition = -2;
             
         } else {
             indicator = [arrObj valueForKey:@"indicator"];
         }
         
+        
+        indicator.position = [self calculateIndicatorPositionForTarget:targetObject];
+        
+        indicator.zRotation = atan2f(indicator.position.y, indicator.position.x);
+        
+        
         if ([self targetIsOnscreen:targetObject]) {
-            [indicator runAction:[SKAction fadeOutWithDuration:OSI_DUR_FADE_OUT] completion:^(void){
-                indicator.hidden = YES;
-            }];
+
+            if (![indicator hasActions]) {
+                [indicator runAction:[SKAction fadeOutWithDuration:OSI_DUR_FADE_OUT] completion:^(void){
+                    indicator.hidden = YES;
+                }];
+            }
+            
             
         } else {
+
             indicator.hidden = NO;
+            if (![indicator hasActions]) {
+                [indicator runAction:[SKAction fadeInWithDuration:OSI_DUR_FADE_IN]];
+            }
 
-            [indicator runAction:[SKAction fadeInWithDuration:OSI_DUR_FADE_IN]]; // TODO: wtf, this is running every frame! bad coding!
-
-            indicator.position = [self calculateIndicatorPositionForTarget:targetObject];
-            
-            indicator.zRotation = atan2f(indicator.position.y, indicator.position.x);
             
             SKSpriteNode *targetObjSprite = targetObject;
 
@@ -108,15 +117,17 @@
 
 - (BOOL)targetIsOnscreen:(SKSpriteNode *)target {
     CGPoint targetPos = target.position;
+
     CGRect screenRect;
     screenRect.origin = CGPointMake(_scene.ambCamera.position.x - (_scene.size.width/2), _scene.ambCamera.position.y - (_scene.size.height/2));
     screenRect.size = _scene.size;
     
-    if (CGRectContainsPoint(screenRect, [target.parent convertPoint:targetPos toNode:_scene.ambCamera])) {
+    if (CGRectContainsPoint(screenRect, targetPos)) {
         return YES;
+    } else {
+        return NO;
     }
 
-    return NO;
 }
 
 - (SKSpriteNode *)createIndicatorForNode:(SKNode *)node {
@@ -124,9 +135,9 @@
     NSString *spriteName;
     
     if ([node isKindOfClass:[AMBHospital class]]) {
-            spriteName = @"osi_hospital";
+        spriteName = @"osi_hospital";
     } else if ([node isKindOfClass:[AMBPatient class]]) {
-            spriteName = @"osi_patient";
+        spriteName = @"osi_patient";
     }
     
     SKSpriteNode *indicator = [SKSpriteNode spriteNodeWithImageNamed:spriteName];
@@ -136,30 +147,29 @@
 }
 
 - (CGPoint)calculateIndicatorPositionForTarget:(SKSpriteNode *)target {
-
     CGFloat halfHeight = _scene.frame.size.height/2 - OSI_PADDING;
     CGFloat halfWidth = _scene.frame.size.width/2 - OSI_PADDING;
     
-    CGPoint targetPos = [_scene.ambCamera convertPoint:target.position fromNode:_scene.tilemap];
-    targetPos = CGPointRotate(targetPos, RadiansToDegrees(_scene.ambCamera.rotation)); // apply the camera's effective rotation. remember, it's the worldnode that is rotating, so the camera actually never rotates
+    CGPoint targetPos = [_scene convertPoint:target.position fromNode:_scene.mapLayerRoad];
     
     CGFloat slope = targetPos.y / targetPos.x;
     CGPoint indicatorPos;
     
     if (targetPos.y > 0) {
-        indicatorPos = CGPointMake(halfHeight / slope, halfHeight);
+        indicatorPos = CGPointMake(fminf(halfHeight, targetPos.y) / slope, fminf(halfHeight, targetPos.y));
     } else {
-        indicatorPos = CGPointMake(-halfHeight / slope, -halfHeight);
+        indicatorPos = CGPointMake(fmaxf(-halfHeight, targetPos.y) / slope, fmaxf(-halfHeight, targetPos.y));
     }
     
     if (indicatorPos.x > halfWidth) {
-        indicatorPos = CGPointMake(halfWidth, halfWidth * slope);
+        indicatorPos = CGPointMake(fminf(halfWidth, targetPos.x), fminf(halfWidth, targetPos.x) * slope);
     } else if (indicatorPos.x < -halfWidth) {
-        indicatorPos = CGPointMake(-halfWidth, -halfWidth * slope);
+        indicatorPos = CGPointMake(fmaxf(-halfWidth, targetPos.x), fmaxf(-halfWidth, targetPos.x) * slope);
     }
-   
-    return indicatorPos;
     
+    return indicatorPos;
 }
+
+
 
 @end
