@@ -10,12 +10,14 @@
 #import <SpriteKit/SpriteKit.h>
 #import "AMBConstants.h"
 
+
 @class AMBPatient;
+@class AMBLevelScene;
 
 /* Game rules used by other classes */
 @interface AMBScoreKeeper : NSObject
 
-@property SKScene *scene; // stores the scene instance so we can create labels
+@property AMBLevelScene *scene; // stores the scene instance so we can create labels
 
 /** Overall score for play session */
 @property (readonly, nonatomic) NSInteger score;
@@ -34,7 +36,6 @@
 
 /* Labels */
 -(SKLabelNode *)createScoreLabelWithPoints:(NSInteger)points atPos:(CGPoint)position;
-- (SKLabelNode *)createScoreUpdateLabelAtPos:(CGPoint)position;
 -(SKSpriteNode *)createNotificationAtPos:(CGPoint)pos;
 - (NSString *)scoreDisplay:(NSInteger)score;
 - (void)update;

@@ -42,8 +42,12 @@
     }
 }
 
-- (void)collidedWith:(SKPhysicsBody *)other {
+- (void)collidedWith:(SKPhysicsBody *)other victimNodeName:(NSString *)name {
     // overridden by subclasses.
+}
+
+- (void)endedContactWith:(SKPhysicsBody *)other victimNodeName:(NSString *)name {
+    // overridden by subclasses
 }
 
 

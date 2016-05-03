@@ -169,8 +169,8 @@
     CGFloat x = roundf(vector.x); // round to get whole numbers
     CGFloat y = roundf(vector.y);
     
-    x = (fabsf(x) == 0) ? 0 : x; // remove any negative zeros
-    y = (fabsf(y) == 0) ? 0 : y;
+    x = (fabs(x) == 0) ? 0 : x; // remove any negative zeros
+    y = (fabs(y) == 0) ? 0 : y;
     
     return CGPointMake(x, y);
 }
@@ -347,7 +347,7 @@
     NSInteger direction; // the lane change vector, should either be 1 or -1
     
     // the lane change calculation is easiest in one dimension, so we want to extract the relevant details and forget about points until the end
-    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
+    if (fabs(laneChangeVector.x) > fabs(laneChangeVector.y)) {
         pos     = playerPosInTile.x + (self.levelScene.tilemap.tileSize.width/2); // add half the width of the tile to make the coords corner-anchored.
         direction = laneChangeVector.x;
         
@@ -370,7 +370,7 @@
     }
     
     // convert the result back into a point
-    if (fabsf(laneChangeVector.x) > fabsf(laneChangeVector.y)) {
+    if (fabs(laneChangeVector.x) > fabs(laneChangeVector.y)) {
         targetOffset = CGVectorMake((targetLaneNormalized * TILE_LANE_WIDTH) - pos , 0);
         
     } else {

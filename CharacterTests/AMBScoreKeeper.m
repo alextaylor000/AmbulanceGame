@@ -194,6 +194,12 @@ typedef enum {
             PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_3;
             patientType = @"Critical";
             break;
+        case RandomSeverity:
+            // I know this isn't random but I don't care
+            PATIENT_DELIVERED_BASE_SCORE = SCORE_PATIENT_SEVERITY_1;
+            patientType = @"Stable";
+            break;
+            
     }
     
     // define the formula for applying points
@@ -251,7 +257,8 @@ typedef enum {
     
     
     if (_patientsDelivered + _patientsDied == _patientsTotal && _gameType != AMBGameTypeEndless) {
-        [_scene performSelector:@selector(allPatientsProcessed)];
+        [_scene allPatientsProcessed];
+        //[_scene performSelector:@selector(allPatientsProcessed)];
     }
 
     

@@ -17,6 +17,7 @@
 #import "AMBEndlessTimer.h"
 #import "AMBFuelGauge.h"
 
+
 typedef enum {
     GameOverReasonOutOfFuel,
     GameOverReasonOutOfTime,
@@ -91,4 +92,6 @@ typedef enum {
 
 - (void)restart;
 - (void)restartForSuddenDeathPatientBonus:(NSTimeInterval)bonus newPatientTTL:(NSTimeInterval)patientTTL;
+
+- (void)allPatientsProcessed;
 @end

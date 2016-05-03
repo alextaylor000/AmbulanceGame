@@ -111,7 +111,7 @@
 - (void)checkBounds {
     if (_player.isMoving) {
         _spritePosInBoundingBox = [_targetSprite.scene convertPoint:_targetSprite.position fromNode:_targetSprite.parent];
-        if (fabsf(_spritePosInBoundingBox.x) > (_boundingBox.width/2) || fabsf(_spritePosInBoundingBox.y) > (_boundingBox.height/2)) {
+        if (fabs(_spritePosInBoundingBox.x) > (_boundingBox.width/2) || fabs(_spritePosInBoundingBox.y) > (_boundingBox.height/2)) {
             _currentOffset = _activeOffset; // reframe to ACTIVE OFFSET
             [self changeState:CameraIsReframing];
         }
@@ -130,7 +130,7 @@
    // NSLog(@"targetOffset=%1.0f,%1.0f",targetOffset.x,targetOffset.y);
 #endif
     
-    if (fabsf(targetOffset.x) > 10 || fabsf(targetOffset.y) > 10) { // lock the camera if the camera is within 5 points of the target position
+    if (fabs(targetOffset.x) > 10 || fabs(targetOffset.y) > 10) { // lock the camera if the camera is within 5 points of the target position
         self.position = CGPointMake(self.position.x + (targetOffset.x*0.35), self.position.y + (targetOffset.y*0.35));
     } else {
         self.position = _targetPosition;

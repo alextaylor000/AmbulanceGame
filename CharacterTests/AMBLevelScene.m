@@ -52,7 +52,7 @@ typedef enum {
 @property AMBSpawner *spawnerTest;
 
 @property BOOL renderTraffic;
-@property SKNode *miniMapContainer; // the node that holds the minimap, so we can rotate it easily
+@property SKSpriteNode *miniMapContainer; // the node that holds the minimap, so we can rotate it easily
 
 @property SKSpriteNode *miniPlayer; // for the minimap
 @property SKSpriteNode *miniHospital;
