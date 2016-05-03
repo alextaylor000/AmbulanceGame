@@ -90,7 +90,7 @@
         
         _fuelTimer += delta;
         
-        if (_fuelTimer > fuelUnitDuration) {
+        if (_fuelTimer >= fuelUnitDuration) {
             _fuelTimer = 0; // reset the timer
             _fuelAmount--;  // decrement fuel
             

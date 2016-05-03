@@ -357,6 +357,7 @@ typedef enum {
     
     [self addChild: _fuelGauge];
     [_fuelGauge addFuel:fuelCapacity]; // 124 units
+    
 }
 
 - (void)createMinimap {
@@ -436,14 +437,17 @@ typedef enum {
     return (((float) arc4random() / 0xFFFFFFFFu) * (high - low)) + low;
 }
 
--(void)calcDelta:(CFTimeInterval)currentTime {
-    if (self.sceneLastUpdate) {
-        _sceneDelta = fminf(0.02, currentTime - self.sceneLastUpdate); // run at 1/60 or never less than 1/50
-    } else {
-        _sceneDelta = 0;
+-(void)calcDelta:(NSTimeInterval)currentTime {
+    NSTimeInterval timeSinceLast = currentTime - self.sceneLastUpdate;
+    _sceneLastUpdate = currentTime;
+    if (timeSinceLast > 1) {
+        timeSinceLast = 1.0 / 60.0;
+        _sceneLastUpdate = currentTime;
     }
     
-    _sceneLastUpdate = currentTime;
+    _sceneDelta = timeSinceLast;
+    
+    
 }
 
 
