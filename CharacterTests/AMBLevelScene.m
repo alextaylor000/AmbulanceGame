@@ -30,6 +30,8 @@
 
 
 
+
+
 typedef enum {
     GestureIdle,
     GestureBegan,
@@ -145,7 +147,7 @@ typedef enum {
 
     if (self = [super initWithSize:size]) {
         _ambConstants = [AMBConstants sharedInstance];
-        
+                
         
         /**
         
@@ -159,7 +161,6 @@ typedef enum {
         self.backgroundColor = [SKColor yellowColor];
         self.physicsWorld.contactDelegate = self;
         
-            
         
         
         // save initial conditions for game mode and restarting.
@@ -277,6 +278,9 @@ typedef enum {
         
         
     }
+    
+    
+    
     return self;
 }
 
@@ -452,6 +456,7 @@ typedef enum {
 
 
 - (void)update:(NSTimeInterval)currentTime {
+    
     if (!self.paused) {
 
     [self calcDelta:currentTime];
@@ -1412,8 +1417,10 @@ typedef enum {
         [SKAction waitForDuration:3.0],
         [SKAction runBlock:^(void)
          {
-             SKScene *gameOverScene = [[AMBGameOver alloc]initWithSize:self.size scoreKeeper:_scoreKeeper];
+             AMBGameOver *gameOverScene = [[AMBGameOver alloc]initWithSize:self.size scoreKeeper:_scoreKeeper];
              gameOverScene.scaleMode = SKSceneScaleModeAspectFit;
+             gameOverScene.gameViewController = _gameViewController;
+             
              [self.view presentScene:gameOverScene transition:[SKTransition fadeWithColor:[SKColor whiteColor] duration:0.25]];
           }]]];
     [self runAction:runGameOver];

@@ -17,5 +17,7 @@
 @property (nonatomic, assign) AMBLevelType levelType;
 @property (nonatomic, assign) BOOL tutorialMode;
 
+- (void)loadMainMenu;
+
 
 @end

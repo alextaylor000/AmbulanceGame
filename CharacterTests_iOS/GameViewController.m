@@ -20,8 +20,6 @@
 
 
 @implementation GameViewController
-
-
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
@@ -50,6 +48,7 @@
 
         _gameScene = [[AMBLevelScene alloc]initWithSize:sceneSize gameType:self.gameType vehicleType:self.vehicleType levelType:self.levelType tutorial:_tutorialMode];
         _gameScene.scaleMode = SKSceneScaleModeAspectFit;
+        _gameScene.gameViewController = self;
 
         
         
@@ -80,7 +79,9 @@
     
 }
 
-
+- (void)loadMainMenu {
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
 
 - (IBAction)pauseButtonPressed:(id)sender {
     [_gameScene pauseScene];

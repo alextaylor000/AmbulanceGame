@@ -16,7 +16,7 @@
 #import "AMBTimer.h"
 #import "AMBEndlessTimer.h"
 #import "AMBFuelGauge.h"
-
+#import "GameViewController.h"
 
 typedef enum {
     GameOverReasonOutOfFuel,
@@ -66,7 +66,7 @@ typedef enum {
 @property NSTimeInterval gameStartTime; // when the game started (init)
 @property AMBTimer *gameClock;
 @property AMBTutorial *tutorialOverlay;
-
+@property (nonatomic, weak) GameViewController *gameViewController;
 
 #pragma mark Methods
 

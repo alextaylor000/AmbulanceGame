@@ -63,26 +63,36 @@ typedef enum {
     return self;
 }
 
+-(void)didMoveToView:(SKView *)view {
+    self.gestureTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+    [view addGestureRecognizer:self.gestureTap];
+}
+
+- (void)handleTap:(UIGestureRecognizer *)recognizer {
+    [_gameViewController loadMainMenu];
+}
+
+
 - (void)formatLabelNode:(SKLabelNode *)label withFormat:(GameOverLabelFormat)format {
     switch (format) {
         case GameOverLabelFormatHeadline:
             label.fontName = @"AvenirNext-Bold";
             label.fontColor = [SKColor blackColor];
-            label.fontSize = 60;
+            label.fontSize = 50;
             label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
             break;
             
         case GameOverLabelFormatCategory:
             label.fontName = @"AvenirNext-Regular";
             label.fontColor = [SKColor blackColor];
-            label.fontSize = 45;
+            label.fontSize = 35;
             label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
             break;
             
         case GameOverLabelFormatValue:
             label.fontName = @"AvenirNext-Bold";
             label.fontColor = [SKColor blackColor];
-            label.fontSize = 45;
+            label.fontSize = 35;
             label.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
             label.position = CGPointMake(GAMEOVER_VALUE_PADDING, 0);
 
@@ -96,7 +106,6 @@ typedef enum {
 - (void)update:(NSTimeInterval)currentTime {
     // update the score
     [_scoreKeeper update];
-
 }
 
 @end

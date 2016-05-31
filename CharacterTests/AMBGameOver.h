@@ -8,9 +8,11 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "AMBScoreKeeper.h"
+#import "GameViewController.h"
 
-@interface AMBGameOver : SKScene
-
+@interface AMBGameOver : SKScene <UIGestureRecognizerDelegate>
+@property UITapGestureRecognizer *gestureTap;
+@property (nonatomic, weak) GameViewController *gameViewController;
 - (instancetype)initWithSize:(CGSize)size scoreKeeper:(AMBScoreKeeper *)sc;
 
 @end
